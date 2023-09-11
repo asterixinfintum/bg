@@ -1,0 +1,112 @@
+<template>
+    <div>
+        <div class="auth">
+            <div class="content">
+                <HeaderBox />
+
+                <div class="content__body">
+                    <div class="container auth__container">
+
+                        <h1 class="auth__h1">Create Account</h1>
+
+                        <div>
+                            <div class="auth__inputarea">
+                                <label class="auth__inputarea--label">
+                                    <p>Email</p>
+                                    <p>*</p>
+                                </label>
+                                <span class="auth__inputarea--input">
+                                    <input v-model="email" ref="email"/>
+                                </span>
+                            </div>
+
+                            <div class="auth__inputarea">
+                                <label class="auth__inputarea--label">
+                                    <p>Password</p>
+                                    <p>*</p>
+                                </label>
+                                <span class="auth__inputarea--input">
+                                    <img src="@/assets/imgs/eye-svgrepo-com.svg" @click="toggleInputType('password')"/>
+                                    <input 
+                                        v-model="password" 
+                                        ref="password" 
+                                        :type="passwordInputTypeToText ? 'text' : 'password'"/>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="auth__inputarea" @click="checkFormCompletion">
+                            <button class="btn colored-btn padded-btn auth__btn">Login</button>
+                        </div>
+
+                        <div class="auth__termsdescription">
+                            <p class="auth__termsdescription--p">
+                                Don't have an account? <span class="highlight" @click="routeToAuthPage('register')">Sign Up</span>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
+</template>
+
+<script>
+import auth from '@/mixins/auth.js';
+
+import { mapActions, mapState, mapMutations } from 'vuex';
+
+export default {
+    data() {
+        return {}
+    },
+    mixins: [auth],
+    methods: {
+        ...mapActions('auth', ['login']),
+        checkFormCompletion() {
+            if (!this.password || !this.email) {
+                if (!this.password) {
+                    this.$refs.password.classList.add('error');
+                }
+
+                if (!this.email) {
+                    this.$refs.email.classList.add('error');
+                }
+
+                return;
+            }
+
+            const { email, password } = this;
+
+            const credentials = {
+                email,
+                password
+            };
+
+            this.login(credentials)
+                .then(data => {
+                    this.$router.push('/overview');
+                })
+                .catch(error => {
+                    console.log(error)
+                });
+        }
+    },
+    watch: {
+        email(newVal, oldVal) {
+            if (!this.validateEmail(newVal)) {
+                this.$refs.email.classList.add('error');
+            } else {
+                this.$refs.email.classList.remove('error');
+            }
+        },
+        password(newVal, oldVal) {
+            if (newVal) {
+                this.$refs.password.classList.remove('error');
+            }
+        }
+    }
+}
+</script>

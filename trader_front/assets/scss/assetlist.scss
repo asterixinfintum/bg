@@ -1,0 +1,172 @@
+.assetlist {
+    overflow: hidden;
+
+    &__item {
+        display: flex;
+        align-items: center;
+        border-bottom: $border;
+        padding: #{scaleValue(12)} #{scaleValue(16)};
+        cursor: pointer;
+        transition: all .2s ease;
+
+        &.fiatandspot {}
+
+        &:hover {
+            background: $light-black;
+        }
+    }
+
+    &__area {
+        display: flex;
+        align-items: center;
+
+        &--assetlogo {
+            width: #{scaleValue(20)};
+            height: #{scaleValue(20)};
+            overflow: hidden;
+            margin-right: #{scaleValue(19)};
+            border-radius: 100%;
+
+            & img {
+                height: 100%;
+                width: 100%;
+                object-fit: contain;
+            }
+        }
+
+        &.fiatandspot {
+
+            &:not(:last-child) {
+                width: #{scaleValue(165)};
+            }
+        }
+
+        &.margin {
+
+            &:not(:last-child) {
+                width: #{scaleValue(140)};
+            }
+        }
+
+        &.number-value {
+            font-size: #{scaleValue(12)};
+
+            &.margin {
+                font-size: #{scaleValue(13)};
+            }
+        }
+
+        &.flex-svg {
+            display: flex;
+            align-items: center;
+
+            & span.svg {
+                display: inline-block;
+                margin-left: #{scaleValue(7)};
+                cursor: pointer;
+            }
+
+            & svg {
+                height: #{scaleValue(14)};
+                width: #{scaleValue(14)};
+            }
+        }
+
+        &--asset {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &--assetsymbol {
+            margin-bottom: #{scaleValue(3)};
+            font-size: #{scaleValue(12)};
+            font-weight: 500;
+        }
+
+        &--assetpercent {
+            font-size: #{scaleValue(12)};
+
+            & span {
+                display: inline-block;
+            }
+
+            &.up {
+                color: $green;
+
+                & span {
+
+                    &.up {
+                        transform: rotate(90deg);
+                    }
+                }
+            }
+
+            &.down {
+                color: $warning-red;
+
+                & span {
+
+                    &.down {
+                        transform: rotate(-90deg);
+                    }
+                }
+            }
+        }
+
+        &--assetname {
+            font-size: #{scaleValue(13)};
+            text-decoration: underline;
+            opacity: .6;
+
+            &.primary-colored {
+                color: $primary-color;
+            }
+        }
+    }
+
+    &__areabtns {
+        display: flex;
+        align-items: center;
+
+        & button {
+            font-size: #{scaleValue(13)};
+            margin-right: #{scaleValue(16)};
+            cursor: pointer;
+        }
+    }
+
+    &__navigation {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: #{scaleValue(16)} 0;
+
+        & span {
+            display: inline-block;
+            margin-left: #{scaleValue(14)};
+            font-size: #{scaleValue(12)};
+            cursor: pointer;
+            opacity: .6;
+            padding: #{scaleValue(7)} #{scaleValue(12)};
+            border-radius: #{scaleValue(6)};
+
+            & svg {
+                fill: $white;
+                height: #{scaleValue(19)};
+                width: #{scaleValue(19)};
+            }
+
+            &.current {
+                background: rgba($greyed-out, .6);
+            }
+
+            &.visible {
+                display: inline-block;
+            }
+    
+            &.notvisible {
+                display: none;
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+@mixin flex-align {
+    display: flex;
+    align-items: center;
+}
+
+@mixin header-item-margin-right {
+    margin-right: #{scaleValue(20)};
+}
+
+@mixin input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: rgba($white, .7);
+}
+
+@mixin popup-parent {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: $popup-background;
+    z-index: 10;
+    padding-top: #{scaleValue(100)};
+}
+
+@mixin popup-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: $current;
+    padding: #{scaleValue(30)};
+    border-radius: #{scaleValue(10)};
+    width: #{scaleValue(500)};
+    margin: 0 auto;
+}
+
+@mixin popup-close {
+    position: absolute;
+    top: #{scaleValue(30)};
+    right: #{scaleValue(30)};
+    cursor: pointer;
+
+    & svg {
+        height: #{scaleValue(19)};
+        width: #{scaleValue(19)};
+        fill: $faded-black;
+    }
+}
+
+@mixin popup-header {
+
+    & h3 {
+
+    }
+}

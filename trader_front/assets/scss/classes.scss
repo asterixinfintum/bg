@@ -1,0 +1,223 @@
+.btn {
+    border: none;
+    border-radius: .1px;
+    cursor: pointer;
+    font-weight: 500;
+    color: $white;
+    background: transparent;
+    border-radius: 8px;
+    font-size: #{scaleValue(13)};
+
+    &.landing {
+        padding: #{scaleValue(10)};
+        color: $white;
+        font-weight: 500;
+    
+        &.colored {
+            background: $landing-green;
+        }
+
+        &.transparent {
+            border: $border;
+            border-width: #{scaleValue(2)};
+            border-color: $white;
+        }
+
+        &.rounded-corner {
+            border-radius: 3rem;
+        }
+
+        &.header-padding {
+            padding: #{scaleValue(12)} #{scaleValue(19)};
+            font-size: #{scaleValue(13)};
+            text-transform: uppercase;
+        }
+
+        &.scrolled-far-enough {
+            border-color: $landing-primary;
+            color:  $landing-primary;
+        }
+    }
+}
+
+.color-primary {
+    color: $primary-color;
+}
+
+.opacity-dim {
+    opacity: .5;
+}
+
+.colored-btn {
+    background: $primary-color;
+}
+
+.padded-btn {
+    padding: #{scaleValue(10)} #{scaleValue(24)};
+}
+
+.greyed-btn {
+    background: $greyed-out;
+}
+
+
+.layout-padding {
+    padding: #{scaleValue(30)};
+}
+
+.layout-padding-2 {
+    padding: #{scaleValue(10)};
+}
+
+.container {
+    display: flex;
+
+    //@include removeScrollBar;
+}
+
+.layout-stretch {
+    flex-grow: 1;
+    padding-left: #{scaleValue(230)};
+}
+
+.contentheader {
+
+    & h3 {
+        font-size: #{scaleValue(15)};
+        font-weight: 500;
+    }
+
+    &__area {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: #{scaleValue(24)};
+
+        &--btn { 
+            padding-top: #{scaleValue(10)};
+            padding-bottom: #{scaleValue(10)};
+            margin-right: #{scaleValue(50)};
+            font-weight: 500;
+            font-size:  #{scaleValue(12)};
+
+            &.current {
+                background: $faded-black;
+                font-weight: 600;
+            }
+
+            &.notcurrent {
+                opacity: .5;
+            }
+        }
+    }
+}
+
+h3 {
+    font-size: #{scaleValue(15)};
+    font-weight: 500;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.flex-end-column {
+    align-items: flex-end;
+}
+
+.flex-start-column {
+    align-items: flex-start;
+}
+
+.center-align-default {
+    align-items: center;
+}
+
+.pointer {cursor: pointer;}
+
+.flex-place-holder {
+    position: absolute;
+    display: none
+}
+
+.success-text {
+    color: $green;
+}
+
+.error-text {
+    color: $warning-red
+}
+
+.dull-text {
+    color: $greyed-out;
+}
+
+.underlinelink {
+    color: $primary-color;
+    cursor: pointer;
+    text-decoration: underline;
+    cursor: pointer;
+    
+    
+    font-size: #{scaleValue(13)};
+}
+
+.dim {
+    opacity: .6;
+}
+
+.loader-button {
+    display: block;
+    border-radius: 100%;
+    height: #{scaleValue(20)};
+    width: #{scaleValue(20)};
+    border: $colored-border;
+    border-width: #{scaleValue(4)};
+    background: transparent;
+    margin: 0 auto;
+    border-left: #{scaleValue(4)} solid rgba($white, .7);
+    animation: spin 1s linear 1s infinite;
+}
+
+.toggle-switch {
+    position: relative;
+    border-radius: 3rem;
+    background: $white;
+    width: #{scaleValue(50)};
+    height: #{scaleValue(19)};
+    cursor: pointer;
+    transition: all .5s ease;
+
+    &-button {
+        display: inline-block;
+        border-radius: 100%;
+        position: absolute;
+        height: #{scaleValue(15)};
+        width: #{scaleValue(15)};
+        top: #{scaleValue(2)};
+        transition: all .5s ease;
+
+        &.off {
+            background: rgba($second-border-color, .5);
+            left: #{scaleValue(3)};
+        }
+
+        &.on {
+            background: $green;
+            right: #{scaleValue(3)};
+        }
+    }
+
+    &.off {
+        background: rgba($greyed-out, 8);
+    }
+
+    &.on {
+        background: $primary-color;
+    }
+}

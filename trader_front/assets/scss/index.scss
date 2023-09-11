@@ -1,0 +1,103 @@
+.index {
+    min-height: 100vh;
+
+    &__content {}
+
+    &__body {
+        padding: 0 #{scaleValue(20)};
+    }
+
+    &__top {
+        height: #{scaleValue(1080)};
+        overflow: hidden;
+    }
+
+    &__headertogglearea {
+        background: transparent !important;
+
+        &--toggle {
+            width: #{scaleValue(150)};
+
+            &.current {
+                color: $primary-color;
+                font-weight: 700;
+                position: relative;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    border-radius: $box-radius;
+                    background: $primary-color;
+                    bottom: #{scaleValue(-10)};
+                    left: 0;
+                    height: #{scaleValue(2)};
+                    width: #{scaleValue(60)};
+                }
+            }
+        }
+    }
+
+    &__headerarea {
+        border-radius: none !important;
+        border-bottom: $border;
+        background: transparent !important;
+        font-size: #{scaleValue(12)} !important;
+
+        &--menuitem {
+            width: #{scaleValue(200)};
+            padding-right: #{scaleValue(20)};
+        }
+    }
+
+    &__headerareaitem {
+
+    }
+
+    &__bottom {
+        margin-top: #{scaleValue(20)};
+        min-height: #{scaleValue(700)};
+    }
+
+    &__header {
+        font-size: #{scaleValue(17)};
+        font-weight: 500;
+    }
+
+    &__rows {
+        background: $index-body;
+        display: flex;
+        padding: #{scaleValue(10)};
+        border-radius: #{scaleValue(2)};
+        justify-content: space-between;
+    }
+
+    &__row {
+        width: #{scaleValue(330)};
+        flex-shrink: 0;
+
+        &.middle {
+            width: #{scaleValue(840)};
+            //background: red;
+            margin: 0 #{scaleValue(4)};
+            border-left: $border;
+            border-right: $border;
+        }
+    }
+
+    &__assetprice {
+        border-top: $border;
+        border-bottom: $border;
+        padding: #{scaleValue(12)} 0;
+        font-size: #{scaleValue(16)};
+        @include flex-align;
+
+        &--span2 {
+            display: inline-block;
+            margin: 0  #{scaleValue(8)};
+        }
+
+        &--span3 {
+            font-size: #{scaleValue(13)};
+        }
+    }
+}

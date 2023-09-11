@@ -1,0 +1,152 @@
+.btn {
+    border: none;
+    border-radius: .1px;
+    cursor: pointer;
+    font-weight: 500;
+    color: $white;
+    background: transparent;
+    border-radius: 8px;
+    font-size: #{scaleValue(13)};
+
+    &.landing {
+        padding: #{scaleValue(10)};
+        color: $white;
+        font-weight: 500;
+    
+        &.colored {
+            background: $landing-green;
+        }
+
+        &.transparent {
+            border: $border;
+            border-width: #{scaleValue(2)};
+            border-color: $white;
+        }
+
+        &.rounded-corner {
+            border-radius: 3rem;
+        }
+
+        &.header-padding {
+            padding: #{scaleValue(12)} #{scaleValue(19)};
+            font-size: #{scaleValue(13)};
+            text-transform: uppercase;
+        }
+
+        &.scrolled-far-enough {
+            border-color: $landing-primary;
+            color:  $landing-primary;
+        }
+    }
+}
+
+.color-primary {
+    color: $primary-color;
+}
+
+.opacity-dim {
+    opacity: .5;
+}
+
+.colored-btn {
+    background: $primary-color;
+}
+
+.padded-btn {
+    padding: #{scaleValue(10)} #{scaleValue(24)};
+}
+
+.greyed-btn {
+    background: $greyed-out;
+}
+
+
+.layout-padding {
+    padding: #{scaleValue(30)};
+}
+
+.container {
+    display: flex;
+}
+
+.layout-stretch {
+    flex-grow: 1;
+}
+
+.contentheader {
+
+    & h3 {
+        font-size: #{scaleValue(15)};
+        font-weight: 500;
+    }
+
+    &__area {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: #{scaleValue(24)};
+
+        &--btn { 
+            padding-top: #{scaleValue(10)};
+            padding-bottom: #{scaleValue(10)};
+            margin-right: #{scaleValue(50)};
+            font-weight: 500;
+            font-size:  #{scaleValue(12)};
+
+            &.current {
+                background: $faded-black;
+                font-weight: 600;
+            }
+
+            &.notcurrent {
+                opacity: .5;
+            }
+        }
+    }
+}
+
+h3 {
+    font-size: #{scaleValue(15)};
+    font-weight: 500;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.flex-direction-column {
+    flex-direction: column;
+}
+
+.flex-end-column {
+    align-items: flex-end;
+}
+
+.center-align-default {
+    align-items: center;
+}
+
+.pointer {cursor: pointer;}
+
+.flex-place-holder {
+    position: absolute;
+    display: none
+}
+
+.success-text {
+    color: $green;
+}
+
+.dull-text {
+    color: $greyed-out;
+}
+
+.underlinelink {
+    color: $primary-color;
+    cursor: pointer;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: #{scaleValue(13)};
+    margin-top: #{scaleValue(8)};
+}

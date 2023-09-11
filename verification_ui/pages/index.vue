@@ -130,7 +130,7 @@
             
             <div class="layout-stretch" v-if="client">
               <PageIndicator 
-                :page_name="'BERG Identification'"
+                :page_name="'BERC Identification'"
                 :nobtns="true"/>
 
               <div class="layout-padding">

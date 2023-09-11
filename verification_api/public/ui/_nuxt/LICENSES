@@ -12,14 +12,6 @@
 
 
 /*!
- * @license
- * TradingView Lightweight Charts™ v4.0.1
- * Copyright (c) 2023 TradingView, Inc.
- * Licensed under Apache License 2.0 https://www.apache.org/licenses/LICENSE-2.0
- */
-
-
-/*!
  * vue-client-only v0.0.0-semantic-release
  * (c) 2021-present egoist <0x142857@gmail.com>
  * Released under the MIT License.

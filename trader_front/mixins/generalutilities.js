@@ -4,7 +4,7 @@ export default {
     data() {
         return {
             popupopen: true,
-            secondary_base_url: 'http://localhost:52027'
+            secondary_base_url: 'verification.bercfinance.com'
         }
     },
     methods: {

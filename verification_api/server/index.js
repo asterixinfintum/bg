@@ -16,6 +16,7 @@ import videoupload from './routes/videoupload.js'
 const app = express();
 
 app.use(express.static('public'));
+app.use('/', express.static('public/ui'));
 app.use(express.static('uploads'));
 app.use(express.static('videos-directory'));
 app.use(express.urlencoded({

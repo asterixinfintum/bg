@@ -67,7 +67,7 @@ app.use(orderRoute);
 //https://api.poloniex.com/markets/ticker24h
 //https://api.poloniex.com/v2/currencies
 
-mongoose.connect('mongodb://127.0.0.1:27017/traderapiv11', {
+mongoose.connect(`${process.env.DB}`, {
   //mongodb://db:27017/traderapiv2 =====> production
   //mongodb://127.0.0.1:27017/traderapiv2 ===> development
 

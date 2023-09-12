@@ -14,6 +14,7 @@ ENV BITNODEK value_here
 ENV NET mainnet
 ENV VGD value_here
 ENV TRADERAPIURL value_here
+ENV DB mongodb://db:27017/bitcoinapiv1
 
 EXPOSE $PORT
 CMD [ "node", "dist/index.js" ]

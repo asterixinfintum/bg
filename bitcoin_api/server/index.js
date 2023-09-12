@@ -45,7 +45,7 @@ app.use(newWalletRoute);
 app.use(findWalletRoute);
 app.use(getWalletsRoute);
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitcoinapiv1', {
+mongoose.connect(`${process.env.DB}`, {
     //mongodb://db:27017/bitcoinapiv1 =====> production
     //mongodb://127.0.0.1:27017/bitcoinapiv1 ===> development
 

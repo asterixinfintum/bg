@@ -19,9 +19,9 @@ services:
     environment:
       - PORT=27017
     volumes:
-    - /data-vol:/data/traderapiv1
-    - /data-vol:/data/apiswissnordic
-    - /data-vol:/data/verificationapi
+      - /data-vol:/data/traderapiv1
+      - /data-vol:/data/apiswissnordic
+      - /data-vol:/data/verificationapi
 
   trader-api:
     container_name: trader-api

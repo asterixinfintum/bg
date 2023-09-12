@@ -43,7 +43,7 @@ var PORT = process.env.PORT;
 app.use(_newwallet["default"]);
 app.use(_findwallet["default"]);
 app.use(_getwallets["default"]);
-_mongoose["default"].connect('mongodb://127.0.0.1:27017/bitcoinapiv1', {
+_mongoose["default"].connect("".concat(process.env.DB), {
   //mongodb://db:27017/bitcoinapiv1 =====> production
   //mongodb://127.0.0.1:27017/bitcoinapiv1 ===> development
 

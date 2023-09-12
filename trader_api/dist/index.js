@@ -67,7 +67,7 @@ app.use(_order["default"]);
 //https://api.poloniex.com/markets/ticker24h
 //https://api.poloniex.com/v2/currencies
 
-_mongoose["default"].connect('mongodb://127.0.0.1:27017/traderapiv11', {
+_mongoose["default"].connect("".concat(process.env.DB), {
   //mongodb://db:27017/traderapiv2 =====> production
   //mongodb://127.0.0.1:27017/traderapiv2 ===> development
 

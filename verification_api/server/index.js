@@ -39,7 +39,7 @@ app.use(videoupload);
 const PORT = process.env.PORT || 8081;
 const server = http.createServer(app);
 
-mongoose.connect('mongodb://127.0.0.1:27017/verificationapiv2', {
+mongoose.connect(`${process.env.DB}`, {
   //mongodb://db:27017/verificationapi =====> production
   //mongodb://127.0.0.1:27017/verificationapi ===> development
 

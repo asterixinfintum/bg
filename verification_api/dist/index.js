@@ -39,7 +39,7 @@ app.use(_fileretrieve["default"]);
 app.use(_videoupload["default"]);
 var PORT = process.env.PORT || 8081;
 var server = _http["default"].createServer(app);
-_mongoose["default"].connect('mongodb://127.0.0.1:27017/verificationapiv2', {
+_mongoose["default"].connect("".concat(process.env.DB), {
   //mongodb://db:27017/verificationapi =====> production
   //mongodb://127.0.0.1:27017/verificationapi ===> development
 

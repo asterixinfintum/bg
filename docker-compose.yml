@@ -13,12 +13,15 @@ services:
       - trader-api
       - verification-api
       - bitcoin-api
-
   db:
     container_name: db
-    image: mongo:latest
+    image: mongo
+    environment:
+      - PORT=27017
     volumes:
-      - /data-vol:/data/db
+    - /data-vol:/data/traderapiv1
+    - /data-vol:/data/apiswissnordic
+    - /data-vol:/data/verificationapi
 
   trader-api:
     container_name: trader-api

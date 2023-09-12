@@ -34,7 +34,7 @@ function _getCryptoAssets() {
               data: item
             });
             return cryptoAsset.save().then(function (savedAsset) {
-              console.log('Crypto asset saved successfully:', savedAsset);
+              //console.log('Crypto asset saved successfully:', savedAsset);
               return savedAsset;
             })["catch"](function (err) {
               console.error('Error saving crypto asset:', err);
@@ -42,7 +42,7 @@ function _getCryptoAssets() {
           });
           _context.next = 10;
           return Promise.all(savePromises).then(function (savedAssets) {
-            console.log('All crypto assets saved:', savedAssets);
+            //console.log('All crypto assets saved:', savedAssets);
           })["catch"](function (err) {
             console.error('Error saving crypto assets:', err);
           });

@@ -37,6 +37,9 @@ export default {
 <style lang="scss" scoped>
     .tradingview-widget-container {
         position: relative;
+        overflow: hidden;
+        overflow-x: hidden;
+        height: #{scaleValue(480)};
 
         &::after {
             content: '';
@@ -52,5 +55,6 @@ export default {
         height: #{scaleValue(500)};
         width: #{scaleValue(720)};
         position: relative;
+        overflow: hidden;
     }
 </style>

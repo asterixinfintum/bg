@@ -1,9 +1,20 @@
 <template>
     <div>
+        <div class="header auth" id="header">
+            <div class="header__left">
+                <div class="header__logo" @click="$router.push('/')">
+                    <figure></figure>
+                    <p>BERC</p>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="authError && autherror">
+            <ErrorPopup :error="authErrorText" :close="closeAuthError" />
+        </div>
+
         <div class="auth">
             <div class="content">
-                <HeaderBox />
-
                 <div class="content__body">
                     <div class="container auth__container" v-if="bitcoinAssetId">
 
@@ -128,10 +139,13 @@ export default {
             } else {
                 return null
             }
+        },
+        authErrorText() {
+            return 'looks like a user with your email or phonenumber already exists'
         }
     },
     methods: {
-        ...mapActions('auth', ['signup']),
+        ...mapActions('auth', ['checkDuplicate', 'signup']),
         ...mapActions('bitcoinapi', ['newBtcwallet']),
         toggleView() {
             if (this.view === 'emailPhoneView') {
@@ -155,7 +169,29 @@ export default {
                     return;
                 }
 
-                this.view = 'passwordView'
+                if (!this.validateEmail(this.email)) {
+                    this.$refs.email.classList.add('error');
+
+                    return;
+                }
+
+                const { email, phonenumber, checkDuplicate } = this;
+
+                const credentials = {
+                    email,
+                    phonenumber
+                };
+
+                checkDuplicate(credentials)
+                    .then(() => {
+                        this.autherror = false;
+                        this.view = 'passwordView'
+                    })
+                    .catch(() => {
+                        this.autherror = true;
+                        this.$refs.phonenumber.classList.add('error');
+                        this.$refs.email.classList.add('error');
+                    });
             } else {
                 this.view = 'emailPhoneView'
             }

@@ -76,7 +76,7 @@ function _updateCryptoAssets() {
                     return getCharactersBeforeUnderscore(item.data.symbol) === coin && topThirty.includes(coin);
                   });
                   if (!(cryptoassetsprice[0] !== undefined && cryptoassetsticker[0] !== undefined)) {
-                    _context.next = 18;
+                    _context.next = 17;
                     break;
                   }
                   _context.next = 7;
@@ -111,8 +111,7 @@ function _updateCryptoAssets() {
                   });
                 case 16:
                   dbCryptoAssset = _context.sent;
-                  console.log(dbCryptoAssset, 'done');
-                case 18:
+                case 17:
                 case "end":
                   return _context.stop();
               }

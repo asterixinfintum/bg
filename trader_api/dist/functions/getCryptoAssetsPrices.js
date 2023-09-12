@@ -29,34 +29,33 @@ function _getCryptoAssetsPrices() {
           return response.json();
         case 6:
           data = _context.sent;
-          console.log(data);
+          //console.log(data);
           savePromises = data.map(function (item) {
             var cryptoAssetPrice = new _cryptoAssetPrice["default"]({
               data: item
             });
             return cryptoAssetPrice.save().then(function (savedAssetPrice) {
-              console.log('Crypto asset saved successfully:', savedAssetPrice);
+              //console.log('Crypto asset saved successfully:', savedAssetPrice);
               return savedAssetPrice;
             })["catch"](function (err) {
               console.error('Error saving crypto asset:', err);
             });
           });
-          _context.next = 11;
+          _context.next = 10;
           return Promise.all(savePromises);
-        case 11:
+        case 10:
           savedAssetPrices = _context.sent;
-          console.log('All crypto assets saved:', savedAssetPrices);
-          _context.next = 18;
+          _context.next = 16;
           break;
-        case 15:
-          _context.prev = 15;
+        case 13:
+          _context.prev = 13;
           _context.t0 = _context["catch"](0);
           console.log('Error:', _context.t0);
-        case 18:
+        case 16:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 15]]);
+    }, _callee, null, [[0, 13]]);
   }));
   return _getCryptoAssetsPrices.apply(this, arguments);
 }

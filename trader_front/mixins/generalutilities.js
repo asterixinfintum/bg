@@ -1,10 +1,13 @@
-import { mapActions, mapState, mapMutations } from 'vuex';
+import { mapActions, mapState } from 'vuex';
+
+import BASE_VARS from '@/store/base_vars';
+
+const { VERIFICATION_FRONT } = BASE_VARS;
 
 export default {
     data() {
         return {
-            popupopen: true,
-            secondary_base_url: 'verification.bercfinance.com'
+            popupopen: true
         }
     },
     methods: {
@@ -16,8 +19,9 @@ export default {
         generateKeyTokenCall() {
             this.generateKeyToken()
                 .then(() => {
-                    const { secondary_base_url, key_token } = this;
-                    this.navigateOutWithParams(secondary_base_url, key_token)
+                    const { key_token } = this;
+                    
+                    this.navigateOutWithParams(VERIFICATION_FRONT, key_token)
                 })
                 .catch(err => { console.log(err) })
         },
@@ -29,6 +33,7 @@ export default {
         },
         navigateOutWithParams(item_url, item_param) {
             const url = `${item_url}/?token=${item_param}`;
+            console.log(url);
 
             window.open(url, '_blank');
         },

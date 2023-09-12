@@ -35,10 +35,9 @@ newwallet.get('/newwallet', /*#__PURE__*/function () {
             walletType: walletType,
             assetIdInTraderDB: assetIdInTraderDB
           }, newHDWallet));
-          console.log(newWallet);
-          _context.next = 6;
+          _context.next = 5;
           return newWallet.save();
-        case 6:
+        case 5:
           userwallet = _context.sent;
           res.status(201).json({
             userwallet: {
@@ -47,7 +46,7 @@ newwallet.get('/newwallet', /*#__PURE__*/function () {
               assetIdInTraderDB: userwallet.assetIdInTraderDB
             }
           });
-        case 8:
+        case 7:
         case "end":
           return _context.stop();
       }

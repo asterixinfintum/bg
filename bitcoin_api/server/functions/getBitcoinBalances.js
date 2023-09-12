@@ -92,53 +92,65 @@ async function callNode(walletBatch) {
                             .then((txiddata) => {
                                 const { confirmations, vout } = txiddata.result;
 
-                                if (confirmations > 10 && !confirmedTransactions.includes(txid)) {
+                                if (confirmations > 16) {
                                     const { scriptPubKey, value } = vout[0];
 
                                     if (scriptPubKey.address === address) {
 
-                                        const deposit = {
-                                            ownerId,
-                                            assetId: assetIdInTraderDB,
-                                            balanceAmount: value,
-                                            swapOrConvertFrom: "none",
-                                            swapOrConvertTo: "none",
-                                            assetInteractedWith: "none",
-                                            assetType: "crypto",
-                                            transactionType: {
-                                                type: "deposit",
-                                                toWallet: walletType,
-                                                fromAsset: "",
-                                                toAsset: ""
-                                            },
-                                            transactionDescription: `deposited ${value} ${assetIdInTraderDB} in ${walletType} wallet`,
-                                            currentWallet: `${assetIdInTraderDB}`,
-                                            cryptoAddressInteractedWith: `${address}`,
-                                            cryptoAddressNetwork: "Bitcoin"
+                                        if (!confirmedTransactions.includes(txid)) {
+
+                                            const deposit = {
+                                                ownerId,
+                                                assetId: assetIdInTraderDB,
+                                                balanceAmount: value,
+                                                swapOrConvertFrom: "none",
+                                                swapOrConvertTo: "none",
+                                                assetInteractedWith: "none",
+                                                assetType: "crypto",
+                                                transactionType: {
+                                                    type: "deposit",
+                                                    toWallet: walletType,
+                                                    fromAsset: "",
+                                                    toAsset: ""
+                                                },
+                                                transactionDescription: `deposited ${value} ${assetIdInTraderDB} in ${walletType} wallet (Bitcoin transaction Id: ${txid})`,
+                                                currentWallet: `${assetIdInTraderDB}`,
+                                                cryptoAddressInteractedWith: `${address}`,
+                                                cryptoAddressNetwork: "Bitcoin"
+                                            }
+
+                                            fetch(`${process.env.TRADERAPIURL}/deposit`, {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json'
+                                                },
+                                                body: JSON.stringify(deposit)
+                                            })
+                                                .then(depresponse => depresponse.json())
+                                                .then((depdata) => {
+
+                                                    Wallet.findOne({ ownerId, walletType, address }, (err, walletToUpdate) => {
+                                                        if (err) {
+                                                            return console.log(err)
+                                                        }
+
+                                                        const updateconfirmedTransactions = [txid, ...walletToUpdate.confirmedTransactions];
+                                                        walletToUpdate.confirmedTransactions = updateconfirmedTransactions;
+
+                                                        walletToUpdate.save((err) => {
+                                                            if (err) {
+                                                                console.error('Error updating the wallet:', err);
+                                                                return;
+                                                            }
+
+                                                            console.log('Wallet updated successfully!', txid, ownerId, walletType)
+                                                        });
+                                                    })
+                                                })
+                                                .catch(err => {
+                                                    console.log(err);
+                                                })
                                         }
-
-                                        fetch(`${process.env.TRADERAPIURL}/deposit`, {
-                                            method: 'POST',
-                                            headers: {
-                                                'Content-Type': 'application/json'
-                                            },
-                                            body: JSON.stringify(deposit)
-                                        })
-                                            .then(depresponse => depresponse.json())
-                                            .then((depdata) => {
-                                                console.log(depdata);
-                                                const confirmedTrxs = [txid]
-
-                                                Wallet.updateOne(
-                                                    { ownerId },
-                                                    {
-                                                        confirmedTransactions: [...new Set(confirmedTrxs), ...confirmedTransactions],
-                                                        txs
-                                                    });
-                                            })
-                                            .catch(err => {
-                                                console.log(err);
-                                            })
                                     }
                                 }
                             })

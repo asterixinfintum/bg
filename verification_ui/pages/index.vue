@@ -113,7 +113,7 @@
               <span class="thankyou">Thank you for choosing our services. Should you have any further questions or concerns, please don't hesitate to reach out to our customer support team.</span>
 
               <span>
-                <button class="verification__upload--btn btn padded-btn colored-btn" @click="closepopup">
+                <button class="verification__upload--btn btn padded-btn colored-btn" @click="closepopupAndFinish">
                   Finish 
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="first"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.288 12l-3.89 3.89 1.768 1.767L15.823 12l-1.768-1.768-3.889-3.889-1.768 1.768 3.89 3.89z" fill="currentColor"></path></svg>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="second"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.288 12l-3.89 3.89 1.768 1.767L15.823 12l-1.768-1.768-3.889-3.889-1.768 1.768 3.89 3.89z" fill="currentColor"></path></svg>
@@ -126,7 +126,6 @@
         <div class="content__body">
 
           <div class="container">
-            <SideNav />
             
             <div class="layout-stretch" v-if="client">
               <PageIndicator 
@@ -349,6 +348,9 @@
 
 <script>
 import generalutilities from '@/mixins/generalutilities.js';
+import auth from '@/mixins/auth.js';
+import client from '@/mixins/client.js';
+import transactionpopup from '@/mixins/transactionpopup.js';
 import { mapActions, mapState, mapMutations } from 'vuex';
 
 export default {
@@ -363,7 +365,7 @@ export default {
       videoRecorderShown: false
     }
   },
-  mixins: [generalutilities],
+  mixins: [generalutilities, auth, client, transactionpopup],
   methods: {
     ...mapMutations('verification', ['SET_FILE']),
     ...mapActions('verification', ['uploadFile']),
@@ -374,6 +376,12 @@ export default {
     closepopup() {
       this.verificationmethod = null;
       this.currentStep = null;
+    },
+    closepopupAndFinish() {
+      this.verificationmethod = null;
+      this.currentStep = null;
+
+      window.close();
     },
     showvideoRecorder() {
       this.videoRecorderShown = true

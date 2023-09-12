@@ -78,6 +78,7 @@ export default {
       '~/assets/scss/spottrade.scss',
       '~/assets/scss/popup.scss',
       '~/assets/scss/autotradesettings.scss',
+      '~/assets/scss/warning.scss',
     ],
     hoistUseStatements: true
   },

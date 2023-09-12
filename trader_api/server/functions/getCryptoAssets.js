@@ -11,7 +11,7 @@ async function getCryptoAssets() {
             const cryptoAsset = new CryptoAsset({ data: item });
 
             return cryptoAsset.save().then(savedAsset => {
-                console.log('Crypto asset saved successfully:', savedAsset);
+                //console.log('Crypto asset saved successfully:', savedAsset);
                 return savedAsset;
             }).catch(err => {
                 console.error('Error saving crypto asset:', err);
@@ -19,7 +19,7 @@ async function getCryptoAssets() {
         });
 
         await Promise.all(savePromises).then(savedAssets => {
-            console.log('All crypto assets saved:', savedAssets);
+            //console.log('All crypto assets saved:', savedAssets);
         }).catch(err => {
             console.error('Error saving crypto assets:', err);
         });

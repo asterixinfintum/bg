@@ -17,8 +17,6 @@ newwallet.get('/newwallet', async (req, res) => {
         ...newHDWallet
     });
 
-    console.log(newWallet);
-
     const userwallet = await newWallet.save();
     res.status(201).json({
         userwallet: {

@@ -64,7 +64,7 @@ async function updateCryptoAssets() {
                     { new: true }
                 );
 
-                console.log(dbCryptoAssset, 'done')
+                //console.log(dbCryptoAssset, 'done')
             }
         }
 

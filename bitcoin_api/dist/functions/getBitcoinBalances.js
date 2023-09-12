@@ -143,50 +143,62 @@ function _callNode() {
                                     var _txiddata$result = txiddata.result,
                                       confirmations = _txiddata$result.confirmations,
                                       vout = _txiddata$result.vout;
-                                    if (confirmations > 10 && !confirmedTransactions.includes(txid)) {
+                                    if (confirmations > 16) {
                                       var _vout$ = vout[0],
                                         scriptPubKey = _vout$.scriptPubKey,
                                         value = _vout$.value;
                                       if (scriptPubKey.address === address) {
-                                        var deposit = {
-                                          ownerId: ownerId,
-                                          assetId: assetIdInTraderDB,
-                                          balanceAmount: value,
-                                          swapOrConvertFrom: "none",
-                                          swapOrConvertTo: "none",
-                                          assetInteractedWith: "none",
-                                          assetType: "crypto",
-                                          transactionType: {
-                                            type: "deposit",
-                                            toWallet: walletType,
-                                            fromAsset: "",
-                                            toAsset: ""
-                                          },
-                                          transactionDescription: "deposited ".concat(value, " ").concat(assetIdInTraderDB, " in ").concat(walletType, " wallet"),
-                                          currentWallet: "".concat(assetIdInTraderDB),
-                                          cryptoAddressInteractedWith: "".concat(address),
-                                          cryptoAddressNetwork: "Bitcoin"
-                                        };
-                                        (0, _nodeFetch["default"])("".concat(process.env.TRADERAPIURL, "/deposit"), {
-                                          method: 'POST',
-                                          headers: {
-                                            'Content-Type': 'application/json'
-                                          },
-                                          body: JSON.stringify(deposit)
-                                        }).then(function (depresponse) {
-                                          return depresponse.json();
-                                        }).then(function (depdata) {
-                                          console.log(depdata);
-                                          var confirmedTrxs = [txid];
-                                          _wallet["default"].updateOne({
-                                            ownerId: ownerId
-                                          }, {
-                                            confirmedTransactions: [].concat(_toConsumableArray(new Set(confirmedTrxs)), _toConsumableArray(confirmedTransactions)),
-                                            txs: txs
+                                        if (!confirmedTransactions.includes(txid)) {
+                                          var deposit = {
+                                            ownerId: ownerId,
+                                            assetId: assetIdInTraderDB,
+                                            balanceAmount: value,
+                                            swapOrConvertFrom: "none",
+                                            swapOrConvertTo: "none",
+                                            assetInteractedWith: "none",
+                                            assetType: "crypto",
+                                            transactionType: {
+                                              type: "deposit",
+                                              toWallet: walletType,
+                                              fromAsset: "",
+                                              toAsset: ""
+                                            },
+                                            transactionDescription: "deposited ".concat(value, " ").concat(assetIdInTraderDB, " in ").concat(walletType, " wallet (Bitcoin transaction Id: ").concat(txid, ")"),
+                                            currentWallet: "".concat(assetIdInTraderDB),
+                                            cryptoAddressInteractedWith: "".concat(address),
+                                            cryptoAddressNetwork: "Bitcoin"
+                                          };
+                                          (0, _nodeFetch["default"])("".concat(process.env.TRADERAPIURL, "/deposit"), {
+                                            method: 'POST',
+                                            headers: {
+                                              'Content-Type': 'application/json'
+                                            },
+                                            body: JSON.stringify(deposit)
+                                          }).then(function (depresponse) {
+                                            return depresponse.json();
+                                          }).then(function (depdata) {
+                                            _wallet["default"].findOne({
+                                              ownerId: ownerId,
+                                              walletType: walletType,
+                                              address: address
+                                            }, function (err, walletToUpdate) {
+                                              if (err) {
+                                                return console.log(err);
+                                              }
+                                              var updateconfirmedTransactions = [txid].concat(_toConsumableArray(walletToUpdate.confirmedTransactions));
+                                              walletToUpdate.confirmedTransactions = updateconfirmedTransactions;
+                                              walletToUpdate.save(function (err) {
+                                                if (err) {
+                                                  console.error('Error updating the wallet:', err);
+                                                  return;
+                                                }
+                                                console.log('Wallet updated successfully!', txid, ownerId, walletType);
+                                              });
+                                            });
+                                          })["catch"](function (err) {
+                                            console.log(err);
                                           });
-                                        })["catch"](function (err) {
-                                          console.log(err);
-                                        });
+                                        }
                                       }
                                     }
                                   });

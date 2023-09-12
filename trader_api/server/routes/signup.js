@@ -62,4 +62,17 @@ signup.post('/register', (req, res) => {
         });
 });
 
+signup.post('/checkduplicatecredentials', async (req, res) => {
+    const { email, phonenumber } = req.body;
+
+    const duplicateEmail = await User.findOne({ email });
+    const duplicatePhonenumber = await User.findOne({ phonenumber });
+
+    if (duplicateEmail || duplicatePhonenumber) {
+        return res.sendStatus(401); 
+    }
+
+    res.status(200).json({ message: 'okay proceed' });
+})
+
 export default signup;

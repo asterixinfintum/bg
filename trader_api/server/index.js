@@ -9,6 +9,7 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import cors from 'cors';
 import socket from 'socket.io';
+import cron from "node-cron";
 
 const app = express();
 const server = http.createServer(app);
@@ -28,8 +29,12 @@ import usersettingsRoute from './routes/usersettings';
 import announcementRoute from './routes/announcement';
 import orderRoute from './routes/order';
 
-import seedDBCryptoAssets from './functions/seedDBCryptoAssets';
-import updateCryptoAssets from './functions/updateCryptoAssets';
+import runInventoryFunction from './functions/runInventory';
+
+cron.schedule("*/3 * * * *", () => {
+  runInventoryFunction()
+});
+
 
 app.use(express.static('public'));
 app.use('/', express.static('public/ui'))
@@ -58,8 +63,7 @@ app.use(usersettingsRoute);
 app.use(announcementRoute);
 app.use(orderRoute);
 
-//seedDBCryptoAssets();
-//updateCryptoAssets();
+//runInventoryFunction();
 
 //https://api.poloniex.com/markets/LTC_BTC/orderBook
 //https://api.poloniex.com/markets/price

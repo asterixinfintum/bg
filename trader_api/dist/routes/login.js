@@ -32,7 +32,7 @@ login.post('/login', function (req, res) {
         phonenumber = _ref.phonenumber,
         anonId = _ref.anonId,
         _id = _ref._id;
-      res.json({
+      res.status(200).json({
         message: 'Credentials saved successfully.',
         token: token,
         userData: {
@@ -43,7 +43,6 @@ login.post('/login', function (req, res) {
         }
       });
     })["catch"](function (error) {
-      console.error('Error saving credentials:', error);
       res.status(500).json({
         error: 'An error occurred while saving credentials.'
       });

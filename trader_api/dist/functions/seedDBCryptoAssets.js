@@ -196,18 +196,17 @@ function _createCryptoAssetItem() {
           return newItem.save();
         case 4:
           savedItem = _context5.sent;
-          console.log('Created CryptoAsset item:', savedItem);
           return _context5.abrupt("return", savedItem);
-        case 9:
-          _context5.prev = 9;
+        case 8:
+          _context5.prev = 8;
           _context5.t0 = _context5["catch"](0);
           console.error('Error creating CryptoAsset item:', _context5.t0);
           throw _context5.t0;
-        case 13:
+        case 12:
         case "end":
           return _context5.stop();
       }
-    }, _callee4, null, [[0, 9]]);
+    }, _callee4, null, [[0, 8]]);
   }));
   return _createCryptoAssetItem.apply(this, arguments);
 }

@@ -1,4 +1,12 @@
 /*!
+ * @license
+ * TradingView Lightweight Charts™ v4.0.1
+ * Copyright (c) 2023 TradingView, Inc.
+ * Licensed under Apache License 2.0 https://www.apache.org/licenses/LICENSE-2.0
+ */
+
+
+/*!
  * Vue.js v2.7.14
  * (c) 2014-2022 Evan You
  * Released under the MIT License.
@@ -8,14 +16,6 @@
  * vuex v3.6.2
  * (c) 2021 Evan You
  * @license MIT
- */
-
-
-/*!
- * @license
- * TradingView Lightweight Charts™ v4.0.1
- * Copyright (c) 2023 TradingView, Inc.
- * Licensed under Apache License 2.0 https://www.apache.org/licenses/LICENSE-2.0
  */
 
 

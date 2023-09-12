@@ -26,7 +26,40 @@
                             </path>
                         </svg>
                     </span>
-                    <div class="header__dropdown left">
+                    <div class="header__dropdown left" v-if="!client">
+                        <div class="header__dropdowncontent">
+                            <div class="header__dropdowncontent--item" @click="navigateToPage('register')">
+                                <figure class="header__dropdowncontent--logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="" class="css-1s4hjvp">
+                                        <use xlink:href="#market-overview-g"></use>
+                                    </svg>
+                                </figure>
+                                <div>
+                                    <span class="header__dropdowncontent--headerlabel">Spot</span>
+                                    <span class="header__dropdowncontent--textlabel">
+                                        designed for the modern trader who demands convenience, flexibility, and security.
+                                        Our spot wallet is tailored to meet the needs of active traders.
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="header__dropdowncontent--item" @click="navigateToPage('register')">
+                                <figure class="header__dropdowncontent--logo">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="" class="css-1s4hjvp">
+                                        <use xlink:href="#market-overview-g"></use>
+                                    </svg>
+                                </figure>
+                                <div>
+                                    <span class="header__dropdowncontent--headerlabel">Margin</span>
+                                    <span class="header__dropdowncontent--textlabel">
+                                        Our margin wallet is specifically designed for traders who want to use margin
+                                        trading to amplify their gains.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header__dropdown left" v-if="client">
                         <div class="header__dropdowncontent">
                             <div class="header__dropdowncontent--item">
                                 <figure class="header__dropdowncontent--logo">
@@ -177,7 +210,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex';
+import { mapActions } from 'vuex';
 import generalutilities from '@/mixins/generalutilities';
 import clientMixin from '@/mixins/client';
 import cryptoassetsMixin from '@/mixins/cryptoassets';

@@ -53,6 +53,7 @@
     "nodemailer": "^6.7.2",
     "protonmail-api": "^2.2.0",
     "regenerator-runtime": "^0.13.11",
+    "node-cron": "^3.0.2",
     "sharp": "^0.32.1",
     "socket.io": "^4.7.2",
     "telegraf": "^3.33.3",

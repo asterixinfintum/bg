@@ -108,8 +108,10 @@ client.get('/generatekeytoken', authenticateToken, async (req, res) => {
 });
 
 client.get('/getclientbykeytoken', authenticateToken, async (req, res) => {
+    
     if (req.user) {
         const token = req.user.token;
+        
         findUserByToken(token)
             .then(user => {
                 const { 

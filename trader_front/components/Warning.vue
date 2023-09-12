@@ -7,53 +7,45 @@
             </span>
         </div>-->
         <div class="warning__body">
-            <span class="warning__body--warningtext">Your ID document expires soon. Please upload a new ID before the current one expires, or your Binance account will be restricted to “Withdrawal Only” mode.</span>
+            <span class="warning__body--warningtext">Please upload a new ID before the current one expires, or your Binance
+                account will be restricted to “Withdrawal Only” mode.</span>
             <span>
-                <button class="warning__body--btn btn">Start Now > </button>
+                <button class="warning__body--btn btn" @click="generateKeyTokenCall">Start Now > </button>
             </span>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
+import BASE_VARS from '@/store/base_vars';
+
+const { VERIFICATION_FRONT } = BASE_VARS;
+
 export default {
-    props: ['warning_text', 'btn_text']
+    props: ['warning_text', 'btn_text'],
+    methods: {
+        ...mapActions('auth', ['generateKeyToken']),
+        generateKeyTokenCall() {
+            this.generateKeyToken()
+                .then(() => {
+                    const { key_token } = this;
+
+                    this.navigateOutWithParams(VERIFICATION_FRONT, key_token)
+                })
+                .catch(err => { console.log(err) })
+        },
+        navigateOutWithParams(item_url, item_param) {
+            const url = `${item_url}/?token=${item_param}`;
+
+            window.open(url, '_blank');
+        }
+    },
+    computed: {
+        ...mapState({
+            key_token: state => state.auth.key_token
+        }),
+    }
 }
 </script>
-
-<style lang="scss" scoped>
-.warning {
-    position: relative;
-    background: $warning-background;
-    width: 100%;
-    color: $black;
-    padding: #{scaleValue(6)} #{scaleValue(30)};
-    line-height: #{scaleValue(24)};
-
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: #{scaleValue(6)};
-        height: 100%;
-        background: $warning-red;
-    }
-
-    &__body {
-        display: flex;
-        flex-direction: column;
-        font-size: #{scaleValue(14)};
-
-        &--warningtext {
-            color: $black;
-            font-weight: 400;
-        }
-
-        &--btn {
-            color: $warning-red;
-            font-size: #{scaleValue(13)};
-        }
-    }
-}
-</style>

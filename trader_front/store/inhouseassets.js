@@ -22,6 +22,10 @@ export const actions = {
             try {
                 const token = localStorage.getItem('873__jh6bdjktoken');
 
+                if (!token) {
+                    return;
+                }
+
                 fetch(`${BASE_URL}/inhouseassets`, {
                     method: 'GET',
                     headers: {

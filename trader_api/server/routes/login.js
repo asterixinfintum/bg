@@ -22,10 +22,9 @@ login.post('/login', (req, res) => {
         user.token = token;
         user.save()
             .then(({ email, phonenumber, anonId, _id }) => {
-                res.json({ message: 'Credentials saved successfully.', token, userData: { email, phonenumber, anonId, _id } });
+                res.status(200).json({ message: 'Credentials saved successfully.', token, userData: { email, phonenumber, anonId, _id } });
             })
             .catch(error => {
-                console.error('Error saving credentials:', error);
                 res.status(500).json({ error: 'An error occurred while saving credentials.' });
             });
     })

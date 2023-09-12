@@ -1,14 +1,13 @@
+import BASE_VARS from '@/store/base_vars';
+
+const { BASE_URL } = BASE_VARS;
+
 export default {
-    data() {
-        return {
-            base_url: 'http://localhost:8080',  
-        }
-    },
     methods: {
         returnCryptoLogo(symbol) {
-            const { base_url, cryptoLogos } = this;
+            const { cryptoLogos } = this;
             const logo = cryptoLogos.find(cryptoLogo => cryptoLogo.toLowerCase().includes(symbol.toLowerCase()));
-            return `${base_url}/${logo}`;
+            return `${BASE_URL}/${logo}`;
         }
     },
     computed: {

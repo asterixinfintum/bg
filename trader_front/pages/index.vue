@@ -7,7 +7,7 @@
 
             <div class="landing__container">
                 <div class="landing__jumbotron">
-                    
+
                     <div class="landing__jumbotrontop">
                         <h2 class="landing__jumbotrontop--header" id="landing__jumbotrontop--header">
                             <span>The complete Defi/Cefi</span>
@@ -21,7 +21,7 @@
                         </div>
 
                         <div class="landing__jumbotrontop--btns ">
-                            <button class="btn">Open an account</button>
+                            <button class="btn" @click="navigateToPage('register')">Open an account</button>
                         </div>
                     </div>
 
@@ -32,7 +32,7 @@
                                 <h4>Crypto</h4>
 
                                 <p>Dive into digital with secure, real-time crypto trading.</p>
-                                
+
                                 <div class="landing__jumbotronassetclass--btnarea">
                                     <button class="btn">CRYPTO TRADING</button>
                                     <span>&#8594;</span>
@@ -43,7 +43,7 @@
                                 <h4>Stocks</h4>
 
                                 <p>Access global stocks with confidence. Trade top companies effortlessly.</p>
-                                
+
                                 <div class="landing__jumbotronassetclass--btnarea">
                                     <button class="btn">TOKENIZED STOCKS</button>
                                     <span>&#8594;</span>
@@ -54,7 +54,7 @@
                                 <h4>Defi Staking</h4>
 
                                 <p>Maximize returns with secure DeFi staking. Grow your assets.</p>
-                                
+
                                 <div class="landing__jumbotronassetclass--btnarea">
                                     <button class="btn">DEFI STAKING</button>
                                     <span>&#8594;</span>
@@ -65,7 +65,7 @@
                                 <h4>Commodities</h4>
 
                                 <p>Trade commodities with fixed spreads and 10% margin.</p>
-                                
+
                                 <div class="landing__jumbotronassetclass--btnarea">
                                     <button class="btn">COMMODITY TRADING</button>
                                     <span>&#8594;</span>
@@ -76,7 +76,7 @@
                                 <h4>Margin Trades</h4>
 
                                 <p>Leverage with our robust margin options. Amplify profits wisely.</p>
-                                
+
                                 <div class="landing__jumbotronassetclass--btnarea">
                                     <button class="btn">MARGIN TRADING</button>
                                     <span>&#8594;</span>
@@ -102,7 +102,7 @@
                             </div>
 
                             <div class="landing__jumbotrontop--btns ">
-                                <button class="btn">Open an account</button>
+                                <button class="btn" @click="navigateToPage('register')">Open an account</button>
                             </div>
                         </div>
 
@@ -110,13 +110,22 @@
                             <div class="landing__jumbotronbottom--right-grid">
                                 <div class="landing__jumbotronbottom--right-gridbox">
                                     <div class="landing__jumbotronbottom--right-gridboxsvg">
-                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" aria-hidden="true" focusable="false" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96"></path></svg>
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                            viewBox="0 0 512 512" aria-hidden="true" focusable="false" height="1em"
+                                            width="1em" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="32"
+                                                d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96">
+                                            </path>
+                                        </svg>
                                     </div>
-                                    <h4 class="landing__jumbotronbottom--right-gridboxh4">Dominate the trading landscape</h4>
+                                    <h4 class="landing__jumbotronbottom--right-gridboxh4">Dominate the trading landscape
+                                    </h4>
                                     <div class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle">
                                         <p>Explore diverse markets with Bvxe, from Crypto to Germany 40 and gold.</p>
                                     </div>
-                                    <div class="landing__jumbotronbottom--right-gridboxbtn">
+                                    <div class="landing__jumbotronbottom--right-gridboxbtn"
+                                        @click="navigateToPage('register')">
                                         <button class="btn">TRADE MARKETS</button>
                                         <span></span>
                                     </div>
@@ -124,13 +133,23 @@
 
                                 <div class="landing__jumbotronbottom--right-gridbox">
                                     <div class="landing__jumbotronbottom--right-gridboxsvg">
-                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" aria-hidden="true" focusable="false" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96"></path></svg>
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                            viewBox="0 0 512 512" aria-hidden="true" focusable="false" height="1em"
+                                            width="1em" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="32"
+                                                d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96">
+                                            </path>
+                                        </svg>
                                     </div>
-                                    <h4 class="landing__jumbotronbottom--right-gridboxh4">Experience trading on the benchmark in golden standards.</h4>
+                                    <h4 class="landing__jumbotronbottom--right-gridboxh4">Experience trading on the
+                                        benchmark in golden standards.</h4>
                                     <div class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle">
-                                        <p>Seek only the best in trading. bvxe, the top Forex Platform of 2020 Shares Awards.</p>
+                                        <p>Seek only the best in trading. bvxe, the top Forex Platform of 2020 Shares
+                                            Awards.</p>
                                     </div>
-                                    <div class="landing__jumbotronbottom--right-gridboxbtn">
+                                    <div class="landing__jumbotronbottom--right-gridboxbtn"
+                                        @click="navigateToPage('register')">
                                         <button class="btn">TRADE MARKETS</button>
                                         <span></span>
                                     </div>
@@ -138,13 +157,21 @@
 
                                 <div class="landing__jumbotronbottom--right-gridbox">
                                     <div class="landing__jumbotronbottom--right-gridboxsvg">
-                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" aria-hidden="true" focusable="false" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96"></path></svg>
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                            viewBox="0 0 512 512" aria-hidden="true" focusable="false" height="1em"
+                                            width="1em" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="32"
+                                                d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96">
+                                            </path>
+                                        </svg>
                                     </div>
-                                    <h4 class="landing__jumbotronbottom--right-gridboxh4">Ascend to the pinnacle of asset trading with Bvxe.</h4>
+                                    <h4 class="landing__jumbotronbottom--right-gridboxh4">Ascend to the pinnacle of asset
+                                        trading with Bvxe.</h4>
                                     <div class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle">
                                         <p>Lost in trading terms? Join bvxe's free Trading Plan and boost your skills.</p>
                                     </div>
-                                    <div class="landing__jumbotronbottom--right-gridboxbtn">
+                                    <div class="landing__jumbotronbottom--right-gridboxbtn" @click="scrollToDiv('landing__perks-parent')">
                                         <button class="btn">SEE PLANS</button>
                                         <span></span>
                                     </div>
@@ -152,13 +179,23 @@
 
                                 <div class="landing__jumbotronbottom--right-gridbox">
                                     <div class="landing__jumbotronbottom--right-gridboxsvg">
-                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" aria-hidden="true" focusable="false" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96"></path></svg>
+                                        <svg stroke="currentColor" fill="currentColor" stroke-width="0"
+                                            viewBox="0 0 512 512" aria-hidden="true" focusable="false" height="1em"
+                                            width="1em" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="32"
+                                                d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96">
+                                            </path>
+                                        </svg>
                                     </div>
-                                    <h4 class="landing__jumbotronbottom--right-gridboxh4">Align with bvxe, a trading provider built on unshakeable pillars.</h4>
+                                    <h4 class="landing__jumbotronbottom--right-gridboxh4">Align with bvxe, a trading
+                                        provider built on unshakeable pillars.</h4>
                                     <div class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle">
-                                        <p>As part of Voltex Singapore with $10 billion in assets, trust Bvxe with your trading journey.</p>
+                                        <p>As part of Voltex Singapore with $10 billion in assets, trust Bvxe with your
+                                            trading journey.</p>
                                     </div>
-                                    <div class="landing__jumbotronbottom--right-gridboxbtn">
+                                    <div class="landing__jumbotronbottom--right-gridboxbtn"
+                                        @click="navigateToPage('register')">
                                         <button class="btn">JOIN</button>
                                         <span></span>
                                     </div>
@@ -176,7 +213,9 @@
                             <div class="landing__tradingtypesbox">
                                 <h4 class="landing__tradingtypesbox--h4">Safety First: Uncompromised Security</h4>
 
-                                <p class="landing__tradingtypesbox--p">Trust in bvxe's robust security measures that prioritize your assets and information. Our state-of-the-art protection ensures you trade with peace of mind, every step of the way.</p>
+                                <p class="landing__tradingtypesbox--p">Trust in bvxe's robust security measures that
+                                    prioritize your assets and information. Our state-of-the-art protection ensures you
+                                    trade with peace of mind, every step of the way.</p>
 
                                 <div class="landing__tradingtypesbox--btnarea">
                                     <button class="btn">LEARN MORE </button>
@@ -187,7 +226,9 @@
                             <div class="landing__tradingtypesbox">
                                 <h4 class="landing__tradingtypesbox--h4">Guided Growth: Agent-Backed Learning</h4>
 
-                                <p class="landing__tradingtypesbox--p">Navigate the trading world with bvxe's experienced agents at your side. Our tailored tutorials and hands-on mentoring propel your skills, turning novice moves into expert strategies.</p>
+                                <p class="landing__tradingtypesbox--p">Navigate the trading world with bvxe's experienced
+                                    agents at your side. Our tailored tutorials and hands-on mentoring propel your skills,
+                                    turning novice moves into expert strategies.</p>
 
                                 <div class="landing__tradingtypesbox--btnarea">
                                     <button class="btn">LEARN MORE </button>
@@ -196,9 +237,12 @@
                             </div>
 
                             <div class="landing__tradingtypesbox">
-                                <h4 class="landing__tradingtypesbox--h4">Amplify Your Portfolio: Rewarding Asset Returns</h4>
+                                <h4 class="landing__tradingtypesbox--h4">Amplify Your Portfolio: Rewarding Asset Returns
+                                </h4>
 
-                                <p class="landing__tradingtypesbox--p">With bvxe, your assets work harder for you. Enjoy unparalleled returns and watch your investments flourish as you capitalize on our unique reward programs.</p>
+                                <p class="landing__tradingtypesbox--p">With bvxe, your assets work harder for you. Enjoy
+                                    unparalleled returns and watch your investments flourish as you capitalize on our unique
+                                    reward programs.</p>
 
                                 <div class="landing__tradingtypesbox--btnarea">
                                     <button class="btn">LEARN MORE </button>
@@ -210,7 +254,7 @@
 
                         <div class="landing__tradingtypesarea">
                             <ForexTable />
-                        </div> 
+                        </div>
                     </div>
                 </div>
 
@@ -221,7 +265,7 @@
                     <div class="landing__rewardsbody">
                         <div class="landing__reward">
                             <figure>
-                                <img src="@/assets/imgs/61a900c6c0c19d4855dc0323_BTC.svg"/>
+                                <img src="@/assets/imgs/61a900c6c0c19d4855dc0323_BTC.svg" />
                             </figure>
 
                             <h5>BTC</h5>
@@ -233,7 +277,7 @@
 
                         <div class="landing__reward">
                             <figure>
-                                <img src="@/assets/imgs/60d21880724092061738067c_fox-Icon.svg"/>
+                                <img src="@/assets/imgs/60d21880724092061738067c_fox-Icon.svg" />
                             </figure>
 
                             <h5>FOX</h5>
@@ -245,7 +289,7 @@
 
                         <div class="landing__reward">
                             <figure>
-                                <img src="@/assets/imgs/61b0dabab79d32a580afa34d_eth.svg"/>
+                                <img src="@/assets/imgs/61b0dabab79d32a580afa34d_eth.svg" />
                             </figure>
 
                             <h5>ETH</h5>
@@ -257,7 +301,7 @@
 
                         <div class="landing__reward">
                             <figure>
-                                <img src="@/assets/imgs/61b0da972b0526e4b219cd42_ltc.svg"/>
+                                <img src="@/assets/imgs/61b0da972b0526e4b219cd42_ltc.svg" />
                             </figure>
 
                             <h5>LTC</h5>
@@ -269,7 +313,7 @@
 
                         <div class="landing__reward">
                             <figure>
-                                <img src="@/assets/imgs/632ca2c35d0556b7df05357b_avalanche-avax-logo.svg"/>
+                                <img src="@/assets/imgs/632ca2c35d0556b7df05357b_avalanche-avax-logo.svg" />
                             </figure>
 
                             <h5>AVAX</h5>
@@ -281,7 +325,7 @@
 
                         <div class="landing__reward">
                             <figure>
-                                <img src="@/assets/imgs/629e539eed9254aca6e47d59_cosmos-atom-logo.svg"/>
+                                <img src="@/assets/imgs/629e539eed9254aca6e47d59_cosmos-atom-logo.svg" />
                             </figure>
 
                             <h5>COSMOS</h5>
@@ -293,7 +337,7 @@
 
                         <div class="landing__reward">
                             <figure>
-                                <img src="@/assets/imgs/632ca22eb77a6b0093b19d11_doge.svg"/>
+                                <img src="@/assets/imgs/632ca22eb77a6b0093b19d11_doge.svg" />
                             </figure>
 
                             <h5>DOGE</h5>
@@ -305,7 +349,7 @@
 
                         <div class="landing__reward">
                             <figure>
-                                <img src="@/assets/imgs/61b12434ca293848b210e4ad_bch.svg"/>
+                                <img src="@/assets/imgs/61b12434ca293848b210e4ad_bch.svg" />
                             </figure>
 
                             <h5>BCH</h5>
@@ -322,8 +366,9 @@
                     <div class="landing__perksarea">
                         <h4>Master the Markets with Bvxe</h4>
                         <h3>Our agents amplify your market acumen for confident trading</h3>
-                        <p class="landing__perksarea--p">Starting from scratch? No worries. With bvxe's seasoned trading agents by your side, watch your market know-how skyrocket to unparalleled heights.</p>
-                        
+                        <p class="landing__perksarea--p">Starting from scratch? No worries. With bvxe's seasoned trading
+                            agents by your side, watch your market know-how skyrocket to unparalleled heights.</p>
+
                     </div>
 
                     <div class="landing__perksarea bottomrow">
@@ -333,8 +378,10 @@
                             </div>
                             <div class="landing__perk--section">
                                 <span class="landing__perk--section-header">Starter Prodigy Plan:</span>
-                                <p class="landing__perk--section-copy">Ideal for newcomers, this plan offers weekly market insights and an introduction to trading basics, complemented by monthly sessions with a trading agent for guidance.</p>
-                                <div class="landing__jumbotrontop--btns ">
+                                <p class="landing__perk--section-copy">Ideal for newcomers, this plan offers weekly market
+                                    insights and an introduction to trading basics, complemented by monthly sessions with a
+                                    trading agent for guidance.</p>
+                                <div class="landing__jumbotrontop--btns" @click="navigateToPage('register')">
                                     <button class="btn">Get Started</button>
                                 </div>
                             </div>
@@ -346,8 +393,10 @@
                             </div>
                             <div class="landing__perk--section">
                                 <span class="landing__perk--section-header">Market Maven Plan:</span>
-                                <p class="landing__perk--section-copy">For intermediate traders, this plan provides bi-weekly in-depth market analyses, advanced strategy tutorials, and regular coaching sessions, backed by priority email support.</p>
-                                <div class="landing__jumbotrontop--btns ">
+                                <p class="landing__perk--section-copy">For intermediate traders, this plan provides
+                                    bi-weekly in-depth market analyses, advanced strategy tutorials, and regular coaching
+                                    sessions, backed by priority email support.</p>
+                                <div class="landing__jumbotrontop--btns" @click="navigateToPage('register')">
                                     <button class="btn">Get Started</button>
                                 </div>
                             </div>
@@ -359,8 +408,10 @@
                             </div>
                             <div class="landing__perk--section">
                                 <span class="landing__perk--section-header">Elite Intellect Plan:</span>
-                                <p class="landing__perk--section-copy">Advanced traders can benefit from weekly detailed market forecasts, exclusive webinars, and consistent personalized coaching. 24/7 priority support ensures they're always ahead.</p>
-                                <div class="landing__jumbotrontop--btns ">
+                                <p class="landing__perk--section-copy">Advanced traders can benefit from weekly detailed
+                                    market forecasts, exclusive webinars, and consistent personalized coaching. 24/7
+                                    priority support ensures they're always ahead.</p>
+                                <div class="landing__jumbotrontop--btns" @click="navigateToPage('register')">
                                     <button class="btn">Get Started</button>
                                 </div>
                             </div>
@@ -370,10 +421,12 @@
                             <div class="landing__perk--section">
 
                             </div>
-                            <div class="landing__perk--section">
+                            <div class="landing__perk--section" id="landing__perks-parent">
                                 <span class="landing__perk--section-header">Platinum Pioneer Membership:</span>
-                                <p class="landing__perk--section-copy">The ultimate offering for seasoned traders, with daily market insights, direct expert access, unlimited sessions with top agents, and early access to new tools and features.</p>
-                                <div class="landing__jumbotrontop--btns ">
+                                <p class="landing__perk--section-copy">The ultimate offering for seasoned traders, with
+                                    daily market insights, direct expert access, unlimited sessions with top agents, and
+                                    early access to new tools and features.</p>
+                                <div class="landing__jumbotrontop--btns" @click="navigateToPage('register')">
                                     <button class="btn">Get Started</button>
                                 </div>
                             </div>
@@ -381,7 +434,7 @@
                     </div>
                 </div>
 
-                <div class="landing__inthenews">
+                <!--<div class="landing__inthenews">
                     <h2 class="landing__rewards--h2">In the News</h2>
 
                     <div class="landing__inthenewsbody">
@@ -425,17 +478,41 @@
                         </div>
 
                     </div>
-                </div>
+                </div>-->
 
                 <div class="landing__disclaimers">
-                    <div  class="landing__disclaimers--content">
-                        <p>BVXE offerings are intricate tools that carry a high possibility of swift financial loss due to leverage. 77.1% of retail investor accounts suffer financial losses when engaging in trades with bvxe. It is crucial to ponder whether you grasp the operation of the markets and if you are in a position to shoulder the substantial risk of losing your funds. Kindly make sure you have a comprehensive understanding of the risks entailed by consulting our detailed risk warning.</p>
+                    <div class="landing__disclaimers--content">
+                        <p>BVXE offerings are intricate tools that carry a high possibility of swift financial loss due to
+                            leverage. 77.1% of retail investor accounts suffer financial losses when engaging in trades with
+                            bvxe. It is crucial to ponder whether you grasp the operation of the markets and if you are in a
+                            position to shoulder the substantial risk of losing your funds. Kindly make sure you have a
+                            comprehensive understanding of the risks entailed by consulting our detailed risk warning.</p>
 
-                        <p>Bvxe is a trading identity of Voltex Singapore, and bvxe.com/ie is a domain run by Voltex Singapore, a constituent of StoneX Group Inc. Voltex Singapore is a Cyprus Investment Firm (CIF) officially registered with the Department of Registrar of Companies and Official Receiver under the Registration Number HE409708, and endorsed and overseen by the Cyprus Securities & Exchange Commission (CySEC) with the license number 400/21. Voltex Singapore is affiliated with the Investor Compensation Fund (ICF) and has its official headquarters at 10 Marina Bay Street, #15-02, Central Tower, Singapore 018983.</p>
+                        <p>Bvxe is a trading identity of Voltex Singapore, and bvxe.com/ie is a domain run by Voltex
+                            Singapore, a constituent of StoneX Group Inc. Voltex Singapore is a Cyprus Investment Firm (CIF)
+                            officially registered with the Department of Registrar of Companies and Official Receiver under
+                            the Registration Number HE409708, and endorsed and overseen by the Cyprus Securities & Exchange
+                            Commission (CySEC) with the license number 400/21. Voltex Singapore is affiliated with the
+                            Investor Compensation Fund (ICF) and has its official headquarters at 10 Marina Bay Street,
+                            #15-02, Central Tower, Singapore 018983.</p>
 
-                        <p>Voltex Singapore might offer third-party content on this website, which might encompass details including but not limited to the financial market scenarios. This content is purely informational and should never be perceived as containing financial counsel, investment endorsements, investment analysis, or invitations for any financial instrument transactions. Any decisions regarding specific financial actions should be made by the client after their personal evaluation. Voltex Singapore does not guarantee the preciseness or completeness of the given details, nor any financial losses that might arise from any investment grounded on recommendations, projections, or other supplied details. Always consult independent advice to determine your aptness for speculation in associated markets and your capacity to undertake related risks. No obligation lies with us to refresh any given content. Views expressed might be personal to the contributor and might not mirror the opinions of Voltex Singapore.</p>
+                        <p>Voltex Singapore might offer third-party content on this website, which might encompass details
+                            including but not limited to the financial market scenarios. This content is purely
+                            informational and should never be perceived as containing financial counsel, investment
+                            endorsements, investment analysis, or invitations for any financial instrument transactions. Any
+                            decisions regarding specific financial actions should be made by the client after their personal
+                            evaluation. Voltex Singapore does not guarantee the preciseness or completeness of the given
+                            details, nor any financial losses that might arise from any investment grounded on
+                            recommendations, projections, or other supplied details. Always consult independent advice to
+                            determine your aptness for speculation in associated markets and your capacity to undertake
+                            related risks. No obligation lies with us to refresh any given content. Views expressed might be
+                            personal to the contributor and might not mirror the opinions of Voltex Singapore.</p>
 
-                        <p>By leveraging passporting, Voltex Singapore can deliver its services and offerings across borders to the subsequent European Economic Area ("EEA") nations: Austria, Bulgaria, Croatia, Denmark, Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia, Spain, Sweden.</p>
+                        <p>By leveraging passporting, Voltex Singapore can deliver its services and offerings across borders
+                            to the subsequent European Economic Area ("EEA") nations: Austria, Bulgaria, Croatia, Denmark,
+                            Estonia, Finland, France, Germany, Greece, Hungary, Ireland, Italy, Latvia, Liechtenstein,
+                            Lithuania, Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia,
+                            Slovenia, Spain, Sweden.</p>
                     </div>
                 </div>
 
@@ -445,6 +522,8 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex';
+
 export default {
     mounted() {
         window.addEventListener('scroll', this.handleScrollLanding);
@@ -453,6 +532,17 @@ export default {
         window.removeEventListener('scroll', this.handleScrollLanding);
     },
     methods: {
+        ...mapActions('cryptoassets', ['getcryptoassets']),
+        navigateToPage(page, id) {
+            this.$router.push(`/${page}`)
+        },
+        scrollToDiv(mydivid) {
+            const target = document.getElementById(`${mydivid}`);
+            const currentScrollPosition = window.pageYOffset;
+            const distanceToTarget = target.offsetTop - currentScrollPosition;
+
+            window.scroll(0, distanceToTarget);
+        },
         handleScrollLanding() {
             const headerPropTracker = document.getElementById('landing__jumbotrontop--header');
             const rect = headerPropTracker.getBoundingClientRect();
@@ -498,10 +588,9 @@ export default {
         height: #{scaleValue(630)};
         padding: 0 #{scaleValue(220)};
         padding-top: #{scaleValue(170)};
-        background-image: linear-gradient(
-            to bottom,
-            rgba($landing-primary, 1),
-            rgba($landing-primary, 0.8)),
+        background-image: linear-gradient(to bottom,
+                rgba($landing-primary, 1),
+                rgba($landing-primary, 0.8)),
             url(/imgs/skyline.avif);
         background-size: cover;
         background-position: top;
@@ -598,7 +687,7 @@ export default {
         }
 
         & h4 {
-            background: linear-gradient(to right,#12225c 2%,#6C3483 70%);
+            background: linear-gradient(to right, #12225c 2%, #6C3483 70%);
             background-size: 100%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -660,13 +749,13 @@ export default {
             margin-bottom: #{scaleValue(10)};
 
             & svg {
-                height: #{scaleValue(40)};
-                width: #{scaleValue(40)};
+                height: #{scaleValue(20)};
+                width: #{scaleValue(20)};
             }
         }
 
         &--right-gridboxh4 {
-            font-size: #{scaleValue(23)};
+            font-size: #{scaleValue(18)};
             font-weight: 400;
             margin-bottom: #{scaleValue(24)};
         }
@@ -674,12 +763,12 @@ export default {
         &--right-gridboxcopy {
             min-height: #{scaleValue(106)};
         }
-        
+
         &--right-gridboxbtn {
             position: absolute;
             bottom: #{scaleValue(21)};
             left: #{scaleValue(21)};
-
+            display: flex;
 
             & button {
                 font-weight: 500;
@@ -799,7 +888,7 @@ export default {
         padding-top: #{scaleValue(80)};
         padding-bottom: #{scaleValue(80)};
 
-        background: linear-gradient(to right,#12225c 2%,#6C3483 70%);
+        background: linear-gradient(to right, #12225c 2%, #6C3483 70%);
 
         &--h2 {
             @include h2-landing;
@@ -878,7 +967,7 @@ export default {
 
         display: flex;
         justify-content: space-between;
-        background: linear-gradient(to right,#6C3483 2%,#12225c 70%);
+        background: linear-gradient(to right, #6C3483 2%, #12225c 70%);
         background: $landing-primary;
 
         flex-direction: column;
@@ -1023,7 +1112,7 @@ export default {
 
     &__disclaimers {
         padding: $basic-landing-area-padding;
-        
+
         background: $light-black;
 
         &--content {
@@ -1040,5 +1129,4 @@ export default {
             }
         }
     }
-}
-</style>
+}</style>

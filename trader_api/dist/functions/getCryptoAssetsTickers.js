@@ -29,36 +29,36 @@ function _getCryptoAssetsTickers() {
           return response.json();
         case 6:
           data = _context.sent;
-          console.log(data);
+          // console.log(data);
           savePromises = data.map(function (item) {
             var cryptoAssetTicker = new _cryptoAssetTicker["default"]({
               data: item
             });
             return cryptoAssetTicker.save().then(function (savedTicker) {
-              console.log('Crypto asset saved successfully:', savedTicker);
+              //console.log('Crypto asset saved successfully:', savedTicker);
               return savedTicker;
             })["catch"](function (err) {
               console.error('Error saving crypto asset:', err);
             });
           });
-          _context.next = 11;
+          _context.next = 10;
           return Promise.all(savePromises).then(function (savedTicker) {
-            console.log('All crypto assets saved:', savedTicker);
+            //console.log('All crypto assets saved:', savedTicker);
           })["catch"](function (err) {
             console.error('Error saving crypto assets:', err);
           });
-        case 11:
-          _context.next = 16;
+        case 10:
+          _context.next = 15;
           break;
-        case 13:
-          _context.prev = 13;
+        case 12:
+          _context.prev = 12;
           _context.t0 = _context["catch"](0);
           console.log(_context.t0);
-        case 16:
+        case 15:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 13]]);
+    }, _callee, null, [[0, 12]]);
   }));
   return _getCryptoAssetsTickers.apply(this, arguments);
 }

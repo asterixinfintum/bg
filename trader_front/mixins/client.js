@@ -25,6 +25,10 @@ export default {
         getCurrentUser() {
             const token = localStorage.getItem('873__jh6bdjktoken');
 
+            if (!token) {
+                return;
+            }
+
             try {
                 fetch(`${BASE_URL}/getclient`, {
                     method: 'GET',

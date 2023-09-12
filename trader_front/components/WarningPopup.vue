@@ -21,7 +21,6 @@
             <div class="popup__text">
                 
             </div>
-
         </div>
     </div>
 </template>

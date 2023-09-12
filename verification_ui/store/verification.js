@@ -1,6 +1,6 @@
 import BASE_VARS from './base_vars';
 
-const { BASE_URL_VERIFICATION } = BASE_VARS;
+const { VERIFICATION_SERVER } = BASE_VARS;
 
 export const state = () => ({
     verification_file: null,
@@ -52,7 +52,7 @@ export const actions = {
                     }
                 });
     
-                xhr.open('POST', `${BASE_URL_VERIFICATION}/upload?client_id=${client_id}`);
+                xhr.open('POST', `${VERIFICATION_SERVER}/upload?client_id=${client_id}`);
     
                 xhr.onload = () => {
                     if (xhr.status === 200) {
@@ -81,7 +81,7 @@ export const actions = {
                 const formData = new FormData();
                 formData.append('photo', imagedata);
 
-                fetch(`${BASE_URL_VERIFICATION}/imageupload?client_id=${client_id}`, {
+                fetch(`${VERIFICATION_SERVER}/imageupload?client_id=${client_id}`, {
                     method: 'POST',
                     body: formData,
                 })
@@ -105,7 +105,7 @@ export const actions = {
             try {
                 const formData = new FormData();
                 formData.append('video', blobData, 'recorded-video.webm');
-                fetch(`${BASE_URL_VERIFICATION}/videoupload?client_id=${client_id}`, {
+                fetch(`${VERIFICATION_SERVER}/videoupload?client_id=${client_id}`, {
                     method: 'POST',
                     body: formData
                 })

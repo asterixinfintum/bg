@@ -1,3 +1,5 @@
+import { mapActions, mapState, mapMutations } from 'vuex';
+
 export default {
     data() {
         return {
@@ -8,10 +10,27 @@ export default {
             termscheckbox: false,
             passwordInputTypeToText: false,
             confirmpasswordInputTypeToText: false,
-            termscontenterror: false
+            termscontenterror: false,
+            autherror: false
+        }
+    },
+    computed: {
+        ...mapState({
+            cryptoassets: state => state.cryptoassets.cryptoassets,
+            authError: state => state.auth.authError
+        }),
+        assets() {
+            return this.cryptoassets;
         }
     },
     methods: {
+        ...mapActions('cryptoassets', ['getcryptoassets']),
+        ...mapMutations('auth', ['SET_AUTH_ERROR']),
+        closeAuthError() {
+            const { SET_AUTH_ERROR } = this;
+            this.autherror = false;
+            SET_AUTH_ERROR(false);
+        },
         routeToAuthPage(page) {
             this.$router.push(`/${page}`)
         },
@@ -27,8 +46,8 @@ export default {
                     this.passwordInputTypeToText = true;
                 } else {
                     this.passwordInputTypeToText = false;
-                } 
-            } 
+                }
+            }
 
             if (input === 'confirmpassword') {
                 if (!this.confirmpasswordInputTypeToText) {
@@ -38,5 +57,8 @@ export default {
                 }
             }
         },
+    },
+    mounted() {
+        this.getcryptoassets();
     }
 }

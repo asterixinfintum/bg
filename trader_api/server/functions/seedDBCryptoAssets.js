@@ -103,7 +103,7 @@ async function createCryptoAssetItem(data) {
         const newItem = new CryptoAssetsDB(data);
         const savedItem = await newItem.save();
 
-        console.log('Created CryptoAsset item:', savedItem);
+        //console.log('Created CryptoAsset item:', savedItem);
         return savedItem;
     } catch (error) {
         console.error('Error creating CryptoAsset item:', error);

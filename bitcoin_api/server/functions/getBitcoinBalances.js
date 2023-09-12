@@ -8,21 +8,24 @@ async function getBitcoinBalances() {
 
     try {
         const wallets = await Wallet.find();
-        const walletBatches = splitArray(wallets);
 
-        const iterateOverWalletBatches = async () => {
-            await callNode(walletBatches[tracker]);
-            tracker += 1;
+        if (wallets.length) {
+            const walletBatches = splitArray(wallets);
 
-            if (tracker === walletBatches.length) {
-                callClearInterval();
+            const iterateOverWalletBatches = async () => {
+                await callNode(walletBatches[tracker]);
+                tracker += 1;
+
+                if (tracker === walletBatches.length) {
+                    callClearInterval();
+                }
+            };
+
+            timerId = setInterval(iterateOverWalletBatches, 5000);
+
+            function callClearInterval() {
+                clearInterval(timerId);
             }
-        };
-
-        timerId = setInterval(iterateOverWalletBatches, 5000);
-
-        function callClearInterval() {
-            clearInterval(timerId);
         }
 
     } catch (error) {

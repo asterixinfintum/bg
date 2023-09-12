@@ -1,6 +1,6 @@
 import BASE_VARS from './base_vars';
 
-const { BASE_URL, BTC_SERVER } = BASE_VARS;
+const { BTC_SERVER } = BASE_VARS;
 
 export const state = () => ({
     btcaddresses: [],

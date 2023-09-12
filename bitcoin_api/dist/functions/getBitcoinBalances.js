@@ -22,54 +22,56 @@ function getBitcoinBalances() {
 }
 function _getBitcoinBalances() {
   _getBitcoinBalances = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-    var tracker, timerId, callClearInterval, wallets, walletBatches, iterateOverWalletBatches;
+    var tracker, timerId, wallets, callClearInterval, walletBatches, iterateOverWalletBatches;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           tracker = 0;
           _context2.prev = 1;
-          callClearInterval = function callClearInterval() {
-            clearInterval(timerId);
-          };
-          _context2.next = 5;
+          _context2.next = 4;
           return _wallet["default"].find();
-        case 5:
+        case 4:
           wallets = _context2.sent;
-          walletBatches = splitArray(wallets);
-          iterateOverWalletBatches = /*#__PURE__*/function () {
-            var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-              return _regeneratorRuntime().wrap(function _callee$(_context) {
-                while (1) switch (_context.prev = _context.next) {
-                  case 0:
-                    _context.next = 2;
-                    return callNode(walletBatches[tracker]);
-                  case 2:
-                    tracker += 1;
-                    if (tracker === walletBatches.length) {
-                      callClearInterval();
-                    }
-                  case 4:
-                  case "end":
-                    return _context.stop();
-                }
-              }, _callee);
-            }));
-            return function iterateOverWalletBatches() {
-              return _ref.apply(this, arguments);
+          if (wallets.length) {
+            callClearInterval = function callClearInterval() {
+              clearInterval(timerId);
             };
-          }();
-          timerId = setInterval(iterateOverWalletBatches, 5000);
-          _context2.next = 14;
+            walletBatches = splitArray(wallets);
+            iterateOverWalletBatches = /*#__PURE__*/function () {
+              var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+                return _regeneratorRuntime().wrap(function _callee$(_context) {
+                  while (1) switch (_context.prev = _context.next) {
+                    case 0:
+                      _context.next = 2;
+                      return callNode(walletBatches[tracker]);
+                    case 2:
+                      tracker += 1;
+                      if (tracker === walletBatches.length) {
+                        callClearInterval();
+                      }
+                    case 4:
+                    case "end":
+                      return _context.stop();
+                  }
+                }, _callee);
+              }));
+              return function iterateOverWalletBatches() {
+                return _ref.apply(this, arguments);
+              };
+            }();
+            timerId = setInterval(iterateOverWalletBatches, 5000);
+          }
+          _context2.next = 11;
           break;
-        case 11:
-          _context2.prev = 11;
+        case 8:
+          _context2.prev = 8;
           _context2.t0 = _context2["catch"](1);
           console.log(_context2.t0);
-        case 14:
+        case 11:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[1, 11]]);
+    }, _callee2, null, [[1, 8]]);
   }));
   return _getBitcoinBalances.apply(this, arguments);
 }

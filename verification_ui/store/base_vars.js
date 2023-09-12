@@ -2,7 +2,7 @@ let BASE_URL;
 let VERIFICATION_SERVER;
 let DEVELOPMENT;
 
-DEVELOPMENT = false;
+DEVELOPMENT = true;
 
 if (DEVELOPMENT) {
     BASE_URL = 'http://localhost:8080';

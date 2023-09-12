@@ -3,12 +3,12 @@ let BTC_SERVER;
 let VERIFICATION_FRONT;
 let DEVELOPMENT;
 
-DEVELOPMENT = false;
+DEVELOPMENT = true;
 
 if (DEVELOPMENT) {
     BASE_URL = 'http://localhost:8080';
     BTC_SERVER = 'http://localhost:8084';
-    VERIFICATION_FRONT = 'http://localhost:56725'
+    VERIFICATION_FRONT = 'http://localhost:60858'
 } else {
     BASE_URL = 'https://bercfinance.com'
     BTC_SERVER = 'https://bitcoin.bercfinance.com';

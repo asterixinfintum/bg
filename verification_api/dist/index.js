@@ -27,7 +27,8 @@ app.use(_express["default"]["static"]('videos-directory'));
 app.use(_express["default"].urlencoded({
   extended: false
 }));
-app.use((0, _cors["default"])());
+//app.use(cors());
+
 app.use(_express["default"].json());
 app.use(_bodyParser["default"].json());
 app.use(_bodyParser["default"].urlencoded({

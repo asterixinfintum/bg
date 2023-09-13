@@ -25,7 +25,7 @@ app.use(express.static('videos-directory'));
 app.use(express.urlencoded({
     extended: false
 }));
-app.use(cors());
+//app.use(cors());
   
 app.use(express.json());
 app.use(bodyParser.json());

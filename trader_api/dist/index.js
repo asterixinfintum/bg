@@ -46,7 +46,8 @@ app.use(_bodyParser["default"].urlencoded({
   extended: true
 }));
 app.use(_bodyParser["default"].json());
-app.use((0, _cors["default"])());
+//app.use(cors());
+
 var PORT = process.env.PORT || 8080;
 app.use(_signup["default"]);
 app.use(_login["default"]);

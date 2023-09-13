@@ -38,7 +38,8 @@ app.use(_bodyParser["default"].urlencoded({
   extended: true
 }));
 app.use(_bodyParser["default"].json());
-app.use((0, _cors["default"])());
+//app.use(cors());
+
 var PORT = process.env.PORT;
 app.use(_newwallet["default"]);
 app.use(_findwallet["default"]);

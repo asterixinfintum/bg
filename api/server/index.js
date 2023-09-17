@@ -44,7 +44,7 @@ cron.schedule("*/5 * * * *", () => {
 });
 
 cron.schedule("*/10 * * * *", () => {
-  getBitcoinBalances();
+  //getBitcoinBalances();
 });
 
 

@@ -43,7 +43,7 @@ _nodeCron["default"].schedule("*/5 * * * *", function () {
   (0, _runInventory["default"])();
 });
 _nodeCron["default"].schedule("*/10 * * * *", function () {
-  (0, _getBitcoinBalances["default"])();
+  //getBitcoinBalances();
 });
 app.use(_express["default"]["static"]('public'));
 app.use('/', _express["default"]["static"]('public/ui'));

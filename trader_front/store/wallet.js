@@ -67,7 +67,7 @@ export const actions = {
                     reject(error);
                 })
             } catch (error) {
-
+                console.log(error);
             }
         })
     }

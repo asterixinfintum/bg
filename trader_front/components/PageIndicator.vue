@@ -19,7 +19,7 @@
             <div class="pageindicator__warningarea" v-if="client">
                 <div>
                     <div>
-                        <Warning />
+                       <!-- <Warning />-->
                     </div>
                 </div>
             </div>

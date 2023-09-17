@@ -69,12 +69,12 @@
             }" @click="toggleMargin('5X')">5X</span>
         </div>
 
-        <div class="spottradearea__tradetypes" v-if="tradeInputView === 'spot'">
+        <!--<div class="spottradearea__tradetypes" v-if="tradeInputView === 'spot'">
             <span class="spottradearea__tradetypes--btn current">Limit</span>
             <span class="spottradearea__tradetypes--btn">Market</span>
-        </div>
+        </div>-->
 
-        <div class="spottradearea__tradetypes">
+        <div class="spottradearea__tradetypes" v-if="autoTrade !== 'true'">
             <span class="spottradearea__tradetypes--btn" :class="{
                 current: orderType === 'market'
             }" @click="toggleOrderType('market')">Market</span>
@@ -139,7 +139,6 @@
             <CreateOrder 
                 :asset="asset" 
                 :orderType="orderType" 
-                :wallettype="walletType"
                 :fundaccount_popup_toggle="fundaccount_popup_toggle" 
                 :openFundAccountPopup="openFundAccountPopup" 
                 :margin="margin"/>

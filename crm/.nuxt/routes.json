@@ -1,0 +1,121 @@
+[
+  {
+    "name": "activities",
+    "path": "/activities",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\activities.vue",
+    "chunkName": "pages/activities",
+    "_name": "_81e0fdb4"
+  },
+  {
+    "name": "addannouncement",
+    "path": "/addannouncement",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\addannouncement.vue",
+    "chunkName": "pages/addannouncement",
+    "_name": "_babb5302"
+  },
+  {
+    "name": "addcontact",
+    "path": "/addcontact",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\addcontact.vue",
+    "chunkName": "pages/addcontact",
+    "_name": "_41e2a098"
+  },
+  {
+    "name": "addcsv",
+    "path": "/addcsv",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\addcsv.vue",
+    "chunkName": "pages/addcsv",
+    "_name": "_0fd0e904"
+  },
+  {
+    "name": "addlead",
+    "path": "/addlead",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\addlead.vue",
+    "chunkName": "pages/addlead",
+    "_name": "_a7a093d8"
+  },
+  {
+    "name": "announcements",
+    "path": "/announcements",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\announcements.vue",
+    "chunkName": "pages/announcements",
+    "_name": "_7bfd37e3"
+  },
+  {
+    "name": "asset",
+    "path": "/asset",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\asset.vue",
+    "chunkName": "pages/asset",
+    "_name": "_1e953872"
+  },
+  {
+    "name": "assets",
+    "path": "/assets",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\assets.vue",
+    "chunkName": "pages/assets",
+    "_name": "_29a2b63c"
+  },
+  {
+    "name": "createasset",
+    "path": "/createasset",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\createasset.vue",
+    "chunkName": "pages/createasset",
+    "_name": "_82dd99ea"
+  },
+  {
+    "name": "editasset",
+    "path": "/editasset",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\editasset.vue",
+    "chunkName": "pages/editasset",
+    "_name": "_17c8e97d"
+  },
+  {
+    "name": "viewagents",
+    "path": "/viewagents",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\viewagents.vue",
+    "chunkName": "pages/viewagents",
+    "_name": "_67c35b2c"
+  },
+  {
+    "name": "viewcontacts",
+    "path": "/viewcontacts",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\viewcontacts.vue",
+    "chunkName": "pages/viewcontacts",
+    "_name": "_83bead1e"
+  },
+  {
+    "name": "viewleads",
+    "path": "/viewleads",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\viewleads.vue",
+    "chunkName": "pages/viewleads",
+    "_name": "_d6295d2e"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_722de0a9"
+  },
+  {
+    "name": "admin-dashboard",
+    "path": "/admin/:dashboard?",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\admin\\\\_dashboard.vue",
+    "chunkName": "pages/admin/_dashboard",
+    "_name": "_21d3cdbb"
+  },
+  {
+    "name": "client-client_id",
+    "path": "/client/:client_id?",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\client\\\\_client_id.vue",
+    "chunkName": "pages/client/_client_id",
+    "_name": "_26f55494"
+  },
+  {
+    "name": "editclient-client_id",
+    "path": "/editclient/:client_id?",
+    "component": "C:\\\\Users\\\\greg2\\\\Documents\\\\zks\\\\crm-oru-project-2\\\\crm-oru\\\\pages\\\\editclient\\\\_client_id.vue",
+    "chunkName": "pages/editclient/_client_id",
+    "_name": "_242f469e"
+  }
+]

@@ -1,7 +1,7 @@
 <template>
     <div class="popup autotradesettings">
         <div class="popup__body autotradesettings">
-            <span class="popup__close">
+            <span class="popup__close" @click="togglestrategiesState">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="css-3kwgah">
                     <path
                         d="M6.697 4.575L4.575 6.697 9.88 12l-5.304 5.303 2.122 2.122L12 14.12l5.303 5.304 2.122-2.122L14.12 12l5.304-5.303-2.122-2.122L12 9.88 6.697 4.575z"
@@ -36,17 +36,23 @@
                                 </div>
                             </div>
 
-
                             <div v-if="strategies.includes(tradingStrategy.name)">
                                 <div v-for="subStrategy in tradingStrategy.subStrategies">
-                                    <SubStrategy :main="tradingStrategy.name" :sub="subStrategy.name" :subStrategies="subStrategies"
-                                        :toggleSubStrategies="toggleSubStrategies" :options="subStrategy.options" />
+                                    <SubStrategy :main="tradingStrategy.name" :sub="subStrategy.name"
+                                        :subStrategies="subStrategies" :toggleSubStrategies="toggleSubStrategies"
+                                        :options="subStrategy.options" :strategies="strategies" />
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
+            </div>
+
+            <div class="auth__inputarea spottradearea__buybtn">
+                <button class="btn colored-btn padded-btn auth__btn" @click="openAutoTrade" v-if="!loading">Open Trade</button>
+                <button class="btn colored-btn padded-btn dim auth__btn" v-if="loading">
+                        <span class="loader-button"></span>
+                </button>
             </div>
         </div>
     </div>
@@ -57,6 +63,7 @@ import autoTradeSettingsMixin from '@/mixins/autotradesettings';
 import tradingStrategiesMixin from '@/mixins/tradingstrategies';
 
 export default {
-    mixins: [autoTradeSettingsMixin, tradingStrategiesMixin],
+    props: ['togglestrategiesState', 'autoTradeDetails', 'openAutoTrade', 'loading'],
+    mixins: [autoTradeSettingsMixin, tradingStrategiesMixin]
 }
 </script>

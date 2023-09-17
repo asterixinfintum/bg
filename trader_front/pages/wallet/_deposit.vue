@@ -203,7 +203,6 @@ export default {
         }
     },
     methods: {
-        ...mapActions('bitcoinapi', ['newBtcwallet', 'getBtcWallet']),
         selectAsset(asset) {
             this.deposit_asset = asset;
         },
@@ -229,28 +228,34 @@ export default {
     computed: {
         ...mapState({
             client: state => state.auth.client,
+            bitcoinWallets: state => state.auth.client ? state.auth.client.userWalletsBTC : [],
             client_token: state => state.auth.client_token,
-            wallettypes: state => state.wallet.wallettypes,
-            userbtcwallets: state => state.bitcoinapi.btcaddresses
+            wallettypes: state => state.wallet.wallettypes
         }),
         deposit_address() {
-            const { currentpath, userbtcwallets } = this;
+            const { currentpath, bitcoinWallets } = this;
+            let deposit_address;
 
-            if (userbtcwallets.length) {
+            if (bitcoinWallets.length) {
                 if (currentpath === 'fiatandspot') {
-                    const depositAddress = userbtcwallets.filter(userbtcwallet => userbtcwallet.walletType === 'fiat/spot')[0];
-                    return depositAddress.address;
+                    deposit_address = bitcoinWallets.filter(
+                        bitcoinWallet => bitcoinWallet.walletType === 'fiat/spot'
+                    )[0].bitcoinAddress
+
+                    return deposit_address
                 }
 
                 if (currentpath === 'margin') {
-                    const depositAddress = userbtcwallets.filter(userbtcwallet => userbtcwallet.walletType === 'margin')[0];
-                    return depositAddress.address;
+                    deposit_address = bitcoinWallets.filter(
+                        bitcoinWallet => bitcoinWallet.walletType === 'margin'
+                    )[0].bitcoinAddress
+
+
+                    return deposit_address
                 }
-            } else {
-                return null
             }
 
-
+            return null
         },
         currentpath() {
             return this.$route.params.deposit

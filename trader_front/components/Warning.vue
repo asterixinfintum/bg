@@ -7,10 +7,10 @@
             </span>
         </div>-->
         <div class="warning__body">
-            <span class="warning__body--warningtext">Please upload a new ID before the current one expires, or your Binance
+            <span class="warning__body--warningtext">Please upload a new ID before the current one expires, or your
                 account will be restricted to “Withdrawal Only” mode.</span>
             <span>
-                <button class="warning__body--btn btn" @click="generateKeyTokenCall">Start Now > </button>
+                <button class="warning__body--btn btn" @click="$router.push('/identification')">Start Now > </button>
             </span>
         </div>
     </div>
@@ -24,28 +24,6 @@ import BASE_VARS from '@/store/base_vars';
 const { VERIFICATION_FRONT } = BASE_VARS;
 
 export default {
-    props: ['warning_text', 'btn_text'],
-    methods: {
-        ...mapActions('auth', ['generateKeyToken']),
-        generateKeyTokenCall() {
-            this.generateKeyToken()
-                .then(() => {
-                    const { key_token } = this;
-
-                    this.navigateOutWithParams(VERIFICATION_FRONT, key_token)
-                })
-                .catch(err => { console.log(err) })
-        },
-        navigateOutWithParams(item_url, item_param) {
-            const url = `${item_url}/?token=${item_param}`;
-
-            window.open(url, '_blank');
-        }
-    },
-    computed: {
-        ...mapState({
-            key_token: state => state.auth.key_token
-        }),
-    }
+    props: ['warning_text', 'btn_text']
 }
 </script>

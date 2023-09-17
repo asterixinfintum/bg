@@ -129,7 +129,7 @@ import tradeMixin from '@/mixins/trade';
 
 export default {
     props: ['asset'],
-    mixins: [tradeMixin],
+    mixins: [tradeMixin]
 }
 
 </script>

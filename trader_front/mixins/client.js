@@ -13,15 +13,13 @@ export default {
         ...mapState({
           client: state => state.auth.client,
           client_token: state => state.auth.client_token,
-          wallettypes: state => state.wallet.wallettypes,
-          userbtcwallet: state => state.bitcoinapi.btcaddress
+          wallettypes: state => state.wallet.wallettypes
         })
     },  
     methods: {
         ...mapMutations('auth', ['SET_CLIENT', 'SET_CLIENT_TOKEN']),
         ...mapMutations('wallet', ['SET_WALLETS']),
         ...mapActions('wallet', ['getwallettypes', 'getwalletassets']),
-        ...mapActions('bitcoinapi', ['getBtcWallet']),
         getCurrentUser() {
             const token = localStorage.getItem('873__jh6bdjktoken');
 
@@ -41,10 +39,6 @@ export default {
                     const { token, userData } = data;
                     this.SET_CLIENT(userData);
                     this.SET_CLIENT_TOKEN(token);
-
-                    const { getBtcWallet } = this;
-                    getBtcWallet({ ownerId: userData._id, walletType: 'fiat/spot' });
-                    getBtcWallet({ ownerId: userData._id, walletType: 'margin' });
 
                     this.getwallettypes()
                         .then(async (user_wallets) => {

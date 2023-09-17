@@ -1,3 +1,5 @@
+import { mapActions, mapState } from 'vuex';
+
 export default {
     data() {
         return {
@@ -10,11 +12,18 @@ export default {
         }
     },
     methods: {
+        ...mapActions('order', ['removeStrategy']),
         toggleStrategies(strategy) {
             if (this.strategies.includes(strategy)) {
-                const strategies = this.strategies;
-                strategies.pop(strategy);
-                this.strategies = strategies;
+                const strategies = [...this.strategies];
+                const strategiesFilter = strategies.filter(strat => strat !== strategy);
+                this.strategies = [...strategiesFilter];
+
+                const { autotradestrategies, removeStrategy } = this;
+                const autotradestrategiesCopy = [...autotradestrategies];
+                const filter = autotradestrategiesCopy.filter(item => item.strategy !== strategy);
+
+                removeStrategy(filter);
             } else {
                 const strategies = this.strategies;
                 strategies.push(strategy);
@@ -34,6 +43,9 @@ export default {
         }
     },
     computed: {
+        ...mapState({
+            autotradestrategies: state => state.order.autotradestrategies
+        }),
         shortTermMovingAveragePeriodTrackWidth() {
             const { shortTermMovingAveragePeriod } = this;
             return (shortTermMovingAveragePeriod / 100) * 100;

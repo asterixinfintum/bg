@@ -10,9 +10,7 @@ services:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./nginx/data/certs:/etc/nginx/certs
     depends_on:
-      - trader-api
-      - verification-api
-      - bitcoin-api
+      - api
   db:
     container_name: db
     image: mongo
@@ -23,23 +21,9 @@ services:
       - /data-vol:/data/apiswissnordic
       - /data-vol:/data/verificationapi
 
-  trader-api:
-    container_name: trader-api
+  api:
+    container_name: api
     restart: always
-    build: ./trader_api
+    build: ./api
     environment:
       - PORT=8001
-
-  verification-api:
-    container_name: verification-api
-    restart: always
-    build: ./verification_api
-    environment:
-      - PORT=8081
-
-  bitcoin-api:
-    container_name: bitcoin-api
-    restart: always
-    build: ./bitcoin_api
-    environment:
-      - PORT=8084

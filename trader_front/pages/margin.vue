@@ -164,8 +164,7 @@
 
                                 <div class="assetlist">
                                     <div class="assetlist__item fiatandspot"
-                                        v-for="cryptoasset in listByPages[currentPage - 1]"
-                                        @click.stop="navigateToTradePage(`trade?wallet=margin`, cryptoasset._id)">
+                                        v-for="cryptoasset in listByPages[currentPage - 1]">
 
                                         <div class="assetlist__area fiatandspot">
                                             <figure class="assetlist__area--assetlogo">
@@ -191,33 +190,19 @@
 
                                         <div class="assetlist__area fiatandspot number-value">
                                             <p>
-                                                {{
-                                                    returnAssetBalanceOBJ(cryptoasset) ?
-                                                    limitTextLength(`${returnAssetBalanceOBJ(cryptoasset).balanceInDollars}`,
-                                                        10) :
-                                                    `0.00000000`
-                                                }}
+                                                {{ `0.00000000` }}
                                             </p>
                                         </div>
 
                                         <div class="assetlist__area fiatandspot number-value">
                                             <p>
-                                                {{
-                                                    returnAssetBalanceOBJ(cryptoasset) ?
-                                                    limitTextLength(`${returnAssetBalanceOBJ(cryptoasset).balanceInBTC}`, 10) :
-                                                    `0.00000000`
-                                                }}
+                                                {{ `0.00000000` }}
                                             </p>
                                         </div>
 
                                         <div class="assetlist__area fiatandspot number-value">
                                             <p>
-                                                {{
-                                                    returnAssetBalanceOBJ(cryptoasset) ?
-                                                    limitTextLength(`${returnAssetBalanceOBJ(cryptoasset).base.balanceinWallet}`,
-                                                        10) :
-                                                    `0.00000000`
-                                                }}
+                                                {{ `0.00000000` }}
                                             </p>
                                         </div>
 
@@ -226,12 +211,11 @@
                                             <!--<button class="btn color-primary">Buy</button>-->
                                             <!--<button class="btn color-primary">Sell</button>-->
                                             <!--<button class="btn color-primary">Deposit</button>-->
-                                            <button class="btn color-primary">Withdraw</button>
-                                            <button class="btn color-primary">Convert</button>
+                                            <button class="btn color-primary" @click.stop="$router.push('/swap')">Swap/Convert</button>
                                             <button class="btn color-primary"
                                                 @click.stop="navigateToTradePage(`trade?autotrader=false&wallet=margin`, cryptoasset._id)">Trade</button>
                                             <button class="btn color-primary"
-                                                @click.stop="navigateToTradePage(`trade?autotrader=true&wallet=spot`, cryptoasset._id)">AlgoTrade</button>
+                                                @click.stop="navigateToTradePage(`trade?autotrader=true&wallet=margin`, cryptoasset._id)">AlgoTrade</button>
                                             <!--<button class="btn color-primary">Earn</button>-->
                                         </div>
                                     </div>

@@ -2,17 +2,17 @@ import { mapActions, mapState, mapMutations } from 'vuex';
 
 import tradeMixin from '@/mixins/trade';
 import generalutilities from '@/mixins/generalutilities';
+import walletMixin from './wallet';
 
 export default {
     props: [
         'asset',
         'orderType',
-        'wallettype',
         'fundaccount_popup_toggle',
         'openFundAccountPopup',
         'margin'
     ],
-    mixins: [tradeMixin, generalutilities],
+    mixins: [tradeMixin, generalutilities, walletMixin],
     data() {
         return {
             tradingPair: '',
@@ -41,8 +41,12 @@ export default {
             orderDetailsOpen: false,
             order: {},
             submittingOrder: false,
-
-            strategiesOpen: true,
+            strategiesOpen: false,
+            tradeCapitalLimit: 100,
+            autoTradeDetails: {},
+            errorMessage: null,
+            successMessage: null,
+            loading: false
         }
     },
     computed: {
@@ -55,8 +59,14 @@ export default {
 
             return autotrade;
         },
-        walletTradingFrom() {
-            return this.$route.query.wallet;
+        wallettype() {
+            const wallettype = this.$route.query.wallet;
+            if (wallettype === 'margin') {
+                return 'margin'
+            }
+            if (wallettype === 'spot') {
+                return 'fiat/spot'
+            }
         },
         currentTradingWallet() {
             return this.$route.query.wallet;
@@ -80,7 +90,7 @@ export default {
         sellTotal() {
             const { sell_quantity, asset_price } = this;
             return sell_quantity * asset_price;
-        },
+        }
     },
     watch: {
         buy_quantity() {
@@ -90,80 +100,136 @@ export default {
             this.sellError = false;
         },
         sliderBuyValue(newValue, oldValue) {
-            const {
-                toggleSliderPercentage,
-                assetOnRightSideOfOrderPair,
-                returnAssetBalanceOBJ,
-                asset_price_buy
-            } = this;
+            const { autoTrade, asset, assetOnRightSideOfOrderPair, toDecimal, returnAssetBalanceOBJ, tradeCapitalLimit } = this;
 
-            const assetOnRightSideOfOrderPairBalance = returnAssetBalanceOBJ(assetOnRightSideOfOrderPair) ? returnAssetBalanceOBJ(assetOnRightSideOfOrderPair).balanceInDollars : 0;
-            const percentage = (newValue / 100);
+            if (autoTrade === 'true') {
+                if (returnAssetBalanceOBJ(asset)) {
+                    const balance = returnAssetBalanceOBJ(asset).base.balanceinWallet;
+                    const balanceInUsd = returnAssetBalanceOBJ(asset).balanceInDollars;
 
-            if (assetOnRightSideOfOrderPairBalance >= (asset_price_buy * 2)) {
-                const sliderResult = toggleSliderPercentage(percentage, assetOnRightSideOfOrderPairBalance, 'buy');
+                    if (balanceInUsd > tradeCapitalLimit) {
+                        const percQuant = toDecimal(parseInt(newValue));
 
-                this.buy_quantity = sliderResult.quantity;
-                this.buyTotal - sliderResult.amount;
+                        this.buy_quantity = balance * percQuant;
+                    }
+                }
+            } else {
+                if (returnAssetBalanceOBJ(assetOnRightSideOfOrderPair)) {
+                    const balance = returnAssetBalanceOBJ(assetOnRightSideOfOrderPair).base.balanceinWallet;
+                    const balanceInUsd = returnAssetBalanceOBJ(assetOnRightSideOfOrderPair).balanceInDollars;
+
+                    if (balanceInUsd > tradeCapitalLimit) {
+                        const percQuant = toDecimal(parseInt(newValue));
+
+                        this.buy_quantity = balance * percQuant;
+                    }
+                }
             }
         },
         sliderSellValue(newValue, oldValue) {
-            const {
-                toggleSliderPercentage,
-                asset,
-                returnAssetBalanceOBJ,
-                openFundAccountPopup,
-                asset_price_sell
-            } = this;
+            const { asset, toDecimal, returnAssetBalanceOBJ, tradeCapitalLimit } = this;
 
-            const assetOnLeftSideOfOrderPairBalance = returnAssetBalanceOBJ(asset) ? returnAssetBalanceOBJ(asset).balanceInDollars : 0;
-            const percentage = (newValue / 100);
+            if (returnAssetBalanceOBJ(asset)) {
+                const balance = returnAssetBalanceOBJ(asset).base.balanceinWallet;
 
-            if (assetOnLeftSideOfOrderPairBalance === 0 || assetOnLeftSideOfOrderPairBalance < (asset_price_sell * 2)) {
-                return openFundAccountPopup();
-            }
+                if (balance > tradeCapitalLimit) {
+                    const percQuant = toDecimal(parseInt(newValue));
 
-            if (assetOnLeftSideOfOrderPairBalance >= (asset_price_sell * 2)) {
-                const sliderResult = toggleSliderPercentage(percentage, assetOnLeftSideOfOrderPairBalance, 'sell');
-
-                this.sell_quantity = sliderResult.quantity;
-                this.sellTotal - sliderResult.amount;
+                    this.sell_quantity = balance * percQuant;
+                }
             }
         }
     },
     methods: {
         ...mapMutations('order', ['SET_AUTOTRADESTRATEGIES']),
         ...mapActions('order', ['createOrder']),
-        openAutoTradeSettings(side) {
-            const { 
-                asset,
-                assetOnRightSideOfOrderPair,
-                orderType, 
-                buy_quantity, 
-                asset_price_buy, 
-                buyTotal 
-            } = this;
-
-            if (buy_quantity === null || buyTotal === 0) {
-                this.buyError = true
-            } else {
-                if (orderType === 'market') {
-                    const order = {
-                        tradingPair: `${asset.coin}/${assetOnRightSideOfOrderPair.coin}`,
-                        price: asset_price_buy,
-                        quantity: buy_quantity,
-                        side,
-                        total: buyTotal,
-                        autoTrade: true,
-                        type: orderType
-                    }
-                }
+        ...mapActions('order', ['createAutoTrade']),
+        toDecimal(num) {
+            if (num >= 1 && num <= 100) {
+                return num / 100;
             }
         },
+        showAutoTradeSettings() {
+            const { wallettype, margin, orderType, asset, returnAssetBalanceOBJ, tradeCapitalLimit } = this;
+            const {
+                asset_price,
+                buyTotal,
+                buy_quantity,
+                togglestrategiesState
+            } = this;
+
+            if (returnAssetBalanceOBJ(asset)) {
+                if (returnAssetBalanceOBJ(asset).balanceInDollars) {
+                    if (returnAssetBalanceOBJ(asset).balanceInDollars > tradeCapitalLimit) {
+
+                        if (buy_quantity === null || (asset_price * buy_quantity) < tradeCapitalLimit) {
+                            return this.errorMessage = `trades must start with at least $${tradeCapitalLimit} in your ${wallettype} wallet`;
+                        }
+
+                        const autoTradeDetails = {
+                            wallettype,
+                            orderType,
+                            assetPriceAtCreation: asset_price,
+                            quantityAtCreation: buy_quantity,
+                            capital: buyTotal,
+                            assetBalanceUSD: returnAssetBalanceOBJ(asset).balanceInDollars,
+                            assetBalance: returnAssetBalanceOBJ(asset).base.balanceinWallet,
+                            assetId: asset._id
+                        }
+
+                        if (wallettype === 'margin') {
+                            autoTradeDetails.margin = margin
+                        }
 
 
+                        this.autoTradeDetails = autoTradeDetails
+                        togglestrategiesState();
+
+                    } else {
+                        return this.errorMessage = `you must have more than $${tradeCapitalLimit} available in your ${wallettype} wallet to autotrade`
+                    }
+                } else {
+                    return this.errorMessage = `you must have more than $${tradeCapitalLimit} available in your ${wallettype} wallet to autotrade`;
+                }
 
 
+            } else {
+                return this.errorMessage = `you must have more than $${tradeCapitalLimit} available in your ${wallettype} wallet to autotrade`;
+            }
+        },
+        openAutoTrade() {
+            const { createAutoTrade, autoTradeDetails, autotradestrategies } = this;
+            this.loading = true;
+            createAutoTrade({...autoTradeDetails, ...{ autotradestrategies }})
+                .then(() => {
+                    this.strategiesOpen = false;
+                    this.loading = false;
+                    this.successMessage = 'auto trade opened';
+
+                })
+                .catch(err => {
+                    alert('error')
+                })
+        },
+        togglestrategiesState() {
+            this.strategiesOpen ? this.strategiesOpen = false : this.strategiesOpen = true;
+        },
+        closeError() {
+            this.errorMessage = null
+        },
+        closeSuccess() {
+            this.successMessage = null;
+        },
+
+        checkInputs(side) {
+            const {
+                triggerpricebuy,
+                buy_quantity,
+                asset_price_buy,
+                optimalPrice,
+
+            } = this;
+        },
         toggleorderDetailsOpen(side) {
             if (side === 'buy') {
                 this.triggerbuyAssetMarket(side);
@@ -173,102 +239,10 @@ export default {
                 this.triggersellAssetMarket(side)
             }
 
-            this.checkInputs();
-        },
-
-
-
-
-
-
-
-
-
-
-
-
-
-        togglestrategiesState() {
-            this.strategiesOpen ? this.strategiesOpen = false : this.strategiesOpen = true;
-        },
-
-        checkInputs() {
-            if (this.order.quantity) {
-                return this.orderDetailsOpen ? this.orderDetailsOpen = false : this.orderDetailsOpen = true;
-            } else {
-                alert('incomplete details')
-            }
+            //this.checkInputs();
         },
         getRandomMillisecs() {
             return Math.floor(Math.random() * 114000) + 6000;
-        },
-        triggerbuyAssetMarket(side) {
-            const { buy_quantity, asset, assetOnRightSideOfOrderPair, orderType, asset_price_buy, triggerpricebuy, walletTradingFrom, getRandomMillisecs } = this;
-
-            const order = {
-                tradingPair: `${asset.coin}/${assetOnRightSideOfOrderPair.coin}`,
-                type: orderType,
-                side,
-                quantity: buy_quantity,
-                price: asset.price,
-                limitPrice: orderType === 'limit' ? asset_price_buy : false,
-                triggerPrice: orderType === 'stop limit' ? triggerpricebuy : false,
-                executeIn: getRandomMillisecs(),
-                wallet: walletTradingFrom
-            };
-
-            console.log(this.$route)
-
-            this.order = order;
-        },
-        triggersellAssetMarket(side) {
-            const { sell_quantity, asset, assetOnRightSideOfOrderPair, orderType, asset_price_sell, triggerpricesell, walletTradingFrom, getRandomMillisecs } = this;
-
-            const order = {
-                tradingPair: `${asset.coin}/${assetOnRightSideOfOrderPair.coin}`,
-                type: orderType,
-                side,
-                quantity: sell_quantity,
-                price: asset.price,
-                limitPrice: orderType === 'limit' ? asset_price_sell : false,
-                triggerPrice: orderType === 'stop limit' ? triggerpricesell : false,
-                executeIn: getRandomMillisecs(),
-                wallet: walletTradingFrom
-            };
-
-            this.order = order;
-        },
-        createMarketOrder() {
-            const { createOrder, order } = this;
-            this.submittingOrder = true;
-            createOrder(order)
-                .then(() => {
-                    this.submittingOrder = false;
-                    window.location.reload();
-                })
-                .catch(err => {
-                    console.log(error)
-                })
-        },
-        triggerSellOrder() {
-            const { sell_quantity, asset, reserveCurrency, orderType } = this;
-
-            const order = {
-                tradingPair: `${asset.coin}/${reserveCurrency}`,
-                type: orderType,
-                side: 'sell',
-                quantity: sell_quantity,
-                price: asset.price
-            }
-
-            if (!sell_quantity) {
-                this.sellError = true;
-                return;
-            }
-
-            if (sell_quantity) {
-                console.log(order)
-            }
         },
         toggleSliderPercentage(percentage, assetBalance, side) {
             const { asset } = this;

@@ -138,7 +138,7 @@
             </div>
 
             <div class="sidenav__item"
-                @click="generateKeyTokenCall"
+            @click="navigateToPage('identification')"
                 :class="{ 'current': currentRoute === 'verification' }">
                 <div class="sidenav__item--svg">
                     <span>

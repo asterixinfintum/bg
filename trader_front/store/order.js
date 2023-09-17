@@ -15,30 +15,58 @@ export const mutations = {
     SET_ORDER(state, data) {
         state.item = data;
     },
-    ADD_AUTOTRADESTRATEGIES(state, data) {
-        state.autotradestrategies.push(data)
+    SET_AUTOTRADESTRATEGIES(state, data) {
+        state.autotradestrategies = data;
     },
-    UPDATE_AUTOTRADESTRATEGIES(state, { itemIndex }) {
-        state.autotradestrategies.splice(itemIndex, 1);
+    SET_AUTOTRADESTRATEGIESARRAY(state, data) {
+        state.autotradestrategies = data;
     }
 }
 
 export const actions = {
     addAutoTradeStrategy({ commit, state }, subStrategyData) {
-        const sub = subStrategyData.substrategy;
+        const { autotradestrategies } = state;
 
-        const itemIndex = state.autotradestrategies.findIndex(
-            item => item.substrategy === sub
-        );
-
-        if (itemIndex >= 0) {
-            commit('UPDATE_AUTOTRADESTRATEGIES', itemIndex)
-        }
-        
-        commit('ADD_AUTOTRADESTRATEGIES', subStrategyData);
-
+        const strategies = autotradestrategies;
+        const filter = strategies.filter(strat => strat.substrategy !== subStrategyData.substrategy);
+        const update = [...[subStrategyData], ...filter];
+        commit('SET_AUTOTRADESTRATEGIES', update);
     },
-    async createOrder({ commit }, order) {
+    removeStrategy({ commit }, filter) {
+        commit('SET_AUTOTRADESTRATEGIESARRAY', filter);
+    },
+    async createAutoTrade({ commit }, autoTrade) {
+        return new Promise((resolve, reject) => {
+            try {
+                const token = localStorage.getItem('873__jh6bdjktoken');
+
+                fetch(`${BASE_URL}/createautotrade`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(autoTrade)
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        resolve(data);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        reject(error)
+                    })
+            } catch (error) {
+                console.log(error);
+            }
+        });
+    },
+    async createTrade({ commit }, trade) {
+        return new Promise((resolve, reject) => {
+
+        });
+    },
+    /*async createOrder({ commit }, order) {
         return new Promise((resolve, reject) => {
             try {
                 const token = localStorage.getItem('873__jh6bdjktoken');
@@ -88,5 +116,5 @@ export const actions = {
                 console.log(error);
             }
         });
-    }
+    }*/
 }

@@ -102,8 +102,7 @@
 
                                 <div class="assetlist">
                                     <div class="assetlist__item fiatandspot" 
-                                        v-for="cryptoasset in listByPages[currentPage-1]" 
-                                        @click.stop="navigateToTradePage(`trade?wallet=spot`, cryptoasset._id)">
+                                        v-for="cryptoasset in listByPages[currentPage-1]">
 
                                         <div class="assetlist__area fiatandspot">
                                             <figure class="assetlist__area--assetlogo">
@@ -160,8 +159,7 @@
                                             <!--<button class="btn color-primary">Buy</button>-->
                                             <!--<button class="btn color-primary">Sell</button>-->
                                             <!--<button class="btn color-primary">Deposit</button>-->
-                                            <button class="btn color-primary">Withdraw</button>
-                                            <button class="btn color-primary">Convert</button>
+                                            <button class="btn color-primary" @click.stop="$router.push('/swap')">Swap/Convert</button>
                                             <button class="btn color-primary" @click.stop="navigateToTradePage(`trade?autotrader=false&wallet=spot`, cryptoasset._id)">Trade</button>
                                             <button class="btn color-primary" @click.stop="navigateToTradePage(`trade?autotrader=true&wallet=spot`, cryptoasset._id)">AlgoTrade</button>
                                             <!--<button class="btn color-primary">Earn</button>-->

@@ -11,19 +11,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions('auth', ['generateKeyToken']),
         formatDate(dateStr) {
             const date = new Date(dateStr);
             return date.toLocaleString('en-US', { month: 'long', day: 'numeric' });
-        },
-        generateKeyTokenCall() {
-            this.generateKeyToken()
-                .then(() => {
-                    const { key_token } = this;
-                    
-                    this.navigateOutWithParams(VERIFICATION_FRONT, key_token)
-                })
-                .catch(err => { console.log(err) })
         },
         navigateToPage(page, id) {
             this.$router.push(`/${page}`)

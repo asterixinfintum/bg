@@ -5,11 +5,15 @@
 
     &__body {
         padding: 0 #{scaleValue(20)};
+        position: relative;
+        z-index: 11;
     }
 
     &__top {
         height: #{scaleValue(1080)};
         overflow: hidden;
+        position: relative;
+        z-index: 30;
     }
 
     &__headertogglearea {
@@ -49,9 +53,7 @@
         }
     }
 
-    &__headerareaitem {
-
-    }
+    &__headerareaitem {}
 
     &__bottom {
         margin-top: #{scaleValue(20)};
@@ -93,7 +95,7 @@
 
         &--span2 {
             display: inline-block;
-            margin: 0  #{scaleValue(8)};
+            margin: 0 #{scaleValue(8)};
         }
 
         &--span3 {

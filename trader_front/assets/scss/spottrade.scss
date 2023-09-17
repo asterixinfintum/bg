@@ -48,7 +48,7 @@
         }
 
         &.notcurrent {
-            
+
             & h2 {
                 color: $white
             }
@@ -235,14 +235,18 @@
         padding: #{scaleValue(10)} #{scaleValue(12)};
         display: flex;
         justify-content: space-between;
+
+        &.autotrade {
+            justify-content: center;
+        }
     }
 
     &__inputsection {
         flex-shrink: 0;
         width: $arbsec-width;
 
-        &:nth-child(1) {
-            //border-right: $border;
+        &.autotrade {
+            width: $arbsec-width-double;
         }
 
         &--inputarea {
@@ -255,6 +259,10 @@
             border-radius: #{scaleValue(6)};
             margin-bottom: #{scaleValue(12)};
             justify-content: flex-end;
+
+            &.autotrade {
+                width: $arbsec-width-double;
+            }
 
             &:hover {
                 border: $colored-border;
@@ -371,6 +379,14 @@
 
             &.sell {
                 background: $red;
+            }
+        }
+
+        &.autotrade {
+            width: $arbsec-width-double;
+
+            & button {
+                background: $primary-color;
             }
         }
     }

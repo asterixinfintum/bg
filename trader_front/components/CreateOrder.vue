@@ -1,5 +1,5 @@
 <template>
-    <div class="spottradearea__inputsections">
+    <div class="spottradearea__inputsections" :class="{ autotrade: autoTrade === 'true' }">
 
 
         <!--<div class="popup" v-if="orderDetailsOpen">
@@ -105,13 +105,38 @@
         </div>-->
 
         <div v-if="strategiesOpen">
-            <AutoTradeSettings />
+            <AutoTradeSettings 
+                :togglestrategiesState="togglestrategiesState"
+                :autoTradeDetails="autoTradeDetails"
+                :openAutoTrade="openAutoTrade"
+                :loading="loading"/>
         </div>
 
-        <div class="spottradearea__inputsection">
+        <div v-if="successMessage">
+            <Done 
+                :successMessage="successMessage" 
+                :closeSuccess="closeSuccess"/>
+        </div>
+
+        <div v-if="errorMessage">
+            <ErrorPopup :error="errorMessage" :close="closeError" />
+        </div>
+
+        <div class="spottradearea__inputsection" :class="{ autotrade: autoTrade === 'true' }">
             <div class="spottradearea__balance">
-                <span class="spottradearea__balance--label">Avbl</span><span class="spottradearea__balance--value">{{ returnAssetBalanceOBJ(assetOnRightSideOfOrderPair) ? limitTextLength(`${returnAssetBalanceOBJ(assetOnRightSideOfOrderPair).base.balanceinWallet}`, 10) : 0.00 }} {{ assetOnRightSideOfOrderPair.coin }}</span>
-                <span class="spottradearea__balance--value opacity-dim">{{ returnAssetBalanceOBJ(assetOnRightSideOfOrderPair) ? limitTextLength(`($${returnAssetBalanceOBJ(assetOnRightSideOfOrderPair).balanceInDollars})`, 10) : `$0.00` }}</span>
+                <div v-if="autoTrade !== 'true'">
+                    <span class="spottradearea__balance--label">Avbl</span>
+                    <span class="spottradearea__balance--value">{{ returnAssetBalanceOBJ(assetOnRightSideOfOrderPair) ? limitTextLength(`${returnAssetBalanceOBJ(assetOnRightSideOfOrderPair).base.balanceinWallet}`, 10) : 0.00 }} {{ assetOnRightSideOfOrderPair.coin }}</span>
+                    <span class="spottradearea__balance--value opacity-dim">{{ returnAssetBalanceOBJ(assetOnRightSideOfOrderPair) ? limitTextLength(`($${returnAssetBalanceOBJ(assetOnRightSideOfOrderPair).balanceInDollars})`, 10) : `$0.00` }}</span>
+                </div>
+
+                <div v-if="autoTrade === 'true'">
+                    <span class="spottradearea__balance--label">Avbl</span>
+                    <span class="spottradearea__balance--value">{{ returnAssetBalanceOBJ(asset) ? limitTextLength(`${returnAssetBalanceOBJ(asset).base.balanceinWallet}`, 10) : 0.00 }} {{ asset.coin }}</span>
+                    <span class="spottradearea__balance--value opacity-dim">{{ returnAssetBalanceOBJ(asset) ? limitTextLength(`($${returnAssetBalanceOBJ(asset).balanceInDollars})`, 10) : `$0.00` }}</span>
+                </div>
+
+
                 <span class="spottradearea__balance--svg" @click="fundaccount_popup_toggle">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" cursor="pointer"
                         class="css-12oo3on">
@@ -122,7 +147,7 @@
                 </span>
             </div>
 
-            <div class="spottradearea__inputsection--inputarea" v-if="orderType === 'stop limit'">
+            <div class="spottradearea__inputsection--inputarea" v-if="orderType === 'stop limit'" :class="{ autotrade: autoTrade === 'true' }">
                 <input class="spottradearea__inputsection--input" placeholder="Trigger price" type="number"
                     v-model="triggerpricebuy" />
                 <span class="spottradearea__inputsection--placeholder">Trigger price</span>
@@ -131,7 +156,7 @@
                 </div>
             </div>
 
-            <div class="spottradearea__inputsection--inputarea" v-if="orderType === 'stop limit'">
+            <div class="spottradearea__inputsection--inputarea" v-if="orderType === 'stop limit'" :class="{ autotrade: autoTrade === 'true' }">
                 <input class="spottradearea__inputsection--input" placeholder="Price" type="number" v-model="asset_price_buy" />
                 <span class="spottradearea__inputsection--placeholder">Price</span>
                 <div class="spottradearea__inputsection--labels">
@@ -139,7 +164,7 @@
                 </div>
             </div>
 
-            <div class="spottradearea__inputsection--inputarea" v-if="orderType === 'limit'">
+            <div class="spottradearea__inputsection--inputarea" v-if="orderType === 'limit'" :class="{ autotrade: autoTrade === 'true' }">
                 <input class="spottradearea__inputsection--input" placeholder="Price" type="number" v-model="asset_price_buy" />
                 <span class="spottradearea__inputsection--placeholder">Price</span>
                 <div class="spottradearea__inputsection--labels">
@@ -147,7 +172,7 @@
                 </div>
             </div>
 
-            <div class="spottradearea__inputsection--inputarea market-optimal" v-if="orderType === 'market'">
+            <div class="spottradearea__inputsection--inputarea market-optimal" v-if="orderType === 'market'" :class="{ autotrade: autoTrade === 'true' }">
                 <input class="spottradearea__inputsection--input" placeholder="Price" type="text" v-model="optimalPrice" />
                 <span class="spottradearea__inputsection--placeholder">Price</span>
                 <div class="spottradearea__inputsection--labels">
@@ -156,7 +181,8 @@
             </div>
 
             <div class="spottradearea__inputsection--inputarea" :class="{
-                error: buyError
+                error: buyError,
+                autotrade: autoTrade === 'true'
             }">
                 <input class="spottradearea__inputsection--input" placeholder="Amount" type="number"
                     v-model="buy_quantity" />
@@ -174,14 +200,14 @@
                             <div class="spottradearea__slidertrack buy" :style="{ width: buyTrackWidth + '%' }"></div>
                             <div class="spottradearea__sliderthumb" :style="{ left: buyThumbPosition + '%' }"></div>
                         </div>
-                        <input type="range" min="0" max="100" v-model="sliderBuyValue" class="spottradearea__sliderinput">
+                        <input type="range" min="0" max="100" v-model="sliderBuyValue" class="spottradearea__sliderinput" :class="{ autotrade: autoTrade === 'true' }">
                     </div>
                     <p class="spottradearea__slidervalue buy">{{ sliderBuyValue }}%</p>
                 </div>
 
             </div>
 
-            <div class="spottradearea__inputsection--inputarea">
+            <div class="spottradearea__inputsection--inputarea" :class="{ autotrade: autoTrade === 'true' }">
                 <input class="spottradearea__inputsection--input" placeholder="Amount" type="number" v-model="buyTotal" />
                 <span class="spottradearea__inputsection--placeholder">Total</span>
                 <div class="spottradearea__inputsection--labels">
@@ -189,24 +215,24 @@
                 </div>
             </div>
 
-            <div class="spottradearea__buybtn" v-if="orderType === 'market' && autoTrade === 'true'">
-                <button class="btn" @click="openAutoTradeSettings('buy')">Open Autotrade for {{ asset.coin }}</button>
+            <div class="spottradearea__buybtn" v-if="orderType === 'market' && autoTrade === 'true'" :class="{ autotrade: autoTrade === 'true' }">
+                <button class="btn" @click="showAutoTradeSettings">Open Autotrade for {{ asset.coin }}</button>
             </div>
 
-            <div class="spottradearea__buybtn" v-if="orderType !== 'market' && autoTrade === 'true'">
-                <button class="btn" @click="openAutoTradeSettings('buy')">Open Autotrade for {{ asset.coin }}</button>
+            <div class="spottradearea__buybtn" v-if="orderType !== 'market' && autoTrade === 'true'" :class="{ autotrade: autoTrade === 'true' }">
+                <button class="btn" @click="showAutoTradeSettings">Open Autotrade for {{ asset.coin }}</button>
             </div>
 
             <div class="spottradearea__buybtn" v-if="orderType === 'market' && autoTrade !== 'true'">
-                <button class="btn" @click="toggleorderDetailsOpen('buy')">Buy {{ asset.coin }}</button>
+                <button class="btn">Buy {{ asset.coin }}</button>
             </div>
 
             <div class="spottradearea__buybtn" v-if="orderType !== 'market' && autoTrade !== 'true'">
-                <button class="btn" @click="toggleorderDetailsOpen('buy')">Buy {{ asset.coin }}</button>
+                <button class="btn">Buy {{ asset.coin }}</button>
             </div>
         </div>
 
-        <div class="spottradearea__inputsection">
+        <div class="spottradearea__inputsection" v-if="autoTrade === 'false'">
             <div class="spottradearea__balance">
                 <span class="spottradearea__balance--label">Avbl</span>
                 <span class="spottradearea__balance--value">{{ returnAssetBalanceOBJ(asset) ? limitTextLength(`${returnAssetBalanceOBJ(asset).base.balanceinWallet}`, 10) : 0.00 }} {{ asset.coin }}</span>

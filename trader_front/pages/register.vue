@@ -146,7 +146,6 @@ export default {
     },
     methods: {
         ...mapActions('auth', ['checkDuplicate', 'signup']),
-        ...mapActions('bitcoinapi', ['newBtcwallet']),
         toggleView() {
             if (this.view === 'emailPhoneView') {
                 if (!this.email || !this.phonenumber || !this.termscheckbox) {
@@ -229,17 +228,8 @@ export default {
             };
 
             this.signup(credentials)
-                .then(async (data) => {
-                    const ownerId = data.userData._id;
-                    const { newBtcwallet, bitcoinAssetId } = this;
-                    const marginWallet = await newBtcwallet({ ownerId, walletType: 'margin', assetIdInTraderDB: bitcoinAssetId });
-                    const fiatSpotWallet = await newBtcwallet({ ownerId, walletType: 'fiat/spot', assetIdInTraderDB: bitcoinAssetId });
-
-                    if (marginWallet.address && fiatSpotWallet.address) {
-                        this.$router.push('/overview');
-                    } else {
-                        console.log('error')
-                    }
+                .then(() => {
+                    this.$router.push('/overview');
                 })
                 .catch(error => {
                     console.log(error);

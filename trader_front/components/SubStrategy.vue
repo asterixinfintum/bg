@@ -19,7 +19,8 @@
                     <div class="autotradesettings__option sub-option">
                         <label class="autotradesettings__option--label">{{ option }}</label>
                         <div class="autotradesettings__option--inputarea">
-                            <input type="number" :name="option" @input="handleInput" :value="subStrategyData[`${option}`]"/>
+                            <input type="number" :name="option" @input="handleInput"
+                                :value="subStrategyData[`${option}`]" />
                         </div>
                     </div>
 
@@ -34,10 +35,8 @@
                                     <div class="autotradesettings__sliderthumb"
                                         :style="{ left: calculateSliderWidth(subStrategyData[`${option}`]) + '%' }"></div>
                                 </div>
-                                <input type="range" min="0" max="100" 
-                                    @input="(event) => handleSlideInput(event, option)"
-                                    :value="subStrategyData[`${option}`]"
-                                    class="autotradesettings__sliderinput">
+                                <input type="range" min="0" max="100" @input="(event) => handleSlideInput(event, option)"
+                                    :value="subStrategyData[`${option}`]" class="autotradesettings__sliderinput">
                             </div>
                         </div>
                     </div>
@@ -50,7 +49,7 @@
 </template>
 
 <script>
-import { mapActions, mapState, mapMutations } from 'vuex';
+import { mapActions, mapState } from 'vuex';
 
 export default {
     data() {
@@ -64,40 +63,36 @@ export default {
         'options',
         'subStrategies',
         'toggleSubStrategies',
+        'strategies'
     ],
-    computed: {
-        ...mapState({
-            autotradestrategies: state => state.order.autotradestrategies
-        })
-    },
     methods: {
         ...mapActions('order', ['addAutoTradeStrategy']),
         handleInput(event) {
             const { main, sub, addAutoTradeStrategy } = this;
             const name = event.srcElement.name;
             const value = event.target.value;
-            const subStrategyData = this.subStrategyData;
+            const subStrategyDataCopy = { ...this.subStrategyData };
 
-            subStrategyData.strategy = main;
-            subStrategyData.substrategy = sub
-            subStrategyData[`${name}`] = value;
-            this.subStrategyData = subStrategyData;
+            subStrategyDataCopy.strategy = main;
+            subStrategyDataCopy.substrategy = sub
+            subStrategyDataCopy[`${name}`] = value;
+            this.subStrategyData = subStrategyDataCopy;
 
-            //addAutoTradeStrategy(this.subStrategyData);
+            addAutoTradeStrategy(subStrategyDataCopy);
         },
         handleSlideInput(event, name) {
             const { main, sub, addAutoTradeStrategy } = this;
             const value = event.target.value;
-            const subStrategyData = this.subStrategyData;
+            const subStrategyDataCopy = { ...this.subStrategyData };
 
-            subStrategyData.strategy = main;
-            subStrategyData.substrategy = sub
-            subStrategyData[`${name}`] = value;
-            this.subStrategyData = subStrategyData;
+            subStrategyDataCopy.strategy = main;
+            subStrategyDataCopy.substrategy = sub
+            subStrategyDataCopy[`${name}`] = value;
+            this.subStrategyData = subStrategyDataCopy;
 
-            //addAutoTradeStrategy(this.subStrategyData);
+            addAutoTradeStrategy(subStrategyDataCopy);
         },
-        initSubStrategy () {
+        initSubStrategy() {
             const { main, sub, options } = this;
             const subStrategyData = { strategy: main, substrategy: sub }
 
@@ -111,7 +106,14 @@ export default {
             return (parseInt(option) / 100) * 100;
         }
     },
-    watch: {},
+    watch: {
+        strategies(newval, oldval) {
+            const { main } = this;
+            if (!newval.includes(main)) {
+                this.initSubStrategy();
+            }
+        }
+    },
     mounted() {
         this.initSubStrategy();
     }

@@ -99,32 +99,6 @@ export const actions = {
         });
     });
   },
-  async generateKeyToken({ commit }) {
-    return new Promise((resolve, reject) => {
-      try {
-        const token = localStorage.getItem('873__jh6bdjktoken');
-
-        fetch(`${BASE_URL}/generatekeytoken`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        })
-          .then(response => response.json())
-          .then(data => {
-            resolve(data.keytoken)
-
-            commit('SET_KEY_TOKEN', data.keytoken);
-          })
-          .catch(error => {
-            console.log(error)
-          })
-
-      } catch (error) {
-        console.log(error)
-      }
-    })
-  },
   async logout({ commit }) {
     return new Promise((resolve, reject) => {
       try {

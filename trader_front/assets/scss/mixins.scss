@@ -83,6 +83,10 @@
     -webkit-transition: .2s;
     transition: opacity .2s;
 
+    &.autotrade {
+        width: $arbsec-width-double;
+    }
+
     &::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;

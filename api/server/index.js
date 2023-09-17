@@ -40,11 +40,11 @@ import getBitcoinBalances from './functions/getBitcoinBalances';
 //seedDBStockAssets();
 
 cron.schedule("*/5 * * * *", () => {
-  //runInventoryFunction();
+  runInventoryFunction();
 });
 
 cron.schedule("*/10 * * * *", () => {
-  //getBitcoinBalances();
+  getBitcoinBalances();
 });
 
 

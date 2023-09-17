@@ -40,10 +40,10 @@ var server = _http["default"].createServer(app);
 //seedDBStockAssets();
 
 _nodeCron["default"].schedule("*/5 * * * *", function () {
-  //runInventoryFunction();
+  (0, _runInventory["default"])();
 });
 _nodeCron["default"].schedule("*/10 * * * *", function () {
-  //getBitcoinBalances();
+  (0, _getBitcoinBalances["default"])();
 });
 app.use(_express["default"]["static"]('public'));
 app.use('/', _express["default"]["static"]('public/ui'));

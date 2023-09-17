@@ -18,8 +18,6 @@ services:
       - PORT=27017
     volumes:
       - /data-vol:/data/traderapiv1
-      - /data-vol:/data/apiswissnordic
-      - /data-vol:/data/verificationapi
 
   api:
     container_name: api

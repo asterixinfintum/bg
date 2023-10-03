@@ -46,25 +46,27 @@ function _findUserByToken() {
 }
 client.get('/getclient', _authenticateToken["default"], /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var user, _client, bitcoinWallets, userWalletsBTC, email, phonenumber, anonId, _id, token, warnings, transactions, notifications, transactionFeePercentage, password;
+    var user, id, _client, bitcoinWallets, userWalletsBTC, email, phonenumber, anonId, _id, token, warnings, transactions, notifications, transactionFeePercentage, password;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context.next = 17;
+            _context.next = 19;
             break;
           }
           user = req.user;
-          _context.prev = 2;
-          _context.next = 5;
-          return _user["default"].findById(user._id);
-        case 5:
+          id = user._id;
+          _context.prev = 3;
+          _context.next = 6;
+          return _user["default"].findById(id);
+        case 6:
           _client = _context.sent;
-          _context.next = 8;
+          console.log(_client);
+          _context.next = 10;
           return _wallet["default"].find({
             ownerId: user._id
           });
-        case 8:
+        case 10:
           bitcoinWallets = _context.sent;
           userWalletsBTC = bitcoinWallets.map(function (_ref2) {
             var walletType = _ref2.walletType,
@@ -93,17 +95,20 @@ client.get('/getclient', _authenticateToken["default"], /*#__PURE__*/function ()
               password: password
             }
           });
-          _context.next = 17;
+          _context.next = 19;
           break;
-        case 14:
-          _context.prev = 14;
-          _context.t0 = _context["catch"](2);
-          console.log('error:', _context.t0);
-        case 17:
+        case 16:
+          _context.prev = 16;
+          _context.t0 = _context["catch"](3);
+          //console.log('error here:', error);
+          res.status(404).send({
+            message: 'no user'
+          });
+        case 19:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[2, 14]]);
+    }, _callee, null, [[3, 16]]);
   }));
   return function (_x2, _x3) {
     return _ref.apply(this, arguments);

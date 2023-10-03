@@ -4,7 +4,7 @@
             <div class="transactionstyle__subject">
                 <div></div>
                 <div class="transactionstyle__subject--name">
-                    <h3>BERC</h3>
+                    <h3>BVX</h3>
                 </div>
                 <div>
                     <span class="popup__close" @click="close">

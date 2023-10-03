@@ -27,14 +27,14 @@ async function seedDBCryptoAssets() {
             ];
 
             for (let cryptoassetObj of cryptoassets) {
-                const { name, coin, networkList } = cryptoassetObj.data;
+                const { name, coin } = cryptoassetObj.data;
 
                 const cryptoassetsprice = cryptoassetsprices.filter(item => getCharactersBeforeUnderscore(item.data.symbol) === coin && topThirty.includes(coin));
                 const cryptoassetsticker = cryptoassetstickers.filter(item => getCharactersBeforeUnderscore(item.data.symbol) === coin && topThirty.includes(coin));
 
                 if (cryptoassetsprice[0] !== undefined && cryptoassetsticker[0] !== undefined) {
 
-                    const { symbol, price, time, dailyChange, ts } = cryptoassetsprice[0].data;
+                    const { symbol, price, time } = cryptoassetsprice[0].data;
                     const {
                         open,
                         low,
@@ -59,8 +59,6 @@ async function seedDBCryptoAssets() {
                         symbol,
                         price,
                         time,
-                        dailyChange,
-                        ts,
                         open,
                         low,
                         high,
@@ -75,8 +73,7 @@ async function seedDBCryptoAssets() {
                         bidQuantity,
                         ask,
                         askQuantity,
-                        markPrice,
-                        networkList
+                        markPrice
                     }
 
                     createCryptoAssetItem(cryptoAssetDB);

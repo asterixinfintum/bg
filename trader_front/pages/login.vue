@@ -4,7 +4,7 @@
             <div class="header__left">
                 <div class="header__logo" @click="$router.push('/')">
                     <figure></figure>
-                    <p>BERC</p>
+                    <p>BVX</p>
                 </div>
             </div>
         </div>
@@ -46,7 +46,8 @@
                         </div>
 
                         <div class="auth__inputarea" @click="checkFormCompletion">
-                            <button class="btn colored-btn padded-btn auth__btn">Login</button>
+                            <button class="btn colored-btn padded-btn auth__btn" v-if="!loading">Login</button>
+                            <button class="loader-button" v-if="loading"></button>
                         </div>
 
                         <div class="auth__termsdescription">
@@ -71,7 +72,9 @@ import { mapActions } from 'vuex';
 
 export default {
     data() {
-        return {}
+        return {
+            loading: false
+        }
     },
     mixins: [auth],
     computed: {
@@ -107,8 +110,10 @@ export default {
                 password
             };
 
+            this.loading = true;
             this.login(credentials)
                 .then(data => {
+                    this.loading = false;
                     this.$router.push('/overview');
                 })
                 .catch(error => {

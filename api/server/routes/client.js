@@ -20,9 +20,11 @@ async function findUserByToken(token) {
 client.get('/getclient', authenticateToken, async (req, res) => {
     if (req.user && req.user._id) {
         const user = req.user;
+        const id = user._id
         
         try {
-            const client = await User.findById(user._id);
+            const client = await User.findById(id);
+            console.log(client);
             const bitcoinWallets = await Wallet.find({ ownerId: user._id });
             const userWalletsBTC = bitcoinWallets.map(({ walletType, bitcoinAddress, balance }) => {
                 return  { walletType, bitcoinAddress, balance }
@@ -59,7 +61,8 @@ client.get('/getclient', authenticateToken, async (req, res) => {
             });
 
         } catch (error) {
-            console.log('error:', error)
+            //console.log('error here:', error);
+            res.status(404).send({ message: 'no user' });
         }
     }
 });

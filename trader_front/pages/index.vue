@@ -96,7 +96,7 @@
 
                             <div class="landing__jumbotronbottom--left-sub landing__copyfontstyle">
                                 <p>Markets pulse through our veins. With two </p>
-                                <p>decades under our belt, bvxe has empowered</p>
+                                <p>decades under our belt, bvx has empowered</p>
                                 <p>traders to achieve their dreams, consistently</p>
                                 <p>raising the industry standard.</p>
                             </div>
@@ -122,7 +122,7 @@
                                     <h4 class="landing__jumbotronbottom--right-gridboxh4">Dominate the trading landscape
                                     </h4>
                                     <div class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle">
-                                        <p>Explore diverse markets with Bvxe, from Crypto to Germany 40 and gold.</p>
+                                        <p>Explore diverse markets with Bvx, from Crypto to Germany 40 and gold.</p>
                                     </div>
                                     <div class="landing__jumbotronbottom--right-gridboxbtn"
                                         @click="navigateToPage('register')">
@@ -145,7 +145,7 @@
                                     <h4 class="landing__jumbotronbottom--right-gridboxh4">Experience trading on the
                                         benchmark in golden standards.</h4>
                                     <div class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle">
-                                        <p>Seek only the best in trading. bvxe, the top Forex Platform of 2020 Shares
+                                        <p>Seek only the best in trading. bvx, the top Forex Platform of 2020 Shares
                                             Awards.</p>
                                     </div>
                                     <div class="landing__jumbotronbottom--right-gridboxbtn"
@@ -167,9 +167,9 @@
                                         </svg>
                                     </div>
                                     <h4 class="landing__jumbotronbottom--right-gridboxh4">Ascend to the pinnacle of asset
-                                        trading with Bvxe.</h4>
+                                        trading with Bvx.</h4>
                                     <div class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle">
-                                        <p>Lost in trading terms? Join bvxe's free Trading Plan and boost your skills.</p>
+                                        <p>Lost in trading terms? Join bvx's free Trading Plan and boost your skills.</p>
                                     </div>
                                     <div class="landing__jumbotronbottom--right-gridboxbtn" @click="scrollToDiv('landing__perks-parent')">
                                         <button class="btn">SEE PLANS</button>
@@ -188,10 +188,10 @@
                                             </path>
                                         </svg>
                                     </div>
-                                    <h4 class="landing__jumbotronbottom--right-gridboxh4">Align with bvxe, a trading
+                                    <h4 class="landing__jumbotronbottom--right-gridboxh4">Align with bvx, a trading
                                         provider built on unshakeable pillars.</h4>
                                     <div class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle">
-                                        <p>As part of Voltex Singapore with $10 billion in assets, trust Bvxe with your
+                                        <p>As part of Voltex Singapore with $10 billion in assets, trust Bvx with your
                                             trading journey.</p>
                                     </div>
                                     <div class="landing__jumbotronbottom--right-gridboxbtn"
@@ -213,7 +213,7 @@
                             <div class="landing__tradingtypesbox">
                                 <h4 class="landing__tradingtypesbox--h4">Safety First: Uncompromised Security</h4>
 
-                                <p class="landing__tradingtypesbox--p">Trust in bvxe's robust security measures that
+                                <p class="landing__tradingtypesbox--p">Trust in bvx's robust security measures that
                                     prioritize your assets and information. Our state-of-the-art protection ensures you
                                     trade with peace of mind, every step of the way.</p>
 
@@ -226,7 +226,7 @@
                             <div class="landing__tradingtypesbox">
                                 <h4 class="landing__tradingtypesbox--h4">Guided Growth: Agent-Backed Learning</h4>
 
-                                <p class="landing__tradingtypesbox--p">Navigate the trading world with bvxe's experienced
+                                <p class="landing__tradingtypesbox--p">Navigate the trading world with bvx's experienced
                                     agents at your side. Our tailored tutorials and hands-on mentoring propel your skills,
                                     turning novice moves into expert strategies.</p>
 
@@ -240,7 +240,7 @@
                                 <h4 class="landing__tradingtypesbox--h4">Amplify Your Portfolio: Rewarding Asset Returns
                                 </h4>
 
-                                <p class="landing__tradingtypesbox--p">With bvxe, your assets work harder for you. Enjoy
+                                <p class="landing__tradingtypesbox--p">With bvx, your assets work harder for you. Enjoy
                                     unparalleled returns and watch your investments flourish as you capitalize on our unique
                                     reward programs.</p>
 
@@ -364,9 +364,9 @@
 
                 <div class="landing__perks">
                     <div class="landing__perksarea">
-                        <h4>Master the Markets with Bvxe</h4>
+                        <h4>Master the Markets with Bvx</h4>
                         <h3>Our agents amplify your market acumen for confident trading</h3>
-                        <p class="landing__perksarea--p">Starting from scratch? No worries. With bvxe's seasoned trading
+                        <p class="landing__perksarea--p">Starting from scratch? No worries. With bvx's seasoned trading
                             agents by your side, watch your market know-how skyrocket to unparalleled heights.</p>
 
                     </div>
@@ -482,13 +482,13 @@
 
                 <div class="landing__disclaimers">
                     <div class="landing__disclaimers--content">
-                        <p>BVXE offerings are intricate tools that carry a high possibility of swift financial loss due to
+                        <p>BVX offerings are intricate tools that carry a high possibility of swift financial loss due to
                             leverage. 77.1% of retail investor accounts suffer financial losses when engaging in trades with
-                            bvxe. It is crucial to ponder whether you grasp the operation of the markets and if you are in a
+                            bvx. It is crucial to ponder whether you grasp the operation of the markets and if you are in a
                             position to shoulder the substantial risk of losing your funds. Kindly make sure you have a
                             comprehensive understanding of the risks entailed by consulting our detailed risk warning.</p>
 
-                        <p>Bvxe is a trading identity of Voltex Singapore, and bvxe.com/ie is a domain run by Voltex
+                        <p>Bvx is a trading identity of Voltex Singapore, and bvx.com/ie is a domain run by Voltex
                             Singapore, a constituent of StoneX Group Inc. Voltex Singapore is a Cyprus Investment Firm (CIF)
                             officially registered with the Department of Registrar of Companies and Official Receiver under
                             the Registration Number HE409708, and endorsed and overseen by the Cyprus Securities & Exchange
@@ -532,7 +532,6 @@ export default {
         window.removeEventListener('scroll', this.handleScrollLanding);
     },
     methods: {
-        ...mapActions('cryptoassets', ['getcryptoassets']),
         navigateToPage(page, id) {
             this.$router.push(`/${page}`)
         },

@@ -1,7 +1,7 @@
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'Trade',
+    title: 'BVX',
     htmlAttrs: {
       lang: 'en'
     },
@@ -12,7 +12,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '' }
     ],
     script: [
       {
@@ -79,6 +79,8 @@ export default {
       '~/assets/scss/popup.scss',
       '~/assets/scss/autotradesettings.scss',
       '~/assets/scss/warning.scss',
+      '~/assets/scss/wallet.scss',
+      '~/assets/scss/swap.scss',
     ],
     hoistUseStatements: true
   },

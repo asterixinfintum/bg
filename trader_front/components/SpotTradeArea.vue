@@ -123,9 +123,9 @@
 
                 <div class="spottradearea__fundoption">
                     <div class="spottradearea__fundoption--left">
-                        <h3 class="spottradearea__fundoption--h3">Send coin to BVXE</h3>
+                        <h3 class="spottradearea__fundoption--h3">Send coin to BVX</h3>
                         <span class="spottradearea__fundoption--description">If you already hold some crypto currency, you
-                            can choose to transfer them to BVXE via blockchain.</span>
+                            can choose to transfer them to BVX via blockchain.</span>
                     </div>
                     <div class="spottradearea__fundoption--right">
                         <button class="spottradearea__fundoption--btn btn colored-btn">Deposit</button>
@@ -138,6 +138,7 @@
         <div>
             <CreateOrder 
                 :asset="asset" 
+                :currentpair="currentpair"
                 :orderType="orderType" 
                 :fundaccount_popup_toggle="fundaccount_popup_toggle" 
                 :openFundAccountPopup="openFundAccountPopup" 
@@ -149,7 +150,7 @@
 
 <script>
 export default {
-    props: ['asset', 'walletTradingFrom'],
+    props: ['asset', 'walletTradingFrom', 'currentpair'],
     mixins: [],
     data() {
         return {

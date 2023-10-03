@@ -44,11 +44,8 @@ async function updateWalletDeposit(newassetbalance) {
                     transactionType
                 }
 
-                console.log(balanceHistory, 'debug');
-
                 wallet_asset.balanceinWallet = balanceinWallet;
                 wallet_asset.balanceHistory.push(balanceHistory);
-                console.log(wallet_asset)
                 await wallet_asset.save();
 
                 resolve(wallet_asset);

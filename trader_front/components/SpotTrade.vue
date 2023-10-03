@@ -27,7 +27,7 @@
                 <input class="spottradearea__inputsection--input" placeholder="Amount" type="number" v-model="buy_value" />
                 <span class="spottradearea__inputsection--placeholder">Amount</span>
                 <div class="spottradearea__inputsection--labels">
-                    <span class="spottradearea__inputsection--symbol">{{ asset.coin }}</span>
+                    <span class="spottradearea__inputsection--symbol">{{ }}</span>
                 </div>
             </div>
 
@@ -56,7 +56,7 @@
             </div>
 
             <div class="spottradearea__buybtn">
-                <button class="btn">Buy {{ asset.coin }}</button>
+                <button class="btn">Buy {{ }}</button>
             </div>
         </div>
 
@@ -64,7 +64,7 @@
             <div class="spottradearea__balance">
                 <span class="spottradearea__balance--label">Avbl</span>
                 <span class="spottradearea__balance--value">0</span>
-                <span class="spottradearea__balance--symbol">{{ asset.coin }}</span>
+                <span class="spottradearea__balance--symbol">{{  }}</span>
                 <span class="spottradearea__balance--svg" @click="fundaccount_popup_toggle">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" cursor="pointer"
                         class="css-12oo3on">
@@ -117,7 +117,7 @@
             </div>
 
             <div class="spottradearea__buybtn">
-                <button class="btn sell">Sell {{ asset.coin }}</button>
+                <button class="btn sell">Sell {{  }}</button>
             </div>
         </div>
 

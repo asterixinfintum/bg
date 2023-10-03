@@ -17,6 +17,8 @@ async function clearCryptoAssetsData () {
 
 //clearCryptoAssetsData();
 
+
+
 cryptoAssets.get('/assets/crypto', async (req, res) => {
   CryptoAssetsDB.find({})
     .then(cryptoAssets => {

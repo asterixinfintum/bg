@@ -17,21 +17,33 @@ export default {
             swapDirection: 'from',
             assetCategoryFrom: 'crypto',
             assetCategoryTo: 'crypto',
-            fromAssetBalance: 0, 
+            fromAssetBalance: 0,
             toAssetBalance: 0,
-            fromAssetBalanceInUSD: 0, 
+            fromAssetBalanceInUSD: 0,
             toAssetBalanceInUSD: 0,
             transactionFee: 0,
             transactionTotal: 0,
             inputError: false,
-            transactionType: 'conversion'
+            transactionType: 'conversion',
+
+            youpayval: 0,
+            yougetval: 0
         }
     },
     mixins: [walletMixin, TransactionpopupMixin, listMixin],
+    mounted() {
+        this.selectWallet('fiat/spot')
+    },
     computed: {
+        ...mapState({
+            allpairs: state => state.trade.allpairs,
+            cryptopairs: state => state.trade.cryptopairs,
+            stockpairs: state => state.trade.stockpairs,
+            commoditiespairs: state => state.trade.commoditiespairs,
+        }),
         transactionDescription() {
             const { fromInput, toInput, currentAssetFrom, currentAssetTo, walletCategory } = this;
-            
+
             if (currentAssetFrom && currentAssetTo && !isNaN(parseFloat(fromInput))) {
                 const description = `converted ${parseFloat(fromInput)} ${currentAssetFrom._id} to ${parseFloat(toInput)} ${currentAssetTo._id} in ${walletCategory} wallet`;
 
@@ -40,33 +52,7 @@ export default {
 
             return '';
         },
-        youPayUSD() {
-            const { currentAssetFrom, fromInput } = this;
-            
-            if (currentAssetFrom && !isNaN(parseFloat(fromInput))) {
-                const priceOfAssetFrom = parseFloat(currentAssetFrom.price);
 
-                if (this.fromInput) {
-                    const priceOfAssetFromPerUnitInfromInput = parseFloat(fromInput) * priceOfAssetFrom;
-                    return (priceOfAssetFromPerUnitInfromInput).toFixed(6)
-                }
-            }
-
-            return 0;
-        },
-        youGetUSD() {
-            const { currentAssetTo } = this;
-
-            if (currentAssetTo) {
-                const priceOfAssetTo = parseFloat(currentAssetTo.price);
-
-                if (this.toInput) {
-                    return (this.toInput * priceOfAssetTo).toFixed(6)
-                }
-            }
-
-            return 0;
-        },
         enablePreviewBtn() {
             const { fromInput, toInput, inputError } = this;
 
@@ -81,48 +67,66 @@ export default {
         }
     },
     watch: {
-        balances(newValue, oldValue) {
-            if (newValue.length) {
-                this.getAssetsBalancesInWallet();
-            }
-        },
         fromInput() {
-            const { getAssetsRate, checkBalanceOfAssetinWallet } = this;
-
-            getAssetsRate();
-            checkBalanceOfAssetinWallet();
+            const { youPayUSD, currentAssetTo, calculatePercentage } = this;
+            this.youpayval = youPayUSD();
+            this.toInput = youPayUSD() / parseFloat(currentAssetTo.price);
+            this.yougetval = parseFloat(this.toInput) * parseFloat(currentAssetTo.price);
+            this.transactionFee = calculatePercentage(this.yougetval, 5);
+            console.log(this.transactionFee);
+            this.inputError = false;
         },
-        toInput() {
-
+        currentAssetFrom() {
+            this.fromInput = '';
+            this.toInput = '';
+            this.inputError = false;
         },
-        walletCategory() {
-            this.getAssetsBalancesInWallet();
-        }
+        currentAssetTo() {
+            this.fromInput = '';
+            this.toInput = '';
+            this.inputError = false;
+        },
+        walletCategory() { }
     },
     methods: {
+        ...mapActions('trade', ['getallpairs']),
+        youPayUSD() {
+            const { currentAssetFrom, fromInput } = this;
+
+            if (fromInput.length && currentAssetFrom) {
+                const fromInpt = parseFloat(fromInput);
+
+                if (fromInpt) {
+                    const currasspric = parseFloat(currentAssetFrom.price);
+
+                    return (fromInpt * currasspric).toFixed(6)
+                }
+            }
+
+            return 0;
+        },
+        youGetUSD() {
+            const { currentAssetTo, toInput } = this;
+
+            if (toInput.length && currentAssetTo) {
+                const toInpt = parseFloat(toInput);
+
+                if (toInpt) {
+                    const currasspric = parseFloat(currentAssetTo.price);
+                    return (toInpt * currasspric).toFixed(6)
+                }
+            }
+
+            return 0;
+        },
         toggleWalletCat() {
             this.walletCategoriesOpen ? this.walletCategoriesOpen = false : this.walletCategoriesOpen = true
         },
         toggleCryptoCat() {
             this.assetCategoriesOpen ? this.assetCategoriesOpen = false : this.assetCategoriesOpen = true
         },
-        getAssetsBalancesInWallet() {
-            const { balances, walletCategory, currentAssetFrom, currentAssetTo } = this;
-
-            const wallet = balances.filter(balance => balance.wallet === walletCategory)[0];
-            
-            const { assetDetails } = wallet;
-
-            const fromAssetBalance = assetDetails.find(assetDetail => assetDetail.base.assetdb_id === currentAssetFrom._id );
-            const toAssetBalance = assetDetails.find(assetDetail => assetDetail.base.assetdb_id === currentAssetTo._id );
-
-            this.fromAssetBalance = fromAssetBalance ? fromAssetBalance.base.balanceinWallet : 0;
-            this.toAssetBalance = toAssetBalance ? toAssetBalance.base.balanceinWallet : 0;
-            this.fromAssetBalanceInUSD = fromAssetBalance ? fromAssetBalance.balanceInDollars : 0;
-            this.toAssetBalanceInUSD = toAssetBalance ? toAssetBalance.balanceInDollars : 0;
-        },
         setCurrentAsset(asset) {
-            const { toggleCryptoCat, getAssetsBalancesInWallet, clearInput, setAssetCategory } = this;
+            const { toggleCryptoCat, clearInput, setAssetCategory } = this;
 
             if (this.swapDirection === 'from') {
                 this.currentAssetFrom = asset
@@ -140,7 +144,6 @@ export default {
             }
 
             toggleCryptoCat();
-            getAssetsBalancesInWallet();
             clearInput();
         },
         setandreturnFromAsset(asset) {
@@ -156,9 +159,9 @@ export default {
             this.assetCategoriesOpen = true;
         },
         selectWallet(wallet) {
-            const { toggleWalletCat } = this;
+            this.$router.push({ path: '/swap', query: { wallet } })
             this.walletCategory = wallet;
-            toggleWalletCat();
+            this.walletCategoriesOpen = false
         },
         setAssetCategory(category) {
             if (this.swapDirection === 'from') {
@@ -169,38 +172,20 @@ export default {
                 this.assetCategoryTo = category
             }
         },
-        getAssetsRate() {
-            const { currentAssetFrom, currentAssetTo, fromInput } = this;
-
-            if (!isNaN(parseFloat(fromInput))) {
-                const priceOfAssetFrom = parseFloat(currentAssetFrom.price);
-                const priceOfAssetTo = parseFloat(currentAssetTo.price);
-                const priceOfAssetFromPerUnitInfromInput = parseFloat(fromInput) * priceOfAssetFrom;
-                const unitsOfAssetTo = (priceOfAssetFromPerUnitInfromInput/priceOfAssetTo);
-                this.toInput = unitsOfAssetTo;
-            } else {
-                this.toInput = 0;
-            }       
-        },
         compareAssetsPrices(price0fAssetA, price0fAssetB) {
             return parseFloat(price0fAssetA) / parseFloat(price0fAssetB)
         },
-        checkBalanceOfAssetinWallet() {
-            const { fromAssetBalanceInUSD, client, calculatePercentage, youPayUSD } = this;
-            const { transactionFeePercentage } = client;
+        checkBlcOfAsstinWllt() {
+            const { assetblcUSD, currentAssetFrom, youpayval } = this;
 
-            const transactionFee = calculatePercentage(youPayUSD, transactionFeePercentage);
-            const transactionTotal = parseFloat(transactionFee) + parseFloat(youPayUSD);
-
-            this.transactionFee = transactionFee.toFixed(20);
-            this.transactionTotal = transactionTotal.toFixed(20);
-
-            if (fromAssetBalanceInUSD <= transactionTotal) {
-                this.inputError = true;
-            }
-
-            if (fromAssetBalanceInUSD > transactionTotal) {
-                this.inputError = false;
+            if (currentAssetFrom) {
+                if (assetblcUSD(currentAssetFrom) > youpayval && youpayval !== 0) {
+                    this.toggleconfirmTrade();
+                } else {
+                    this.inputError = true;
+                }
+            } else {
+                return this.inputError = true;
             }
         },
         calculatePercentage(input, percentage) {
@@ -224,7 +209,8 @@ export default {
             this.fromInput = finalAmount;
         },
         previewTrade() {
-            this.toggleconfirmTrade();
+            const { checkBlcOfAsstinWllt } = this;
+            checkBlcOfAsstinWllt();
         }
     }
 }

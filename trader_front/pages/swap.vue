@@ -18,13 +18,13 @@
                                 transactionType,
                                 fromInput,
                                 toInput,
+                                wallet: wallet._id,
                                 assetCategoryTo,
                                 transactionFee,
                                 walletCategory,
-                                transactionTotal,
-                                transactionDescription,
-                                youPayUSD,
-                                youGetUSD,
+                                transactionTotal: (parseFloat(transactionFee) + parseFloat(youpayval)),
+                                youPayUSD: youpayval,
+                                youGetUSD: yougetval,
                                 rate: currentAssetFrom && currentAssetTo ? compareAssetsPrices(currentAssetFrom.price, currentAssetTo.price) : ''
                             }" :toggleconfirmTrade="toggleconfirmTrade" />
                         </div>
@@ -75,7 +75,7 @@
                                         <div class="transactionstyle__btnoptionsgridsection--text">Margin</div>
                                     </div>
 
-                                    <div class="transactionstyle__btnoptionsgridsection" @click="selectWallet('defi')">
+                                    <!--<div class="transactionstyle__btnoptionsgridsection" @click="selectWallet('defi')">
                                         <div class="transactionstyle__btnoptionsgridsection--svg">
                                             <span>
                                                 <svg viewBox="0 0 24 24" focusable="false" class="chakra-icon css-onkibi"
@@ -139,7 +139,7 @@
                                             </span>
                                         </div>
                                         <div class="transactionstyle__btnoptionsgridsection--text">Tokenized Stocks</div>
-                                    </div>
+                                    </div>--->
 
                                 </div>
                             </div>
@@ -184,34 +184,34 @@
                                     </div>
 
                                     <div class="transactionstyle__selectassetcat--area"
-                                        @click="setCurrentCategory('inhousefiat')">
+                                        @click="setCurrentCategory('stock')">
                                         <figure>
-                                            <img src="@/assets/imgs/dollar-symbol.png" />
+                                            <img src="https://assets.coincap.io/assets/icons/rune@2x.png" />
+                                        </figure>
+                                        <span class="btn">
+                                            <button class="btn">Stock</button>
+                                        </span>
+                                    </div>
+
+                                    <div class="transactionstyle__selectassetcat--area"
+                                        @click="setCurrentCategory('commodity')">
+                                        <figure>
+                                            <img src="https://assets.coincap.io/assets/icons/rune@2x.png" />
+                                        </figure>
+                                        <span class="btn">
+                                            <button class="btn">Commodity</button>
+                                        </span>
+                                    </div>
+
+                                   <!--<div class="transactionstyle__selectassetcat--area"
+                                        @click="setCurrentCategory('fiat')">
+                                        <figure>
+                                            <img src="https://clipart-library.com/new_gallery/111-1111898_transparent-american-flag-icon.png" />
                                         </figure>
                                         <span class="btn">
                                             <button class="btn">Fiat</button>
                                         </span>
-                                    </div>
-
-                                    <div class="transactionstyle__selectassetcat--area"
-                                        @click="setCurrentCategory('inhousetokenizedstocks')">
-                                        <figure>
-                                            <img src="https://assets.coincap.io/assets/icons/rune@2x.png" />
-                                        </figure>
-                                        <span class="btn">
-                                            <button class="btn">Tokenized Stocks</button>
-                                        </span>
-                                    </div>
-
-                                    <div class="transactionstyle__selectassetcat--area"
-                                        @click="setCurrentCategory('inhousestocks')">
-                                        <figure>
-                                            <img src="https://assets.coincap.io/assets/icons/rune@2x.png" />
-                                        </figure>
-                                        <span class="btn">
-                                            <button class="btn">Stocks</button>
-                                        </span>
-                                    </div>
+                                    </div>--> 
 
                                 </div>
 
@@ -235,14 +235,14 @@
                                 <div class="transactionstyle__listitemsassets">
 
                                     <div class="transactionstyle__listitemsasset"
-                                        v-for="(cryptoasset, caindex) in paginatedList"
-                                        @click="setCurrentAsset(cryptoasset)">
+                                        v-for="(asset, caindex) in paginatedList"
+                                        @click="setCurrentAsset(asset)">
                                         <figure class="assetlist__area--assetlogo">
-                                            <img :src="returnCryptoLogo(cryptoasset.coin)" />
+                                            <img :src="returnCryptoLogo(asset.image)" />
                                         </figure>
                                         <div class="transactionstyle__listitemsasset--labels">
-                                            <label class="name" v-if="cryptoasset.coin">{{ cryptoasset.name }}</label>
-                                            <label class="chain">{{ cryptoasset.coin }}</label>
+                                            <label class="name" v-if="asset.coin">{{ asset.name }}</label>
+                                            <label class="chain">{{ asset.coin }}</label>
                                         </div>
                                     </div>
 
@@ -251,7 +251,7 @@
                             </div>
                         </div>
 
-                        <div class="layout-stretch" v-if="cryptoassets && cryptoassets.length">
+                        <div class="layout-stretch" v-if="assets && assets.length">
                             <PageIndicator :page_name="'Swap/Convert'" />
 
                             <div class="margin__main layout-padding">
@@ -268,31 +268,17 @@
                                             <div class="swap__selectasset--symbol" @click="setSwapDirection('from')">
                                                 <figure class="assetlist__area--assetlogo">
                                                     <img
-                                                        :src="currentAssetFrom ? returnCryptoLogo(currentAssetFrom.coin) : ''" />
+                                                        :src="currentAssetFrom ? returnCryptoLogo(currentAssetFrom.image) : ''" />
                                                 </figure>
                                                 <div class="swap__selectasset--labels">
                                                     <span>
                                                         {{ currentAssetFrom ? currentAssetFrom.coin :
                                                             setandreturnFromAsset(paginatedList[0]).coin }}
                                                     </span>
-                                                    <span v-if="currentAssetFrom && currentAssetFrom.networkList">
-                                                        on
-                                                        {{ currentAssetFrom ? currentAssetFrom.networkList[0].blockchain :
-                                                            setandreturnFromAsset(paginatedList[0]).networkList[0].blockchain }}
-                                                    </span>
 
-                                                    <span
-                                                        v-if="currentAssetFrom && !currentAssetFrom.networkList && currentAssetFrom.chain">
-                                                        on
-                                                        {{ currentAssetFrom.chain }}
-                                                    </span>
+                                                
 
-                                                    <span
-                                                        v-if="currentAssetFrom && !currentAssetFrom.networkList && !currentAssetFrom.chain">
-
-                                                    </span>
-
-                                                    <span>{{ assetCategoryFrom }}</span>
+                                                    <span>{{ currentAssetFrom.assetType }}</span>
                                                 </div>
                                             </div>
 
@@ -334,7 +320,7 @@
                                             <div class="swap__selectasset--symbol" @click="setSwapDirection('to')">
                                                 <figure class="assetlist__area--assetlogo">
                                                     <img
-                                                        :src="currentAssetTo ? returnCryptoLogo(currentAssetTo.coin) : ''" />
+                                                        :src="currentAssetTo ? returnCryptoLogo(currentAssetTo.image) : ''" />
                                                 </figure>
                                                 <div class="swap__selectasset--labels">
                                                     <span>
@@ -342,24 +328,7 @@
                                                             setandreturnToAsset(paginatedList[1]).coin }}
                                                     </span>
 
-                                                    <span v-if="currentAssetTo && currentAssetTo.networkList">
-                                                        on
-                                                        {{ currentAssetTo ? currentAssetTo.networkList[0].blockchain :
-                                                            setandreturnFromAsset(paginatedList[0]).networkList[0].blockchain }}
-                                                    </span>
-
-                                                    <span
-                                                        v-if="currentAssetTo && !currentAssetTo.networkList && currentAssetTo.chain">
-                                                        on
-                                                        {{ currentAssetTo.chain }}
-                                                    </span>
-
-                                                    <span
-                                                        v-if="currentAssetTo && !currentAssetTo.networkList && !currentAssetTo.chain">
-
-                                                    </span>
-
-                                                    <span>{{ assetCategoryTo }}</span>
+                                                    <span>{{ currentAssetTo.assetType }}</span>
                                                 </div>
                                             </div>
 
@@ -369,12 +338,12 @@
                                                     <label>
                                                         <span v-if="walletCategory === 'fiat/spot'">Spot Wallet</span>
                                                         <span v-if="walletCategory === 'margin'">Margin</span>
-                                                        <span v-if="walletCategory === 'defi'">Defi</span>
+                                                        <!--<span v-if="walletCategory === 'defi'">Defi</span>
                                                         <span v-if="walletCategory === 'bonus'">Earning</span>
                                                         <span v-if="walletCategory === 'tokenized stocks'">Tokenized
                                                             Stocks</span>
                                                         <span v-if="walletCategory === 'bot trading'">Bot Trading</span>
-                                                        <!--<span>
+                                                        <span>
                                                             <svg viewBox="0 0 24 24" focusable="false" class="chakra-icon css-onkibi" aria-hidden="true"><path fill="currentColor" d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg>
                                                         </span>-->
                                                     </label>
@@ -395,14 +364,14 @@
                                             </div>
 
                                             <div class="swap__convertarea--convertion">
-                                                <p>≈ ${{ youPayUSD }}</p>
+                                                <p>≈ ${{ youpayval }}</p>
                                             </div>
                                         </div>
 
                                         <div class="swap__boxassetarea">
                                             <figure class="assetlist__area--assetlogo">
                                                 <img
-                                                    :src="currentAssetFrom ? returnCryptoLogo(currentAssetFrom.coin) : ''" />
+                                                    :src="currentAssetFrom ? returnCryptoLogo(currentAssetFrom.image) : ''" />
                                             </figure>
                                             <div class="swap__boxassetarea--inputarea">
                                                 <input placeholder="0" v-model="fromInput" @input="validateNumberInputFrom"
@@ -414,8 +383,8 @@
                                         <div class="swap__clientbalancearea">
                                             <div class="swap__clientbalancearea--sect dim">
                                                 <span class="walletbalance-label">Wallet Balance:</span>
-                                                <span class="walletbalance">{{ fromAssetBalance }} (${{
-                                                    fromAssetBalanceInUSD }}) {{ currentAssetFrom.coin }}</span>
+                                                <span class="walletbalance">{{ parseFloat(assetblc(currentAssetFrom)).toFixed(2) }} (${{
+                                                    parseFloat(assetblcUSD(currentAssetFrom)).toFixed(2) }}) {{ currentAssetFrom.coin }}</span>
                                             </div>
 
                                             <div class="swap__clientbalancearea--sect">
@@ -433,13 +402,13 @@
                                             </div>
 
                                             <div class="swap__convertarea--convertion">
-                                                <p>≈ ${{ youGetUSD }}</p>
+                                                <p>≈ ${{ yougetval }}</p>
                                             </div>
                                         </div>
 
                                         <div class="swap__boxassetarea">
                                             <figure class="assetlist__area--assetlogo">
-                                                <img :src="currentAssetTo ? returnCryptoLogo(currentAssetTo.coin) : ''" />
+                                                <img :src="currentAssetTo ? returnCryptoLogo(currentAssetTo.image) : ''" />
                                             </figure>
                                             <div class="swap__boxassetarea--inputarea">
                                                 <input placeholder="0" v-model="toInput" @input="validateNumberInputTo"
@@ -451,8 +420,7 @@
                                         <div class="swap__clientbalancearea">
                                             <div class="swap__clientbalancearea--sect dim">
                                                 <span class="walletbalance-label">Wallet Balance:</span>
-                                                <span class="walletbalance">{{ toAssetBalance }} (${{ toAssetBalanceInUSD
-                                                }}) {{ currentAssetTo.coin }}</span>
+                                                <span class="walletbalance">{{ parseFloat(assetblc(currentAssetTo)).toFixed(2) }} (${{ parseFloat(assetblcUSD(currentAssetTo)).toFixed(2) }}) {{ currentAssetTo.coin }}</span>
                                             </div>
 
                                             <div class="swap__clientbalancearea--sect">
@@ -583,421 +551,8 @@ export default {
             return `0.00`
         }
     },
+    mounted() {
+        this.getallpairs();
+    }
 }
 </script>
-
-<style lang="scss" scoped>
-.swap {
-
-    &__body {
-        background: $defipopup-body;
-        padding: #{scaleValue(20)};
-        margin: 0 auto;
-        border-radius: #{scaleValue(6)};
-        border: $border;
-        width: #{scaleValue(600)};
-
-        &--h2 {
-            font-size: #{scaleValue(15)};
-            font-weight: 500;
-            margin-bottom: #{scaleValue(25)};
-        }
-    }
-
-    &__box {
-        border-radius: #{scaleValue(6)};
-        border: $border;
-        background: rgba($light-black, .7);
-        padding: #{scaleValue(15)};
-        transition: all .4s ease;
-        position: relative;
-
-        &:not(:last-child) {
-            margin-bottom: #{scaleValue(10)};
-        }
-
-        &.transparent {
-            background: transparent;
-        }
-
-        &:hover {
-            background: rgba($light-black, .9);
-        }
-    }
-
-    &__selectassets {
-        display: flex;
-        justify-content: space-between;
-        position: relative;
-
-        &--arrow {
-            position: absolute;
-            border-radius: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: #{scaleValue(30)};
-            width: #{scaleValue(30)};
-            top: #{scaleValue(34)};
-            left: #{scaleValue(265)};
-            z-index: 2;
-            background: rgba($light-black, 1);
-            border: $border;
-
-
-            & svg {
-                height: #{scaleValue(15)};
-                width: #{scaleValue(15)};
-            }
-        }
-    }
-
-    &__selectasset {
-        display: flex;
-        flex-direction: column;
-        width: #{scaleValue(275)};
-        cursor: pointer;
-
-        &--direction {
-            font-size: #{scaleValue(13)};
-            margin-bottom: #{scaleValue(10)};
-        }
-
-        &--symbol {
-            display: flex;
-            align-items: center;
-
-            & figure {
-                height: #{scaleValue(30)};
-                width: #{scaleValue(30)};
-                overflow: hidden;
-                border-radius: 100%;
-                margin-right: #{scaleValue(10)};
-
-                & img {
-                    object-fit: cover;
-                    height: 100%;
-                    width: 100%;
-                }
-            }
-        }
-
-        &--labels {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            font-size: #{scaleValue(15)};
-
-            & span {
-
-                &:nth-child(2) {
-                    font-size: #{scaleValue(13)};
-                    opacity: .5;
-                    margin-top: #{scaleValue(2)}
-                }
-
-                &:nth-child(3) {
-                    position: absolute;
-                    top: #{scaleValue(15)};
-                    right: #{scaleValue(-70)};
-                    text-transform: uppercase;
-                    font-size: #{scaleValue(8)};
-                    font-weight: 700;
-                    background: rgba($bitcoin-orange, .8);
-                    color: $black;
-                    border-radius: 3rem;
-                    padding: #{scaleValue(5)};
-                }
-            }
-        }
-
-        &--categories {
-            width: 100%;
-            margin-top: #{scaleValue(10)};
-            padding-top: #{scaleValue(10)};
-            border-top: $border;
-
-            //background: red;
-            cursor: pointer;
-
-            & button {
-                font-size: #{scaleValue(13)};
-                padding: #{scaleValue(10)} 0;
-                cursor: pointer;
-                color: $white;
-
-                border-radius: 0;
-                width: 100%;
-                text-align: left;
-                display: flex;
-                align-items: center;
-
-                &.category-open {
-                    justify-content: space-between;
-
-                    & label {
-                        display: flex;
-                        align-items: center;
-                        cursor: pointer;
-                        color: $landing-green;
-                        font-weight: 600;
-
-                        & span {
-                            opacity: .6;
-                            font-size: #{scaleValue(12)};
-                            margin-right: #{scaleValue(5)};
-
-                            & svg {
-                                height: #{scaleValue(12)};
-                                width: #{scaleValue(12)};
-                            }
-                        }
-                    }
-                }
-
-                &.category {
-                    opacity: 1;
-                    padding: #{scaleValue(15)};
-                    transition: all .4s ease;
-                    background: $light-black;
-
-                    &:not(:last-child) {
-                        border-bottom: $border;
-                    }
-
-                    &:hover {
-                        border-color: $primary-color;
-                    }
-                }
-            }
-        }
-
-        &--categoriesbody {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            position: absolute;
-            top: 0;
-            left: 0;
-
-            border-radius: #{scaleValue(6)};
-            border: $border;
-            background: rgba($light-black, 1);
-            z-index: 2;
-
-            width: #{scaleValue(275)};
-            overflow-x: hidden;
-            overflow-y: scroll;
-            height: #{scaleValue(200)};
-        }
-    }
-
-    &__convertarea {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        &--action {
-            font-size: #{scaleValue(13)};
-        }
-
-        &--convertion {
-            font-size: #{scaleValue(12.5)};
-            font-weight: 400;
-            opacity: .5;
-            cursor: pointer;
-
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-
-
-    &__boxassetarea {
-        display: flex;
-        align-items: center;
-        margin-top: #{scaleValue(10)};
-
-        &--logo {
-            height: #{scaleValue(30)};
-            width: #{scaleValue(30)};
-            overflow: hidden;
-            border-radius: 100%;
-
-            & img {
-                object-fit: cover;
-                height: 100%;
-                width: 100%;
-            }
-        }
-
-        &--amount {
-            font-size: #{scaleValue(20)};
-            position: relative;
-            z-index: 2;
-        }
-
-        &--inputarea {
-            margin-left: #{scaleValue(10)};
-
-            & input {
-                height: #{scaleValue(35)};
-                width: #{scaleValue(470)};
-                border: none;
-                outline: none;
-                background: transparent;
-                font-size: #{scaleValue(19)};
-                color: $white;
-                position: relative;
-                z-index: 2;
-
-                &~span::after {
-                    content: '';
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: #{scaleValue(558)};
-                    height: #{scaleValue(116)};
-                    border: $border;
-                    border-width: #{scaleValue(1.3)};
-                    border-color: transparent;
-                    transition: all .4s ease;
-                    border-radius: #{scaleValue(6)};
-                    z-index: 1;
-                }
-
-                &.inputError+span::after {
-                    border-color: $warning-red;
-                }
-
-                &::placeholder {
-                    color: $white;
-                }
-
-                &:focus+span::after {
-                    border-color: $primary-color;
-                }
-
-                &.inputError:focus+span::after {
-                    border-color: $warning-red;
-                }
-            }
-        }
-    }
-
-    &__clientbalancearea {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-top: #{scaleValue(10)};
-        font-size: #{scaleValue(13)};
-
-        &--sect {
-
-
-            & span {
-
-                &.max {
-                    border-radius: 3rem;
-                    font-size: #{scaleValue(11)};
-                    background: rgba($light-black, .9);
-                    padding: #{scaleValue(6)} #{scaleValue(13)};
-                    text-align: center;
-                    cursor: pointer;
-                    margin-left: #{scaleValue(6)};
-                    position: relative;
-                    z-index: 2;
-                }
-            }
-        }
-    }
-
-    &__expectedamount {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: #{scaleValue(13.5)};
-
-        &--area {
-            display: flex;
-            flex-direction: column;
-        }
-
-        &--areasec {
-            display: flex;
-            align-items: center;
-
-            & span {
-                display: flex;
-                align-items: center;
-                margin-bottom: #{scaleValue(11)};
-
-                &.svg {
-                    margin-right: #{scaleValue(5)};
-                }
-
-                &.expected {
-                    opacity: .6;
-                }
-
-                & svg {
-                    height: #{scaleValue(14)};
-                    width: #{scaleValue(14)};
-                }
-            }
-        }
-    }
-
-    &__detail {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: #{scaleValue(13)};
-        margin-bottom: #{scaleValue(10)};
-
-        &.top-border {
-            border-top: $border;
-            padding-top: #{scaleValue(14)};
-        }
-
-        &--area {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-            &:nth-child(1) {
-                opacity: .6;
-            }
-
-            & span {
-
-                &.svg {
-                    margin-left: #{scaleValue(5)};
-
-                    & svg {
-                        height: #{scaleValue(10)};
-                        width: #{scaleValue(10)};
-                    }
-                }
-            }
-        }
-    }
-
-    &__btns {
-        width: 100%;
-        margin-top: #{scaleValue(22)};
-
-        & button {
-            width: 100%;
-            font-size: #{scaleValue(16)};
-            padding: #{scaleValue(12)} #{scaleValue(14)};
-
-            &.dim {
-                opacity: .6;
-            }
-
-        }
-    }
-}
-</style>

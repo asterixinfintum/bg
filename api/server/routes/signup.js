@@ -5,7 +5,7 @@ const { mainnet, testnet } = require("bitcore-lib/lib/networks");
 const { createHDWallet } = require("../functions/wallet.bitcoin");
 
 import User from '../models/user';
-import Wallet from '../models/wallet';
+import Wallet from '../wallet/models/wllt';
 
 import uniqueIdGenerate from '../utils/uniqueIdGenerate';
 

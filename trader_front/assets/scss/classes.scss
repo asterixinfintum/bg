@@ -221,3 +221,7 @@ h3 {
         background: $primary-color;
     }
 }
+
+.margin-up-down {
+    margin: #{scaleValue(30)} 0;
+}

@@ -9,11 +9,17 @@ var _express = _interopRequireDefault(require("express"));
 var _assetBalance = _interopRequireDefault(require("../models/assetBalance"));
 var _wallet = _interopRequireDefault(require("../models/wallet"));
 var _walletAsset = _interopRequireDefault(require("../models/walletAsset"));
+var _withdraw = _interopRequireDefault(require("../models/withdraw"));
 var _updateWalletDeposit = _interopRequireDefault(require("../functions/updateWalletDeposit"));
 var _updateWalletTransfer = _interopRequireDefault(require("../functions/updateWalletTransfer"));
 var _authenticateToken = _interopRequireDefault(require("../utils/authenticateToken"));
 var _arithmetic = _interopRequireDefault(require("../utils/arithmetic"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -30,26 +36,26 @@ function deleteAllAssetBalances() {
   return _deleteAllAssetBalances.apply(this, arguments);
 } //deleteAllAssetBalances();
 function _deleteAllAssetBalances() {
-  _deleteAllAssetBalances = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
-    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-      while (1) switch (_context8.prev = _context8.next) {
+  _deleteAllAssetBalances = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+    return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+      while (1) switch (_context9.prev = _context9.next) {
         case 0:
-          _context8.prev = 0;
-          _context8.next = 3;
+          _context9.prev = 0;
+          _context9.next = 3;
           return _assetBalance["default"].deleteMany({});
         case 3:
           console.log('All AssetBalances have been deleted.');
-          _context8.next = 9;
+          _context9.next = 9;
           break;
         case 6:
-          _context8.prev = 6;
-          _context8.t0 = _context8["catch"](0);
-          console.error('Error deleting AssetBalances:', _context8.t0);
+          _context9.prev = 6;
+          _context9.t0 = _context9["catch"](0);
+          console.error('Error deleting AssetBalances:', _context9.t0);
         case 9:
         case "end":
-          return _context8.stop();
+          return _context9.stop();
       }
-    }, _callee8, null, [[0, 6]]);
+    }, _callee9, null, [[0, 6]]);
   }));
   return _deleteAllAssetBalances.apply(this, arguments);
 }
@@ -425,6 +431,36 @@ wallet.get('/client/walletassets', _authenticateToken["default"], /*#__PURE__*/f
   }));
   return function (_x13, _x14) {
     return _ref8.apply(this, arguments);
+  };
+}());
+wallet.post('/client/withdraw', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(req, res) {
+    var withdrwdt, withdrawal;
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context8.next = 6;
+            break;
+          }
+          withdrwdt = _objectSpread({
+            ownerId: req.user._id
+          }, req.body);
+          withdrawal = new _withdraw["default"](withdrwdt);
+          _context8.next = 5;
+          return withdrawal.save();
+        case 5:
+          res.status(200).json({
+            message: 'done'
+          });
+        case 6:
+        case "end":
+          return _context8.stop();
+      }
+    }, _callee8);
+  }));
+  return function (_x15, _x16) {
+    return _ref9.apply(this, arguments);
   };
 }());
 var _default = wallet;

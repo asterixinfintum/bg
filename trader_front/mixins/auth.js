@@ -16,15 +16,15 @@ export default {
     },
     computed: {
         ...mapState({
-            cryptoassets: state => state.cryptoassets.cryptoassets,
+            assets: state => state.list.assets,
             authError: state => state.auth.authError
         }),
         assets() {
-            return this.cryptoassets;
+            return this.assets;
         }
     },
     methods: {
-        ...mapActions('cryptoassets', ['getcryptoassets']),
+        ...mapActions('list', ['getassets']),
         ...mapMutations('auth', ['SET_AUTH_ERROR']),
         closeAuthError() {
             const { SET_AUTH_ERROR } = this;
@@ -59,6 +59,6 @@ export default {
         },
     },
     mounted() {
-        this.getcryptoassets();
+        this.getassets();
     }
 }

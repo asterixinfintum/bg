@@ -48,7 +48,7 @@ var assetBalanceSchema = new Schema({
     type: {
       type: String,
       required: true,
-      "enum": ["deposit", "transfer", "conversion", "autotrade creation", "other"]
+      "enum": ["deposit", "withdrawal", "transfer", "conversion", "autotrade creation", "other"]
     },
     fee: {
       type: Number,

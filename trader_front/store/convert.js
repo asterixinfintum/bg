@@ -11,19 +11,19 @@ export const actions = {
                 fetch(`${BASE_URL}/convert`, {
                     method: 'POST',
                     headers: {
-                      'Content-Type': 'application/json',
-                      'Authorization': `Bearer ${token}`
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify(conversion)
                 })
-                .then(response => response.json())
-                .then(data => {
-                    resolve(data)
-                })
-                .catch(error => {
-                    console.error(error);
-                    reject(error);
-                })
+                    .then(response => response.json())
+                    .then(data => {
+                        resolve(data)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        reject(error);
+                    });
             } catch (error) {
                 console.log(error);
             }

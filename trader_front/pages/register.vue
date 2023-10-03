@@ -4,7 +4,7 @@
             <div class="header__left">
                 <div class="header__logo" @click="$router.push('/')">
                     <figure></figure>
-                    <p>BERC</p>
+                    <p>BVX</p>
                 </div>
             </div>
         </div>
@@ -90,13 +90,15 @@
                         </div>
 
                         <div class="auth__inputarea">
-                            <button class="btn colored-btn padded-btn auth__btn" @click="toggleView"
+                            <button class="btn colored-btn padded-btn auth__btn" @click="toggleView" v-if="!loading"
                                 :class="{ 'greyed-btn': view === 'passwordView' }">{{ this.view === 'emailPhoneView' ?
                                     'Next' : 'Previous' }}</button>
+                            <button class="loader-button loader-button padded-btn auth__btn" v-if="loading"></button>
                         </div>
 
                         <div class="auth__inputarea" v-if="view === 'passwordView'" @click="checkpasswords">
-                            <button class="btn colored-btn padded-btn auth__btn">Sign Up</button>
+                            <button class="btn colored-btn padded-btn auth__btn" v-if="!loading">Sign Up</button>
+                            <button class="loader-button padded-btn auth__btn" v-if="loading"></button>
                         </div>
 
                         <div class="auth__termsdescription">
@@ -122,19 +124,20 @@ import { mapActions, mapState, mapMutations } from 'vuex';
 export default {
     data() {
         return {
-            view: 'emailPhoneView'
+            view: 'emailPhoneView',
+            loading: false
         }
     },
     mixins: [auth],
     computed: {
         ...mapState({
-            cryptoassets: state => state.cryptoassets.cryptoassets
+            assets: state => state.list.assets
         }),
         bitcoinAssetId() {
-            const { cryptoassets } = this;
-            if (cryptoassets.length) {
+            const { assets } = this;
+            if (assets.length) {
 
-                const btc = cryptoassets.find(cryptoasset => cryptoasset.coin === 'BTC');
+                const btc = assets.find(asset => asset.coin === 'BTC');
                 return btc._id;
             } else {
                 return null
@@ -181,12 +184,16 @@ export default {
                     phonenumber
                 };
 
+                this.loading = true;
+
                 checkDuplicate(credentials)
                     .then(() => {
                         this.autherror = false;
+                        this.loading = false;
                         this.view = 'passwordView'
                     })
                     .catch(() => {
+                        this.loading = false;
                         this.autherror = true;
                         this.$refs.phonenumber.classList.add('error');
                         this.$refs.email.classList.add('error');

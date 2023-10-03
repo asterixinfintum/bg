@@ -131,7 +131,7 @@
             
             <div class="layout-stretch" v-if="client">
               <PageIndicator 
-                :page_name="'BERC Identification'"
+                :page_name="'BVX Identification'"
                 :nobtns="true"/>
 
               <div class="layout-padding">

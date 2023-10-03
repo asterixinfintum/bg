@@ -17,42 +17,21 @@
                     <p>Hide Small Balances</p>
                 </div>
 
-                <div class="assetsearch__checkboxarea assetsearch__margin-right">
-                    <input type="checkbox" class="lessopacity"/>
-                    <p class="lessopacity">Hide Small Balances</p>
-                </div>
-
-                <div class="assetsearch__underlinedlink assetsearch__margin-right" v-if="create_bot" @click="create_bot">
-                    <p>Create Trading Bot</p>
-                </div>
-
-                <div class="assetsearch__underlinedlink assetsearch__margin-right" v-if="toggleviewbots && !viewbots" @click="toggleviewbots">
-                    <p>View Trading Bots</p>
-                </div>
-
-                <div class="assetsearch__underlinedlink assetsearch__margin-right" v-if="toggleviewbots && viewbots" @click="toggleviewbots">
-                    <p>View Asset Balances</p>
-                </div>
-
                 <div class="assetsearch__underlinedlink assetsearch__margin-right" @click="setCurrentCategory('crypto')">
                     <p>Crypto</p>
                 </div>
 
-                <div class="assetsearch__underlinedlink assetsearch__margin-right" @click="setCurrentCategory('inhousefiat')">
-                    <p>Fiat</p>
-                </div>
-
-                <div class="assetsearch__underlinedlink assetsearch__margin-right" @click="setCurrentCategory('inhousetokenizedstocks')">
-                    <p>Tokenized stocks</p>
-                </div>
-
-                <div class="assetsearch__underlinedlink assetsearch__margin-right" @click="setCurrentCategory('inhousestocks')">
+                <div class="assetsearch__underlinedlink assetsearch__margin-right" @click="setCurrentCategory('stock')">
                     <p>Stocks</p>
                 </div>
 
-                <div class="assetsearch__underlinedlink assetsearch__margin-right" v-if="OptimizeYourReturns">
-                    <p>Your Growth Calculator</p>
+                <div class="assetsearch__underlinedlink assetsearch__margin-right" @click="setCurrentCategory('commodity')">
+                    <p>Commodities</p>
                 </div>
+
+                <!--<div class="assetsearch__underlinedlink assetsearch__margin-right" @click="setCurrentCategory('fiat')">
+                    <p>Fiat</p>
+                </div>-->
             </div>
         </div>
     </div>

@@ -27,8 +27,12 @@ const walletAssetSchema = new Schema({
         default: 0,
         min: 0, // Ensuring the balanceAmount is non-negative
     },
+    balanceUnavailable: {
+        type: Number,
+        default: 0
+    },
     balanceHistory: [
-        {  
+        {
             balance: {
                 type: Number,
                 required: true,
@@ -37,7 +41,7 @@ const walletAssetSchema = new Schema({
             transactionType: {
                 type: String,
                 required: true,
-                enum: ["deposit", "transfer", "conversion", "autotrade creation", "other"],
+                enum: ["deposit", "withdrawal", "transfer", "conversion", "autotrade creation", "other"],
             },
             updated: {
                 type: Date,
@@ -50,6 +54,22 @@ const walletAssetSchema = new Schema({
         default: Date.now,
     }
 });
+
+walletAssetSchema.methods.lock = async function (amount) {
+    console.log(this.balanceUnavailable)
+}
+
+walletAssetSchema.methods.unlock = async function (amount) {
+    
+}
+
+walletAssetSchema.methods.add = async function (amount) {
+    
+}
+
+walletAssetSchema.methods.subtract = async function (amount) {
+    
+}
 
 const WalletAsset = mongoose.model('WalletAsset', walletAssetSchema);
 

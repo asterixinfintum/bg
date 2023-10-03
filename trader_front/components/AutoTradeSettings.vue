@@ -49,7 +49,7 @@
             </div>
 
             <div class="auth__inputarea spottradearea__buybtn">
-                <button class="btn colored-btn padded-btn auth__btn" @click="openAutoTrade" v-if="!loading">Open Trade</button>
+                <button class="btn colored-btn padded-btn auth__btn" @click="automatictrade" v-if="!loading">Open Trade</button>
                 <button class="btn colored-btn padded-btn dim auth__btn" v-if="loading">
                         <span class="loader-button"></span>
                 </button>
@@ -63,7 +63,7 @@ import autoTradeSettingsMixin from '@/mixins/autotradesettings';
 import tradingStrategiesMixin from '@/mixins/tradingstrategies';
 
 export default {
-    props: ['togglestrategiesState', 'autoTradeDetails', 'openAutoTrade', 'loading'],
+    props: ['togglestrategiesState', 'autoTradeDetails', 'loading', 'automatictrade'],
     mixins: [autoTradeSettingsMixin, tradingStrategiesMixin]
 }
 </script>

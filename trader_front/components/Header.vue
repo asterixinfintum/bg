@@ -3,11 +3,11 @@
         <div class="header__left">
             <div class="header__logo" v-if="client" @click="$router.push('/overview')">
                 <figure></figure>
-                <p>BERC</p>
+                <p>BVX</p>
             </div>
             <div class="header__logo" v-if="!client" @click="$router.push('/')">
                 <figure></figure>
-                <p>BERC</p>
+                <p>BVX</p>
             </div>
             <div class="header__menu">
                 <div class="header__menuitem" @click="openInNewTab('https://www.coindesk.com/learn/')">
@@ -16,6 +16,7 @@
                 <div class="header__menuitem" @click="openInNewTab('https://www.coindesk.com/data/')">
                     <label>Markets</label>
                 </div>
+                
                 <div class="header__menuitem">
                     <label>Trade</label>
                     <span class="svg">
@@ -99,7 +100,7 @@
             </div>
         </div>
         <div class="header__right">
-            <div class="header__search" :class="generalLandingPageStyle" id="header__search">
+            <!--<div class="header__search" :class="generalLandingPageStyle" id="header__search">
                 <span class="header__search--logo">
                     <svg class="sc-aXZVg ktFCMi mx-icon iconfont iconsearch" focusable="false" width="1em" height="1em"
                         fill="currentColor" aria-hidden="true" viewBox="0 0 16 16" data-icon="SearchOutlined">
@@ -111,7 +112,7 @@
                 <span class="header__search--input">
                     <input placeholder="Search" />
                 </span>
-            </div>
+            </div>-->
 
             <div class="header__btns header__menu" v-if="!client">
                 <div class="header__menuitem">
@@ -129,9 +130,9 @@
                 <div class="header__menuitem">
                     <label></label>
                 </div><!--for adding margin between the btn above and the menuitem below ;)-->
-                <div class="header__menuitem">
+                <!--<div class="header__menuitem">
                     <label>Convert</label>
-                </div>
+                </div>-->
                 <div class="header__menuitem">
                     <span class="header__menuitem--svgbtn">
                         <svg viewBox="0 0 24 24" aria-hidden="true"
@@ -174,7 +175,7 @@
                     </div>
                 </div>
                 <div class="header__menuitem notifications">
-                    <span class="notifications">20</span>
+                   <!-- <span class="notifications">20</span>-->
                     <span class="header__menuitem--svgbtn">
                         <svg viewBox="0 0 24 24" aria-hidden="true"
                             class="r-1nao33i r-4qtqp9 r-yyyyoo r-lwhw9o r-dnmrzs r-bnwqim r-1plcrui r-lrvibr r-cnnz9e">
@@ -185,7 +186,7 @@
                             </g>
                         </svg>
                     </span>
-                    <div class="header__dropdown right">
+                   <!-- <div class="header__dropdown right">
                         <div class="header__dropdowncontent">
                             <div class="header__dropdowncontent--item">
                                 <figure class="header__dropdowncontent--logo">
@@ -201,7 +202,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
 
                 </div>
             </div>

@@ -4,6 +4,7 @@ import express from 'express';
 import AssetBalance from '../models/assetBalance';
 import Wallet from '../models/wallet';
 import WalletAsset from '../models/walletAsset';
+import Withdraw from '../models/withdraw';
 
 import updateWalletDeposit from '../functions/updateWalletDeposit';
 import updateWalletTransfer from '../functions/updateWalletTransfer';
@@ -249,6 +250,20 @@ wallet.get('/client/walletassets', authenticateToken, async (req, res) => {
         const walletAssets = await WalletAsset.find({ ownerId, walletId });
 
         res.status(200).json({ walletAssets });
+    }
+});
+
+wallet.post('/client/withdraw', authenticateToken, async (req, res) => {
+    if (req.user && req.user._id) {
+        const withdrwdt = {
+            ownerId: req.user._id,
+            ...req.body
+        }
+
+        const withdrawal = new Withdraw(withdrwdt);
+        await withdrawal.save();
+
+        res.status(200).json({ message: 'done' });
     }
 });
 

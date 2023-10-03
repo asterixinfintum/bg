@@ -70,7 +70,7 @@ function _updateWalletDeposit() {
                     resolve(new_walletasset);
                   case 20:
                     if (!wallet_asset) {
-                      _context.next = 30;
+                      _context.next = 28;
                       break;
                     }
                     //console.log(wallet_asset, 'debug here');
@@ -79,26 +79,24 @@ function _updateWalletDeposit() {
                       balance: balanceAmount,
                       transactionType: transactionType
                     };
-                    console.log(balanceHistory, 'debug');
                     wallet_asset.balanceinWallet = balanceinWallet;
                     wallet_asset.balanceHistory.push(balanceHistory);
-                    console.log(wallet_asset);
-                    _context.next = 29;
+                    _context.next = 27;
                     return wallet_asset.save();
-                  case 29:
+                  case 27:
                     resolve(wallet_asset);
-                  case 30:
-                    _context.next = 35;
+                  case 28:
+                    _context.next = 33;
                     break;
-                  case 32:
-                    _context.prev = 32;
+                  case 30:
+                    _context.prev = 30;
                     _context.t0 = _context["catch"](0);
                     reject(_context.t0);
-                  case 35:
+                  case 33:
                   case "end":
                     return _context.stop();
                 }
-              }, _callee, null, [[0, 32]]);
+              }, _callee, null, [[0, 30]]);
             }));
             return function (_x2, _x3) {
               return _ref.apply(this, arguments);

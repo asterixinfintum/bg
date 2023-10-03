@@ -59,12 +59,12 @@ function _seedDBCryptoAssets() {
                     _iterator = _createForOfIteratorHelper(cryptoassets);
                     _context2.prev = 18;
                     _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop() {
-                      var cryptoassetObj, _cryptoassetObj$data, name, coin, networkList, cryptoassetsprice, cryptoassetsticker, _cryptoassetsprice$0$, symbol, price, time, dailyChange, ts, _cryptoassetsticker$, open, low, high, close, quantity, amount, tradeCount, startTime, closeTime, displayName, bid, bidQuantity, ask, askQuantity, markPrice, cryptoAssetDB;
+                      var cryptoassetObj, _cryptoassetObj$data, name, coin, cryptoassetsprice, cryptoassetsticker, _cryptoassetsprice$0$, symbol, price, time, _cryptoassetsticker$, open, low, high, close, quantity, amount, tradeCount, startTime, closeTime, displayName, bid, bidQuantity, ask, askQuantity, markPrice, cryptoAssetDB;
                       return _regeneratorRuntime().wrap(function _loop$(_context) {
                         while (1) switch (_context.prev = _context.next) {
                           case 0:
                             cryptoassetObj = _step.value;
-                            _cryptoassetObj$data = cryptoassetObj.data, name = _cryptoassetObj$data.name, coin = _cryptoassetObj$data.coin, networkList = _cryptoassetObj$data.networkList;
+                            _cryptoassetObj$data = cryptoassetObj.data, name = _cryptoassetObj$data.name, coin = _cryptoassetObj$data.coin;
                             cryptoassetsprice = cryptoassetsprices.filter(function (item) {
                               return getCharactersBeforeUnderscore(item.data.symbol) === coin && topThirty.includes(coin);
                             });
@@ -72,7 +72,7 @@ function _seedDBCryptoAssets() {
                               return getCharactersBeforeUnderscore(item.data.symbol) === coin && topThirty.includes(coin);
                             });
                             if (cryptoassetsprice[0] !== undefined && cryptoassetsticker[0] !== undefined) {
-                              _cryptoassetsprice$0$ = cryptoassetsprice[0].data, symbol = _cryptoassetsprice$0$.symbol, price = _cryptoassetsprice$0$.price, time = _cryptoassetsprice$0$.time, dailyChange = _cryptoassetsprice$0$.dailyChange, ts = _cryptoassetsprice$0$.ts;
+                              _cryptoassetsprice$0$ = cryptoassetsprice[0].data, symbol = _cryptoassetsprice$0$.symbol, price = _cryptoassetsprice$0$.price, time = _cryptoassetsprice$0$.time;
                               _cryptoassetsticker$ = cryptoassetsticker[0].data, open = _cryptoassetsticker$.open, low = _cryptoassetsticker$.low, high = _cryptoassetsticker$.high, close = _cryptoassetsticker$.close, quantity = _cryptoassetsticker$.quantity, amount = _cryptoassetsticker$.amount, tradeCount = _cryptoassetsticker$.tradeCount, startTime = _cryptoassetsticker$.startTime, closeTime = _cryptoassetsticker$.closeTime, displayName = _cryptoassetsticker$.displayName, bid = _cryptoassetsticker$.bid, bidQuantity = _cryptoassetsticker$.bidQuantity, ask = _cryptoassetsticker$.ask, askQuantity = _cryptoassetsticker$.askQuantity, markPrice = _cryptoassetsticker$.markPrice;
                               cryptoAssetDB = {
                                 name: name,
@@ -80,8 +80,6 @@ function _seedDBCryptoAssets() {
                                 symbol: symbol,
                                 price: price,
                                 time: time,
-                                dailyChange: dailyChange,
-                                ts: ts,
                                 open: open,
                                 low: low,
                                 high: high,
@@ -96,8 +94,7 @@ function _seedDBCryptoAssets() {
                                 bidQuantity: bidQuantity,
                                 ask: ask,
                                 askQuantity: askQuantity,
-                                markPrice: markPrice,
-                                networkList: networkList
+                                markPrice: markPrice
                               };
                               createCryptoAssetItem(cryptoAssetDB);
                             }

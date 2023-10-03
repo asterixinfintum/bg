@@ -174,10 +174,10 @@ export default {
             return `0.00`;
         },
         assetToTransferData() {
-            const { cryptoassets, assetToTransfer } = this;
+            const { assets, assetToTransfer } = this;
 
-            if (cryptoassets.length && !assetToTransfer) {
-                const initialAssetToTransfer = cryptoassets[0];
+            if (assets.length && !assetToTransfer) {
+                const initialAssetToTransfer = assets[0];
                 return initialAssetToTransfer;
             } else if (assetToTransfer) {
                 return assetToTransfer;

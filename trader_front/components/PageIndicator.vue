@@ -10,8 +10,8 @@
                 </div>
                 <div class="pageindicator__btns" v-if="!nobtns">
                     <button class="btn padded-btn colored-btn" @click="$router.push(`/wallet/${currentpage}`)" v-if="showdepositbtn">Deposit</button>
-                    <button class="btn padded-btn greyed-btn" v-if="showwithdrawbtn">Withdrawal</button>
-                    <button class="btn padded-btn greyed-btn" @click="openTransferPanel">Transfer</button>
+                    <button class="btn padded-btn greyed-btn" @click="$router.push(`/withdraw/${currentpage}`)" v-if="showwithdrawbtn">Withdrawal</button>
+                   <!-- <button class="btn padded-btn greyed-btn" @click="openTransferPanel">Transfer</button>-->
                     <button class="btn padded-btn greyed-btn" @click="$router.push(`/transactionhistory`)">Transaction History</button>
                 </div>
             </div>

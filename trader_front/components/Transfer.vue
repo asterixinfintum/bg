@@ -44,7 +44,7 @@
                         <div class="transactionstyle__inputboxarea">
                             <div class="transactionstyle__inputboxarea--section center-align reserveasset-label-area" @click="toggleAssetsMenu">
                                 <figure class="reserveassetlogo">
-                                    <img src="https://rawcdn.githack.com/trustwallet/assets/master/blockchains/ethereum/assets/0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48/logo.png"/>
+                                    <img :src="returnCryptoLogo(assetToTransferData.image)"/>
                                 </figure>
                                 <span class="reserveassetlabel">
                                     {{ assetToTransferData ? assetToTransferData.coin : '' }}
@@ -165,7 +165,7 @@
                         </div>
                     </div>
 
-                    <div class="transactionstyle__categoryoption" @click="selectWallet('defi')">
+                    <!--<div class="transactionstyle__categoryoption" @click="selectWallet('defi')">
                         <div class="transactionstyle__categoryoption--area">
                             <span class="transactionstyle__categoryoption--svg">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="css-199zucj"><path fill-rule="evenodd" clip-rule="evenodd" d="M15 3.5a5.502 5.502 0 00-5.302 4.032 7.502 7.502 0 016.77 6.77A5.502 5.502 0 0015 3.5zM14.5 15a5.5 5.5 0 10-11 0 5.5 5.5 0 0011 0zm-8 0L9 17.5l2.5-2.5L9 12.5 6.5 15zM9 4H4v5l5-5zm11 16h-5l5-5v5z" fill="currentColor"></path></svg>
@@ -202,7 +202,7 @@
                         <div class="transactionstyle__categoryoption--area right">
                             <span class="red">Inactive</span>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
 
@@ -213,11 +213,12 @@
 <script>
 import transactionpopup from '@/mixins/transactionpopup';
 import transferMixin from '@/mixins/transfer';
+import cryptologosMixin from '@/mixins/cryptologos';
 
 import TransferEventBus from '~/plugins/event-transfer';
 
 export default {
-    mixins: [transactionpopup, transferMixin],
+    mixins: [transactionpopup, transferMixin, cryptologosMixin],
     methods: {
         closeTransferPanel() {
             TransferEventBus.$emit('toggle-transfer-panel');

@@ -4,7 +4,8 @@ const { BASE_URL } = BASE_VARS;
 
 export const state = () => ({
     wallettypes: [],
-    wallets: []
+    wallets: [],
+    balances: []
 });
 
 export const mutations = {
@@ -17,6 +18,60 @@ export const mutations = {
 }
 
 export const actions = {
+
+    async getwallets({ commit }) {
+        return new Promise((resolve, reject) => {
+            const token = localStorage.getItem('873__jh6bdjktoken');
+
+            fetch(`${BASE_URL}/wallets`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const { wllts } = data;
+                    commit('SET_WALLETS', wllts);
+                    resolve(data)
+                })
+                .catch(error => {
+                    console.error(error);
+                    reject(error);
+                })
+        });
+    },
+
+
+
+
+    /*async withdraw({ commit }, withdrawal) {
+        return new Promise((resolve, reject) => {
+            try {
+                const token = localStorage.getItem('873__jh6bdjktoken');
+
+                fetch(`${BASE_URL}/client/withdraw`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify(withdrawal)
+                }).then(response => response.json())
+                    .then(data => {
+                        commit('SET_WALLETTYPES', user_wallets);
+                        resolve(data)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        reject(error);
+                    })
+            } catch (error) {
+                reject(error)
+            }
+        })
+    },
     async getwallettypes({ commit }) {
         return new Promise((resolve, reject) => {
             try {
@@ -25,20 +80,20 @@ export const actions = {
                 fetch(`${BASE_URL}/client/wallets`, {
                     method: 'GET',
                     headers: {
-                      'Content-Type': 'application/json',
-                      'Authorization': `Bearer ${token}`
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
                 })
-                .then(response => response.json())
-                .then(data => {
-                    const { user_wallets } = data;
-                    commit('SET_WALLETTYPES', user_wallets);
-                    resolve(user_wallets)
-                })
-                .catch(error => {
-                    console.error(error);
-                    reject(error);
-                })
+                    .then(response => response.json())
+                    .then(data => {
+                        const { user_wallets } = data;
+                        commit('SET_WALLETTYPES', user_wallets);
+                        resolve(user_wallets)
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        reject(error);
+                    })
             } catch (error) {
 
             }
@@ -53,22 +108,22 @@ export const actions = {
                 fetch(`${BASE_URL}/client/walletassets?wallet=${wallet_id}`, {
                     method: 'GET',
                     headers: {
-                      'Content-Type': 'application/json',
-                      'Authorization': `Bearer ${token}`
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
                     }
                 })
-                .then(response => response.json())
-                .then(data => {
-                    const { walletAssets } = data;
-                    resolve(walletAssets);
-                })
-                .catch(error => {
-                    console.error(error);
-                    reject(error);
-                })
+                    .then(response => response.json())
+                    .then(data => {
+                        const { walletAssets } = data;
+                        resolve(walletAssets);
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        reject(error);
+                    })
             } catch (error) {
                 console.log(error);
             }
         })
-    }
+    }*/
 }

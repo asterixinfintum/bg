@@ -9,7 +9,7 @@
                         <SideNav />
 
                         <div class="layout-stretch">
-                            <PageIndicator :page_name="'Margin'" :showdepositbtn="true" :showwithdrawbtn="true"/>
+                            <PageIndicator :page_name="'Margin'" :showdepositbtn="true" :showwithdrawbtn="true" />
 
                             <div class="margin__main layout-padding">
                                 <div class="balancearea row">
@@ -30,10 +30,9 @@
                                         </div>
 
                                         <div class="balancearea__primarybalance">
-                                            <p class="balancearea__primarybalance--btcvalue">{{ balanceInBTC ? balanceInBTC
-                                                : 0 }} BTC</p>
+                                            <p class="balancearea__primarybalance--btcvalue">{{ totalBlcBTC('margin') }} BTC</p>
                                             <span class="balancearea__primarybalance--equals">≈</span>
-                                            <p class="balancearea__primarybalance--usdvalue">${{ balance ? balance : 0 }}
+                                            <p class="balancearea__primarybalance--usdvalue">${{ totalBlcUSD('margin') }}
                                             </p>
                                         </div>
                                     </div>
@@ -163,28 +162,22 @@
                                 </div>
 
                                 <div class="assetlist">
-                                    <div class="assetlist__item fiatandspot"
-                                        v-for="cryptoasset in listByPages[currentPage - 1]">
+                                    <div class="assetlist__item fiatandspot" v-for="asset in listByPages[currentPage - 1]">
 
                                         <div class="assetlist__area fiatandspot">
                                             <figure class="assetlist__area--assetlogo">
-                                                <img :src="returnCryptoLogo(cryptoasset.coin)" />
+                                                <img :src="returnCryptoLogo(asset.image)" />
                                             </figure>
                                             <div class="assetlist__area--asset">
-                                                <span class="assetlist__area--assetsymbol">{{ cryptoasset.coin }}</span>
+                                                <span class="assetlist__area--assetsymbol">{{ asset.coin }}</span>
                                                 <span class="assetlist__area--assetname">{{
-                                                    limitTextLength(cryptoasset.name, 9) }}</span>
+                                                    limitTextLength(asset.name, 9) }}</span>
                                             </div>
                                         </div>
 
                                         <div class="assetlist__area fiatandspot number-value">
                                             <p>
-                                                {{
-                                                    returnAssetBalanceOBJ(cryptoasset) ?
-                                                    limitTextLength(`${returnAssetBalanceOBJ(cryptoasset).base.balanceinWallet}`,
-                                                        10) :
-                                                    `0.00000000`
-                                                }}
+                                                {{ assetblc(asset) }}
                                             </p>
                                         </div>
 
@@ -211,11 +204,13 @@
                                             <!--<button class="btn color-primary">Buy</button>-->
                                             <!--<button class="btn color-primary">Sell</button>-->
                                             <!--<button class="btn color-primary">Deposit</button>-->
-                                            <button class="btn color-primary" @click.stop="$router.push('/swap')">Swap/Convert</button>
                                             <button class="btn color-primary"
-                                                @click.stop="navigateToTradePage(`trade?autotrader=false&wallet=margin`, cryptoasset._id)">Trade</button>
+                                                @click.stop="$router.push('/swap')">Swap/Convert</button>
                                             <button class="btn color-primary"
-                                                @click.stop="navigateToTradePage(`trade?autotrader=true&wallet=margin`, cryptoasset._id)">AlgoTrade</button>
+                                                @click.stop="navigateToTradePage(`trade?autotrader=false&wallet=margin&assettype=${asset.assetType}`, asset._id)" v-if="asset.coin !== 'USDT' && asset.coin !== 'USD'">Trade</button>
+                                            <button class="btn color-primary"
+                                                @click.stop="navigateToTradePage(`trade?autotrader=true&wallet=margin&assettype=${asset.assetType}`, asset._id)" v-if="asset.coin !== 'USDT' && asset.coin !== 'USD'">AlgoTrade</button>
+
                                             <!--<button class="btn color-primary">Earn</button>-->
                                         </div>
                                     </div>
@@ -234,39 +229,40 @@
                                         </svg>
                                     </span>
                                     <span v-if="currentPage >= 5" @click="setCurrentPage(1)">1</span>
-                                <span v-if="currentPage >= 5">...</span>
-                                <span v-for="(arrItem, index) in listByPages" @click="setCurrentPage((index + 1))"
-                                    :class="{ 
+                                    <span v-if="currentPage >= 5">...</span>
+                                    <span v-for="(arrItem, index) in listByPages" @click="setCurrentPage((index + 1))"
+                                        :class="{
                                             current: currentPage === (index + 1),
                                             notvisible: (index + 1) > (currentPage + 4) || (index + 1) < (currentPage - 3)
                                         }">{{ index + 1 }}</span>
-                                <span v-if="listByPages.length >= 6 && currentPage <= listByPages.length - 5">...</span>
-                                <span v-if="listByPages.length >= 6 && currentPage <= listByPages.length - 5"
-                                    @click="setCurrentPage(listByPages.length)">{{ listByPages.length }}</span>
-                                <span @click="incrPage" class="assetlist__navigation--next" :class="{
+                                    <span v-if="listByPages.length >= 6 && currentPage <= listByPages.length - 5">...</span>
+                                    <span v-if="listByPages.length >= 6 && currentPage <= listByPages.length - 5"
+                                        @click="setCurrentPage(listByPages.length)">{{ listByPages.length }}</span>
+                                    <span @click="incrPage" class="assetlist__navigation--next" :class="{
                                         visible: currentPage >= 1,
                                         notvisible: currentPage === listByPages.length
                                     }">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                        class="css-3kwgah">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M12.288 12l-3.89 3.89 1.768 1.767L15.823 12l-1.768-1.768-3.889-3.889-1.768 1.768 3.89 3.89z"
-                                            fill="currentColor"></path>
-                                    </svg>
-                                </span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                            class="css-3kwgah">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M12.288 12l-3.89 3.89 1.768 1.767L15.823 12l-1.768-1.768-3.889-3.889-1.768 1.768 3.89 3.89z"
+                                                fill="currentColor"></path>
+                                        </svg>
+                                    </span>
+                                </div>
+
+
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div></template>
+</template>
 
 <script>
-import walletMixin from '@/mixins/wallet';
+//import walletMixin from '@/mixins/wallet';
 import listMixin from '@/mixins/list';
 import generalutilities from '@/mixins/generalutilities.js';
 import cryptologosMixin from '@/mixins/cryptologos';
@@ -277,6 +273,6 @@ export default {
             wallettype: "margin"
         }
     },
-    mixins: [generalutilities, walletMixin, listMixin, cryptologosMixin]
+    mixins: [generalutilities, listMixin, cryptologosMixin],
 }
 </script>

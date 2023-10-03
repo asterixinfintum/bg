@@ -7,12 +7,15 @@
                     <h3>Confirm Transaction Details</h3>
                 </div>
                 <div class="transactionstyle__subject--closebtn" @click="toggleconfirmTrade">
-                    <svg viewBox="0 0 24 24" focusable="false" class="chakra-icon css-onkibi" aria-hidden="true"><path fill="currentColor" d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z"></path></svg>
+                    <svg viewBox="0 0 24 24" focusable="false" class="chakra-icon css-onkibi" aria-hidden="true">
+                        <path fill="currentColor"
+                            d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z">
+                        </path>
+                    </svg>
                 </div>
             </div>
 
-            <div class="transactionstyle__container" 
-                v-if="contentObj && contentObj.transactionType === 'conversion'">
+            <div class="transactionstyle__container" v-if="contentObj && contentObj.transactionType === 'conversion'">
 
                 <div class="previewtrade__content">
                     <div class="previewtrade__contentarea">
@@ -63,16 +66,17 @@
                             <div class="previewtrade__contentitemleft">Wallet</div>
                             <div class="previewtrade__contentitemright">
                                 <div class="previewtrade__contentitemright--top"></div>
-                                <div class="previewtrade__contentitemright--bottom wallet-type">{{ contentObj.walletCategory }}</div>
+                                <div class="previewtrade__contentitemright--bottom wallet-type">{{ contentObj.walletCategory
+                                }}</div>
                             </div>
                         </div>
 
                     </div>
                 </div>
-                
+
                 <div class="transactionstyle__btn">
-                    <button class="btn colored-btn padded-btn" 
-                        @click="triggerConversion" v-if="!loading">Confirm and Trade</button>
+                    <button class="btn colored-btn padded-btn" @click="triggerConversion" v-if="!loading">Confirm and
+                        Trade</button>
 
                     <button class="btn colored-btn padded-btn dim" v-if="loading">
                         <span class="loader-button"></span>
@@ -80,14 +84,14 @@
                 </div>
             </div>
 
-            <div class="transactionstyle__container" 
-                v-if="contentObj && contentObj.transactionType.type === 'transfer'">
+            <div class="transactionstyle__container" v-if="contentObj && contentObj.transactionType.type === 'transfer'">
 
                 <div class="previewtrade__content">
                     <div class="previewtrade__contentarea">
 
                         <div class="previewtrade__contentitem">
-                            <div class="previewtrade__contentitemleft">Transfer {{ contentObj.assetName }} From {{ contentObj.formerWallet }} to {{ contentObj.currentWallet }}</div>
+                            <div class="previewtrade__contentitemleft">Transfer {{ contentObj.assetName }} From {{
+                                contentObj.formerWallet }} to {{ contentObj.currentWallet }}</div>
                             <div class="previewtrade__contentitemright">
                                 <div class="previewtrade__contentitemright--top">
                                     {{ contentObj.balanceAmount }} {{ contentObj.assetName }}
@@ -102,8 +106,8 @@
                 </div>
 
                 <div class="transactionstyle__btn">
-                    <button class="btn colored-btn padded-btn" 
-                        @click="triggerTransfer" v-if="!loading">Confirm and Trade</button>
+                    <button class="btn colored-btn padded-btn" @click="triggerTransfer" v-if="!loading">Confirm and
+                        Trade</button>
 
                     <button class="btn colored-btn padded-btn dim" v-if="loading">
                         <span class="loader-button"></span>
@@ -135,14 +139,14 @@ export default {
             this.loading = true;
 
             executeTransfer(transfer)
-            .then(data => {
+                .then(data => {
                     this.loading = false;
                     this.$router.go();
-            })
-            .catch(error => {
-                this.loading = false;
-                console.log(error)
-            })
+                })
+                .catch(error => {
+                    this.loading = false;
+                    console.log(error)
+                })
         },
         triggerConversion() {
             const { executeConversion, conversion } = this;
@@ -157,41 +161,35 @@ export default {
                 .catch(error => {
                     this.loading = false;
                     console.log(error)
-                })
+                });
         }
     },
     computed: {
         conversion() {
-            const { 
-                ownerId, 
+            const {
+                ownerId,
                 currentAssetFrom,
                 toInput,
                 fromInput,
+                wallet,
                 assetCategoryTo,
                 transactionType,
                 transactionFee,
                 currentAssetTo,
-                transactionDescription,
-                walletCategory
-             } = this.contentObj;
+                walletCategory,
+                transactionTotal
+            } = this.contentObj;
 
-             const conversion = {
-                ownerId,
-                assetId: currentAssetFrom,
-                balanceAmount: parseFloat(fromInput),
-                assetType: assetCategoryTo,
-                transactionType: {
-                    type: transactionType,
-                    fee: parseFloat(transactionFee),
-                    fromAsset: currentAssetFrom,
-                    toAsset: currentAssetTo,
-                    balanceAmountOftoAsset: parseFloat(toInput)
-                },
-                transactionDescription,
-                currentWallet: walletCategory
-             }
+            const conversion = {
+                toquant: parseFloat(toInput),
+                fromquant: parseFloat(fromInput),
+                assetfrom: currentAssetFrom,
+                assetto: currentAssetTo,
+                wallet,
+                total: transactionTotal
+            }
 
-             return conversion;
+            return conversion;
         },
         transfer() {
             const {

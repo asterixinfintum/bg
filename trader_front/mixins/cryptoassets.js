@@ -8,14 +8,11 @@ export default {
     },
     computed: {
         ...mapState({
-            cryptoassets: state => state.cryptoassets.cryptoassets
-        }),
-        assets() {
-            return this.cryptoassets;
-        }
+            assets: state => state.list.assets
+        })
     },
     methods: {
-        ...mapActions('cryptoassets', ['getcryptoassets']),
+        ...mapActions('list', ['getassets']),
         getCharactersBeforeUnderscore(str) {
             const parts = str.split('_');
             return parts[0];
@@ -25,6 +22,6 @@ export default {
         }
     },
     mounted() {
-        this.getcryptoassets();
+        this.getassets();
     }
 }

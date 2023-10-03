@@ -5,10 +5,8 @@ var Schema = mongoose.Schema;
 var TxnSchema = new Schema({
   assetid: {
     type: String,
-    required: true,
-    min: 0 // Ensuring the balanceAmount is non-negative
+    required: true
   },
-
   type: {
     type: String,
     required: true,

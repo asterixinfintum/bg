@@ -330,7 +330,7 @@ wlltSchema.statics.updateBTCTransactions = /*#__PURE__*/function () {
                   confirmedBTCTxns.push(btctxid);
                   wallet.confirmedBitcoinTransactions = confirmedBTCTxns;
                   newtxn = new _txn["default"]({
-                    assetid: assetid,
+                    assetid: btcasset._id,
                     type: 'deposit',
                     notiftxt: "deposit of ".concat(value, " ").concat(btcasset.coin, " was made")
                   });

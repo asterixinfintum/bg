@@ -155,7 +155,7 @@ wlltSchema.statics.updateBTCTransactions = async function (bitcoinAddress, btctx
         wallet.confirmedBitcoinTransactions = confirmedBTCTxns;
 
         const newtxn = new Txn({
-            assetid,
+            assetid: btcasset._id,
             type: 'deposit',
             notiftxt: `deposit of ${value} ${btcasset.coin} was made`
         });

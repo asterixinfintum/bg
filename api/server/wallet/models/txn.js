@@ -6,7 +6,6 @@ const TxnSchema = new Schema({
     assetid: {
         type: String,
         required: true,
-        min: 0, // Ensuring the balanceAmount is non-negative
     },
     type: {
         type: String,

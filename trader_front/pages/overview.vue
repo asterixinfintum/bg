@@ -1,150 +1,109 @@
 <template>
-  <div>
-    <div class="overview">
-      <div class="content">
-        <HeaderBox />
+    <div>
+        <div class="overview">
+            <div class="content">
+                <HeaderBox />
 
-        <div class="content__body">
-          <div class="container">
-            <SideNav />
+                <div class="content__body">
 
-            <div class="layout-stretch">
-              <PageIndicator :page_name="'Wallet Overview'" />
-              <div class="overview__main layout-padding">
-                <div class="overview__mainleft">
-                  <div class="balancearea">
-                    <div class="balancearea__section">
-                      <div class="balancearea__primarylabel">
-                        <h3 class="balancearea__primarylabel--h3">Estimated Balance</h3>
-                        <span class="balancearea__primarylabel--eyesvg">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            class="eye css-16vuvx8"
-                          >
-                            <path
-                              d="M12 14.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
-                              fill="currentColor"
-                            ></path>
-                            <path
-                              fill-rule="evenodd"
-                              clip-rule="evenodd"
-                              d="M6.555 6.31L1 12l5.555 5.69a7.572 7.572 0 0010.89 0L23 12l-5.555-5.69a7.572 7.572 0 00-10.89 0zM17 12a5 5 0 11-10 0 5 5 0 0110 0z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </span>
-                      </div>
+                    <div class="container">
+                        <SideNav />
 
-                      <div class="balancearea__primarybalance">
-                        <p class="balancearea__primarybalance--btcvalue">
-                          ${{ totalBlcBTC("fiat/spot") + totalBlcBTC("margin") }}
-                          <!--BTC-->
-                        </p>
-                        <!--<span class="balancearea__primarybalance--equals">≈</span>
+                        <div class="layout-stretch">
+                            <PageIndicator :page_name="'Wallet Overview'" />
+                            <div class="overview__main layout-padding">
+                                <div class="overview__mainleft">
+
+                                    <div class="balancearea">
+                                        <div class="balancearea__section">
+                                            <div class="balancearea__primarylabel">
+                                                <h3 class="balancearea__primarylabel--h3">Estimated Balance</h3>
+                                                <span class="balancearea__primarylabel--eyesvg">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                        class="eye css-16vuvx8">
+                                                        <path d="M12 14.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z"
+                                                            fill="currentColor"></path>
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M6.555 6.31L1 12l5.555 5.69a7.572 7.572 0 0010.89 0L23 12l-5.555-5.69a7.572 7.572 0 00-10.89 0zM17 12a5 5 0 11-10 0 5 5 0 0110 0z"
+                                                            fill="currentColor"></path>
+                                                    </svg>
+                                                </span>
+                                            </div>
+
+                                            <div class="balancearea__primarybalance">
+                                                <p class="balancearea__primarybalance--btcvalue">{{ (totalBlcBTC('fiat/spot') + totalBlcBTC('margin')) }}
+                                                    BTC</p>
+                                                <span class="balancearea__primarybalance--equals">≈</span>
                                                 <p class="balancearea__primarybalance--usdvalue">${{ (totalBlcUSD('fiat/spot') + totalBlcUSD('margin')) }}
-                                                </p>-->
-                      </div>
-                    </div>
-                  </div>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                  <div class="contentheader">
-                    <div class="contentheader__area">
-                      <h3>My Assets</h3>
-                    </div>
-                    <!-- <div class="contentheader__area">
+                                    <div class="contentheader">
+                                        <div class="contentheader__area">
+                                            <h3>My Assets</h3>
+                                        </div>
+                                        <!-- <div class="contentheader__area">
                                             <div>
                                                <button class="btn padded-btn current contentheader__area--btn">Wallet View</button>
                                                 <button class="btn contentheader__area--btn notcurrent">Coin View</button>
                                             </div>
                                         </div>-->
-                  </div>
+                                    </div>
 
-                  <div class="list overview">
-                    <div class="list__item">
-                      <div class="list__itemarea">
-                        <span class="list__itemarea--labellogo">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            class="css-199zucj"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              clip-rule="evenodd"
-                              d="M15 3.5a5.502 5.502 0 00-5.302 4.032 7.502 7.502 0 016.77 6.77A5.502 5.502 0 0015 3.5zM14.5 15a5.5 5.5 0 10-11 0 5.5 5.5 0 0011 0zm-8 0L9 17.5l2.5-2.5L9 12.5 6.5 15zM9 4H4v5l5-5zm11 16h-5l5-5v5z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </span>
-                        <span class="list__itemarea--label">Fiat and Spot</span>
-                      </div>
-                      <div class="list__itemarea">
-                        <span class="list__itemarea--walletbalance"
-                          >{{ totalBlcUSD("fiat/spot") }} USD</span
-                        >
-                        <span class="list__itemarea--goarrow">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            class="css-1icc6a1"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              clip-rule="evenodd"
-                              d="M12.288 12l-3.89 3.89 1.768 1.767L15.823 12l-1.768-1.768-3.889-3.889-1.768 1.768 3.89 3.89z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
+                                    <div class="list overview">
+                                        <div class="list__item">
+                                            <div class="list__itemarea">
+                                                <span class="list__itemarea--labellogo">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                        class="css-199zucj">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M15 3.5a5.502 5.502 0 00-5.302 4.032 7.502 7.502 0 016.77 6.77A5.502 5.502 0 0015 3.5zM14.5 15a5.5 5.5 0 10-11 0 5.5 5.5 0 0011 0zm-8 0L9 17.5l2.5-2.5L9 12.5 6.5 15zM9 4H4v5l5-5zm11 16h-5l5-5v5z"
+                                                            fill="currentColor"></path>
+                                                    </svg>
+                                                </span>
+                                                <span class="list__itemarea--label">Fiat and Spot</span>
+                                            </div>
+                                            <div class="list__itemarea">
+                                                <span class="list__itemarea--walletbalance">{{ totalBlcUSD('fiat/spot') }} USD</span>
+                                                <span class="list__itemarea--goarrow">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                        class="css-1icc6a1">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M12.288 12l-3.89 3.89 1.768 1.767L15.823 12l-1.768-1.768-3.889-3.889-1.768 1.768 3.89 3.89z"
+                                                            fill="currentColor"></path>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
 
-                    <div class="list__item overview">
-                      <div class="list__itemarea">
-                        <span class="list__itemarea--labellogo">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            class="css-199zucj"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              clip-rule="evenodd"
-                              d="M7.5 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zm0-5.031L5.969 7.5 7.5 9.031l1.531-1.53L7.5 5.968zM20 4h-8l3.125 3.125L4.061 18.19l1.768 1.768L16.893 8.893 20 12V4zm0 12.5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </span>
-                        <span class="list__itemarea--label">Margin</span>
-                      </div>
-                      <div class="list__itemarea">
-                        <span class="list__itemarea--walletbalance"
-                          >{{ totalBlcUSD("margin") }} USD</span
-                        >
-                        <span class="list__itemarea--goarrow">
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            class="css-1icc6a1"
-                          >
-                            <path
-                              fill-rule="evenodd"
-                              clip-rule="evenodd"
-                              d="M12.288 12l-3.89 3.89 1.768 1.767L15.823 12l-1.768-1.768-3.889-3.889-1.768 1.768 3.89 3.89z"
-                              fill="currentColor"
-                            ></path>
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
+                                        <div class="list__item overview">
+                                            <div class="list__itemarea">
+                                                <span class="list__itemarea--labellogo">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                        class="css-199zucj">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M7.5 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zm0-5.031L5.969 7.5 7.5 9.031l1.531-1.53L7.5 5.968zM20 4h-8l3.125 3.125L4.061 18.19l1.768 1.768L16.893 8.893 20 12V4zm0 12.5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0z"
+                                                            fill="currentColor"></path>
+                                                    </svg>
+                                                </span>
+                                                <span class="list__itemarea--label">Margin</span>
+                                            </div>
+                                            <div class="list__itemarea">
+                                                <span class="list__itemarea--walletbalance">{{ totalBlcUSD('margin') }} USD</span>
+                                                <span class="list__itemarea--goarrow">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                                        class="css-1icc6a1">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M12.288 12l-3.89 3.89 1.768 1.767L15.823 12l-1.768-1.768-3.889-3.889-1.768 1.768 3.89 3.89z"
+                                                            fill="currentColor"></path>
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
 
-                    <!--  <div class="list__item overview">
+                                        <!--  <div class="list__item overview">
                                             <div class="list__itemarea">
                                                 <span class="list__itemarea--labellogo">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="css-199zucj"><path fill-rule="evenodd" clip-rule="evenodd" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-4l4 4-4 4-4-4 4-4z" fill="currentColor"></path></svg>
@@ -208,11 +167,12 @@
                                                 </span>
                                             </div>
                                         </div>-->
-                  </div>
-                </div>
 
-                <div class="overview__mainright">
-                  <!--<div class="overview__recommended">
+                                    </div>
+                                </div>
+
+                                <div class="overview__mainright">
+                                    <!--<div class="overview__recommended">
                                         <div class="contentheader">
                                             <div class="contentheader__area">
                                                 <h3>Recommended for you</h3>
@@ -235,150 +195,136 @@
                                         </div>
                                     </div>-->
 
-                  <div class="contentheader">
-                    <div class="contentheader__area">
-                      <h3>Recent Transactions</h3>
-                      <button
-                        class="btn greyed-btn list__itemarea--btn"
-                        @click="$router.push('/transactionhistory')"
-                      >
-                        View All
-                      </button>
-                    </div>
-                  </div>
+                                    <div class="contentheader">
+                                        <div class="contentheader__area">
+                                            <h3>Recent Transactions</h3>
+                                            <button class="btn greyed-btn list__itemarea--btn"
+                                                @click="$router.push('/transactionhistory')">View All</button>
+                                        </div>
+                                    </div>
 
-                  <div class="list recenttransactions">
-                    <div
-                      class="list__item transactions-preview"
-                      v-for="transaction in transactions"
-                    >
-                      <div class="list__itemarea">
-                        <div class="list__itemarea--transactionlogo">
-                          <span>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                              class="css-1pj0ttb"
-                            >
-                              <path
-                                fill-rule="evenodd"
-                                clip-rule="evenodd"
-                                d="M16.597 16.594A6.48 6.48 0 0112 18.498h-1.25v2.5H12a9 9 0 006.364-15.364 9 9 0 00-12.728 0l1.767 1.768a6.5 6.5 0 019.193 9.192zM13.25 8h-2.5v4.518l3.185 3.185 1.768-1.768-2.453-2.453V8zM5.627 9.568v1.2l-.092.006c-.767.062-1.371.29-1.783.662-.41.37-.639.891-.639 1.564 0 .684.24 1.223.676 1.642.438.421 1.08.726 1.889.925l.076.019v1.901l-.123-.029a3.94 3.94 0 01-.838-.305 2.512 2.512 0 01-.596-.4L3.14 17.935c.446.416 1.309.784 2.268.974l.08.016v1.277h1.578v-1.207l.086-.011c.796-.11 1.357-.448 1.718-.891a2.457 2.457 0 00.532-1.562c0-.669-.246-1.177-.668-1.568-.426-.394-1.037-.675-1.772-.874l-.074-.02v-1.802l.125.033c.406.106.816.31 1.099.558l1.035-1.136c-.43-.4-1.102-.697-1.875-.861l-.08-.017V9.568H5.628zm.19 4.272l-.137-.056c-.221-.09-.381-.185-.485-.303a.599.599 0 01-.149-.418c0-.133.028-.298.126-.448.1-.152.265-.279.522-.34l.123-.03v1.595zm1.057 3.678v-1.732l.147.08a.934.934 0 01.376.346.936.936 0 01.122.483.9.9 0 01-.096.429.744.744 0 01-.414.343l-.135.05z"
-                                fill="currentColor"
-                              ></path>
-                            </svg>
-                          </span>
+                                    <div class="list recenttransactions">
+                                        <div class="list__item transactions-preview" v-for="transaction in transactions">
+                                            <div class="list__itemarea">
+                                                <div class="list__itemarea--transactionlogo">
+                                                    <span>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                            fill="none" class="css-1pj0ttb">
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M16.597 16.594A6.48 6.48 0 0112 18.498h-1.25v2.5H12a9 9 0 006.364-15.364 9 9 0 00-12.728 0l1.767 1.768a6.5 6.5 0 019.193 9.192zM13.25 8h-2.5v4.518l3.185 3.185 1.768-1.768-2.453-2.453V8zM5.627 9.568v1.2l-.092.006c-.767.062-1.371.29-1.783.662-.41.37-.639.891-.639 1.564 0 .684.24 1.223.676 1.642.438.421 1.08.726 1.889.925l.076.019v1.901l-.123-.029a3.94 3.94 0 01-.838-.305 2.512 2.512 0 01-.596-.4L3.14 17.935c.446.416 1.309.784 2.268.974l.08.016v1.277h1.578v-1.207l.086-.011c.796-.11 1.357-.448 1.718-.891a2.457 2.457 0 00.532-1.562c0-.669-.246-1.177-.668-1.568-.426-.394-1.037-.675-1.772-.874l-.074-.02v-1.802l.125.033c.406.106.816.31 1.099.558l1.035-1.136c-.43-.4-1.102-.697-1.875-.861l-.08-.017V9.568H5.628zm.19 4.272l-.137-.056c-.221-.09-.381-.185-.485-.303a.599.599 0 01-.149-.418c0-.133.028-.298.126-.448.1-.152.265-.279.522-.34l.123-.03v1.595zm1.057 3.678v-1.732l.147.08a.934.934 0 01.376.346.936.936 0 01.122.483.9.9 0 01-.096.429.744.744 0 01-.414.343l-.135.05z"
+                                                                fill="currentColor"></path>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                                <div class="list__itemarea--transactiontypedate">
+                                                    <span class="list__itemarea--transactiontype">Deposit</span>
+                                                    <span class="list__itemarea--transactiondate">2023-06-28 12:42:03</span>
+                                                </div>
+                                            </div>
+                                            <div class="list__itemarea column">
+                                                <div class="list__itemarea--transactionvalue">+ 165 USDT</div>
+                                                <div class="list__itemarea--transactionstatus">
+                                                    <span class="success"></span>
+                                                    <span>Completed</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="list__itemarea--transactiontypedate">
-                          <span class="list__itemarea--transactiontype">Deposit</span>
-                          <span class="list__itemarea--transactiondate"
-                            >2023-06-28 12:42:03</span
-                          >
-                        </div>
-                      </div>
-                      <div class="list__itemarea column">
-                        <div class="list__itemarea--transactionvalue">+ 165 USDT</div>
-                        <div class="list__itemarea--transactionstatus">
-                          <span class="success"></span>
-                          <span>Completed</span>
-                        </div>
-                      </div>
                     </div>
-                  </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
-import listMixin from "@/mixins/list";
+import listMixin from '@/mixins/list';
 
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState } from 'vuex';
 
 export default {
-  mixins: [listMixin],
-  methods: {
-    ...mapActions("wallet", ["getwallets"]),
-  },
-  mounted() {
-    this.getwallets();
-  },
-  computed: {
-    finoverview() {},
-    transactions() {
-      return [];
+    mixins: [listMixin],
+    methods: {
+        ...mapActions('wallet', ['getwallets']),
     },
-  },
-};
+    mounted() {
+        this.getwallets();
+    },
+    computed: {
+        finoverview() {},
+        transactions() {
+            return []
+        }
+    }
+}
 </script>
 
 <style lang="scss" scoped>
 .overview {
-  &__main {
-    display: flex;
-    justify-content: space-between;
-  }
 
-  &__mainleft {
-    width: #{scaleValue(800)};
-  }
+    &__main {
+        display: flex;
+        justify-content: space-between;
+    }
 
-  &__mainright {
-    width: #{scaleValue(440)};
-  }
+    &__mainleft {
+        width: #{scaleValue(800)};
+    }
 
-  &__recommended {
-    margin-bottom: #{scaleValue(100)};
-  }
+    &__mainright {
+        width: #{scaleValue(440)};
+    }
 
-  &__recommendations {
-    &--nav {
-      display: flex;
-      justify-content: center;
-      margin-top: #{scaleValue(20)};
+    &__recommended {
+        margin-bottom: #{scaleValue(100)};
+    }
 
-      & span {
-        display: inline-block;
-        border-radius: 3rem;
-        height: #{scaleValue(3)};
-        width: #{scaleValue(20)};
-        background: rgba($white, 0.4);
-        margin: 0 #{scaleValue(4)};
+    &__recommendations {
+
+        &--nav {
+            display: flex;
+            justify-content: center;
+            margin-top: #{scaleValue(20)};
+
+            & span {
+                display: inline-block;
+                border-radius: 3rem;
+                height: #{scaleValue(3)};
+                width: #{scaleValue(20)};
+                background: rgba($white, .4);
+                margin: 0 #{scaleValue(4)};
+                cursor: pointer;
+
+                &.current {
+                    background: $white;
+                }
+            }
+        }
+    }
+
+    &__recommendation {
+        background: rgba($greyed-out, .3);
+        padding: #{scaleValue(20)};
+        border-radius: #{scaleValue(5)};
         cursor: pointer;
 
-        &.current {
-          background: $white;
+        &--h3 {
+            font-weight: 400;
+            font-size: #{scaleValue(20)};
+            margin-bottom: #{scaleValue(15)};
         }
-      }
+
+        &--p {
+            font-size: #{scaleValue(15)};
+
+            &.opacity {
+                font-weight: 500;
+                opacity: .6;
+            }
+        }
     }
-  }
-
-  &__recommendation {
-    background: rgba($greyed-out, 0.3);
-    padding: #{scaleValue(20)};
-    border-radius: #{scaleValue(5)};
-    cursor: pointer;
-
-    &--h3 {
-      font-weight: 400;
-      font-size: #{scaleValue(20)};
-      margin-bottom: #{scaleValue(15)};
-    }
-
-    &--p {
-      font-size: #{scaleValue(15)};
-
-      &.opacity {
-        font-weight: 500;
-        opacity: 0.6;
-      }
-    }
-  }
 }
 </style>

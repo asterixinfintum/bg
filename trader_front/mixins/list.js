@@ -210,11 +210,16 @@ export default {
         },
         totalBlcBTC(wallettype) {
             const { wallets, assets, retrnblcs } = this;
-            
+
+
             if (wallets.length && assets.length) {
-                const btcblcs = retrnblcs(wallettype).map(blc => blc.btcblc());
+                /*const btcblcs = retrnblcs(wallettype).map(blc => blc.btcblc());
                 const total = btcblcs.reduce((acc, current) => acc + current, 0);
-                return parseFloat(total)
+                return parseFloat(total)*/
+                //wallets.forEach(wallet => console.log(wallet.balance))
+                const wallet = wallets.find(wallet => wallet.walletType === wallettype);
+
+                return `$${wallet.balance}`;
             }
 
             return `0.00000000`

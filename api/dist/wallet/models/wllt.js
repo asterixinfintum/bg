@@ -65,7 +65,6 @@ wlltSchema.methods.swap = /*#__PURE__*/function () {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          console.log(toquant, fromquant, assetto, assetfrom);
           return _context2.abrupt("return", new Promise( /*#__PURE__*/function () {
             var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(resolve, reject) {
               return _regeneratorRuntime().wrap(function _callee$(_context) {
@@ -95,7 +94,7 @@ wlltSchema.methods.swap = /*#__PURE__*/function () {
               return _ref2.apply(this, arguments);
             };
           }()));
-        case 2:
+        case 1:
         case "end":
           return _context2.stop();
       }

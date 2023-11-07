@@ -34,6 +34,7 @@ export const actions = {
                 .then(data => {
                     const { wllts } = data;
                     commit('SET_WALLETS', wllts);
+                    //console.log('tst', data)
                     resolve(data)
                 })
                 .catch(error => {

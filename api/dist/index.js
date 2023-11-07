@@ -112,7 +112,7 @@ function _callHomekeepers() {
   return _callHomekeepers.apply(this, arguments);
 }
 _nodeCron["default"].schedule("*/13 * * * *", function () {
-  callHomekeepers();
+  //callHomekeepers();
 });
 app.use(_express["default"]["static"]('public'));
 app.use('/', _express["default"]["static"]('public/ui'));

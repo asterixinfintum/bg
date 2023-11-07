@@ -73,7 +73,6 @@ export default {
             this.toInput = youPayUSD() / parseFloat(currentAssetTo.price);
             this.yougetval = parseFloat(this.toInput) * parseFloat(currentAssetTo.price);
             this.transactionFee = calculatePercentage(this.yougetval, 5);
-            console.log(this.transactionFee);
             this.inputError = false;
         },
         currentAssetFrom() {

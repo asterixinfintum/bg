@@ -9,6 +9,7 @@ var _express = _interopRequireDefault(require("express"));
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
 var _multer = _interopRequireDefault(require("multer"));
 var _user = _interopRequireDefault(require("../models/user"));
+var _wllt = _interopRequireDefault(require("../wallet/models/wllt"));
 var _editTracker = _interopRequireDefault(require("../models/editTracker"));
 var _admin = _interopRequireDefault(require("../models/admin"));
 var _inHouseAsset = _interopRequireDefault(require("../models/inHouseAsset"));
@@ -88,11 +89,106 @@ const upload = multer({
 var upload = (0, _multer["default"])({
   dest: 'uploads/'
 });
+admin.get('/allusers', /*#__PURE__*/function () {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
+    var users, items;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.prev = 0;
+          _context2.next = 3;
+          return _user["default"].find();
+        case 3:
+          users = _context2.sent;
+          _context2.next = 6;
+          return Promise.all(users.map( /*#__PURE__*/function () {
+            var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(user) {
+              var wallets;
+              return _regeneratorRuntime().wrap(function _callee$(_context) {
+                while (1) switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return _wllt["default"].find({
+                      ownerId: user._id
+                    });
+                  case 2:
+                    wallets = _context.sent;
+                    return _context.abrupt("return", {
+                      wallets: wallets,
+                      user: user
+                    });
+                  case 4:
+                  case "end":
+                    return _context.stop();
+                }
+              }, _callee);
+            }));
+            return function (_x3) {
+              return _ref2.apply(this, arguments);
+            };
+          }()));
+        case 6:
+          items = _context2.sent;
+          res.status(200).send({
+            users: items
+          });
+          _context2.next = 13;
+          break;
+        case 10:
+          _context2.prev = 10;
+          _context2.t0 = _context2["catch"](0);
+          res.status(500).send(_context2.t0);
+        case 13:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[0, 10]]);
+  }));
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+}());
+admin.post('/editwallet', /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+    var update, walletid, wallet;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          _context3.prev = 0;
+          update = req.body.update;
+          walletid = req.query.walletid;
+          _context3.next = 5;
+          return _wllt["default"].findOne({
+            _id: walletid
+          });
+        case 5:
+          wallet = _context3.sent;
+          wallet.balance = update;
+          wallet.save();
+          res.status(200).send({
+            message: 'saved update'
+          });
+          _context3.next = 14;
+          break;
+        case 11:
+          _context3.prev = 11;
+          _context3.t0 = _context3["catch"](0);
+          res.status(500).send(_context3.t0);
+        case 14:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[0, 11]]);
+  }));
+  return function (_x4, _x5) {
+    return _ref3.apply(this, arguments);
+  };
+}());
 admin.get('/alladmins', /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
     var masterkey;
-    return _regeneratorRuntime().wrap(function _callee$(_context) {
-      while (1) switch (_context.prev = _context.next) {
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
         case 0:
           masterkey = req.query.masterkey;
           if (masterkey && masterkey === process.env.masterKey) {
@@ -110,19 +206,19 @@ admin.get('/alladmins', /*#__PURE__*/function () {
           }
         case 2:
         case "end":
-          return _context.stop();
+          return _context4.stop();
       }
-    }, _callee);
+    }, _callee4);
   }));
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
+  return function (_x6, _x7) {
+    return _ref4.apply(this, arguments);
   };
 }());
 admin.get('/admin/master', /*#__PURE__*/function () {
-  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
     var _req$query, admin_id, masterkey;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
         case 0:
           _req$query = req.query, admin_id = _req$query.admin_id, masterkey = _req$query.masterkey;
           if (masterkey && masterkey === process.env.masterKey) {
@@ -141,28 +237,28 @@ admin.get('/admin/master', /*#__PURE__*/function () {
           }
         case 2:
         case "end":
-          return _context2.stop();
+          return _context5.stop();
       }
-    }, _callee2);
+    }, _callee5);
   }));
-  return function (_x3, _x4) {
-    return _ref2.apply(this, arguments);
+  return function (_x8, _x9) {
+    return _ref5.apply(this, arguments);
   };
 }());
 admin.post('/admin/signup', /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
     var masterkey, receivedCredentials, adminUser;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
         case 0:
           masterkey = req.query.masterkey;
           if (masterkey && masterkey === process.env.masterKey) {
             try {
               receivedCredentials = req.body;
               adminUser = new _admin["default"](receivedCredentials);
-              adminUser.save().then(function (_ref4) {
-                var username = _ref4.username,
-                  password = _ref4.password;
+              adminUser.save().then(function (_ref7) {
+                var username = _ref7.username,
+                  password = _ref7.password;
                 res.json({
                   message: 'Admin credentials saved successfully.',
                   adminData: {
@@ -182,19 +278,19 @@ admin.post('/admin/signup', /*#__PURE__*/function () {
           }
         case 2:
         case "end":
-          return _context3.stop();
+          return _context6.stop();
       }
-    }, _callee3);
+    }, _callee6);
   }));
-  return function (_x5, _x6) {
-    return _ref3.apply(this, arguments);
+  return function (_x10, _x11) {
+    return _ref6.apply(this, arguments);
   };
 }());
 admin.post('/admin/login', /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+  var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(req, res) {
     var _req$body, user_name, password;
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
+    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
         case 0:
           try {
             _req$body = req.body, user_name = _req$body.user_name, password = _req$body.password;
@@ -210,11 +306,11 @@ admin.post('/admin/login', /*#__PURE__*/function () {
                 username: adminitem.username
               }, process.env.secretKeyJWT);
               adminitem.token = token;
-              adminitem.save().then(function (_ref6) {
-                var _id = _ref6._id,
-                  username = _ref6.username,
-                  password = _ref6.password,
-                  token = _ref6.token;
+              adminitem.save().then(function (_ref9) {
+                var _id = _ref9._id,
+                  username = _ref9.username,
+                  password = _ref9.password,
+                  token = _ref9.token;
                 res.json({
                   message: 'Credentials saved successfully.',
                   token: token,
@@ -237,19 +333,19 @@ admin.post('/admin/login', /*#__PURE__*/function () {
           }
         case 1:
         case "end":
-          return _context4.stop();
+          return _context7.stop();
       }
-    }, _callee4);
+    }, _callee7);
   }));
-  return function (_x7, _x8) {
-    return _ref5.apply(this, arguments);
+  return function (_x12, _x13) {
+    return _ref8.apply(this, arguments);
   };
 }());
 admin.get('/admin/', _authenticateToken["default"], /*#__PURE__*/function () {
-  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
+  var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(req, res) {
     var admin_id;
-    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-      while (1) switch (_context5.prev = _context5.next) {
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
         case 0:
           admin_id = req.query.admin_id;
           _admin["default"].findOne({
@@ -276,90 +372,90 @@ admin.get('/admin/', _authenticateToken["default"], /*#__PURE__*/function () {
           });
         case 2:
         case "end":
-          return _context5.stop();
+          return _context8.stop();
       }
-    }, _callee5);
+    }, _callee8);
   }));
-  return function (_x9, _x10) {
-    return _ref7.apply(this, arguments);
+  return function (_x14, _x15) {
+    return _ref10.apply(this, arguments);
   };
 }());
 admin.get('/getusers', _authenticateToken["default"], /*#__PURE__*/function () {
-  var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
+  var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(req, res) {
     var users;
-    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-      while (1) switch (_context6.prev = _context6.next) {
+    return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+      while (1) switch (_context9.prev = _context9.next) {
         case 0:
-          _context6.prev = 0;
-          _context6.next = 3;
+          _context9.prev = 0;
+          _context9.next = 3;
           return _user["default"].find();
         case 3:
-          users = _context6.sent;
+          users = _context9.sent;
           res.status(200).json({
             users: users
           });
-          _context6.next = 10;
+          _context9.next = 10;
           break;
         case 7:
-          _context6.prev = 7;
-          _context6.t0 = _context6["catch"](0);
-          console.log(_context6.t0);
+          _context9.prev = 7;
+          _context9.t0 = _context9["catch"](0);
+          console.log(_context9.t0);
         case 10:
         case "end":
-          return _context6.stop();
+          return _context9.stop();
       }
-    }, _callee6, null, [[0, 7]]);
+    }, _callee9, null, [[0, 7]]);
   }));
-  return function (_x11, _x12) {
-    return _ref8.apply(this, arguments);
+  return function (_x16, _x17) {
+    return _ref11.apply(this, arguments);
   };
 }());
 admin.get('/getuser', _authenticateToken["default"], /*#__PURE__*/function () {
-  var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(req, res) {
+  var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(req, res) {
     var userId, user;
-    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
-      while (1) switch (_context7.prev = _context7.next) {
+    return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+      while (1) switch (_context10.prev = _context10.next) {
         case 0:
-          _context7.prev = 0;
+          _context10.prev = 0;
           userId = req.query.client_id;
-          _context7.next = 4;
+          _context10.next = 4;
           return _user["default"].findById(userId);
         case 4:
-          user = _context7.sent;
+          user = _context10.sent;
           res.status(200).json({
             user: user
           });
-          _context7.next = 12;
+          _context10.next = 12;
           break;
         case 8:
-          _context7.prev = 8;
-          _context7.t0 = _context7["catch"](0);
-          console.error('Error finding user by ID:', _context7.t0);
-          return _context7.abrupt("return", null);
+          _context10.prev = 8;
+          _context10.t0 = _context10["catch"](0);
+          console.error('Error finding user by ID:', _context10.t0);
+          return _context10.abrupt("return", null);
         case 12:
         case "end":
-          return _context7.stop();
+          return _context10.stop();
       }
-    }, _callee7, null, [[0, 8]]);
+    }, _callee10, null, [[0, 8]]);
   }));
-  return function (_x13, _x14) {
-    return _ref9.apply(this, arguments);
+  return function (_x18, _x19) {
+    return _ref12.apply(this, arguments);
   };
 }());
 admin.put('/edituser', _authenticateToken["default"], /*#__PURE__*/function () {
-  var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(req, res) {
+  var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(req, res) {
     var userId, oldUserValues, _req$body2, password, phonenumber, verified, editedBy, customFields, transactionFeePercentage, conditions, update, options;
-    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-      while (1) switch (_context8.prev = _context8.next) {
+    return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+      while (1) switch (_context11.prev = _context11.next) {
         case 0:
-          _context8.prev = 0;
+          _context11.prev = 0;
           userId = req.query.client_id;
-          _context8.next = 4;
+          _context11.next = 4;
           return _user["default"].findOne({
             _id: userId
           });
         case 4:
-          oldUserValues = _context8.sent;
+          oldUserValues = _context11.sent;
           _req$body2 = req.body, password = _req$body2.password, phonenumber = _req$body2.phonenumber, verified = _req$body2.verified, editedBy = _req$body2.editedBy, customFields = _req$body2.customFields;
           if (customFields.transactionFeePercentage) {
             transactionFeePercentage = customFields.transactionFeePercentage;
@@ -394,27 +490,27 @@ admin.put('/edituser', _authenticateToken["default"], /*#__PURE__*/function () {
               });
             }
           });
-          _context8.next = 16;
+          _context11.next = 16;
           break;
         case 13:
-          _context8.prev = 13;
-          _context8.t0 = _context8["catch"](0);
-          console.log(_context8.t0);
+          _context11.prev = 13;
+          _context11.t0 = _context11["catch"](0);
+          console.log(_context11.t0);
         case 16:
         case "end":
-          return _context8.stop();
+          return _context11.stop();
       }
-    }, _callee8, null, [[0, 13]]);
+    }, _callee11, null, [[0, 13]]);
   }));
-  return function (_x15, _x16) {
-    return _ref10.apply(this, arguments);
+  return function (_x20, _x21) {
+    return _ref13.apply(this, arguments);
   };
 }());
 admin.post('/createinhouseasset', _authenticateToken["default"], upload.single('selectedImage'), /*#__PURE__*/function () {
-  var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(req, res) {
+  var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12(req, res) {
     var admin_id, submission;
-    return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-      while (1) switch (_context9.prev = _context9.next) {
+    return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+      while (1) switch (_context12.prev = _context12.next) {
         case 0:
           try {
             admin_id = req.query.admin;
@@ -451,22 +547,22 @@ admin.post('/createinhouseasset', _authenticateToken["default"], upload.single('
           }
         case 1:
         case "end":
-          return _context9.stop();
+          return _context12.stop();
       }
-    }, _callee9);
+    }, _callee12);
   }));
-  return function (_x17, _x18) {
-    return _ref11.apply(this, arguments);
+  return function (_x22, _x23) {
+    return _ref14.apply(this, arguments);
   };
 }());
 
 //seed inhouseaset db
 
 admin.post('/seedcreateinhouseasset', _authenticateToken["default"], /*#__PURE__*/function () {
-  var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(req, res) {
+  var _ref15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13(req, res) {
     var admin_id, submission;
-    return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-      while (1) switch (_context10.prev = _context10.next) {
+    return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+      while (1) switch (_context13.prev = _context13.next) {
         case 0:
           try {
             admin_id = req.query.admin;
@@ -500,45 +596,45 @@ admin.post('/seedcreateinhouseasset', _authenticateToken["default"], /*#__PURE__
           }
         case 1:
         case "end":
-          return _context10.stop();
+          return _context13.stop();
       }
-    }, _callee10);
+    }, _callee13);
   }));
-  return function (_x19, _x20) {
-    return _ref12.apply(this, arguments);
+  return function (_x24, _x25) {
+    return _ref15.apply(this, arguments);
   };
 }());
 var getAllInHouseAssets = /*#__PURE__*/function () {
-  var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11() {
+  var _ref16 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14() {
     var assets;
-    return _regeneratorRuntime().wrap(function _callee11$(_context11) {
-      while (1) switch (_context11.prev = _context11.next) {
+    return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+      while (1) switch (_context14.prev = _context14.next) {
         case 0:
-          _context11.prev = 0;
-          _context11.next = 3;
+          _context14.prev = 0;
+          _context14.next = 3;
           return _inHouseAsset["default"].find();
         case 3:
-          assets = _context11.sent;
-          return _context11.abrupt("return", assets);
+          assets = _context14.sent;
+          return _context14.abrupt("return", assets);
         case 7:
-          _context11.prev = 7;
-          _context11.t0 = _context11["catch"](0);
-          console.error('Error fetching InHouseAssets:', _context11.t0);
-          throw _context11.t0;
+          _context14.prev = 7;
+          _context14.t0 = _context14["catch"](0);
+          console.error('Error fetching InHouseAssets:', _context14.t0);
+          throw _context14.t0;
         case 11:
         case "end":
-          return _context11.stop();
+          return _context14.stop();
       }
-    }, _callee11, null, [[0, 7]]);
+    }, _callee14, null, [[0, 7]]);
   }));
   return function getAllInHouseAssets() {
-    return _ref13.apply(this, arguments);
+    return _ref16.apply(this, arguments);
   };
 }();
 admin.get('/inhouseassets', _authenticateToken["default"], /*#__PURE__*/function () {
-  var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12(req, res) {
-    return _regeneratorRuntime().wrap(function _callee12$(_context12) {
-      while (1) switch (_context12.prev = _context12.next) {
+  var _ref17 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee15(req, res) {
+    return _regeneratorRuntime().wrap(function _callee15$(_context15) {
+      while (1) switch (_context15.prev = _context15.next) {
         case 0:
           try {
             getAllInHouseAssets().then(function (assets) {
@@ -553,25 +649,25 @@ admin.get('/inhouseassets', _authenticateToken["default"], /*#__PURE__*/function
           }
         case 1:
         case "end":
-          return _context12.stop();
+          return _context15.stop();
       }
-    }, _callee12);
+    }, _callee15);
   }));
-  return function (_x21, _x22) {
-    return _ref14.apply(this, arguments);
+  return function (_x26, _x27) {
+    return _ref17.apply(this, arguments);
   };
 }());
 admin.get('/inhouseasset', _authenticateToken["default"], /*#__PURE__*/function () {
-  var _ref15 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13(req, res) {
+  var _ref18 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee16(req, res) {
     var assetId, asset;
-    return _regeneratorRuntime().wrap(function _callee13$(_context13) {
-      while (1) switch (_context13.prev = _context13.next) {
+    return _regeneratorRuntime().wrap(function _callee16$(_context16) {
+      while (1) switch (_context16.prev = _context16.next) {
         case 0:
           assetId = req.query.assetId;
-          _context13.next = 3;
+          _context16.next = 3;
           return _inHouseAsset["default"].findById(assetId);
         case 3:
-          asset = _context13.sent;
+          asset = _context16.sent;
           if (asset) {
             res.json({
               asset: asset
@@ -583,19 +679,19 @@ admin.get('/inhouseasset', _authenticateToken["default"], /*#__PURE__*/function 
           }
         case 5:
         case "end":
-          return _context13.stop();
+          return _context16.stop();
       }
-    }, _callee13);
+    }, _callee16);
   }));
-  return function (_x23, _x24) {
-    return _ref15.apply(this, arguments);
+  return function (_x28, _x29) {
+    return _ref18.apply(this, arguments);
   };
 }());
 admin.put('/inhouseasset', _authenticateToken["default"], upload.single('selectedImage'), /*#__PURE__*/function () {
-  var _ref16 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(req, res) {
+  var _ref19 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee17(req, res) {
     var assetId, adminId;
-    return _regeneratorRuntime().wrap(function _callee14$(_context14) {
-      while (1) switch (_context14.prev = _context14.next) {
+    return _regeneratorRuntime().wrap(function _callee17$(_context17) {
+      while (1) switch (_context17.prev = _context17.next) {
         case 0:
           assetId = req.query.assetId;
           adminId = req.query.adminId;
@@ -658,12 +754,12 @@ admin.put('/inhouseasset', _authenticateToken["default"], upload.single('selecte
           });
         case 3:
         case "end":
-          return _context14.stop();
+          return _context17.stop();
       }
-    }, _callee14);
+    }, _callee17);
   }));
-  return function (_x25, _x26) {
-    return _ref16.apply(this, arguments);
+  return function (_x30, _x31) {
+    return _ref19.apply(this, arguments);
   };
 }());
 admin.put('/delistinhouseasset', _authenticateToken["default"], function (req, res) {

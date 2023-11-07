@@ -4,23 +4,23 @@ import { normalizeURL, decode } from 'ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _81e0fdb4 = () => interopDefault(import('..\\pages\\activities.vue' /* webpackChunkName: "pages/activities" */))
-const _babb5302 = () => interopDefault(import('..\\pages\\addannouncement.vue' /* webpackChunkName: "pages/addannouncement" */))
-const _41e2a098 = () => interopDefault(import('..\\pages\\addcontact.vue' /* webpackChunkName: "pages/addcontact" */))
-const _0fd0e904 = () => interopDefault(import('..\\pages\\addcsv.vue' /* webpackChunkName: "pages/addcsv" */))
-const _a7a093d8 = () => interopDefault(import('..\\pages\\addlead.vue' /* webpackChunkName: "pages/addlead" */))
-const _7bfd37e3 = () => interopDefault(import('..\\pages\\announcements.vue' /* webpackChunkName: "pages/announcements" */))
-const _1e953872 = () => interopDefault(import('..\\pages\\asset.vue' /* webpackChunkName: "pages/asset" */))
-const _29a2b63c = () => interopDefault(import('..\\pages\\assets.vue' /* webpackChunkName: "pages/assets" */))
-const _82dd99ea = () => interopDefault(import('..\\pages\\createasset.vue' /* webpackChunkName: "pages/createasset" */))
-const _17c8e97d = () => interopDefault(import('..\\pages\\editasset.vue' /* webpackChunkName: "pages/editasset" */))
-const _67c35b2c = () => interopDefault(import('..\\pages\\viewagents.vue' /* webpackChunkName: "pages/viewagents" */))
-const _83bead1e = () => interopDefault(import('..\\pages\\viewcontacts.vue' /* webpackChunkName: "pages/viewcontacts" */))
-const _d6295d2e = () => interopDefault(import('..\\pages\\viewleads.vue' /* webpackChunkName: "pages/viewleads" */))
-const _722de0a9 = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
-const _21d3cdbb = () => interopDefault(import('..\\pages\\admin\\_dashboard.vue' /* webpackChunkName: "pages/admin/_dashboard" */))
-const _26f55494 = () => interopDefault(import('..\\pages\\client\\_client_id.vue' /* webpackChunkName: "pages/client/_client_id" */))
-const _242f469e = () => interopDefault(import('..\\pages\\editclient\\_client_id.vue' /* webpackChunkName: "pages/editclient/_client_id" */))
+const _624e38a6 = () => interopDefault(import('..\\pages\\activities.vue' /* webpackChunkName: "pages/activities" */))
+const _29c47058 = () => interopDefault(import('..\\pages\\addannouncement.vue' /* webpackChunkName: "pages/addannouncement" */))
+const _51ac031f = () => interopDefault(import('..\\pages\\addcontact.vue' /* webpackChunkName: "pages/addcontact" */))
+const _56e56cf6 = () => interopDefault(import('..\\pages\\addcsv.vue' /* webpackChunkName: "pages/addcsv" */))
+const _5e71b8ed = () => interopDefault(import('..\\pages\\addlead.vue' /* webpackChunkName: "pages/addlead" */))
+const _cf441808 = () => interopDefault(import('..\\pages\\announcements.vue' /* webpackChunkName: "pages/announcements" */))
+const _211c48e0 = () => interopDefault(import('..\\pages\\asset.vue' /* webpackChunkName: "pages/asset" */))
+const _06187443 = () => interopDefault(import('..\\pages\\assets.vue' /* webpackChunkName: "pages/assets" */))
+const _b017bd38 = () => interopDefault(import('..\\pages\\createasset.vue' /* webpackChunkName: "pages/createasset" */))
+const _41959a16 = () => interopDefault(import('..\\pages\\editasset.vue' /* webpackChunkName: "pages/editasset" */))
+const _778cbdb3 = () => interopDefault(import('..\\pages\\viewagents.vue' /* webpackChunkName: "pages/viewagents" */))
+const _011b8638 = () => interopDefault(import('..\\pages\\viewcontacts.vue' /* webpackChunkName: "pages/viewcontacts" */))
+const _828ffbfc = () => interopDefault(import('..\\pages\\viewleads.vue' /* webpackChunkName: "pages/viewleads" */))
+const _bad6747c = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages/index" */))
+const _68d6d554 = () => interopDefault(import('..\\pages\\admin\\_dashboard.vue' /* webpackChunkName: "pages/admin/_dashboard" */))
+const _7f597fca = () => interopDefault(import('..\\pages\\client\\_client_id.vue' /* webpackChunkName: "pages/client/_client_id" */))
+const _83e3d2b6 = () => interopDefault(import('..\\pages\\editclient\\_client_id.vue' /* webpackChunkName: "pages/editclient/_client_id" */))
 
 const emptyFn = () => {}
 
@@ -35,71 +35,71 @@ export const routerOptions = {
 
   routes: [{
     path: "/activities",
-    component: _81e0fdb4,
+    component: _624e38a6,
     name: "activities"
   }, {
     path: "/addannouncement",
-    component: _babb5302,
+    component: _29c47058,
     name: "addannouncement"
   }, {
     path: "/addcontact",
-    component: _41e2a098,
+    component: _51ac031f,
     name: "addcontact"
   }, {
     path: "/addcsv",
-    component: _0fd0e904,
+    component: _56e56cf6,
     name: "addcsv"
   }, {
     path: "/addlead",
-    component: _a7a093d8,
+    component: _5e71b8ed,
     name: "addlead"
   }, {
     path: "/announcements",
-    component: _7bfd37e3,
+    component: _cf441808,
     name: "announcements"
   }, {
     path: "/asset",
-    component: _1e953872,
+    component: _211c48e0,
     name: "asset"
   }, {
     path: "/assets",
-    component: _29a2b63c,
+    component: _06187443,
     name: "assets"
   }, {
     path: "/createasset",
-    component: _82dd99ea,
+    component: _b017bd38,
     name: "createasset"
   }, {
     path: "/editasset",
-    component: _17c8e97d,
+    component: _41959a16,
     name: "editasset"
   }, {
     path: "/viewagents",
-    component: _67c35b2c,
+    component: _778cbdb3,
     name: "viewagents"
   }, {
     path: "/viewcontacts",
-    component: _83bead1e,
+    component: _011b8638,
     name: "viewcontacts"
   }, {
     path: "/viewleads",
-    component: _d6295d2e,
+    component: _828ffbfc,
     name: "viewleads"
   }, {
     path: "/",
-    component: _722de0a9,
+    component: _bad6747c,
     name: "index"
   }, {
     path: "/admin/:dashboard?",
-    component: _21d3cdbb,
+    component: _68d6d554,
     name: "admin-dashboard"
   }, {
     path: "/client/:client_id?",
-    component: _26f55494,
+    component: _7f597fca,
     name: "client-client_id"
   }, {
     path: "/editclient/:client_id?",
-    component: _242f469e,
+    component: _83e3d2b6,
     name: "editclient-client_id"
   }],
 

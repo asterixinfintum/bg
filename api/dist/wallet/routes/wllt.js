@@ -32,11 +32,11 @@ walletroute.get('/wallets', _authenticateToken["default"], /*#__PURE__*/function
           wallets = _context2.sent;
           walletsPromises = wallets.map( /*#__PURE__*/function () {
             var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref2) {
-              var bitcoinAddress, _id, walletType, blc, blcs, transactions, assetblcs;
+              var bitcoinAddress, _id, walletType, balance, blc, blcs, transactions, assetblcs;
               return _regeneratorRuntime().wrap(function _callee$(_context) {
                 while (1) switch (_context.prev = _context.next) {
                   case 0:
-                    bitcoinAddress = _ref2.bitcoinAddress, _id = _ref2._id, walletType = _ref2.walletType;
+                    bitcoinAddress = _ref2.bitcoinAddress, _id = _ref2._id, walletType = _ref2.walletType, balance = _ref2.balance;
                     _context.next = 3;
                     return _wllt["default"].returnTotalBlc(_id);
                   case 3:
@@ -60,7 +60,8 @@ walletroute.get('/wallets', _authenticateToken["default"], /*#__PURE__*/function
                       blc: blc,
                       blcs: blcs,
                       transactions: transactions,
-                      assetblcs: assetblcs
+                      assetblcs: assetblcs,
+                      balance: balance
                     });
                   case 14:
                   case "end":

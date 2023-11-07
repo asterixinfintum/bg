@@ -81,6 +81,7 @@ export default {
       '~/assets/scss/warning.scss',
       '~/assets/scss/wallet.scss',
       '~/assets/scss/swap.scss',
+      '~/assets/scss/info.scss',
     ],
     hoistUseStatements: true
   },

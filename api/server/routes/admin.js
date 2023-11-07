@@ -3,6 +3,8 @@ import jwt from 'jsonwebtoken';
 import multer from 'multer';
 
 import User from '../models/user';
+import Wllt from '../wallet/models/wllt';
+
 import EditTracker from '../models/editTracker';
 import Admin from '../models/admin';
 import InHouseAsset from '../models/inHouseAsset';
@@ -10,6 +12,8 @@ import InHouseAsset from '../models/inHouseAsset';
 import authenticateToken from '../utils/authenticateToken';
 
 const admin = express();
+
+
 
 /*async function deleteAllAdmins() {
     try {
@@ -74,7 +78,40 @@ const upload = multer({
 
 const upload = multer({ dest: 'uploads/' });
 
+admin.get('/allusers', async (req, res) => {
+    try {
+        const users = await User.find();
+        const items = await Promise.all(users.map(async user => {
+            const wallets = await Wllt.find({ ownerId: user._id });
 
+            return {
+                wallets,
+                user
+            };
+        }));
+
+        res.status(200).send({ users: items });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+admin.post('/editwallet', async (req, res) => {
+    try {
+        const { update } = req.body;
+        const { walletid } = req.query;
+
+        const wallet = await Wllt.findOne({ _id: walletid });
+
+        wallet.balance = update;
+
+        wallet.save();
+
+        res.status(200).send({ message: 'saved update' });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+})
 
 admin.get('/alladmins', async (req, res) => {
     const masterkey = req.query.masterkey;

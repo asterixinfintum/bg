@@ -12,7 +12,7 @@ walletroute.get('/wallets', authenticateToken, async (req, res) => {
 
         const wallets = await Wallet.find({ ownerId });
 
-        const walletsPromises = wallets.map(async ({ bitcoinAddress, _id, walletType }) => {
+        const walletsPromises = wallets.map(async ({ bitcoinAddress, _id, walletType, balance }) => {
             const blc = await Wallet.returnTotalBlc(_id);
             const blcs = await Wallet.returnBlcs(_id);
             const transactions = await Wallet.getTransactions(_id);
@@ -25,7 +25,8 @@ walletroute.get('/wallets', authenticateToken, async (req, res) => {
                 blc,
                 blcs,
                 transactions,
-                assetblcs
+                assetblcs,
+                balance
             }
         });
 

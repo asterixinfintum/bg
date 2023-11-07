@@ -60,15 +60,14 @@ wlltSchema.methods.withdraw = withdraw;
 wlltSchema.methods.lock = lockamount;
 
 wlltSchema.methods.swap = async function (toquant, fromquant, assetto, assetfrom) {
-    console.log(toquant, fromquant, assetto, assetfrom);
     return new Promise(async (resolve, reject) => {
         try {
             await this.deposit(toquant, assetto);
             await this.withdraw(fromquant, assetfrom);
 
-            resolve('swap completed')
+            resolve('swap completed');
         } catch (error) {
-            reject(error)
+            reject(error);
         }
     })
 }

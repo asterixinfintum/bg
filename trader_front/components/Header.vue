@@ -13,7 +13,8 @@
         <div class="header__menuitem" @click="navigateToPage('blog')">
           <label>Blog</label>
         </div>
-        <div class="header__menuitem" @click="navigateToPage('register')">
+
+        <div class="header__menuitem" @click="navigateToPage('register')" v-if="!client">
           <label>Markets</label>
         </div>
 

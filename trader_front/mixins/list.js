@@ -219,7 +219,7 @@ export default {
                 //wallets.forEach(wallet => console.log(wallet.balance))
                 const wallet = wallets.find(wallet => wallet.walletType === wallettype);
 
-                return `$${wallet.balance}`;
+                return wallet.balance
             }
 
             return `0.00000000`

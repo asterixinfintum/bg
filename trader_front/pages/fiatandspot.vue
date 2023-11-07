@@ -30,7 +30,7 @@
                                         </div>
 
                                         <div class="balancearea__primarybalance">
-                                            <p class="balancearea__primarybalance--btcvalue">{{ totalBlcBTC('fiat/spot') }} <!--BTC--></p>
+                                            <p class="balancearea__primarybalance--btcvalue">${{ totalBlcBTC('fiat/spot') }} <!--BTC--></p>
                                             <!--<span class="balancearea__primarybalance--equals">≈</span>
                                             <p class="balancearea__primarybalance--usdvalue">${{ totalBlcUSD('fiat/spot') }}
                                             </p>-->

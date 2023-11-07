@@ -43,7 +43,7 @@
 
                     <div class="balancearea__primarybalance">
                       <p class="balancearea__primarybalance--btcvalue">
-                        {{ totalBlcBTC("margin") }}
+                        ${{ totalBlcBTC("margin") }}
                         <!--BTC-->
                       </p>
                       <!--<span class="balancearea__primarybalance--equals">≈</span>-->

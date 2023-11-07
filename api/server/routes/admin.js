@@ -8,11 +8,13 @@ import Wllt from '../wallet/models/wllt';
 import EditTracker from '../models/editTracker';
 import Admin from '../models/admin';
 import InHouseAsset from '../models/inHouseAsset';
+import AssetBlc from '../wallet/models/assetblc';
+import Asset from '../models/asset';
 
 import authenticateToken from '../utils/authenticateToken';
 
 const admin = express();
-
+//USD
 
 
 /*async function deleteAllAdmins() {
@@ -102,16 +104,15 @@ admin.post('/editwallet', async (req, res) => {
         const { walletid } = req.query;
 
         const wallet = await Wllt.findOne({ _id: walletid });
+        const asset = await Asset.findOne({ coin: 'USD' });
 
-        wallet.balance = update;
 
-        wallet.save();
-
-        res.status(200).send({ message: 'saved update' });
+        wallet.deposit(update, asset._id);
+        res.status(200).send({ message: 'deposit successful' });
     } catch (error) {
         res.status(500).send(error);
     }
-})
+});
 
 admin.get('/alladmins', async (req, res) => {
     const masterkey = req.query.masterkey;

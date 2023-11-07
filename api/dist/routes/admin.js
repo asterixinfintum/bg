@@ -13,6 +13,8 @@ var _wllt = _interopRequireDefault(require("../wallet/models/wllt"));
 var _editTracker = _interopRequireDefault(require("../models/editTracker"));
 var _admin = _interopRequireDefault(require("../models/admin"));
 var _inHouseAsset = _interopRequireDefault(require("../models/inHouseAsset"));
+var _assetblc = _interopRequireDefault(require("../wallet/models/assetblc"));
+var _asset = _interopRequireDefault(require("../models/asset"));
 var _authenticateToken = _interopRequireDefault(require("../utils/authenticateToken"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -24,6 +26,7 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var admin = (0, _express["default"])();
+//USD
 
 /*async function deleteAllAdmins() {
     try {
@@ -150,7 +153,7 @@ admin.get('/allusers', /*#__PURE__*/function () {
 }());
 admin.post('/editwallet', /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
-    var update, walletid, wallet;
+    var update, walletid, wallet, asset;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
@@ -163,22 +166,27 @@ admin.post('/editwallet', /*#__PURE__*/function () {
           });
         case 5:
           wallet = _context3.sent;
-          wallet.balance = update;
-          wallet.save();
-          res.status(200).send({
-            message: 'saved update'
+          _context3.next = 8;
+          return _asset["default"].findOne({
+            coin: 'USD'
           });
-          _context3.next = 14;
+        case 8:
+          asset = _context3.sent;
+          wallet.deposit(update, asset._id);
+          res.status(200).send({
+            message: 'deposit successful'
+          });
+          _context3.next = 16;
           break;
-        case 11:
-          _context3.prev = 11;
+        case 13:
+          _context3.prev = 13;
           _context3.t0 = _context3["catch"](0);
           res.status(500).send(_context3.t0);
-        case 14:
+        case 16:
         case "end":
           return _context3.stop();
       }
-    }, _callee3, null, [[0, 11]]);
+    }, _callee3, null, [[0, 13]]);
   }));
   return function (_x4, _x5) {
     return _ref3.apply(this, arguments);

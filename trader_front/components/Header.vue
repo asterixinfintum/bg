@@ -184,7 +184,7 @@
           </span>
           <div class="header__dropdown right">
             <div class="header__dropdowncontent">
-              <div class="header__dropdowncontent--item">
+              <!--<div class="header__dropdowncontent--item">
                 <figure class="header__dropdowncontent--logo">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="" class="css-1s4hjvp">
                     <use xlink:href="#market-overview-g"></use>
@@ -196,7 +196,7 @@
                     You received a deposit of 30,000 usdt
                   </span>
                 </div>
-              </div>
+              </div>-->
 
               <div class="header__dropdowncontent--item" @click="triggerlogout">
                 <figure class="header__dropdowncontent--logo">

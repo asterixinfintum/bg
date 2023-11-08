@@ -60,7 +60,7 @@ wlltSchema.methods.deposit = _deposit["default"];
 wlltSchema.methods.withdraw = _withdraw["default"];
 wlltSchema.methods.lock = _lockamount["default"];
 wlltSchema.methods.swap = /*#__PURE__*/function () {
-  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(toquant, fromquant, assetto, assetfrom) {
+  var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(toquant, fromquant, assetto, assetfrom, transactionFee) {
     var _this = this;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
@@ -75,7 +75,7 @@ wlltSchema.methods.swap = /*#__PURE__*/function () {
                     return _this.deposit(toquant, assetto);
                   case 3:
                     _context.next = 5;
-                    return _this.withdraw(fromquant, assetfrom);
+                    return _this.withdraw(fromquant + transactionFee, assetfrom);
                   case 5:
                     resolve('swap completed');
                     _context.next = 11;
@@ -90,7 +90,7 @@ wlltSchema.methods.swap = /*#__PURE__*/function () {
                 }
               }, _callee, null, [[0, 8]]);
             }));
-            return function (_x5, _x6) {
+            return function (_x6, _x7) {
               return _ref2.apply(this, arguments);
             };
           }()));
@@ -100,7 +100,7 @@ wlltSchema.methods.swap = /*#__PURE__*/function () {
       }
     }, _callee2);
   }));
-  return function (_x, _x2, _x3, _x4) {
+  return function (_x, _x2, _x3, _x4, _x5) {
     return _ref.apply(this, arguments);
   };
 }();
@@ -155,7 +155,7 @@ wlltSchema.statics.returnBlcs = /*#__PURE__*/function () {
                 }
               }, _callee3);
             }));
-            return function (_x8) {
+            return function (_x9) {
               return _ref4.apply(this, arguments);
             };
           }());
@@ -172,7 +172,7 @@ wlltSchema.statics.returnBlcs = /*#__PURE__*/function () {
       }
     }, _callee4, this);
   }));
-  return function (_x7) {
+  return function (_x8) {
     return _ref3.apply(this, arguments);
   };
 }();
@@ -222,7 +222,7 @@ wlltSchema.statics.returnTotalBlc = /*#__PURE__*/function () {
                 }
               }, _callee5);
             }));
-            return function (_x10) {
+            return function (_x11) {
               return _ref6.apply(this, arguments);
             };
           }());
@@ -239,7 +239,7 @@ wlltSchema.statics.returnTotalBlc = /*#__PURE__*/function () {
       }
     }, _callee6, this);
   }));
-  return function (_x9) {
+  return function (_x10) {
     return _ref5.apply(this, arguments);
   };
 }();
@@ -280,7 +280,7 @@ wlltSchema.statics.returnAssetBlcs = /*#__PURE__*/function () {
                 }
               }, _callee7);
             }));
-            return function (_x12) {
+            return function (_x13) {
               return _ref8.apply(this, arguments);
             };
           }());
@@ -297,7 +297,7 @@ wlltSchema.statics.returnAssetBlcs = /*#__PURE__*/function () {
       }
     }, _callee8, this);
   }));
-  return function (_x11) {
+  return function (_x12) {
     return _ref7.apply(this, arguments);
   };
 }();
@@ -355,7 +355,7 @@ wlltSchema.statics.updateBTCTransactions = /*#__PURE__*/function () {
       }
     }, _callee10, this);
   }));
-  return function (_x13, _x14, _x15) {
+  return function (_x14, _x15, _x16) {
     return _ref9.apply(this, arguments);
   };
 }();
@@ -410,7 +410,7 @@ wlltSchema.statics.withdrawal = /*#__PURE__*/function () {
       }
     }, _callee12, this);
   }));
-  return function (_x16, _x17, _x18) {
+  return function (_x17, _x18, _x19) {
     return _ref11.apply(this, arguments);
   };
 }();
@@ -450,7 +450,7 @@ wlltSchema.statics.getTransactions = /*#__PURE__*/function () {
                 }
               }, _callee13);
             }));
-            return function (_x20) {
+            return function (_x21) {
               return _ref14.apply(this, arguments);
             };
           }());
@@ -467,7 +467,7 @@ wlltSchema.statics.getTransactions = /*#__PURE__*/function () {
       }
     }, _callee14, this);
   }));
-  return function (_x19) {
+  return function (_x20) {
     return _ref13.apply(this, arguments);
   };
 }();

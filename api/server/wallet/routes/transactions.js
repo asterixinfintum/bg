@@ -8,11 +8,11 @@ const transactions = express();
 
 transactions.post('/convert', authenticateToken, async (req, res) => {
     if (req.user && req.user._id) {
-        const { toquant, fromquant, assetfrom, assetto, wallet, total } = req.body;
+        const { toquant, fromquant, assetfrom, assetto, wallet, total, transactionFee } = req.body;
 
         const wllt = await Wallet.findOne({ _id: wallet });
 
-        wllt.swap(toquant, fromquant, assetto, assetfrom)
+        wllt.swap(toquant, fromquant, assetto, assetfrom, transactionFee)
             .then(result => {
                 console.log(result)
                 res.status(201).send({ result });

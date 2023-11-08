@@ -15,7 +15,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var transactions = (0, _express["default"])();
 transactions.post('/convert', _authenticateToken["default"], /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
-    var _req$body, toquant, fromquant, assetfrom, assetto, wallet, total, wllt;
+    var _req$body, toquant, fromquant, assetfrom, assetto, wallet, total, transactionFee, wllt;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -23,14 +23,14 @@ transactions.post('/convert', _authenticateToken["default"], /*#__PURE__*/functi
             _context.next = 6;
             break;
           }
-          _req$body = req.body, toquant = _req$body.toquant, fromquant = _req$body.fromquant, assetfrom = _req$body.assetfrom, assetto = _req$body.assetto, wallet = _req$body.wallet, total = _req$body.total;
+          _req$body = req.body, toquant = _req$body.toquant, fromquant = _req$body.fromquant, assetfrom = _req$body.assetfrom, assetto = _req$body.assetto, wallet = _req$body.wallet, total = _req$body.total, transactionFee = _req$body.transactionFee;
           _context.next = 4;
           return _wllt["default"].findOne({
             _id: wallet
           });
         case 4:
           wllt = _context.sent;
-          wllt.swap(toquant, fromquant, assetto, assetfrom).then(function (result) {
+          wllt.swap(toquant, fromquant, assetto, assetfrom, transactionFee).then(function (result) {
             console.log(result);
             res.status(201).send({
               result: result

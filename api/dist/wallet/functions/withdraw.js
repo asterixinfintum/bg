@@ -33,12 +33,12 @@ function _withdraw() {
                     _context.prev = 0;
                     assetblcs = _this.assetBlcs;
                     if (!assetblcs.length) {
-                      _context.next = 12;
+                      _context.next = 18;
                       break;
                     }
                     contains = containsObjectId(assetblcs, assetid);
                     if (!contains) {
-                      _context.next = 11;
+                      _context.next = 17;
                       break;
                     }
                     _context.next = 7;
@@ -48,28 +48,36 @@ function _withdraw() {
                     });
                   case 7:
                     asstblc = _context.sent;
-                    if (asstblc.balance > quantity) {
-                      asstblc.reduceBalance(quantity);
-                      resolve(asstblc);
-                    } else {
-                      reject('insufficient funds');
+                    if (!(asstblc.balance > quantity)) {
+                      _context.next = 14;
+                      break;
                     }
-                    _context.next = 12;
-                    break;
+                    _context.next = 11;
+                    return asstblc.reduceBalance(quantity);
                   case 11:
-                    reject('insufficient funds');
-                  case 12:
-                    _context.next = 17;
+                    resolve(asstblc);
+                    _context.next = 15;
                     break;
                   case 14:
-                    _context.prev = 14;
-                    _context.t0 = _context["catch"](0);
-                    reject(_context.t0);
+                    reject('insufficient funds');
+                  case 15:
+                    _context.next = 18;
+                    break;
                   case 17:
+                    reject('insufficient funds');
+                  case 18:
+                    _context.next = 24;
+                    break;
+                  case 20:
+                    _context.prev = 20;
+                    _context.t0 = _context["catch"](0);
+                    console.log(_context.t0);
+                    reject(_context.t0);
+                  case 24:
                   case "end":
                     return _context.stop();
                 }
-              }, _callee, null, [[0, 14]]);
+              }, _callee, null, [[0, 20]]);
             }));
             return function (_x3, _x4) {
               return _ref.apply(this, arguments);

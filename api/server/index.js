@@ -81,13 +81,16 @@ async function callHomekeepers() {
 //updatecryptoprices();
 
 cron.schedule("*/13 * * * *", () => {
-  //callHomekeepers();
+  callHomekeepers();
 });
 
 app.use(express.static('public'));
-app.use('/', express.static('public/ui'))
-app.use(express.static('uploads'));
-app.use(express.static('videos-directory'));
+//app.use('/', express.static('public/ui'))
+//app.use(express.static('uploads'));
+//app.use(express.static('videos-directory'));
+app.use(express.static(path.join(__dirname, '../public/ui/')));
+//app.use(express.static('uploads'));
+const staticPath = path.join(__dirname, '../public/ui/');
 app.use(express.urlencoded({
   extended: false
 }));
@@ -126,6 +129,9 @@ app.use(imageuploadRoute);
 app.use(fileretrieveRoute);
 app.use(videouploadRoute);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(staticPath, 'index.html'));
+});
 //runInventoryFunction();
 
 //https://api.poloniex.com/markets/LTC_BTC/orderBook

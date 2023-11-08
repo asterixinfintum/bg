@@ -112,12 +112,15 @@ function _callHomekeepers() {
   return _callHomekeepers.apply(this, arguments);
 }
 _nodeCron["default"].schedule("*/13 * * * *", function () {
-  //callHomekeepers();
+  callHomekeepers();
 });
 app.use(_express["default"]["static"]('public'));
-app.use('/', _express["default"]["static"]('public/ui'));
-app.use(_express["default"]["static"]('uploads'));
-app.use(_express["default"]["static"]('videos-directory'));
+//app.use('/', express.static('public/ui'))
+//app.use(express.static('uploads'));
+//app.use(express.static('videos-directory'));
+app.use(_express["default"]["static"](_path["default"].join(__dirname, '../public/ui/')));
+//app.use(express.static('uploads'));
+var staticPath = _path["default"].join(__dirname, '../public/ui/');
 app.use(_express["default"].urlencoded({
   extended: false
 }));
@@ -151,7 +154,9 @@ app.use(_fileupload["default"]);
 app.use(_imageupload["default"]);
 app.use(_fileretrieve["default"]);
 app.use(_videoupload["default"]);
-
+app.get('*', function (req, res) {
+  res.sendFile(_path["default"].join(staticPath, 'index.html'));
+});
 //runInventoryFunction();
 
 //https://api.poloniex.com/markets/LTC_BTC/orderBook

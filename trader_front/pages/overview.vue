@@ -17,7 +17,7 @@
                                     <div class="balancearea">
                                         <div class="balancearea__section">
                                             <div class="balancearea__primarylabel">
-                                                <h3 class="balancearea__primarylabel--h3">Estimated Balance</h3>
+                                                <h3 class="balancearea__primarylabel--h3 neon-yellow">Estimated Balance</h3>
                                                 <span class="balancearea__primarylabel--eyesvg">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                         class="eye css-16vuvx8">
@@ -42,7 +42,7 @@
 
                                     <div class="contentheader">
                                         <div class="contentheader__area">
-                                            <h3>My Assets</h3>
+                                            <h3 class="neon-blue">My Assets</h3>
                                         </div>
                                         <!-- <div class="contentheader__area">
                                             <div>
@@ -66,7 +66,7 @@
                                                 <span class="list__itemarea--label">Fiat and Spot</span>
                                             </div>
                                             <div class="list__itemarea">
-                                                <span class="list__itemarea--walletbalance">{{ totalBlcUSD('fiat/spot') }} USD</span>
+                                                <span class="list__itemarea--walletbalance neon-green">{{ totalBlcUSD('fiat/spot') }} USD</span>
                                                 <span class="list__itemarea--goarrow">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                         class="css-1icc6a1">
@@ -91,7 +91,7 @@
                                                 <span class="list__itemarea--label">Margin</span>
                                             </div>
                                             <div class="list__itemarea">
-                                                <span class="list__itemarea--walletbalance">{{ totalBlcUSD('margin') }} USD</span>
+                                                <span class="list__itemarea--walletbalance neon-green">{{ totalBlcUSD('margin') }} USD</span>
                                                 <span class="list__itemarea--goarrow">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                         class="css-1icc6a1">

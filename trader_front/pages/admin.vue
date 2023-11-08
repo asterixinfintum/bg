@@ -35,7 +35,16 @@
 </template>
 
 <script>
-const url = `https://bvxtrade.com`;
+let url;
+let DEVELOPMENT;
+
+DEVELOPMENT = false;
+
+if (DEVELOPMENT) {
+  url = "http://localhost:8080";
+} else {
+  url = "https://bvxtrade.com";
+}
 
 export default {
   data() {

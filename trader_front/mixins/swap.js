@@ -52,7 +52,6 @@ export default {
 
             return '';
         },
-
         enablePreviewBtn() {
             const { fromInput, toInput, inputError } = this;
 
@@ -64,6 +63,15 @@ export default {
             }
 
             return false;
+        },
+        conversiontotal() {
+            const { fromInput, youpayval, transactionFee } = this;
+
+            if (fromInput && transactionFee && youpayval) {
+                return parseFloat(youpayval) + parseFloat(transactionFee);
+            }
+
+            return 0;
         }
     },
     watch: {
@@ -71,9 +79,11 @@ export default {
             const { youPayUSD, currentAssetTo, calculatePercentage } = this;
             this.youpayval = youPayUSD();
             this.toInput = youPayUSD() / parseFloat(currentAssetTo.price);
-            this.yougetval = parseFloat(this.toInput) * parseFloat(currentAssetTo.price);
+            this.yougetval = (parseFloat(this.toInput) * parseFloat(currentAssetTo.price)).toFixed(5);
             this.transactionFee = calculatePercentage(this.yougetval, 5);
             this.inputError = false;
+
+            this.checkBlcOfAsstinWllt();
         },
         currentAssetFrom() {
             this.fromInput = '';
@@ -85,20 +95,26 @@ export default {
             this.toInput = '';
             this.inputError = false;
         },
-        walletCategory() { }
+        walletCategory() {
+            this.fromInput = '';
+            this.inputError = false;
+        }
     },
     methods: {
         ...mapActions('trade', ['getallpairs']),
+        convertToFloat(str) {
+            return parseFloat(str.replace(/,/g, ''));
+        },
         youPayUSD() {
             const { currentAssetFrom, fromInput } = this;
 
             if (fromInput.length && currentAssetFrom) {
-                const fromInpt = parseFloat(fromInput);
+                const fromInpt = this.convertToFloat(fromInput);
 
                 if (fromInpt) {
                     const currasspric = parseFloat(currentAssetFrom.price);
 
-                    return (fromInpt * currasspric).toFixed(6)
+                    return (fromInpt * currasspric).toFixed(5)
                 }
             }
 
@@ -160,7 +176,7 @@ export default {
         selectWallet(wallet) {
             this.$router.push({ path: '/swap', query: { wallet } })
             this.walletCategory = wallet;
-            this.walletCategoriesOpen = false
+            this.walletCategoriesOpen = false;
         },
         setAssetCategory(category) {
             if (this.swapDirection === 'from') {
@@ -175,11 +191,16 @@ export default {
             return parseFloat(price0fAssetA) / parseFloat(price0fAssetB)
         },
         checkBlcOfAsstinWllt() {
-            const { assetblcUSD, currentAssetFrom, youpayval } = this;
+            const { assetblcUSD, currentAssetFrom, conversiontotal } = this;
+
+            if (this.fromInput === "") {
+                return;
+            }
 
             if (currentAssetFrom) {
-                if (assetblcUSD(currentAssetFrom) > youpayval && youpayval !== 0) {
-                    this.toggleconfirmTrade();
+
+                if (assetblcUSD(currentAssetFrom) > conversiontotal && conversiontotal !== 0) {
+                    this.inputError = false;
                 } else {
                     this.inputError = true;
                 }
@@ -188,28 +209,20 @@ export default {
             }
         },
         calculatePercentage(input, percentage) {
-            return input * (percentage / 100);
+            return (input * (percentage / 100));
         },
         setfromInputToMax() {
-            const { fromAssetBalance } = this;
+            const { assetblc, currentAssetFrom, calculatePercentage } = this;
+            const maxbalance = parseFloat(assetblc(currentAssetFrom))
+            const percentageval = calculatePercentage(maxbalance, 5)
+            const max = (maxbalance - percentageval).toFixed(5)
 
-            this.fromInput = fromAssetBalance;
-
-            const { client, calculatePercentage, youPayUSD } = this;
-            const { transactionFeePercentage } = client;
-
-            const transactionFee = calculatePercentage(youPayUSD, transactionFeePercentage);
-            const transactionTotal = parseFloat(transactionFee) + parseFloat(youPayUSD);
-
-            this.transactionFee = transactionFee.toFixed(20);
-            this.transactionTotal = transactionTotal.toFixed(20);
-
-            const finalAmount = this.transactionTotal - this.transactionFee
-            this.fromInput = finalAmount;
+            this.fromInput = max;
         },
         previewTrade() {
-            const { checkBlcOfAsstinWllt } = this;
-            checkBlcOfAsstinWllt();
+            if (!this.inputError) {
+                this.toggleconfirmTrade();
+            }
         }
     }
 }

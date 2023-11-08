@@ -335,6 +335,8 @@
         align-items: center;
         font-size: #{scaleValue(13.5)};
 
+        line-height: #{scaleValue(30)};
+
         &--area {
             display: flex;
             flex-direction: column;

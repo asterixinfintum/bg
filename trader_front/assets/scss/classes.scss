@@ -12,7 +12,7 @@
         padding: #{scaleValue(10)};
         color: $white;
         font-weight: 500;
-    
+
         &.colored {
             background: $landing-green;
         }
@@ -35,7 +35,7 @@
 
         &.scrolled-far-enough {
             border-color: $landing-primary;
-            color:  $landing-primary;
+            color: $landing-primary;
         }
     }
 }
@@ -92,12 +92,12 @@
         justify-content: space-between;
         margin-bottom: #{scaleValue(24)};
 
-        &--btn { 
+        &--btn {
             padding-top: #{scaleValue(10)};
             padding-bottom: #{scaleValue(10)};
             margin-right: #{scaleValue(50)};
             font-weight: 500;
-            font-size:  #{scaleValue(12)};
+            font-size: #{scaleValue(12)};
 
             &.current {
                 background: $faded-black;
@@ -138,7 +138,9 @@ h3 {
     align-items: center;
 }
 
-.pointer {cursor: pointer;}
+.pointer {
+    cursor: pointer;
+}
 
 .flex-place-holder {
     position: absolute;
@@ -162,8 +164,8 @@ h3 {
     cursor: pointer;
     text-decoration: underline;
     cursor: pointer;
-    
-    
+
+
     font-size: #{scaleValue(13)};
 }
 
@@ -228,4 +230,44 @@ h3 {
 
 .underline {
     text-decoration: underline;
+}
+
+.fontWeight600 {
+    font-weight: 600;
+}
+
+.fontSize20 {
+    font-size: #{scaleValue(20)};
+}
+
+.centertext {
+    text-align: center;
+}
+
+.gold-colored {
+    color: $gold;
+}
+
+.neon-green {
+    color: $neon-green !important;
+}
+
+.neon-pink {
+    color: $neon-pink;
+}
+
+.neon-yellow {
+    color: $neon-yellow;
+}
+
+.neon-orange {
+    color: $neon-orange;
+}
+
+.neon-blue {
+    color: $neon-blue;
+}
+
+.landing-green {
+    color: $landing-green
 }

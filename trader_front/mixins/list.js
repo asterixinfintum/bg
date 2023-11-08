@@ -138,8 +138,6 @@ export default {
             if (asset && assetsOwned.length) {
                 const found = assetsOwned.find(assetowned => assetowned.symbol === asset.symbol);
 
-                console.log(found);
-
                 if (found) {
                     return found.blc.balance;
                 }
@@ -210,7 +208,7 @@ export default {
         },
         totalBlcBTC(wallettype) {
             const { wallets, assets, retrnblcs } = this;
-            
+
             if (wallets.length && assets.length) {
                 const btcblcs = retrnblcs(wallettype).map(blc => blc.btcblc());
                 const total = btcblcs.reduce((acc, current) => acc + current, 0);

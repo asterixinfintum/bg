@@ -16,7 +16,7 @@
 
                                     <div class="balancearea__section main">
                                         <div class="balancearea__primarylabel">
-                                            <h3 class="balancearea__primarylabel--h3">Estimated Balance</h3>
+                                            <h3 class="balancearea__primarylabel--h3 neon-yellow">Estimated Balance</h3>
                                             <span class="balancearea__primarylabel--eyesvg">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                                                     class="eye css-16vuvx8">
@@ -148,25 +148,25 @@
                                         </div>
 
                                         <div class="assetlist__area fiatandspot number-value">
-                                            <p>
+                                            <p class="neon-blue">
                                                 {{ assetblc(asset) }}
                                             </p>
                                         </div>
 
                                         <div class="assetlist__area fiatandspot number-value">
-                                            <p>
+                                            <p class="neon-blue">
                                                 {{ assetblcUSD(asset) }}
                                             </p>
                                         </div>
 
                                         <div class="assetlist__area fiatandspot number-value">
-                                            <p>
+                                            <p class="neon-blue">
                                                 {{ assetblcBTC(asset) }}
                                             </p>
                                         </div>
 
                                         <div class="assetlist__area fiatandspot number-value">
-                                            <p>
+                                            <p class="neon-blue">
                                                 {{ assetblcUSD(asset) }}
                                             </p>
                                         </div>
@@ -176,18 +176,18 @@
                                             <!--<button class="btn color-primary">Buy</button>-->
                                             <!--<button class="btn color-primary">Sell</button>-->
                                             <!--<button class="btn color-primary">Deposit</button>-->
-                                            <button class="btn color-primary"
+                                            <button class="btn neon-pink"
                                                 @click.stop="$router.push('/swap')">Swap/Convert</button>
-                                            <button class="btn color-primary"
+                                            <button class="btn neon-pink "
                                                 @click.stop="navigateToTradePage(`trade?autotrader=false&wallet=spot&assettype=${asset.assetType}`, asset._id)" v-if="asset.coin !== 'USDT' && asset.coin !== 'USD'">Trade</button>
-                                            <button class="btn color-primary"
+                                            <button class="btn neon-pink "
                                                 @click.stop="navigateToTradePage(`trade?autotrader=true&wallet=spot&assettype=${asset.assetType}`, asset._id)" v-if="asset.coin !== 'USDT' && asset.coin !== 'USD'">AlgoTrade</button>
                                             <!--<button class="btn color-primary">Earn</button>-->
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="assetlist__navigation">
+                                <div class="assetlist__navigation color-primary fontWeight600">
                                     <span @click="reduPage" class="assetlist__navigation--prev" :class="{
                                         visible: currentPage > 1,
                                         notvisible: currentPage === 1

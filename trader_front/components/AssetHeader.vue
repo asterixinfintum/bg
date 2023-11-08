@@ -18,24 +18,24 @@
             </div>
             <div class="assetheader__toparea">
                 <div class="assetheader__toparea--percent blue">
-                    <span v-if="currentpair.assettype !== 'commodity'">{{ currentpair.values[0].close }}</span>
-                    <span v-if="currentpair.assettype === 'commodity'">{{ currentpair.values[0].value }}</span>
+                    <span v-if="currentpair.assettype !== 'commodity'">{{ asset.price }}</span>
+                    <span v-if="currentpair.assettype === 'commodity'">{{ asset.price }}</span>
                     <!--<span class="nomargin">+2.43%</span>-->
                 </div>
-                <span class="opacity-low" v-if="currentpair.assettype !== 'commodity'">${{ currentpair.values[0].close }}</span>
-                <span class="opacity-low" v-if="currentpair.assettype === 'commodity'">${{ currentpair.values[0].value }}</span>
+                <span class="opacity-low" v-if="currentpair.assettype !== 'commodity'">${{ asset.price }}</span>
+                <span class="opacity-low" v-if="currentpair.assettype === 'commodity'">${{ asset.price }}</span>
             </div>
             <div class="assetheader__toparea" v-if="currentpair.assettype !== 'commodity'">
                 <span class="opacity-low green">24h High</span>
-                <span class="green">${{ currentpair.values[0].high }}</span>
+                <span class="green">${{ asset.price }}</span>
             </div>
             <div class="assetheader__toparea" v-if="currentpair.assettype !== 'commodity'">
                 <span class="opacity-low red">24h Low</span>
-                <span class="red">${{ currentpair.values[0].low }}</span>
+                <span class="red">${{ asset.price }}</span>
             </div>
             <div class="assetheader__toparea" v-if="currentpair.assettype !== 'commodity'">
                 <span class="opacity-low">Daily change</span>
-                <span>{{ percentageChange(  currentpair.values[1].high, currentpair.values[0].high) }}</span>
+                <span>{{ percentageChange( currentpair.values[1].high, currentpair.values[0].high) }}</span>
             </div>
         </div>
         <div class="assetheader__bottom">

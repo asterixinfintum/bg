@@ -223,6 +223,7 @@ export default {
 
         &.current {
             background: $current;
+            color: $neon-green;
 
             &::before {
                 content: '';

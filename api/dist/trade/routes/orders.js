@@ -67,7 +67,7 @@ orders.post('/order/market', _authenticateToken["default"], /*#__PURE__*/functio
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context2.next = 14;
+            _context2.next = 15;
             break;
           }
           _context2.prev = 1;
@@ -75,51 +75,27 @@ orders.post('/order/market', _authenticateToken["default"], /*#__PURE__*/functio
           order = new _order["default"](_objectSpread(_objectSpread({}, req.body), {}, {
             userId: userId
           }));
-          _context2.next = 6;
-          return order.save().then(function (odr) {
-            var price = odr.price;
-            if (odr.side === 'buy') {
-              odr.executebuy(price).then(function (order) {
-                res.status(201).send({
-                  order: order
-                });
-              })["catch"](function (error) {
-                console.log(error);
-                res.status(400).send(error);
-              });
-            }
-            if (odr.side === 'sell') {
-              odr.executesell(price).then(function (order) {
-                console.log(order);
-                res.status(201).send({
-                  order: order
-                });
-              })["catch"](function (error) {
-                console.log(error);
-                res.status(400).send(error);
-              });
-            }
-          })["catch"](function (error) {
-            console.log(error);
-          });
-        case 6:
-          _context2.next = 12;
+          console.log(order);
+          _context2.next = 7;
+          return order.save();
+        case 7:
+          _context2.next = 13;
           break;
-        case 8:
-          _context2.prev = 8;
+        case 9:
+          _context2.prev = 9;
           _context2.t0 = _context2["catch"](1);
           console.log(_context2.t0);
           res.status(400).send(_context2.t0);
-        case 12:
-          _context2.next = 15;
+        case 13:
+          _context2.next = 16;
           break;
-        case 14:
-          res.status(404).send(error);
         case 15:
+          res.status(404).send(error);
+        case 16:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[1, 8]]);
+    }, _callee2, null, [[1, 9]]);
   }));
   return function (_x3, _x4) {
     return _ref2.apply(this, arguments);

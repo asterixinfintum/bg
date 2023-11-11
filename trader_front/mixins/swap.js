@@ -3,6 +3,7 @@ import { mapActions, mapState, mapMutations } from 'vuex';
 import walletMixin from './wallet';
 import TransactionpopupMixin from './transactionpopup';
 import listMixin from '@/mixins/list';
+import globalMixin from '@/mixins/global';
 
 export default {
     data() {
@@ -30,7 +31,7 @@ export default {
             yougetval: 0
         }
     },
-    mixins: [walletMixin, TransactionpopupMixin, listMixin],
+    mixins: [walletMixin, TransactionpopupMixin, listMixin, globalMixin],
     mounted() {
         this.selectWallet('fiat/spot')
     },
@@ -102,9 +103,6 @@ export default {
     },
     methods: {
         ...mapActions('trade', ['getallpairs']),
-        convertToFloat(str) {
-            return parseFloat(str.replace(/,/g, ''));
-        },
         youPayUSD() {
             const { currentAssetFrom, fromInput } = this;
 
@@ -186,9 +184,6 @@ export default {
             if (this.swapDirection === 'to') {
                 this.assetCategoryTo = category
             }
-        },
-        compareAssetsPrices(price0fAssetA, price0fAssetB) {
-            return parseFloat(price0fAssetA) / parseFloat(price0fAssetB)
         },
         checkBlcOfAsstinWllt() {
             const { assetblcUSD, currentAssetFrom, conversiontotal } = this;

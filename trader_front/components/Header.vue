@@ -78,7 +78,15 @@
           </div>
           <div class="header__dropdown left" v-if="client">
             <div class="header__dropdowncontent">
-              <div class="header__dropdowncontent--item">
+              <div
+                class="header__dropdowncontent--item"
+                @click.stop="
+                  navigateToTradePage(
+                    `trade?autotrader=true&wallet=spot&assettype=${baseasset.assetType}`,
+                    baseasset._id
+                  )
+                "
+              >
                 <figure class="header__dropdowncontent--logo">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="" class="css-1s4hjvp">
                     <use xlink:href="#market-overview-g"></use>
@@ -94,7 +102,15 @@
                 </div>
               </div>
 
-              <div class="header__dropdowncontent--item">
+              <div
+                class="header__dropdowncontent--item"
+                @click.stop="
+                  navigateToTradePage(
+                    `trade?autotrader=true&wallet=margin&assettype=${baseasset.assetType}`,
+                    baseasset._id
+                  )
+                "
+              >
                 <figure class="header__dropdowncontent--logo">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="" class="css-1s4hjvp">
                     <use xlink:href="#market-overview-g"></use>
@@ -250,7 +266,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 import generalutilities from "@/mixins/generalutilities";
 import clientMixin from "@/mixins/client";
 import cryptoassetsMixin from "@/mixins/cryptoassets";
@@ -267,6 +283,14 @@ export default {
     },
   },
   computed: {
+    ...mapState({
+      assets: (state) => state.list.assets,
+    }),
+    baseasset() {
+      const baseasset = this.assets.find((asset) => asset.coin === "BTC");
+
+      return baseasset;
+    },
     generalLandingPageStyle() {
       return {
         landing: this.$route.name === "index",

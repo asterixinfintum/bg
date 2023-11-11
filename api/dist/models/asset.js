@@ -41,6 +41,10 @@ var assetSchema = new Schema({
     type: String,
     required: true,
     index: true
+  },
+  pricehistory: {
+    type: Array,
+    "default": []
   }
 });
 assetSchema.statics.updateAssetPrice = /*#__PURE__*/function () {
@@ -66,6 +70,34 @@ assetSchema.statics.updateAssetPrice = /*#__PURE__*/function () {
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
+  };
+}();
+assetSchema.statics.gettwentyfourhrhigh = /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(_id) {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2);
+  }));
+  return function (_x3) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+assetSchema.statics.gettwentyfourhrlow = /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_id) {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3);
+  }));
+  return function (_x4) {
+    return _ref3.apply(this, arguments);
   };
 }();
 var Asset = mongoose.model('asset', assetSchema);

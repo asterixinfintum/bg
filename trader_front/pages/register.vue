@@ -92,7 +92,10 @@
                     <span class="highlight" @click="$router.push('/terms')"
                       >Terms of Service</span
                     >
-                    and <span class="highlight" @click="$router.push('/privacy')">Privacy Policy</span>.
+                    and
+                    <span class="highlight" @click="$router.push('/privacy')"
+                      >Privacy Policy</span
+                    >.
                   </p>
                 </div>
               </div>
@@ -111,10 +114,12 @@
               >
                 {{ this.view === "emailPhoneView" ? "Next" : "Previous" }}
               </button>
-              <button
-                class="loader-button loader-button padded-btn auth__btn"
-                v-if="loading"
-              ></button>
+            </div>
+
+            <div class="auth__inputarea" v-if="loading">
+              <button class="btn colored-btn padded-btn auth__btn">
+                <span class="loader-button"></span>
+              </button>
             </div>
 
             <div
@@ -125,7 +130,9 @@
               <button class="btn colored-btn padded-btn auth__btn" v-if="!loading">
                 Sign Up
               </button>
-              <button class="loader-button padded-btn auth__btn" v-if="loading"></button>
+              <button class="btn colored-btn padded-btn auth__btn" v-if="loading">
+                <span class="loader-button"></span>
+              </button>
             </div>
 
             <div class="auth__termsdescription">
@@ -173,6 +180,10 @@ export default {
   },
   methods: {
     ...mapActions("auth", ["checkDuplicate", "signup"]),
+    containsOnlyPhoneNumber(str) {
+      var phonePattern = /^\+?\d{1,3}?[-\s.]?\(?\d{2,3}\)?[-\s.]?\d{3}[-\s.]?\d{4}$/;
+      return phonePattern.test(str);
+    },
     toggleView() {
       if (this.view === "emailPhoneView") {
         if (!this.email || !this.phonenumber || !this.termscheckbox) {
@@ -275,6 +286,14 @@ export default {
       }
     },
     phonenumber(newVal, oldVal) {
+      if (!this.containsOnlyPhoneNumber(newVal)) {
+        return this.$refs.phonenumber.classList.add("error");
+      }
+
+      if (this.containsOnlyPhoneNumber(newVal)) {
+        return this.$refs.phonenumber.classList.remove("error");
+      }
+
       if (newVal) {
         this.$refs.phonenumber.classList.remove("error");
       }

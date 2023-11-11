@@ -487,8 +487,17 @@
                       <div class="swap__clientbalancearea--sect dim">
                         <span class="walletbalance-label">Wallet Balance:</span>
                         <span class="walletbalance"
-                          >{{ parseFloat(assetblc(currentAssetFrom)).toFixed(5) }} (${{
-                            parseFloat(assetblcUSD(currentAssetFrom)).toFixed(5)
+                          >{{
+                            addEllipsis(
+                              `${parseFloat(assetblc(currentAssetFrom)).toFixed(5)}`,
+                              13
+                            )
+                          }}
+                          (${{
+                            addEllipsis(
+                              `${parseFloat(assetblcUSD(currentAssetFrom)).toFixed(5)}`,
+                              13
+                            )
                           }}) {{ currentAssetFrom.coin }}</span
                         >
                       </div>
@@ -533,8 +542,17 @@
                       <div class="swap__clientbalancearea--sect dim">
                         <span class="walletbalance-label">Wallet Balance:</span>
                         <span class="walletbalance"
-                          >{{ parseFloat(assetblc(currentAssetTo)).toFixed(5) }} (${{
-                            parseFloat(assetblcUSD(currentAssetTo)).toFixed(5)
+                          >{{
+                            addEllipsis(
+                              `${parseFloat(assetblc(currentAssetTo)).toFixed(5)}`,
+                              13
+                            )
+                          }}
+                          (${{
+                            addEllipsis(
+                              `${parseFloat(assetblcUSD(currentAssetTo)).toFixed(5)}`,
+                              13
+                            )
                           }}) {{ currentAssetTo.coin }}</span
                         >
                       </div>
@@ -564,9 +582,11 @@
                           <span
                             >1 {{ currentAssetFrom.coin }} =
                             {{
-                              compareAssetsPrices(
-                                currentAssetFrom.price,
-                                currentAssetTo.price
+                              addEllipsis(
+                                `${compareAssetsPrices(
+                                  currentAssetFrom.price,
+                                  currentAssetTo.price
+                                )}`, 13
                               )
                             }}
                             {{ currentAssetTo.coin }}</span
@@ -604,7 +624,7 @@
 
                         <div class="swap__expectedamount--areasec">
                           <span>
-                            {{ toInput ? toInput.toFixed(5) : "" }}
+                            {{ toInput ? toInput : "" }}
                             {{ currentAssetTo.coin }}
                           </span>
                         </div>
@@ -646,9 +666,10 @@
 <script>
 import swapMixin from "@/mixins/swap";
 import cryptologosMixin from "@/mixins/cryptologos";
+import globalMixin from "@/mixins/global";
 
 export default {
-  mixins: [swapMixin, cryptologosMixin],
+  mixins: [swapMixin, cryptologosMixin, globalMixin],
   methods: {
     validateNumberInputFrom() {
       const { customSplitByDot, removePeriodAndCommas } = this;

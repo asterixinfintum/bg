@@ -32,7 +32,7 @@
             <div class="assetlistheader__item index__headerarea--menuitem">
                 <label class="assetlistheader__item--label">Filled</label>
             </div>
-
+ 
             <!--<div class="assetlistheader__item index__headerarea--menuitem">
                 <label class="assetlistheader__item--label">Trigger Conditions</label>
             </div>-->

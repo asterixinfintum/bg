@@ -37,7 +37,11 @@ orders.post('/order/market', authenticateToken, async (req, res) => {
                 userId,
             });
 
-            await order.save().then(odr => {
+            console.log(order)
+
+            await order.save();
+
+           /* await order.save().then(odr => {
                 const { price } = odr;
 
                 if (odr.side === 'buy') {
@@ -65,7 +69,7 @@ orders.post('/order/market', authenticateToken, async (req, res) => {
                 }
             }).catch(error => {
                 console.log(error)
-            });
+            });*/
         } catch (error) {
             console.log(error)
             res.status(400).send(error);

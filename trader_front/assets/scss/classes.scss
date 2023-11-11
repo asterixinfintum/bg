@@ -40,10 +40,6 @@
     }
 }
 
-.color-primary {
-    color: $primary-color;
-}
-
 .opacity-dim {
     opacity: .5;
 }
@@ -270,4 +266,8 @@ h3 {
 
 .landing-green {
     color: $landing-green
+}
+
+.color-primary {
+    color: $primary-color !important;
 }

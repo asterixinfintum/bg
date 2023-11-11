@@ -245,7 +245,7 @@
 
                     <div class="assetlist__area fiatandspot number-value">
                       <p class="neon-blue">
-                        {{ assetblc(asset) }}
+                        {{ addEllipsis(`${assetblc(asset)}`, 13) }}
                       </p>
                     </div>
 
@@ -389,6 +389,7 @@
 import listMixin from "@/mixins/list";
 import generalutilities from "@/mixins/generalutilities.js";
 import cryptologosMixin from "@/mixins/cryptologos";
+import globalMixin from "@/mixins/global";
 
 export default {
   data() {
@@ -396,6 +397,6 @@ export default {
       wallettype: "margin",
     };
   },
-  mixins: [generalutilities, listMixin, cryptologosMixin],
+  mixins: [generalutilities, listMixin, cryptologosMixin, globalMixin],
 };
 </script>

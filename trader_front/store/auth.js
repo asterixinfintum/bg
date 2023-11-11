@@ -27,7 +27,6 @@ export const mutations = {
 export const actions = {
   checkDuplicate({ commit }, credentials) {
     return new Promise((resolve, reject) => {
-      console.log('check here credentials')
       fetch(`${BASE_URL}/checkduplicatecredentials`, {
         method: 'POST',
         headers: {

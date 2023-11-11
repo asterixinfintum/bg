@@ -36,6 +36,10 @@ const assetSchema = new Schema({
         type: String,
         required: true,
         index: true,
+    },
+    pricehistory: {
+        type: Array,
+        default: []
     }
 });
 
@@ -43,6 +47,14 @@ assetSchema.statics.updateAssetPrice = async function (_id, price) {
     const asset = await this.findOne({ _id });
     asset.price = price;
     await asset.save();
+}
+
+assetSchema.statics.gettwentyfourhrhigh = async function (_id) {
+
+}
+
+assetSchema.statics.gettwentyfourhrlow = async function (_id) {
+
 }
 
 const Asset = mongoose.model('asset', assetSchema);

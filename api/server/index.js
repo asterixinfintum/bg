@@ -81,7 +81,7 @@ async function callHomekeepers() {
 //updatecryptoprices();
 
 cron.schedule("*/13 * * * *", () => {
-  callHomekeepers();
+ // callHomekeepers();
 });
 
 app.use(express.static('public'));

@@ -3,6 +3,9 @@ import { mapActions, mapState, mapMutations } from 'vuex';
 import tradeMixin from '@/mixins/trade';
 import generalutilities from '@/mixins/generalutilities';
 import walletMixin from './wallet';
+import globalMixin from '@/mixins/global';
+
+import marketorderMixin from '@/mixins/marketorder';
 
 export default {
     props: [
@@ -13,7 +16,9 @@ export default {
         'margin',
         'currentpair'
     ],
-    mixins: [tradeMixin, generalutilities, walletMixin],
+    mixins: [
+        tradeMixin, 
+        generalutilities, walletMixin, globalMixin, marketorderMixin],
     data() {
         return {
             tradingPair: '',
@@ -81,7 +86,7 @@ export default {
         assetOnRightSideOfOrderPair() {
             const { assets, currentpair } = this;
 
-            if (assets.length) {
+            if (assets.length && currentpair) {
                 const assetOnRightSideOfOrderPair = assets.filter(asset => asset.coin.toLowerCase() === currentpair.right.toLowerCase())[0];
                 return assetOnRightSideOfOrderPair;
             }
@@ -89,12 +94,26 @@ export default {
             return {}
         },
         buyTotal() {
-            const { buy_quantity, asset_price } = this;
-            return buy_quantity * asset_price;
+            if (this.sliderBuyValue === 0 && this.sell_quantity === '') {
+                return 0
+            }
+
+            const { buy_quantity, asset_price, assetOnRightSideOfOrderPair } = this;
+            const spendassetprice = assetOnRightSideOfOrderPair.price;
+            const sellassetprice = asset_price;
+
+            return (buy_quantity * sellassetprice) / spendassetprice;
         },
         sellTotal() {
-            const { sell_quantity, asset_price } = this;
-            return sell_quantity * asset_price;
+            if (this.sliderSellValue === 0 && this.buy_quantity === '') {
+                return 0
+            }
+
+            const { sell_quantity, asset_price, assetOnRightSideOfOrderPair } = this;
+            const spendassetprice = assetOnRightSideOfOrderPair.price;
+            const sellassetprice = asset_price;
+
+            return (sell_quantity * sellassetprice) / spendassetprice;
         },
         buyTotalLimit() {
             const { buy_quantity, asset_price_buy } = this;
@@ -105,11 +124,38 @@ export default {
             return sell_quantity * asset_price_sell;
         },
         autotradingtotal() {
-            const { asset_price, buy_quantity } = this;
-            return asset_price * buy_quantity;
+            if (this.sliderBuyValue === 0 && this.buy_quantity === '') {
+                return 0
+            }
+
+            const { buy_quantity, asset_price, assetOnRightSideOfOrderPair } = this;
+            const spendassetprice = assetOnRightSideOfOrderPair.price;
+            const sellassetprice = asset_price;
+
+            return (buy_quantity * sellassetprice) / spendassetprice;
         }
     },
     watch: {
+        assetOnRightSideOfOrderPair() {
+            this.buy_quantity = '';
+            this.sell_quantity = '';
+            this.sliderBuyValue = 0;
+            this.sliderSellValue = 0;
+            this.sliderValue = 0;
+
+            const spendassetprice = this.assetOnRightSideOfOrderPair.price;
+            const sellassetprice = this.asset_price;
+            const assetpricecomp = this.compareAssetsPrices(sellassetprice, spendassetprice)
+            this.asset_price_sell = assetpricecomp;
+            this.asset_price_buy = assetpricecomp
+        },
+        asset() {
+            this.buy_quantity = '';
+            this.sell_quantity = '';
+            this.sliderBuyValue = 0;
+            this.sliderSellValue = 0;
+            this.sliderValue = 0;
+        },
         buy_quantity() {
             this.buyError = false;
         },
@@ -117,7 +163,14 @@ export default {
             this.sellError = false;
         },
         sliderBuyValue(newValue, oldValue) {
-            const { autoTrade, asset, assetOnRightSideOfOrderPair, toDecimal, assetblc, tradeCapitalLimit } = this;
+            const {
+                autoTrade,
+                asset,
+                assetOnRightSideOfOrderPair,
+                toDecimal,
+                assetblc,
+                tradeCapitalLimit
+            } = this;
 
             if (autoTrade === 'true') {
                 if (assetblc(asset)) {
@@ -128,17 +181,24 @@ export default {
                         const percQuant = toDecimal(parseInt(newValue));
 
                         this.buy_quantity = balance * percQuant;
+                        console.log(balanceInUsd)
                     }
                 }
             } else {
                 if (assetblc(assetOnRightSideOfOrderPair)) {
-                    const balance = assetblc(assetOnRightSideOfOrderPair).blc;
+                    const balance = assetblc(assetOnRightSideOfOrderPair).blc
                     const balanceInUsd = assetblc(assetOnRightSideOfOrderPair).usdblc;
 
-                    if (balanceInUsd > tradeCapitalLimit) {
-                        const percQuant = toDecimal(parseInt(newValue));
+                    if (balance === `0`) {
+                        return;
+                    }
 
-                        this.buy_quantity = balance * percQuant;
+                    if (balanceInUsd > tradeCapitalLimit) {
+                        const spendassetprice = this.convertToFloat(asset.price);
+                        const percQuant = toDecimal(parseInt(newValue))
+                        const quantitity = (balanceInUsd * percQuant) / spendassetprice;
+
+                        this.buy_quantity = quantitity;
                     }
                 }
             }
@@ -509,116 +569,6 @@ export default {
                                     createLmtOrder(order)
                                         .then(() => {
                                             this.successMessage = 'Sell limit order created';
-                                            this.refreshpage();
-                                        }).catch(() => {
-                                            this.errorMessage = 'There was an error no funds lost pls try again';
-                                        });
-                                } else {
-                                    this.errorMessage = `Not enough ${asset.coin} to sell for ${assetOnRightSideOfOrderPair.coin}`;
-                                }
-                            } else {
-                                this.errorMessage = `Not enough ${asset.coin} to sell for ${assetOnRightSideOfOrderPair.coin}`;
-                            }
-                        } else {
-                            this.errorMessage = `Not enough ${asset.coin} to sell for ${assetOnRightSideOfOrderPair.coin}`;
-                        }
-                    } else {
-                        this.errorMessage = 'Specify a sell quantity'
-                    }
-                }
-            }
-        },
-        marketorder({ side }) {
-            const {
-                asset_price,
-                buy_quantity,
-                sell_quantity,
-                buyTotal,
-                sellTotal,
-                asset,
-                assetOnRightSideOfOrderPair,
-                wallettype,
-                currentpair,
-                wallets,
-                assetblc,
-                createMktOrder
-            } = this;
-
-            const tradingPair = `${asset.symbol}/${assetOnRightSideOfOrderPair.symbol}`;
-            const assetId = asset._id;
-            const oppstasstId = assetOnRightSideOfOrderPair._id;
-            const assetType = asset.assetType;
-            const type = 'market';
-            const price = parseFloat(asset_price);
-            const wllt = wallets.find(wallet => wallet.walletType === wallettype);
-            const wallet = wllt._id;
-            let orderAmount;
-
-            if (currentpair) {
-                const orderTemp = {
-                    tradingPair,
-                    assetId,
-                    oppstasstId,
-                    assetType,
-                    type,
-                    side,
-                    price,
-                    wallet
-                };
-
-                if (side === 'buy') {
-                    const quantity = parseFloat(buy_quantity);
-                    orderAmount = parseFloat(buyTotal)
-
-                    if (quantity) {
-                        const order = {
-                            ...orderTemp,
-                            quantity,
-                            orderAmount,
-                        }
-
-                        if (assetblc(assetOnRightSideOfOrderPair)) {
-                            if (assetblc(assetOnRightSideOfOrderPair).usdblc) {
-                                if (assetblc(assetOnRightSideOfOrderPair).usdblc > orderAmount) {
-                                    createMktOrder(order)
-                                        .then(() => {
-                                            this.successMessage = 'Buy market order executed';
-                                            this.refreshpage();
-                                        }).catch(() => {
-                                            this.errorMessage = 'There was an error no funds lost pls try again';
-                                        })
-                                } else {
-                                    this.errorMessage = `Not enough ${assetOnRightSideOfOrderPair.coin} to buy ${asset.coin}`;
-                                }
-                            } else {
-                                this.errorMessage = `Not enough ${assetOnRightSideOfOrderPair.coin} to buy ${asset.coin}`;
-                            }
-                        } else {
-                            this.errorMessage = `Not enough ${assetOnRightSideOfOrderPair.coin} to buy ${asset.coin}`;
-                        }
-                    } else {
-                        this.errorMessage = 'Specify a buy quantity'
-                    }
-
-                }
-
-                if (side === 'sell') {
-                    const quantity = parseFloat(sell_quantity);
-                    orderAmount = parseFloat(sellTotal)
-
-                    if (quantity) {
-                        const order = {
-                            ...orderTemp,
-                            quantity,
-                            orderAmount,
-                        }
-
-                        if (assetblc(asset)) {
-                            if (assetblc(asset).usdblc) {
-                                if (assetblc(asset).usdblc > orderAmount) {
-                                    createMktOrder(order)
-                                        .then(() => {
-                                            this.successMessage = 'Sell market order executed';
                                             this.refreshpage();
                                         }).catch(() => {
                                             this.errorMessage = 'There was an error no funds lost pls try again';

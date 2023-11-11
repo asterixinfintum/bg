@@ -36,7 +36,5 @@ export default {
     },
     mounted() {
         this.asset_price = this.asset.price;
-        this.asset_price_sell = this.asset.price;
-        this.asset_price_buy = this.asset.price;
     }
 }

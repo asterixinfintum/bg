@@ -49,6 +49,14 @@ const autoTradeSchema = new Schema({
     }
 });
 
+autoTradeSchema.statics.recordbuy = async function () {
+
+}
+
+autoTradeSchema.statics.recordsell = async function () {
+
+}
+
 const AutoTrade = mongoose.model('Autotrade', autoTradeSchema);
 
 module.exports = AutoTrade;

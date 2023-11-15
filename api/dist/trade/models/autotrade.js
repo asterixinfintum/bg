@@ -11,29 +11,50 @@ var autoTradeSchema = new Schema({
     type: String,
     required: true
   },
-  userId: {
+  total: {
+    type: Number,
+    required: true
+  },
+  price: {
+    type: Number,
+    required: true
+  },
+  assettobuy: {
     type: String,
     required: true
   },
-  assetId: {
+  assettosell: {
     type: String,
     required: true
   },
-  walletassetid: {
+  assettobuytype: {
+    type: String,
+    "enum": ['crypto', 'stock', 'commodity', 'fiat'],
+    required: true
+  },
+  assettoselltype: {
+    type: String,
+    "enum": ['crypto', 'stock', 'commodity', 'fiat'],
+    required: true
+  },
+  wallet: {
     type: String,
     required: true
+  },
+  wallettype: {
+    type: String,
+    required: true
+  },
+  fees: {
+    type: Number,
+    "default": 0
   },
   quantity: {
     type: Number,
     required: true
   },
-  initialTotal: {
-    type: Number,
-    required: true
-  },
-  assetType: {
+  userId: {
     type: String,
-    "enum": ['crypto', 'stock', 'commodity'],
     required: true
   },
   date: {
@@ -42,10 +63,6 @@ var autoTradeSchema = new Schema({
   },
   orders: [],
   autotradestrategies: [],
-  wallet: {
-    type: String,
-    required: true
-  },
   tradeStatus: {
     type: String,
     required: true,

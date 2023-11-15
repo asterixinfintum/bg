@@ -20,7 +20,7 @@ transactions.post('/convert', _authenticateToken["default"], /*#__PURE__*/functi
       while (1) switch (_context.prev = _context.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context.next = 6;
+            _context.next = 8;
             break;
           }
           _req$body = req.body, toquant = _req$body.toquant, fromquant = _req$body.fromquant, assetfrom = _req$body.assetfrom, assetto = _req$body.assetto, wallet = _req$body.wallet, total = _req$body.total, transactionFee = _req$body.transactionFee;
@@ -40,7 +40,13 @@ transactions.post('/convert', _authenticateToken["default"], /*#__PURE__*/functi
               error: error
             });
           });
-        case 6:
+          _context.next = 9;
+          break;
+        case 8:
+          res.status(404).send({
+            message: 'not allowed'
+          });
+        case 9:
         case "end":
           return _context.stop();
       }

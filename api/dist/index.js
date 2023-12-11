@@ -187,7 +187,7 @@ app.use(_express["default"]["static"](_path["default"].join(__dirname, '../publi
 app.use(_express["default"]["static"](_path["default"].join(__dirname, '../public/ui')));
 
 // Explicit route for the home page
-app.get('/', function (req, res) {
+app.get('*', function (req, res) {
   res.sendFile(_path["default"].join(__dirname, '../public/ui/index.html'));
 });
 app.use(_express["default"].urlencoded({

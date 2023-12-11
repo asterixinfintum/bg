@@ -101,12 +101,14 @@ io.use( /*#__PURE__*/function () {
           return (0, _setonlineuser["default"])(actualToken);
         case 5:
           onlineuser = _context.sent;
-          socket.user = {
-            _id: onlineuser._id,
-            firstname: onlineuser.firstname,
-            lastname: onlineuser.lastname,
-            email: onlineuser.email
-          };
+          if (onlineuser) {
+            socket.user = {
+              _id: onlineuser._id,
+              firstname: onlineuser.firstname,
+              lastname: onlineuser.lastname,
+              email: onlineuser.email
+            };
+          }
 
           //console.log(socket.user )
 

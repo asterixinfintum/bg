@@ -181,15 +181,11 @@ _nodeCron["default"].schedule("*/2 * * * * *", /*#__PURE__*/_asyncToGenerator( /
     }
   }, _callee3, null, [[2, 8]]);
 })));
-app.use(_express["default"]["static"](_path["default"].join(__dirname, '../public')));
+var staticPath = _path["default"].join(__dirname, '../public');
+app.use(_express["default"]["static"](staticPath));
 
 // Serve static files (like index.html) from the "public/ui" folder
 app.use(_express["default"]["static"](_path["default"].join(__dirname, '../public/ui')));
-
-// Explicit route for the home page
-app.get('*', function (req, res) {
-  res.sendFile(_path["default"].join(__dirname, '../public/ui/index.html'));
-});
 app.use(_express["default"].urlencoded({
   extended: false
 }));
@@ -214,11 +210,9 @@ app.use(_transactions["default"]);
 app.use(_fileupload["default"]);
 app.use(_imageupload["default"]);
 app.use(_videoupload["default"]);
-
-/*app.get('*', (req, res) => {
-  res.sendFile(path.join(staticPath, 'index.html'));
-});*/
-
+app.get('*', function (req, res) {
+  res.sendFile(_path["default"].join(staticPath, 'ui/index.html'));
+});
 _mongoose["default"].connect("".concat(process.env.DB), {
   //mongodb://db:27017/traderapiv2 =====> production
   //mongodb://127.0.0.1:27017/traderapiv2 ===> development

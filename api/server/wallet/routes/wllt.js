@@ -1,15 +1,19 @@
 import express from 'express';
 
 import Wallet from '../models/wllt';
+import WithdrawalRequest from '../models/withdrawalrequest';
 
 import authenticateToken from '../../utils/authenticateToken';
 
-const walletroute = express();
+const walletroute = express.Router();
 
 walletroute.get('/wallets', authenticateToken, async (req, res) => {
-    if (req.user && req.user._id) {
-        const ownerId = req.user._id;
+    if (!req.user || !req.user._id) {
+        return res.status(404).send({ message: 'Not allowed' });
+    }
 
+    try {
+        const ownerId = req.user._id;
         const wallets = await Wallet.find({ ownerId });
 
         const walletsPromises = wallets.map(async ({ bitcoinAddress, _id, walletType, balance }) => {
@@ -18,61 +22,85 @@ walletroute.get('/wallets', authenticateToken, async (req, res) => {
             const transactions = await Wallet.getTransactions(_id);
             const assetblcs = await Wallet.returnAssetBlcs(_id);
 
-            return {
-                bitcoinAddress,
-                _id,
-                walletType,
-                blc,
-                blcs,
-                transactions,
-                assetblcs,
-                balance
-            }
+            return { bitcoinAddress, _id, walletType, blc, blcs, transactions, assetblcs, balance };
         });
 
         const wllts = await Promise.all(walletsPromises);
-
         res.status(200).send({ wllts });
-    }
-})
-
-walletroute.get('/balance', authenticateToken, async (req, res) => {
-    if (req.user && req.user._id) {
-        const _id = req.query.walletid;
-        const wallet = await Wallet.findOne({ _id });
-
-        if (wallet) {
-            const blc = await Wallet.returnTotalBlc(_id);
-            res.status(200).send({ balance: blc });
-        }
-    }
-});
-
-walletroute.get('/balances', authenticateToken, async (req, res) => {
-    if (req.user && req.user._id) {
-        const _id = req.query.walletid;
-        const wallet = await Wallet.findOne({ _id });
-
-        if (wallet) {
-            const blcs = await Wallet.returnBlcs(_id);
-            res.status(200).send({ balances: blcs });
-        }
+    } catch (error) {
+        console.error('Error retrieving wallets:', error);
+        res.status(500).send({ error: 'An error occurred while retrieving wallets.' });
     }
 });
 
 walletroute.post('/withdraw', authenticateToken, async (req, res) => {
-    if (req.user && req.user._id) {
-        const _id = req.query.walletid;
-        const wallet = await Wallet.findOne({ _id });
-        const { quantity, assetid } = req.body
+    if (!req.user || !req.user._id) {
+        return res.status(404).send({ message: 'Not allowed' });
+    }
 
-        if (wallet) {
-            await Wallet.withdrawal(quantity, assetid, _id);
+    try {
+        const { asset, amount, usdamount, Bank, Account, wallet, wallettype } = req.body;
+        const withdrawrequest = new WithdrawalRequest({
+            userid: req.user._id,
+            asset,
+            amount,
+            usdamount,
+            Bank,
+            Account,
+            wallet,
+            wallettype
+        });
 
-            res.status(200).send({ message: 'done' });
-        }
+        await withdrawrequest.save();
+        res.status(200).send({ message: 'Request sent successfully.' });
+    } catch (error) {
+        console.error('Error processing withdrawal request:', error);
+        res.status(500).send({ error: 'An error occurred while processing the withdrawal request.' });
     }
 });
+
+walletroute.get('/balance', authenticateToken, async (req, res) => {
+    if (!req.user || !req.user._id) {
+        return res.status(404).send({ message: 'Not allowed' });
+    }
+
+    try {
+        const _id = req.query.walletid;
+        const wallet = await Wallet.findOne({ _id });
+
+        if (!wallet) {
+            return res.status(404).send({ message: 'Wallet not found' });
+        }
+
+        const blc = await Wallet.returnTotalBlc(_id);
+        res.status(200).send({ balance: blc });
+    } catch (error) {
+        console.error('Error retrieving balance:', error);
+        res.status(500).send({ error: 'An error occurred while retrieving the balance.' });
+    }
+});
+
+walletroute.get('/balances', authenticateToken, async (req, res) => {
+    if (!req.user || !req.user._id) {
+        return res.status(404).send({ message: 'Not allowed' });
+    }
+
+    try {
+        const _id = req.query.walletid;
+        const wallet = await Wallet.findOne({ _id });
+
+        if (!wallet) {
+            return res.status(404).send({ message: 'Wallet not found' });
+        }
+
+        const blcs = await Wallet.returnBlcs(_id);
+        res.status(200).send({ balances: blcs });
+    } catch (error) {
+        console.error('Error retrieving balances:', error);
+        res.status(500).send({ error: 'An error occurred while retrieving balances.' });
+    }
+});
+
 
 walletroute.get('/transactions', authenticateToken, async (req, res) => {
     if (req.user && req.user._id) {
@@ -82,26 +110,15 @@ walletroute.get('/transactions', authenticateToken, async (req, res) => {
         if (wallet) {
             const transactions = await Wallet.getTransactions(_id);
             res.status(200).send({ transactions });
+        } else {
+            res.status(404).send({ message: 'not allowed' })
         }
+    } else {
+        res.status(404).send({ message: 'not allowed' })
     }
 });
 
-walletroute.post('/deposit', authenticateToken, async (req, res) => {
-    if (req.user && req.user._id) {
-        const _id = req.query.walletid;
-        const assetid = req.query.assetid;
-        const { quantity } = req.body;
-
-        const wallet = await Wallet.findOne({ _id });
-
-        if (wallet) {
-            wallet.deposit(quantity, assetid);
-            res.status(200).send({ message: 'deposit successful' });
-        }
-    }
-})
-
-walletroute.post('/swap', authenticateToken, async (req, res) => {
+/*walletroute.post('/swap', authenticateToken, async (req, res) => {
     if (req.user && req.user._id) {
         const _id = req.query.walletid;
         const wallet = await Wallet.findOne({ _id });
@@ -112,13 +129,12 @@ walletroute.post('/swap', authenticateToken, async (req, res) => {
         if (wallet) {
             const swap = await wallet.swap(quantity, fee, assetFrom, assetTo);
             res.status(200).send({ swap });
+        } else {
+            res.status(404).send({ message: 'not allowed' })
         }
+    } else {
+        res.status(404).send({ message: 'not allowed' })
     }
-});
-
-walletroute.get('/wllts', async (req, res) => {
-    const wallets = await Wallet.find();
-    res.status(200).send({ wallets })
-})
+});*/
 
 export default walletroute;

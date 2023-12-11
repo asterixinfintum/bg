@@ -50,7 +50,7 @@ async function getcryptopairdata(pair) {
                     { new: true }
                 );
 
-                console.log(update, 'updated')
+                console.log(update, 'update here')
             }
 
             if (!ctd) {

@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
+  firstname: {
+    type: String,
+    required: true,
+  },
+  lastname: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
@@ -19,7 +27,11 @@ const userSchema = new Schema({
   },
   verified: {
     type: Boolean,
-    default: false, 
+    default: false,
+  },
+  online: {
+    type: Boolean,
+    default: false,
   },
   password: {
     type: String,
@@ -33,6 +45,18 @@ const userSchema = new Schema({
     type: String,
   },
   customFields: {},
+  marginbtcaddress: {
+    type: String,
+    default: ''
+  },
+  spotbtcaddress: {
+    type: String,
+    default: ''
+  },
+  accountplan: {
+    type: String,
+    default: 'Basic'
+  },
   warnings: [
     {
       message: String,

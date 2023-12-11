@@ -8,7 +8,7 @@ var _express = _interopRequireDefault(require("express"));
 var _user = _interopRequireDefault(require("../models/user"));
 var _authenticateToken = _interopRequireDefault(require("../utils/authenticateToken"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-var logout = (0, _express["default"])();
+var logout = _express["default"].Router();
 logout.get('/logout', _authenticateToken["default"], function (req, res) {
   var email = req.user.email;
   _user["default"].findOneAndUpdate({

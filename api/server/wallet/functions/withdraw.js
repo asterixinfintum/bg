@@ -15,7 +15,6 @@ async function withdraw(quantity, assetid) {
                 if (contains) {
                     const asstblc = await AssetBlc.findOne({ assetid, wallet: this.id });
 
-
                     if (asstblc.balance > quantity) {
                         await asstblc.reduceBalance(quantity);
                         resolve(asstblc)

@@ -4,7 +4,7 @@ import path from 'path';
 
 import FileItem from '../models/file';
 
-const fileupload = express();
+const fileupload = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

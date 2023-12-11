@@ -1,34 +1,29 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-import executebuy from './functions/executebuy';
+import executeorder from './functions/executeorder';
 import executesell from './functions/executesell';
 
 const orderSchema = new Schema({
-    tradingPair: {
-        type: String,
-        required: true
-    },
     userId: {
         type: String,
         required: true
     },
-    assetId: {
+    wallet: {
         type: String,
         required: true
     },
-    oppstasstId: {
+    wallettype: {
         type: String,
         required: true
     },
-    assetType: {
+    tradingPair: {
         type: String,
-        enum: ['crypto', 'stock', 'commodity'],
         required: true
     },
-    date: {
-        type: Date,
-        default: Date.now
+    pairId: {
+        type: String,
+        required: true
     },
     type: {
         type: String,
@@ -40,50 +35,81 @@ const orderSchema = new Schema({
         enum: ['buy', 'sell'],
         required: true
     },
+    total: {
+        type: Number,
+        required: true
+    },
     price: {
         type: Number,
         required: true
     },
-    triggerPrice: {
+    partialorderfilling: {
+        type: Array,
+        default: []  // This will be null until the order is executed, at which point it will be set to the execution price.
+    },
+    fees: {
         type: Number,
+        required: true
     },
     quantity: {
         type: Number,
         required: true
     },
-    orderAmount: {
-        type: Number,
+    assettosell: {
+        type: String,
         required: true
+    },
+    assettobuy: {
+        type: String,
+        required: true
+    },
+    assettobuytype: {
+        type: String,
+        enum: ['crypto', 'stock', 'commodity', 'fiat'],
+        required: true
+    },
+    assettoselltype: {
+        type: String,
+        enum: ['crypto', 'stock', 'commodity', 'fiat'],
+        required: true
+    },
+    limitPrice: {
+        type: Number || Boolean,
+        required: true,
+        default: false
+    },
+    stopPrice: {
+        type: Number || Boolean,
+        required: true,
+        default: false
     },
     filled: {
         type: Number,
+        required: true,
         default: 0
-    },
-    triggerConditions: {
-        type: String,  // This can be further detailed based on the specific conditions you have in mind.
-        default: null
     },
     status: {
         type: String,
-        enum: ['executed', 'canceled', 'pending', 'partially filled'],
+        enum: ['executed', 'canceled', 'pending', 'partially filled', 'fulfilled'],
         required: true,
         default: 'pending'
     },
-    ltstExecPrice: {
-        type: Number,
-        default: null  // This will be null until the order is executed, at which point it will be set to the execution price.
+    margin: {
+        type: Number || Boolean,
+        required: true,
+        default: false
     },
-    wallet: {
-        type: String,
-        required: true
+    date: {
+        type: Date,
+        default: Date.now
     }
-});
+}, { timestamps: true });
 
 orderSchema.methods.cancel = async function () {
     this.status = 'canceled';
     this.save();
 }
-orderSchema.methods.executebuy = executebuy;
+orderSchema.methods.executeorder = executeorder;
 orderSchema.methods.executesell = executesell;
 
 const Order = mongoose.model('Order', orderSchema);

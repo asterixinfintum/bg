@@ -26,6 +26,10 @@ var orderSchema = new Schema({
     type: String,
     required: true
   },
+  pairId: {
+    type: String,
+    required: true
+  },
   type: {
     type: String,
     "enum": ['market', 'limit', 'stop'],
@@ -92,7 +96,7 @@ var orderSchema = new Schema({
   },
   status: {
     type: String,
-    "enum": ['executed', 'canceled', 'pending', 'partially filled'],
+    "enum": ['executed', 'canceled', 'pending', 'partially filled', 'fulfilled'],
     required: true,
     "default": 'pending'
   },
@@ -105,6 +109,8 @@ var orderSchema = new Schema({
     type: Date,
     "default": Date.now
   }
+}, {
+  timestamps: true
 });
 orderSchema.methods.cancel = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
   return _regeneratorRuntime().wrap(function _callee$(_context) {

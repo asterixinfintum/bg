@@ -13,7 +13,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var express = require('express');
 var path = require('path');
 var fs = require('fs');
-var fileretrieve = express();
+var fileretrieve = express.Router();
 fileretrieve.get('/files', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
     var allFileItems;

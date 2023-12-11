@@ -9,7 +9,7 @@ var _multer = _interopRequireDefault(require("multer"));
 var _path = _interopRequireDefault(require("path"));
 var _file = _interopRequireDefault(require("../models/file"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-var fileupload = (0, _express["default"])();
+var fileupload = _express["default"].Router();
 var storage = _multer["default"].diskStorage({
   destination: function destination(req, file, cb) {
     // Set the desired folder structure for storing files

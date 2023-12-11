@@ -49,6 +49,13 @@ var autoTradeSchema = new Schema({
     type: Number,
     "default": 0
   },
+  initialusddeposit: {
+    type: Number
+  },
+  usdbalance: {
+    type: Number,
+    "default": null
+  },
   quantity: {
     type: Number,
     required: true

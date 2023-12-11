@@ -2,7 +2,7 @@ import express from 'express';
 
 import EditTracker from '../models/editTracker';
 
-const editTracker = express();
+const editTracker = express.Router();
 
 editTracker.get('/trackers', (req, res) => {
     const masterkey = req.query.masterkey;

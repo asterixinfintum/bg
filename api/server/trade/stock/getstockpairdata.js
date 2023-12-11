@@ -29,7 +29,6 @@ async function getstockpairdata() {
                 }
             }
 
-
             if (meta && meta !== undefined && values && values !== undefined) {
                 //console.log(meta, values);
                 const currency_base = name;

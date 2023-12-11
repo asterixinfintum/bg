@@ -9,7 +9,7 @@ import Wallet from '../wallet/models/wllt';
 
 import uniqueIdGenerate from '../utils/uniqueIdGenerate';
 
-const signup = express();
+const signup = express.Router();
 
 async function createBitcoinWallet(type, ownerId, { address, mnemonic, privateKey, xpub }) {
     const wallet = new Wallet({
@@ -45,46 +45,60 @@ async function createBitcoinWallets({ ownerId }) {
 }
 
 signup.post('/register', async (req, res) => {
-    const receivedCredentials = req.body;
-    const user = new User(receivedCredentials);
-    const payload = {
-        _id: user._id,
-        email: user.email
-    };
-    const token = jwt.sign(payload, process.env.secretKeyJWT);
+    try {
+        const receivedCredentials = req.body;
+        const user = new User(receivedCredentials);
 
-    user.anonId = uniqueIdGenerate();
-    user.token = token;
+        // Generate token
+        const payload = {
+            _id: user._id,
+            email: user.email
+        };
+        const token = jwt.sign(payload, process.env.secretKeyJWT);
 
-    await user.save()
-        .then(async ({ email, phonenumber, anonId, _id }) => {
-            const btcWallets = await createBitcoinWallets({ ownerId: _id })
-                .then(bitcoinWallets => {
-                    return bitcoinWallets
-                })
-                .catch(err => {
-                    console.log(err)
-                });
+        // Set additional user properties
+        user.anonId = uniqueIdGenerate();
+        user.token = token;
 
-            res.json({ message: 'Credentials saved successfully.', token, userData: { email, phonenumber, anonId, _id, btcWallets } });
-        })
-        .catch(error => {
-            console.error('Error saving credentials:', error);
-            res.status(500).json({ error: 'An error occurred while saving credentials.' });
+        // Save user
+        await user.save();
+
+        // Create Bitcoin wallets
+        const btcWallets = await createBitcoinWallets({ ownerId: user._id });
+
+        // Respond with user data
+        res.json({
+            message: 'Credentials saved successfully.',
+            token,
+            userData: {
+                email: user.email,
+                phonenumber: user.phonenumber,
+                anonId: user.anonId,
+                _id: user._id,
+                btcWallets
+            }
         });
+    } catch (error) {
+        console.error('Error in registration:', error);
+        res.status(500).json({ error: 'An error occurred during registration.' });
+    }
 });
 
 signup.post('/checkduplicatecredentials', async (req, res) => {
-    const { email, phonenumber } = req.body;
+    try {
+        const { email, phonenumber } = req.body;
 
-    const duplicateEmail = await User.findOne({ email });
-    const duplicatePhonenumber = await User.findOne({ phonenumber });
+        const duplicateEmail = await User.findOne({ email });
+        const duplicatePhonenumber = await User.findOne({ phonenumber });
 
-    if (duplicateEmail || duplicatePhonenumber) {
-        return res.sendStatus(401);
+        if (duplicateEmail || duplicatePhonenumber) {
+            return res.sendStatus(401);
+        }
+
+        res.status(200).json({ message: 'okay proceed' });
+    } catch (error) {
+        res.status(500).json({ error: 'An error occurred during registration.' });
     }
-
-    res.status(200).json({ message: 'okay proceed' });
 })
 
 export default signup;

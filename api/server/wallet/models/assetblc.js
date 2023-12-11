@@ -23,16 +23,32 @@ const assetBlcSchema = new Schema({
     },
 });
 
-assetBlcSchema.methods.increaseBalance = async function (amount) {
-    const updatedblc = this.balance + amount;
-    this.balance = updatedblc;
-    this.save();
+function convertToFloat(str) {
+    return parseFloat(str.replace(/,/g, ''));
 }
 
+assetBlcSchema.methods.increaseBalance = async function (amount) {
+    try {
+        const balanceupdate = this.balance + convertToFloat(`${amount}`);
+        this.balance = balanceupdate;
+        this.save();
+    } catch (error) {
+        // Handle any errors that occur during the save
+        console.error('Error updating balance:', error);
+        throw error; // Re-throw the error to be handled by the caller
+    }
+};
+
 assetBlcSchema.methods.reduceBalance = async function (amount) {
-    const updatedblc = this.balance - amount;
-    this.balance = updatedblc;
-    this.save();
+    try {
+        const balanceupdate = this.balance - convertToFloat(`${amount}`);
+        this.balance = balanceupdate;
+        this.save();
+    } catch (error) {
+        // Handle any errors that occur during the save
+        console.error('Error updating balance:', error);
+        throw error; // Re-throw the error to be handled by the caller
+    }
 }
 
 assetBlcSchema.statics.lock = async function (_id, amount) {

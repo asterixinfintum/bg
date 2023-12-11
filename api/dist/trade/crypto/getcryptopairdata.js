@@ -98,7 +98,7 @@ function _getcryptopairdata() {
           });
         case 29:
           update = _context.sent;
-          console.log(update, 'updated');
+          console.log(update, 'update here');
         case 31:
           if (ctd) {
             _context.next = 36;

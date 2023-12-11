@@ -3,7 +3,7 @@ import express from 'express';
 import User from '../models/user';
 import authenticateToken from '../utils/authenticateToken';
 
-const logout = express();
+const logout = express.Router();
 
 logout.get('/logout', authenticateToken, (req, res) => {
 

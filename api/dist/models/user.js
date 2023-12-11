@@ -3,6 +3,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var userSchema = new Schema({
+  firstname: {
+    type: String,
+    required: true
+  },
+  lastname: {
+    type: String,
+    required: true
+  },
   email: {
     type: String,
     required: true,
@@ -22,6 +30,10 @@ var userSchema = new Schema({
     type: Boolean,
     "default": false
   },
+  online: {
+    type: Boolean,
+    "default": false
+  },
   password: {
     type: String,
     required: true
@@ -34,6 +46,18 @@ var userSchema = new Schema({
     type: String
   },
   customFields: {},
+  marginbtcaddress: {
+    type: String,
+    "default": ''
+  },
+  spotbtcaddress: {
+    type: String,
+    "default": ''
+  },
+  accountplan: {
+    type: String,
+    "default": 'Basic'
+  },
   warnings: [{
     message: String,
     btnText: String,

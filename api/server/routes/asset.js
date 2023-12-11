@@ -2,17 +2,50 @@ import express from 'express';
 
 import Asset from '../models/asset';
 
-const asset = express();
+const asset = express.Router();
 
 asset.get('/assets/', async (req, res) => {
-    Asset.find({})
-        .then(assets => {
-            res.status(200).json({ assets });
-        })
-        .catch(err => {
-            console.error('Error retrieving assets:', err);
-            res.status(500).json({ error: 'An error occurred while retrieving assets' });
-        });
+    try {
+        const assets = await Asset.find({});
+        const assetlist = []
+
+        assets.forEach(({ _id, name, coin, symbol, assetType, price, image }) => assetlist.push({ _id, name, coin, symbol, assetType, price, image }));
+
+        res.status(200).json({ assets: assetlist });
+    } catch (err) {
+        console.error('Error retrieving assets:', err);
+        res.status(500).json({ error: 'An error occurred while retrieving assets' });
+    }
 });
+
+asset.get('/asset/', async (req, res) => {
+    try {
+        const { assetid } = req.query;
+
+        // Check if baseCurrency is provided
+        if (!assetid) {
+            return res.status(400).send({ error: 'assetid is required' });
+        }
+
+        const asset = await Asset.findOne({ _id: assetid });
+        const { _id, name, coin, symbol, assetType, price, image, pricehistory } = asset;
+
+        const result = {
+            _id,
+            name,
+            coin,
+            assetType,
+            symbol,
+            price,
+            image,
+            pricehistory: pricehistory.slice(0, 20)
+        }
+
+        res.status(200).json({ asset: result });
+    } catch (err) {
+        console.error('Error retrieving assets:', err);
+        res.status(500).json({ error: 'An error occurred while retrieving assets' });
+    }
+})
 
 export default asset;

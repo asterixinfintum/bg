@@ -20,15 +20,15 @@ var _require = require("bitcore-lib/lib/networks"),
   testnet = _require.testnet;
 var _require2 = require("../functions/wallet.bitcoin"),
   createHDWallet = _require2.createHDWallet;
-var signup = (0, _express["default"])();
+var signup = _express["default"].Router();
 function createBitcoinWallet(_x, _x2, _x3) {
   return _createBitcoinWallet.apply(this, arguments);
 }
 function _createBitcoinWallet() {
-  _createBitcoinWallet = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(type, ownerId, _ref) {
+  _createBitcoinWallet = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(type, ownerId, _ref) {
     var address, mnemonic, privateKey, xpub, wallet;
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
         case 0:
           address = _ref.address, mnemonic = _ref.mnemonic, privateKey = _ref.privateKey, xpub = _ref.xpub;
           wallet = new _wllt["default"]({
@@ -39,20 +39,20 @@ function _createBitcoinWallet() {
             bitcoinPrivateKey: privateKey,
             bitcoinXpub: xpub
           });
-          _context4.prev = 2;
-          _context4.next = 5;
+          _context3.prev = 2;
+          _context3.next = 5;
           return wallet.save();
         case 5:
-          return _context4.abrupt("return", _context4.sent);
+          return _context3.abrupt("return", _context3.sent);
         case 8:
-          _context4.prev = 8;
-          _context4.t0 = _context4["catch"](2);
-          throw _context4.t0;
+          _context3.prev = 8;
+          _context3.t0 = _context3["catch"](2);
+          throw _context3.t0;
         case 11:
         case "end":
-          return _context4.stop();
+          return _context3.stop();
       }
-    }, _callee4, null, [[2, 8]]);
+    }, _callee3, null, [[2, 8]]);
   }));
   return _createBitcoinWallet.apply(this, arguments);
 }
@@ -60,155 +60,153 @@ function createBitcoinWallets(_x4) {
   return _createBitcoinWallets.apply(this, arguments);
 }
 function _createBitcoinWallets() {
-  _createBitcoinWallets = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(_ref2) {
+  _createBitcoinWallets = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(_ref2) {
     var ownerId, walletTypes, promises, createdBitcoinWallets;
-    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
-      while (1) switch (_context6.prev = _context6.next) {
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
         case 0:
           ownerId = _ref2.ownerId;
           walletTypes = ["fiat/spot", "margin"];
           promises = walletTypes.map( /*#__PURE__*/function () {
-            var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(walletType) {
+            var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(walletType) {
               var newHDWallet;
-              return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-                while (1) switch (_context5.prev = _context5.next) {
+              return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+                while (1) switch (_context4.prev = _context4.next) {
                   case 0:
                     newHDWallet = process.env.NET === 'testnet' ? createHDWallet(testnet) : createHDWallet(mainnet);
-                    return _context5.abrupt("return", createBitcoinWallet(walletType, ownerId, newHDWallet));
+                    return _context4.abrupt("return", createBitcoinWallet(walletType, ownerId, newHDWallet));
                   case 2:
                   case "end":
-                    return _context5.stop();
+                    return _context4.stop();
                 }
-              }, _callee5);
+              }, _callee4);
             }));
-            return function (_x10) {
-              return _ref7.apply(this, arguments);
+            return function (_x9) {
+              return _ref5.apply(this, arguments);
             };
           }());
-          _context6.prev = 3;
-          _context6.next = 6;
+          _context5.prev = 3;
+          _context5.next = 6;
           return Promise.all(promises);
         case 6:
-          createdBitcoinWallets = _context6.sent;
+          createdBitcoinWallets = _context5.sent;
           console.log(createdBitcoinWallets);
-          return _context6.abrupt("return", createdBitcoinWallets);
+          return _context5.abrupt("return", createdBitcoinWallets);
         case 11:
-          _context6.prev = 11;
-          _context6.t0 = _context6["catch"](3);
-          throw _context6.t0;
+          _context5.prev = 11;
+          _context5.t0 = _context5["catch"](3);
+          throw _context5.t0;
         case 14:
         case "end":
-          return _context6.stop();
+          return _context5.stop();
       }
-    }, _callee6, null, [[3, 11]]);
+    }, _callee5, null, [[3, 11]]);
   }));
   return _createBitcoinWallets.apply(this, arguments);
 }
 signup.post('/register', /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var receivedCredentials, user, payload, token;
-    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-      while (1) switch (_context2.prev = _context2.next) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
+    var receivedCredentials, user, payload, token, btcWallets;
+    return _regeneratorRuntime().wrap(function _callee$(_context) {
+      while (1) switch (_context.prev = _context.next) {
         case 0:
+          _context.prev = 0;
           receivedCredentials = req.body;
-          user = new _user["default"](receivedCredentials);
+          user = new _user["default"](receivedCredentials); // Generate token
           payload = {
             _id: user._id,
             email: user.email
           };
-          token = _jsonwebtoken["default"].sign(payload, process.env.secretKeyJWT);
+          token = _jsonwebtoken["default"].sign(payload, process.env.secretKeyJWT); // Set additional user properties
           user.anonId = (0, _uniqueIdGenerate["default"])();
           user.token = token;
-          _context2.next = 8;
-          return user.save().then( /*#__PURE__*/function () {
-            var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(_ref4) {
-              var email, phonenumber, anonId, _id, btcWallets;
-              return _regeneratorRuntime().wrap(function _callee$(_context) {
-                while (1) switch (_context.prev = _context.next) {
-                  case 0:
-                    email = _ref4.email, phonenumber = _ref4.phonenumber, anonId = _ref4.anonId, _id = _ref4._id;
-                    _context.next = 3;
-                    return createBitcoinWallets({
-                      ownerId: _id
-                    }).then(function (bitcoinWallets) {
-                      return bitcoinWallets;
-                    })["catch"](function (err) {
-                      console.log(err);
-                    });
-                  case 3:
-                    btcWallets = _context.sent;
-                    res.json({
-                      message: 'Credentials saved successfully.',
-                      token: token,
-                      userData: {
-                        email: email,
-                        phonenumber: phonenumber,
-                        anonId: anonId,
-                        _id: _id,
-                        btcWallets: btcWallets
-                      }
-                    });
-                  case 5:
-                  case "end":
-                    return _context.stop();
-                }
-              }, _callee);
-            }));
-            return function (_x7) {
-              return _ref5.apply(this, arguments);
-            };
-          }())["catch"](function (error) {
-            console.error('Error saving credentials:', error);
-            res.status(500).json({
-              error: 'An error occurred while saving credentials.'
-            });
+
+          // Save user
+          _context.next = 9;
+          return user.save();
+        case 9:
+          _context.next = 11;
+          return createBitcoinWallets({
+            ownerId: user._id
           });
-        case 8:
+        case 11:
+          btcWallets = _context.sent;
+          // Respond with user data
+          res.json({
+            message: 'Credentials saved successfully.',
+            token: token,
+            userData: {
+              email: user.email,
+              phonenumber: user.phonenumber,
+              anonId: user.anonId,
+              _id: user._id,
+              btcWallets: btcWallets
+            }
+          });
+          _context.next = 19;
+          break;
+        case 15:
+          _context.prev = 15;
+          _context.t0 = _context["catch"](0);
+          console.error('Error in registration:', _context.t0);
+          res.status(500).json({
+            error: 'An error occurred during registration.'
+          });
+        case 19:
         case "end":
-          return _context2.stop();
+          return _context.stop();
       }
-    }, _callee2);
+    }, _callee, null, [[0, 15]]);
   }));
   return function (_x5, _x6) {
     return _ref3.apply(this, arguments);
   };
 }());
 signup.post('/checkduplicatecredentials', /*#__PURE__*/function () {
-  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
     var _req$body, email, phonenumber, duplicateEmail, duplicatePhonenumber;
-    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-      while (1) switch (_context3.prev = _context3.next) {
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
         case 0:
+          _context2.prev = 0;
           _req$body = req.body, email = _req$body.email, phonenumber = _req$body.phonenumber;
-          _context3.next = 3;
+          _context2.next = 4;
           return _user["default"].findOne({
             email: email
           });
-        case 3:
-          duplicateEmail = _context3.sent;
-          _context3.next = 6;
+        case 4:
+          duplicateEmail = _context2.sent;
+          _context2.next = 7;
           return _user["default"].findOne({
             phonenumber: phonenumber
           });
-        case 6:
-          duplicatePhonenumber = _context3.sent;
+        case 7:
+          duplicatePhonenumber = _context2.sent;
           if (!(duplicateEmail || duplicatePhonenumber)) {
-            _context3.next = 9;
+            _context2.next = 10;
             break;
           }
-          return _context3.abrupt("return", res.sendStatus(401));
-        case 9:
+          return _context2.abrupt("return", res.sendStatus(401));
+        case 10:
           res.status(200).json({
             message: 'okay proceed'
           });
-        case 10:
+          _context2.next = 16;
+          break;
+        case 13:
+          _context2.prev = 13;
+          _context2.t0 = _context2["catch"](0);
+          res.status(500).json({
+            error: 'An error occurred during registration.'
+          });
+        case 16:
         case "end":
-          return _context3.stop();
+          return _context2.stop();
       }
-    }, _callee3);
+    }, _callee2, null, [[0, 13]]);
   }));
-  return function (_x8, _x9) {
-    return _ref6.apply(this, arguments);
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 }());
 var _default = signup;

@@ -4,7 +4,7 @@ const fs = require('fs');
 
 import FileItem from '../models/file';
 
-const fileretrieve = express();
+const fileretrieve = express.Router();
 
 fileretrieve.get('/files', async (req, res) => {
   try {

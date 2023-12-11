@@ -30,7 +30,7 @@ async function deposit(quantity, assetid) {
                 if (contains) {
                     const asstblc = await AssetBlc.findOne({ assetid, wallet: this.id });
                     await asstblc.increaseBalance(quantity);
-                    resolve(asstblc)
+                    resolve(asstblc);
                 } else {
                     const asstblc = await createAssetBlc(assetid, quantity, this._id)
 

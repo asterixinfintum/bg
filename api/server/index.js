@@ -14,6 +14,32 @@ import cron from "node-cron";
 const app = express();
 const server = http.createServer(app);
 
+const allowlist = ['http://localhost:3000'];
+
+const corsOptionsDelegate = (req, callback) => {
+  let corsOptions;
+
+  let isDomainAllowed = allowlist.indexOf(req.header('Origin')) !== -1;
+
+  if (isDomainAllowed) {
+    corsOptions = { origin: true }
+  } else {
+    corsOptions = { origin: false }
+  }
+  callback(null, corsOptions)
+}
+
+app.use(cors(corsOptionsDelegate));
+
+const io = socket(server, {
+  cors: {
+    origin: "http://localhost:3000", // Replace with the URL of your client
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Authorization"],
+    credentials: true
+  }
+});
+
 import mongoose from 'mongoose';
 
 import Asset from './models/asset';
@@ -23,74 +49,120 @@ import loginRoute from './routes/login';
 import logoutRoute from './routes/logout';
 import clientRoute from './routes/client';
 
-
-
-import cryptoAssetsRoute from './routes/cryptoassets';
-import adminRoute from './routes/admin';
-import editTrackerRoute from './routes/edittracker';
-import usersettingsRoute from './routes/usersettings';
-import announcementRoute from './routes/announcement';
 import assetRoute from './routes/asset';
 import walletroute from './wallet/routes/wllt';
 
+import adminRoute from './admin/routes';
+
 import fileuploadRoute from './routes/fileupload.js';
 import imageuploadRoute from './routes/imageupload.js';
-import fileretrieveRoute from './routes/fileretrieve.js';
+//import fileretrieveRoute from './routes/fileretrieve.js';
 import videouploadRoute from './routes/videoupload.js';
 
 import pairsRoute from './trade/routes/pairs.js';
 import ordersRoute from './trade/routes/orders.js';
+import assetsRoute from './trade/routes/assets.js';
+
 import transactionsRoute from './wallet/routes/transactions.js';
 
-import runInventoryFunction from './functions/runInventory';
 import seedAssets from './functions/seedAssets';
 import getBitcoinBalances from './wallet/functions/getBitcoinBalances';
 
-import getcryptotradedata from './trade/crypto/getcryptotradedata';
-import getstockpairdata from './trade/stock/getstockpairdata';
-import getcommoditiesdata from './trade/commodities/getcommoditiesdata';
-import updatecryptoprices from './trade/crypto/updatecryptoprices';
+import getprices from './trade/getprices.js';
+import updatetradingpairsorders from './trade/updatetradingpairsorders.js';
 
-import deposit from './wallet/functions/deposit';
-import withdraw from './wallet/functions/withdraw';
+import setonlineuser from './functions/setonlineuser';
+import setofflineuser from './functions/setofflineuser';
+import setpairinview from './functions/setpairinview';
+import setpairoutofview from './functions/setpairoutofview';
 
-async function callHomekeepers() {
-  await getcryptotradedata();
+import authenticateToken from './utils/authenticateToken';
 
-  setTimeout(async () => {
-    await getstockpairdata();
+io.on('connection', (socket) => {
+  console.log('A user connected');
 
-    setTimeout(async () => {
-      await getcommoditiesdata();
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
 
-      setTimeout(async () => {
-        await updatecryptoprices();
-        await getBitcoinBalances();
-      }, 120000)
+    if (socket.user) {
+      setofflineuser(socket.user._id)
+    }
+  });
 
-    }, 120000)
+  socket.on('pairinview', (data) => {
 
-  }, 120000);
-}
+    setpairinview(data.pairid);
+  });
 
-//getBitcoinBalances();
+  socket.on('pairoutofview', (data) => {
 
-//getcryptotradedata();
-//getstockpairdata();
-//getcommoditiesdata();
-//updatecryptoprices();
-
-cron.schedule("*/13 * * * *", () => {
- // callHomekeepers();
+    setpairoutofview(data.pairid);
+  });
 });
 
-app.use(express.static('public'));
-//app.use('/', express.static('public/ui'))
-//app.use(express.static('uploads'));
-//app.use(express.static('videos-directory'));
-app.use(express.static(path.join(__dirname, '../public/ui/')));
-//app.use(express.static('uploads'));
-const staticPath = path.join(__dirname, '../public/ui/');
+io.use(async (socket, next) => {
+  const token = socket.handshake.headers.authorization;
+
+  if (token && token.startsWith('Bearer ')) {
+    const actualToken = token.split(' ')[1];
+
+    const onlineuser = await setonlineuser(actualToken);
+
+    socket.user = {
+      _id: onlineuser._id,
+      firstname: onlineuser.firstname,
+      lastname: onlineuser.lastname,
+      email: onlineuser.email
+    };
+
+    //console.log(socket.user )
+
+    next();
+  }
+})
+
+function getCurrentDateTime() {
+  var now = new Date();
+
+  var year = now.getFullYear();
+  var month = ('0' + (now.getMonth() + 1)).slice(-2); // Months are zero-based
+  var day = ('0' + now.getDate()).slice(-2);
+  var hours = ('0' + now.getHours()).slice(-2);
+  var minutes = ('0' + now.getMinutes()).slice(-2);
+
+  return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
+}
+
+cron.schedule("*/1 * * * *", async () => {
+  const date = getCurrentDateTime();
+  await getprices(date);
+
+  io.emit('assetupdate');
+});
+
+let isGeneratingOrder = false;
+
+cron.schedule("*/2 * * * * *", async () => {
+  if (!isGeneratingOrder) {
+    isGeneratingOrder = true;
+
+    try {
+      await updatetradingpairsorders();
+
+      io.emit('getorders');
+    } catch (error) {
+      console.error('Error during order generation:', error);
+    }
+
+    isGeneratingOrder = false;
+  } else {
+    console.log('Previous operation still running. Skipping new execution.');
+  }
+})
+
+app.use(express.static(path.join(__dirname, '../public')));
+const staticPath = path.join(__dirname, '../public/ui');
+
 app.use(express.urlencoded({
   extended: false
 }));
@@ -100,9 +172,8 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-//app.use(cors());
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8082;
 
 app.use(signupRoute);
 app.use(loginRoute);
@@ -111,34 +182,20 @@ app.use(clientRoute);
 
 app.use(walletroute)
 
-//app.use(deposit);
-
-
-app.use(cryptoAssetsRoute);
 app.use(adminRoute);
-app.use(editTrackerRoute);
-app.use(usersettingsRoute);
-app.use(announcementRoute);
 app.use(assetRoute);
 app.use(pairsRoute);
 app.use(ordersRoute);
+app.use(assetsRoute);
 app.use(transactionsRoute);
 
 app.use(fileuploadRoute);
 app.use(imageuploadRoute);
-app.use(fileretrieveRoute);
 app.use(videouploadRoute);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(staticPath, 'index.html'));
 });
-//runInventoryFunction();
-
-//https://api.poloniex.com/markets/LTC_BTC/orderBook
-//https://api.poloniex.com/markets/price
-//https://api.poloniex.com/markets/LTC_BTC/trades
-//https://api.poloniex.com/markets/ticker24h
-//https://api.poloniex.com/v2/currencies
 
 mongoose.connect(`${process.env.DB}`, {
   //mongodb://db:27017/traderapiv2 =====> production

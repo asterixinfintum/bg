@@ -16,6 +16,10 @@ var adminSchema = new Schema({
   token: {
     type: String,
     unique: true
+  },
+  online: {
+    type: Boolean,
+    "default": false
   }
 });
 var Admin = mongoose.model('Admin', adminSchema);

@@ -526,5 +526,53 @@ pairs.get('/pair/pricehistory/fifteenmin', /*#__PURE__*/function () {
     return _ref9.apply(this, arguments);
   };
 }());
+pairs.get('/pair/pricehistory/hours/candlestick', /*#__PURE__*/function () {
+  var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(req, res) {
+    var _req$query4, pairid, candlestickdatalength, pairitem, getpricehistory, candlestickdata;
+    return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+      while (1) switch (_context10.prev = _context10.next) {
+        case 0:
+          _req$query4 = req.query, pairid = _req$query4.pairid, candlestickdatalength = _req$query4.candlestickdatalength;
+          if (pairid) {
+            _context10.next = 3;
+            break;
+          }
+          return _context10.abrupt("return", res.status(400).send({
+            error: 'Base currency is required'
+          }));
+        case 3:
+          _context10.prev = 3;
+          _context10.next = 6;
+          return _pair["default"].findOne({
+            _id: pairid
+          });
+        case 6:
+          pairitem = _context10.sent;
+          _context10.next = 9;
+          return pairitem.getpricehistorycandlestick();
+        case 9:
+          getpricehistory = _context10.sent;
+          candlestickdata = getpricehistory.splice(-candlestickdatalength);
+          res.status(200).send({
+            candlestickdata: candlestickdata
+          });
+          _context10.next = 17;
+          break;
+        case 14:
+          _context10.prev = 14;
+          _context10.t0 = _context10["catch"](3);
+          res.status(500).send({
+            error: 'An error occurred while fetching pair price history.'
+          });
+        case 17:
+        case "end":
+          return _context10.stop();
+      }
+    }, _callee10, null, [[3, 14]]);
+  }));
+  return function (_x18, _x19) {
+    return _ref10.apply(this, arguments);
+  };
+}());
 var _default = pairs;
 exports["default"] = _default;

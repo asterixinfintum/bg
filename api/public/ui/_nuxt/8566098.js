@@ -1,1 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[16],{537:function(n,t,e){"use strict";e.r(t);var c=e(53),component=Object(c.a)({},(function(){this._self._c;return this._m(0)}),[function(){var n=this._self._c;return n("div",[n("div",{staticClass:"balancearea"})])}],!1,null,null,null);t.default=component.exports}}]);

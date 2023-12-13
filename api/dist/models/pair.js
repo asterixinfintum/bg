@@ -68,6 +68,46 @@ function calculateOHLC(data) {
   });
   return ohlcData;
 }
+function calculateOHLCMinute(data) {
+  // Helper function to round down to the nearest 20 minutes
+  var get20MinInterval = function get20MinInterval(datetime) {
+    var date = new Date(datetime);
+    var minutes = date.getMinutes();
+    var roundedMinutes = minutes - minutes % 20; // Round down to the nearest multiple of 20
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), roundedMinutes);
+  };
+
+  // Group data by 20-minute intervals
+  var groupedData = data.reduce(function (acc, entry) {
+    var interval = get20MinInterval(entry.datetime).getTime();
+    if (!acc[interval]) {
+      acc[interval] = {
+        prices: [],
+        open: null,
+        close: null
+      };
+    }
+    acc[interval].prices.push(entry.price);
+    if (acc[interval].open === null) {
+      acc[interval].open = entry.price;
+    }
+    acc[interval].close = entry.price;
+    return acc;
+  }, {});
+
+  // Calculate OHLC for each 20-minute interval
+  var ohlcData = Object.keys(groupedData).map(function (interval) {
+    var prices = groupedData[interval].prices;
+    return {
+      time: parseInt(interval) / 1000,
+      open: groupedData[interval].open,
+      high: Math.max.apply(Math, _toConsumableArray(prices)),
+      low: Math.min.apply(Math, _toConsumableArray(prices)),
+      close: groupedData[interval].close
+    };
+  });
+  return ohlcData;
+}
 var pairSchema = new Schema({
   pair: {
     type: String,
@@ -369,6 +409,59 @@ pairSchema.methods.getpricehistorycandlestick = /*#__PURE__*/_asyncToGenerator( 
         return _context6.stop();
     }
   }, _callee6, this, [[0, 20]]);
+}));
+pairSchema.methods.getpricehistorycandlestickMins = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+  var baseAsset, quoteAsset, baseAssetPriceHistory, quoteAssetPriceHistory, baseAssetPriceHistoryMap, combinedPriceHistory;
+  return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+    while (1) switch (_context7.prev = _context7.next) {
+      case 0:
+        _context7.prev = 0;
+        _context7.next = 3;
+        return _asset["default"].findById(this.baseAssetId);
+      case 3:
+        baseAsset = _context7.sent;
+        _context7.next = 6;
+        return _asset["default"].findById(this.quoteAssetId);
+      case 6:
+        quoteAsset = _context7.sent;
+        _context7.next = 9;
+        return _pricehistory["default"].find({
+          asset: baseAsset._id
+        });
+      case 9:
+        baseAssetPriceHistory = _context7.sent;
+        _context7.next = 12;
+        return _pricehistory["default"].find({
+          asset: quoteAsset._id
+        });
+      case 12:
+        quoteAssetPriceHistory = _context7.sent;
+        baseAssetPriceHistoryMap = new Map();
+        baseAssetPriceHistory.forEach(function (item) {
+          baseAssetPriceHistoryMap.set(item.datetime, item);
+        });
+        combinedPriceHistory = [];
+        quoteAssetPriceHistory.forEach(function (item) {
+          if (baseAssetPriceHistoryMap.has(item.datetime)) {
+            var data = {
+              datetime: item.datetime,
+              baseAssetData: baseAssetPriceHistoryMap.get(item.datetime),
+              quoteAssetData: item,
+              price: baseAssetPriceHistoryMap.get(item.datetime).price / item.price
+            };
+            combinedPriceHistory.push(data);
+          }
+        });
+        return _context7.abrupt("return", calculateOHLCMinute(combinedPriceHistory));
+      case 20:
+        _context7.prev = 20;
+        _context7.t0 = _context7["catch"](0);
+        console.error(_context7.t0);
+      case 23:
+      case "end":
+        return _context7.stop();
+    }
+  }, _callee7, this, [[0, 20]]);
 }));
 var Pair = mongoose.model('Pair', pairSchema);
 module.exports = Pair;

@@ -43,7 +43,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 var app = (0, _express["default"])();
 var server = _http["default"].createServer(app);
-var allowlist = ['https://bvxtrade.com', 'https://www.bvxtrade.com'];
+var allowlist = ["http://localhost:3000", 'https://bvxtrade.com', 'https://www.bvxtrade.com'];
 var corsOptionsDelegate = function corsOptionsDelegate(req, callback) {
   var corsOptions;
   var isDomainAllowed = allowlist.indexOf(req.header('Origin')) !== -1;
@@ -61,7 +61,7 @@ var corsOptionsDelegate = function corsOptionsDelegate(req, callback) {
 app.use((0, _cors["default"])(corsOptionsDelegate));
 var io = (0, _socket["default"])(server, {
   cors: {
-    origin: ["https://bvxtrade.com", "http://www.bvxtrade.com"],
+    origin: ["http://localhost:3000", "https://bvxtrade.com", "http://www.bvxtrade.com"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Authorization"],
     credentials: true

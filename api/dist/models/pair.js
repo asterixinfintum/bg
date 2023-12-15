@@ -178,7 +178,9 @@ function calculateOHLCMinute(data) {
     };
     _final.push(itemobj);
   });
-  console.log(_final.length);
+
+  // console.log(final.length)
+
   return _final;
 
   /*return {

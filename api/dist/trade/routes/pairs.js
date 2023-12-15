@@ -148,7 +148,7 @@ pairs.get('/pairs/by-base', /*#__PURE__*/function () {
           _context3.next = 7;
           return _pair["default"].find({
             baseAsset: baseAsset
-          }).limit(10);
+          });
         case 7:
           _pairs2 = _context3.sent;
         case 8:
@@ -161,7 +161,7 @@ pairs.get('/pairs/by-base', /*#__PURE__*/function () {
           return _pair["default"].find({
             baseAsset: baseAsset,
             quoteAssetType: quoteAssetType
-          }).limit(10);
+          });
         case 12:
           _pairs2 = _context3.sent;
         case 13:

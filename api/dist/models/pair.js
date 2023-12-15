@@ -68,46 +68,132 @@ function calculateOHLC(data) {
   });
   return ohlcData;
 }
-function calculateOHLCMinute(data) {
-  // Helper function to round down to the nearest 20 minutes
-  var get20MinInterval = function get20MinInterval(datetime) {
-    var date = new Date(datetime);
-    var minutes = date.getMinutes();
-    var roundedMinutes = minutes - minutes % 20; // Round down to the nearest multiple of 20
-    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), roundedMinutes);
-  };
+function getDateString(timestamp) {
+  // Create a new Date object using the timestamp
+  var date = new Date(timestamp);
 
-  // Group data by 20-minute intervals
-  var groupedData = data.reduce(function (acc, entry) {
-    var interval = get20MinInterval(entry.datetime).getTime();
-    if (!acc[interval]) {
-      acc[interval] = {
-        prices: [],
-        open: null,
-        close: null
-      };
-    }
-    acc[interval].prices.push(entry.price);
-    if (acc[interval].open === null) {
-      acc[interval].open = entry.price;
-    }
-    acc[interval].close = entry.price;
-    return acc;
-  }, {});
+  // Format the date to YYYY-MM-DD HH:MM
+  var year = date.getFullYear();
+  var month = ('0' + (date.getMonth() + 1)).slice(-2); // Months are zero-based
+  var day = ('0' + date.getDate()).slice(-2);
+  var hours = ('0' + date.getHours()).slice(-2);
+  var minutes = ('0' + date.getMinutes()).slice(-2);
+  var formattedDate = year + '-' + month + '-' + day + ' ' + hours + ':' + minutes;
+  return formattedDate;
+}
+function groupByHourlyIntervals(dataArray) {
+  // Helper function to round down time to the nearest hour and use it as a group key
+  function getHourKey(time) {
+    var date = new Date(time);
+    date.setMinutes(0, 0, 0); // Reset minutes, seconds, and milliseconds
+    //console.log(date.getTime())
+    return date.getTime();
+  }
 
-  // Calculate OHLC for each 20-minute interval
-  var ohlcData = Object.keys(groupedData).map(function (interval) {
-    var prices = groupedData[interval].prices;
+  // Object to hold the groups
+  var groups = {};
+
+  // Group items by their rounded down time
+  dataArray.forEach(function (item) {
+    var key = getHourKey(item.time);
+    if (!groups[key]) {
+      groups[key] = [];
+    }
+    groups[key].push(item);
+  });
+
+  // Convert groups to arrays
+  return Object.values(groups);
+}
+function processGroupedData(groupedData) {
+  return groupedData.map(function (group) {
+    // Initialize variables to store the highest and lowest price objects
+    var highestPriceObj = group[0];
+    var lowestPriceObj = group[0];
+
+    // Iterate over each item in the group
+    group.forEach(function (item) {
+      if (item.price > highestPriceObj.price) {
+        highestPriceObj = item;
+      }
+      if (item.price < lowestPriceObj.price) {
+        lowestPriceObj = item;
+      }
+    });
+
+    // Get the first and last items in the group
+    var firstItem = group[0];
+    var lastItem = group[group.length - 1];
+
+    // Return the results for this group
     return {
-      time: parseInt(interval) / 1000,
-      open: groupedData[interval].open,
-      high: Math.max.apply(Math, _toConsumableArray(prices)),
-      low: Math.min.apply(Math, _toConsumableArray(prices)),
-      close: groupedData[interval].close
+      highestPriceObj: highestPriceObj,
+      lowestPriceObj: lowestPriceObj,
+      firstItem: firstItem,
+      lastItem: lastItem
     };
   });
-  return ohlcData;
 }
+function calculateOHLCMinute(data) {
+  var dataarray = data.slice(-1100);
+  var endTime = dataarray.slice(-1)[0].datetime;
+
+  //console.log(dataarray, endTime)
+  var dateTime = new Date(endTime);
+
+  // Subtract 24 hours (1 day) - there are 24 hours in a day, 60 minutes in an hour, 60 seconds in a minute, and 1000 milliseconds in a second
+  dateTime.setTime(dateTime.getTime() - 24 * 60 * 60 * 1000);
+
+  // Format the date back to a string if needed
+  var startTime = dateTime.toISOString().replace('T', ' ').substring(0, 16);
+  var values = [];
+  dataarray.forEach(function (item) {
+    var itm = {
+      time: new Date(item.datetime).getTime(),
+      originaltime: item.datetime,
+      price: item.price
+    };
+    values.push(itm);
+    /*if (!values.length) {
+        console.log('hey')
+        //values.push()
+    } else {
+        console.log('yo')
+    }*/
+    //console.log(item.datetime, new Date(item.datetime), new Date(item.datetime).getTime(), getDateString(new Date(item.datetime).getTime()), item.price);
+  });
+
+  var groupedvalues = groupByHourlyIntervals(values);
+  var processedGroupData = processGroupedData(groupedvalues);
+  var _final = [];
+
+  //console.log(processedGroupData);
+  processedGroupData.forEach(function (item) {
+    var itemobj = {
+      time: item.lastItem.time,
+      open: item.firstItem.price,
+      high: item.highestPriceObj.price,
+      low: item.lowestPriceObj.price,
+      close: item.lastItem.price
+    };
+    _final.push(itemobj);
+  });
+  console.log(_final.length);
+  return _final;
+
+  /*return {
+          //time: formattedDate,
+          open: groupedData[interval].open,
+          high: Math.max(...prices),
+          low: Math.min(...prices),
+          close: groupedData[interval].close
+      };*/
+
+  //console.log(ohlcData);
+
+  //return ohlcData;
+}
+
 var pairSchema = new Schema({
   pair: {
     type: String,
@@ -115,15 +201,19 @@ var pairSchema = new Schema({
   },
   baseAsset: {
     type: String,
-    required: true
+    required: true,
+    index: true // Indexing the baseAsset
   },
+
   baseAssetId: {
     type: String,
     required: true
   },
   baseAssetType: {
-    type: String
+    type: String,
+    index: true // Indexing the baseAssetType if needed
   },
+
   quoteAsset: {
     type: String,
     required: true
@@ -133,8 +223,10 @@ var pairSchema = new Schema({
     required: true
   },
   quoteAssetType: {
-    type: String
+    type: String,
+    index: true // Indexing the quoteAssetType
   },
+
   price: {
     type: Number,
     required: true
@@ -170,17 +262,18 @@ pairSchema.methods.calculatePrice = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*
         }
         throw new Error('Assets not found');
       case 9:
+        console.log(baseAsset.price / quoteAsset.price, baseAsset.price, quoteAsset.price, this.pair);
         return _context.abrupt("return", baseAsset.price / quoteAsset.price);
-      case 12:
-        _context.prev = 12;
+      case 13:
+        _context.prev = 13;
         _context.t0 = _context["catch"](0);
         console.error('Error calculating price:', _context.t0.message);
         return _context.abrupt("return", null);
-      case 16:
+      case 17:
       case "end":
         return _context.stop();
     }
-  }, _callee, this, [[0, 12]]);
+  }, _callee, this, [[0, 13]]);
 }));
 pairSchema.methods.calculatepricedifference = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
   var baseAsset, quoteAsset, baseassetlatestpricehistory, quoteassetlatestpricehistory, baseassetlastpricehistory, quoteassetlastpricehistory, priceone, pricetwo;
@@ -243,7 +336,7 @@ pairSchema.methods.gendumborders = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/
         _context4.prev = 2;
         _context4.next = 5;
         return Promise.all(Array.from({
-          length: 100
+          length: 80
         }, /*#__PURE__*/function () {
           var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(_, i) {
             var calculateprice, price, amount, total, side, dumborder;

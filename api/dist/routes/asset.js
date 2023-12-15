@@ -94,9 +94,10 @@ asset.get('/asset/', /*#__PURE__*/function () {
             assetType: assetType,
             symbol: symbol,
             price: price,
-            image: image,
-            pricehistory: pricehistory.slice(0, 20)
+            image: image
+            //pricehistory: pricehistory.slice(0, 20)
           };
+
           res.status(200).json({
             asset: result
           });

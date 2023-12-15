@@ -153,33 +153,24 @@ _nodeCron["default"].schedule("*/2 * * * * *", /*#__PURE__*/_asyncToGenerator( /
   return _regeneratorRuntime().wrap(function _callee3$(_context3) {
     while (1) switch (_context3.prev = _context3.next) {
       case 0:
-        if (isGeneratingOrder) {
-          _context3.next = 14;
-          break;
+        if (!isGeneratingOrder) {
+          isGeneratingOrder = true;
+          try {
+            //await updatetradingpairsorders();
+
+            io.emit('getorders');
+          } catch (error) {
+            console.error('Error during order generation:', error);
+          }
+          isGeneratingOrder = false;
+        } else {
+          console.log('Previous operation still running. Skipping new execution.');
         }
-        isGeneratingOrder = true;
-        _context3.prev = 2;
-        _context3.next = 5;
-        return (0, _updatetradingpairsorders["default"])();
-      case 5:
-        io.emit('getorders');
-        _context3.next = 11;
-        break;
-      case 8:
-        _context3.prev = 8;
-        _context3.t0 = _context3["catch"](2);
-        console.error('Error during order generation:', _context3.t0);
-      case 11:
-        isGeneratingOrder = false;
-        _context3.next = 15;
-        break;
-      case 14:
-        console.log('Previous operation still running. Skipping new execution.');
-      case 15:
+      case 1:
       case "end":
         return _context3.stop();
     }
-  }, _callee3, null, [[2, 8]]);
+  }, _callee3);
 })));
 var staticPath = _path["default"].join(__dirname, '../public');
 app.use(_express["default"]["static"](staticPath));

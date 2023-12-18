@@ -16,7 +16,7 @@ function generatetradingpairs() {
 }
 function _generatetradingpairs() {
   _generatetradingpairs = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-    var assets, pairs, i, j, pair1, pair2, _i, _pairs, pair, newPair;
+    var assets, pairs, i, j, pair1, pair2, _i, _pairs, pair, existingPair, newPair;
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
@@ -32,16 +32,20 @@ function _generatetradingpairs() {
                 baseAsset: assets[i].symbol,
                 quoteAsset: assets[j].symbol,
                 quoteAssetId: assets[j]._id,
+                baseAssetType: assets[i].assetType,
+                quoteAssetType: assets[j].assetType,
                 pair: "".concat(assets[i].symbol, "/").concat(assets[j].symbol),
-                price: assets[i].price / assets[j].price
+                price: parseFloat(assets[i].price) / parseFloat(assets[j].price)
               };
               pair2 = {
                 baseAssetId: assets[j]._id,
                 baseAsset: assets[j].symbol,
                 quoteAsset: assets[i].symbol,
                 quoteAssetId: assets[i]._id,
+                baseAssetType: assets[j].assetType,
+                quoteAssetType: assets[i].assetType,
                 pair: "".concat(assets[j].symbol, "/").concat(assets[i].symbol),
-                price: assets[j].price / assets[i].price
+                price: parseFloat(assets[j].price) / parseFloat(assets[i].price)
               };
               pairs.push(pair1, pair2);
             }
@@ -49,24 +53,42 @@ function _generatetradingpairs() {
           _i = 0, _pairs = pairs;
         case 6:
           if (!(_i < _pairs.length)) {
-            _context.next = 14;
+            _context.next = 25;
             break;
           }
           pair = _pairs[_i];
-          newPair = new _pair["default"](pair);
+          _context.prev = 8;
           _context.next = 11;
-          return newPair.save();
+          return _pair["default"].findOne({
+            pair: pair.pair
+          });
         case 11:
+          existingPair = _context.sent;
+          if (existingPair) {
+            _context.next = 17;
+            break;
+          }
+          newPair = new _pair["default"](pair);
+          _context.next = 16;
+          return newPair.save();
+        case 16:
+          console.log(newPair.pair);
+        case 17:
+          _context.next = 22;
+          break;
+        case 19:
+          _context.prev = 19;
+          _context.t0 = _context["catch"](8);
+          console.log(_context.t0);
+        case 22:
           _i++;
           _context.next = 6;
           break;
-        case 14:
-          console.log('Pairs saved to the database');
-        case 15:
+        case 25:
         case "end":
           return _context.stop();
       }
-    }, _callee);
+    }, _callee, null, [[8, 19]]);
   }));
   return _generatetradingpairs.apply(this, arguments);
 }

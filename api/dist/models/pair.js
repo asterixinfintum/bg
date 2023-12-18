@@ -278,20 +278,21 @@ pairSchema.methods.calculatepricedifference = /*#__PURE__*/_asyncToGenerator( /*
         pricetwo = baseassetlastpricehistory.price / quoteassetlastpricehistory.price;
         return _context2.abrupt("return", calculatePercentageChange(priceone, pricetwo));
       case 19:
+        console.log('check here');
         return _context2.abrupt("return", 0);
-      case 20:
-        _context2.next = 26;
+      case 21:
+        _context2.next = 27;
         break;
-      case 22:
-        _context2.prev = 22;
+      case 23:
+        _context2.prev = 23;
         _context2.t0 = _context2["catch"](0);
         console.error('Error calculating price:', _context2.t0.message, this.pair);
         return _context2.abrupt("return", null);
-      case 26:
+      case 27:
       case "end":
         return _context2.stop();
     }
-  }, _callee2, this, [[0, 22]]);
+  }, _callee2, this, [[0, 23]]);
 }));
 pairSchema.methods.gendumborders = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
   var _this = this;

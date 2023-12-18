@@ -60,6 +60,9 @@ var assetSchema = new Schema({
   faileddatafetch: {
     type: Boolean,
     "default": false
+  },
+  pricechange: {
+    type: String
   }
 });
 assetSchema.methods.gettwentyfourhrhigh = /*#__PURE__*/function () {

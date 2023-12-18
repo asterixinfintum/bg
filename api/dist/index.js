@@ -28,7 +28,7 @@ var _transactions = _interopRequireDefault(require("./wallet/routes/transactions
 var _seedAssets = _interopRequireDefault(require("./functions/seedAssets"));
 var _getBitcoinBalances = _interopRequireDefault(require("./wallet/functions/getBitcoinBalances"));
 var _getprices = _interopRequireDefault(require("./trade/getprices.js"));
-var _updatetradingpairsorders = _interopRequireDefault(require("./trade/updatetradingpairsorders.js"));
+var _updatecommodities = _interopRequireDefault(require("./trade/updatecommodities.js"));
 var _setonlineuser = _interopRequireDefault(require("./functions/setonlineuser"));
 var _setofflineuser = _interopRequireDefault(require("./functions/setofflineuser"));
 var _setpairinview = _interopRequireDefault(require("./functions/setpairinview"));
@@ -170,6 +170,9 @@ _nodeCron["default"].schedule("*/3 * * * * *", /*#__PURE__*/_asyncToGenerator( /
     }
   }, _callee3);
 })));
+
+//updatecommodities();
+
 var staticPath = _path["default"].join(__dirname, '../public');
 app.use(_express["default"]["static"](staticPath));
 

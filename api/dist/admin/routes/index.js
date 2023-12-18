@@ -15,6 +15,7 @@ var _asset = _interopRequireDefault(require("../../models/asset"));
 var _assetblc = _interopRequireDefault(require("../../wallet/models/assetblc"));
 var _generatetradingpairs = _interopRequireDefault(require("../../functions/generatetradingpairs"));
 var _addpairquotes = _interopRequireDefault(require("../../functions/addpairquotes"));
+var _updatecommodities = _interopRequireDefault(require("../../trade/updatecommodities"));
 var _authenticateToken = _interopRequireDefault(require("../../utils/authenticateToken"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -782,6 +783,34 @@ admin.get('/jhgchdh/addpairquotes', /*#__PURE__*/function () {
   }));
   return function (_x33, _x34) {
     return _ref18.apply(this, arguments);
+  };
+}());
+admin.get('/jhgchdh/updatecommoditydatabase', /*#__PURE__*/function () {
+  var _ref19 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee19(req, res) {
+    return _regeneratorRuntime().wrap(function _callee19$(_context19) {
+      while (1) switch (_context19.prev = _context19.next) {
+        case 0:
+          _context19.prev = 0;
+          _context19.next = 3;
+          return (0, _updatecommodities["default"])();
+        case 3:
+          res.status(200).json({
+            message: 'commodity database updated successfully'
+          });
+          _context19.next = 9;
+          break;
+        case 6:
+          _context19.prev = 6;
+          _context19.t0 = _context19["catch"](0);
+          res.status(500).send('error in commodity database update');
+        case 9:
+        case "end":
+          return _context19.stop();
+      }
+    }, _callee19, null, [[0, 6]]);
+  }));
+  return function (_x35, _x36) {
+    return _ref19.apply(this, arguments);
   };
 }());
 var _default = admin;

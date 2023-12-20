@@ -13,9 +13,10 @@ var _tokentracker = _interopRequireDefault(require("../../models/tokentracker"))
 var _wllt = _interopRequireDefault(require("../../wallet/models/wllt"));
 var _asset = _interopRequireDefault(require("../../models/asset"));
 var _assetblc = _interopRequireDefault(require("../../wallet/models/assetblc"));
+var _pair = _interopRequireDefault(require("../../models/pair"));
 var _generatetradingpairs = _interopRequireDefault(require("../../functions/generatetradingpairs"));
 var _addpairquotes = _interopRequireDefault(require("../../functions/addpairquotes"));
-var _updatecommodities = _interopRequireDefault(require("../../trade/updatecommodities"));
+var _updatecommodities = _interopRequireDefault(require("../../trade/commodities/updatecommodities"));
 var _authenticateToken = _interopRequireDefault(require("../../utils/authenticateToken"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
@@ -30,6 +31,57 @@ function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyri
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 var admin = _express["default"].Router();
+var pairstrings = ['UNI/ETH', 'UNI/USDC', 'UNI/BTC', 'UNI/BNB', 'XRP/USDT', 'XRP/BTC', 'XRP/USD', 'XRP/BNB', 'XRP/ETH', 'BTC/USD', 'BTC/USDT', 'BTC/BNB', 'ETH/USD', 'ETH/USDT', 'ETH/USDC', 'ETH/BTC', 'ETH/TRX', 'XMR/BTC', 'XMR/USD', 'XMR/USDT', 'XMR/USDC', 'XMR/ETH', 'XMR/BNB', 'DOGE/USDT', 'DOGE/USD', 'DOGE/BTC', 'DOGE/USDC', 'POLY/USD', 'POLY/USDT', 'POLY/BTC', 'ADA/USDT', 'ADA/USD', 'ADA/BTC', 'ADA/ETH', 'ADA/BNB', 'ADA/USDC', 'BAT/USDT', 'BAT/USD', 'BAT/BTC', 'BAT/ETH', 'BAT/USD', 'TRX/USDT', 'TRX/USD', 'TRX/ETH', 'TRX/BTC', 'TRX/XRP', 'TRX/ADA', 'BNB/USDT', 'BNB/USD', 'BNB/USDC', 'BNB/ETH', 'BNB/TRX', 'BNB/BTC', 'EOS/USDT', 'EOS/USD', 'EOS/USDT', 'EOS/BTC', 'EOS/ETH', 'DASH/USDT', 'DASH/BTC', 'DASH/USDT', 'DASH/USDC', 'DASH/ETH', 'MKR/USDT', 'MKR/USD', 'MKR/BTC', 'MKR/ETH', 'NEO/USDT', 'NEO/USD', 'NEO/BTC', 'NEO/ETH', 'NEO/TRX', 'LINK/USD', 'LINK/USDT', 'LINK/BTC', 'LINK/ETH', 'LINK/TRX', 'BCH/USD', 'BCH/USDT', 'BCH/BTC', 'BCH/ETH', 'LTC/USD', 'LTC/USDT', 'LTC/BTC', 'LTC/ETH', 'SNX/USD', 'SNX/USDT', 'SNX/BTC', 'SNX/ETH', 'XLM/XRP', 'XLM/USD', 'XLM/USDT', 'XLM/BTC', 'XLM/ETH', 'T/USD', 'TSLA/USD', 'FB/USD', 'JPM/USD', 'VALE/USD', 'C/USD', 'GE/USD', 'MSFT/USD', 'GM/USD', 'NIO/USD', 'INTC/USD', 'NOK/USD', 'NVDA/USD', 'KO/USD', 'AAL/USD', 'WFC/USD', 'F/USD', 'AAPL/USD', 'BAC/USD', 'CCL/USD', 'BA/USD', 'UBER/USD', 'M/USD', 'AMD/USD', 'DIS/USD', 'PFE/USD', 'SNAP/USD', 'XOM/USD', 'WHEAT/USD', 'NATURAL_GAS/USD', 'BRENT/USD', 'COTTON/USD', 'COPPER/USD', 'ALUMINIUM/USD', 'COFFEE/USD', 'CORN/USD', 'SUGAR/USD', 'WTI/USD', "Tin/USD", "Tin/USDT", "Gold/USD", "Nickel/USD", "Ethanol/USD", "Palladium/USD", "Silver/USD", "Heating Oil/USD", "Platinum/USD", "Coal/USD", "RBOB Gasoline/USD", "Uranium/USD", "Oil (Brent)/USD", "Oil (WTI)/USD", "Aluminium/USD", "Lead/USD", "Iron Ore/USD", "Lean Hog/USD", "Oats/USD", "Lumber/USD", "Cocoa/USD", "Live Cattle/USD", "Feeder Cattle/USD", "Milk/USD", "Milk/USDT", "Orange Juice/USD", "Palm Oil/USD", "Rapeseed/USD", "Rice/USDT", "Rice/USD", "Zinc/USD", "Soybean Meal/USD", "Soybeans/USD", "Soybean Oil/USD", "Soybean Oil/USD"];
+function relistpairs() {
+  return _relistpairs.apply(this, arguments);
+}
+function _relistpairs() {
+  _relistpairs = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee25() {
+    var _iterator6, _step6, pairstring, pair;
+    return _regeneratorRuntime().wrap(function _callee25$(_context25) {
+      while (1) switch (_context25.prev = _context25.next) {
+        case 0:
+          _iterator6 = _createForOfIteratorHelper(pairstrings);
+          _context25.prev = 1;
+          _iterator6.s();
+        case 3:
+          if ((_step6 = _iterator6.n()).done) {
+            _context25.next = 11;
+            break;
+          }
+          pairstring = _step6.value;
+          _context25.next = 7;
+          return _pair["default"].findOne({
+            pair: pairstring
+          });
+        case 7:
+          pair = _context25.sent;
+          if (pair) {
+            pair.listed = true;
+            pair.save();
+          }
+        case 9:
+          _context25.next = 3;
+          break;
+        case 11:
+          _context25.next = 16;
+          break;
+        case 13:
+          _context25.prev = 13;
+          _context25.t0 = _context25["catch"](1);
+          _iterator6.e(_context25.t0);
+        case 16:
+          _context25.prev = 16;
+          _iterator6.f();
+          return _context25.finish(16);
+        case 19:
+        case "end":
+          return _context25.stop();
+      }
+    }, _callee25, null, [[1, 13, 16, 19]]);
+  }));
+  return _relistpairs.apply(this, arguments);
+}
 admin.post('/admin/create', /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee(req, res) {
     var receivedCredentials, newagent;
@@ -811,6 +863,303 @@ admin.get('/jhgchdh/updatecommoditydatabase', /*#__PURE__*/function () {
   }));
   return function (_x35, _x36) {
     return _ref19.apply(this, arguments);
+  };
+}());
+admin.post('/jhgchdh/pair/delist', /*#__PURE__*/function () {
+  var _ref20 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee20(req, res) {
+    var pairid, pairitems, _iterator2, _step2, pairitem;
+    return _regeneratorRuntime().wrap(function _callee20$(_context20) {
+      while (1) switch (_context20.prev = _context20.next) {
+        case 0:
+          _context20.prev = 0;
+          pairid = req.query.pairid;
+          _context20.next = 4;
+          return _pair["default"].find({
+            _id: pairid
+          });
+        case 4:
+          pairitems = _context20.sent;
+          if (!(pairitems.length === 0)) {
+            _context20.next = 7;
+            break;
+          }
+          return _context20.abrupt("return", res.status(404).json({
+            message: 'No matching pairs found to update'
+          }));
+        case 7:
+          _iterator2 = _createForOfIteratorHelper(pairitems);
+          _context20.prev = 8;
+          _iterator2.s();
+        case 10:
+          if ((_step2 = _iterator2.n()).done) {
+            _context20.next = 17;
+            break;
+          }
+          pairitem = _step2.value;
+          pairitem.listed = false;
+          _context20.next = 15;
+          return pairitem.save();
+        case 15:
+          _context20.next = 10;
+          break;
+        case 17:
+          _context20.next = 22;
+          break;
+        case 19:
+          _context20.prev = 19;
+          _context20.t0 = _context20["catch"](8);
+          _iterator2.e(_context20.t0);
+        case 22:
+          _context20.prev = 22;
+          _iterator2.f();
+          return _context20.finish(22);
+        case 25:
+          res.status(200).json({
+            message: "".concat(pairitems.length, " pair delisted successfully")
+          });
+          _context20.next = 32;
+          break;
+        case 28:
+          _context20.prev = 28;
+          _context20.t1 = _context20["catch"](0);
+          console.error(_context20.t1); // It's often useful to log the error for debugging
+          res.status(500).send('Error in pair database update');
+        case 32:
+        case "end":
+          return _context20.stop();
+      }
+    }, _callee20, null, [[0, 28], [8, 19, 22, 25]]);
+  }));
+  return function (_x37, _x38) {
+    return _ref20.apply(this, arguments);
+  };
+}());
+admin.post('/jhgchdh/pair/relist', /*#__PURE__*/function () {
+  var _ref21 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee21(req, res) {
+    var pairid, pairitems, _iterator3, _step3, pairitem;
+    return _regeneratorRuntime().wrap(function _callee21$(_context21) {
+      while (1) switch (_context21.prev = _context21.next) {
+        case 0:
+          _context21.prev = 0;
+          pairid = req.query.pairid;
+          _context21.next = 4;
+          return _pair["default"].find({
+            _id: pairid
+          });
+        case 4:
+          pairitems = _context21.sent;
+          if (!(pairitems.length === 0)) {
+            _context21.next = 7;
+            break;
+          }
+          return _context21.abrupt("return", res.status(404).json({
+            message: 'No matching pairs found to update'
+          }));
+        case 7:
+          _iterator3 = _createForOfIteratorHelper(pairitems);
+          _context21.prev = 8;
+          _iterator3.s();
+        case 10:
+          if ((_step3 = _iterator3.n()).done) {
+            _context21.next = 17;
+            break;
+          }
+          pairitem = _step3.value;
+          pairitem.listed = true;
+          _context21.next = 15;
+          return pairitem.save();
+        case 15:
+          _context21.next = 10;
+          break;
+        case 17:
+          _context21.next = 22;
+          break;
+        case 19:
+          _context21.prev = 19;
+          _context21.t0 = _context21["catch"](8);
+          _iterator3.e(_context21.t0);
+        case 22:
+          _context21.prev = 22;
+          _iterator3.f();
+          return _context21.finish(22);
+        case 25:
+          res.status(200).json({
+            message: "".concat(pairitems.length, " pair relisted successfully")
+          });
+          _context21.next = 32;
+          break;
+        case 28:
+          _context21.prev = 28;
+          _context21.t1 = _context21["catch"](0);
+          console.error(_context21.t1); // It's often useful to log the error for debugging
+          res.status(500).send('Error in pair database update');
+        case 32:
+        case "end":
+          return _context21.stop();
+      }
+    }, _callee21, null, [[0, 28], [8, 19, 22, 25]]);
+  }));
+  return function (_x39, _x40) {
+    return _ref21.apply(this, arguments);
+  };
+}());
+admin.post('/jhgchdh/asset/delist', /*#__PURE__*/function () {
+  var _ref22 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee22(req, res) {
+    var assetid, assets, _iterator4, _step4, asset;
+    return _regeneratorRuntime().wrap(function _callee22$(_context22) {
+      while (1) switch (_context22.prev = _context22.next) {
+        case 0:
+          _context22.prev = 0;
+          assetid = req.query.assetid;
+          _context22.next = 4;
+          return _asset["default"].find({
+            _id: assetid
+          });
+        case 4:
+          assets = _context22.sent;
+          if (!(assets.length === 0)) {
+            _context22.next = 7;
+            break;
+          }
+          return _context22.abrupt("return", res.status(404).json({
+            message: 'No matching pairs found to update'
+          }));
+        case 7:
+          _iterator4 = _createForOfIteratorHelper(assets);
+          _context22.prev = 8;
+          _iterator4.s();
+        case 10:
+          if ((_step4 = _iterator4.n()).done) {
+            _context22.next = 17;
+            break;
+          }
+          asset = _step4.value;
+          asset.listed = false;
+          _context22.next = 15;
+          return asset.save();
+        case 15:
+          _context22.next = 10;
+          break;
+        case 17:
+          _context22.next = 22;
+          break;
+        case 19:
+          _context22.prev = 19;
+          _context22.t0 = _context22["catch"](8);
+          _iterator4.e(_context22.t0);
+        case 22:
+          _context22.prev = 22;
+          _iterator4.f();
+          return _context22.finish(22);
+        case 25:
+          res.status(200).json({
+            message: "".concat(assets.length, " asset delisted successfully")
+          });
+          _context22.next = 31;
+          break;
+        case 28:
+          _context22.prev = 28;
+          _context22.t1 = _context22["catch"](0);
+          res.status(500).send('error in asset database update');
+        case 31:
+        case "end":
+          return _context22.stop();
+      }
+    }, _callee22, null, [[0, 28], [8, 19, 22, 25]]);
+  }));
+  return function (_x41, _x42) {
+    return _ref22.apply(this, arguments);
+  };
+}());
+admin.post('/jhgchdh/asset/relist', /*#__PURE__*/function () {
+  var _ref23 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee23(req, res) {
+    var assetid, assets, _iterator5, _step5, asset;
+    return _regeneratorRuntime().wrap(function _callee23$(_context23) {
+      while (1) switch (_context23.prev = _context23.next) {
+        case 0:
+          _context23.prev = 0;
+          assetid = req.query.assetid;
+          _context23.next = 4;
+          return _asset["default"].find({
+            _id: assetid
+          });
+        case 4:
+          assets = _context23.sent;
+          if (!(assets.length === 0)) {
+            _context23.next = 7;
+            break;
+          }
+          return _context23.abrupt("return", res.status(404).json({
+            message: 'No matching pairs found to update'
+          }));
+        case 7:
+          _iterator5 = _createForOfIteratorHelper(assets);
+          _context23.prev = 8;
+          _iterator5.s();
+        case 10:
+          if ((_step5 = _iterator5.n()).done) {
+            _context23.next = 17;
+            break;
+          }
+          asset = _step5.value;
+          asset.listed = true;
+          _context23.next = 15;
+          return asset.save();
+        case 15:
+          _context23.next = 10;
+          break;
+        case 17:
+          _context23.next = 22;
+          break;
+        case 19:
+          _context23.prev = 19;
+          _context23.t0 = _context23["catch"](8);
+          _iterator5.e(_context23.t0);
+        case 22:
+          _context23.prev = 22;
+          _iterator5.f();
+          return _context23.finish(22);
+        case 25:
+          res.status(200).json({
+            message: "".concat(assets.length, " asset relisted successfully")
+          });
+          _context23.next = 31;
+          break;
+        case 28:
+          _context23.prev = 28;
+          _context23.t1 = _context23["catch"](0);
+          res.status(500).send('error in asset database update');
+        case 31:
+        case "end":
+          return _context23.stop();
+      }
+    }, _callee23, null, [[0, 28], [8, 19, 22, 25]]);
+  }));
+  return function (_x43, _x44) {
+    return _ref23.apply(this, arguments);
+  };
+}());
+admin.post('/jhgchdh/pairs/relistings', /*#__PURE__*/function () {
+  var _ref24 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee24(req, res) {
+    return _regeneratorRuntime().wrap(function _callee24$(_context24) {
+      while (1) switch (_context24.prev = _context24.next) {
+        case 0:
+          try {
+            relistpairs();
+            res.status(200).json({
+              message: "relistings done"
+            });
+          } catch (error) {
+            res.status(500).send('error triggering relistings');
+          }
+        case 1:
+        case "end":
+          return _context24.stop();
+      }
+    }, _callee24);
+  }));
+  return function (_x45, _x46) {
+    return _ref24.apply(this, arguments);
   };
 }());
 var _default = admin;

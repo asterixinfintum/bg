@@ -63,6 +63,10 @@ var assetSchema = new Schema({
   },
   pricechange: {
     type: String
+  },
+  listed: {
+    type: Boolean,
+    "default": true
   }
 });
 assetSchema.methods.gettwentyfourhrhigh = /*#__PURE__*/function () {

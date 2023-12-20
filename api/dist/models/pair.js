@@ -15,6 +15,12 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToAr
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+function parseNumber(str) {
+  // Remove commas from the string
+  var numericString = str.replace(/,/g, '');
+  // Parse the string to a floating point number
+  return parseFloat(numericString);
+}
 function calculatePercentageChange(originalValue, newValue) {
   var difference = newValue - originalValue;
   var percentageChange = difference / originalValue * 100;
@@ -203,9 +209,16 @@ var pairSchema = new Schema({
     type: Number,
     required: true
   },
+  pricedifference: {
+    type: String
+  },
   orders: {
     type: Array,
     "default": []
+  },
+  listed: {
+    type: Boolean,
+    "default": false
   },
   pricehistory: [],
   inview: {
@@ -234,7 +247,7 @@ pairSchema.methods.calculatePrice = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*
         }
         throw new Error('Assets not found');
       case 9:
-        return _context.abrupt("return", baseAsset.price / quoteAsset.price);
+        return _context.abrupt("return", parseNumber(baseAsset.price) / parseNumber(quoteAsset.price));
       case 12:
         _context.prev = 12;
         _context.t0 = _context["catch"](0);
@@ -270,29 +283,34 @@ pairSchema.methods.calculatepricedifference = /*#__PURE__*/_asyncToGenerator( /*
         quoteassetlatestpricehistory = quoteAsset.pricehistory[0];
         baseassetlastpricehistory = baseAsset.pricehistory[5];
         quoteassetlastpricehistory = quoteAsset.pricehistory[5];
+        if (!(this.baseAssetType === 'commodity')) {
+          _context2.next = 15;
+          break;
+        }
+        return _context2.abrupt("return", this.pricedifference);
+      case 15:
         if (!(baseassetlatestpricehistory && quoteassetlatestpricehistory && baseassetlastpricehistory && quoteassetlastpricehistory)) {
-          _context2.next = 19;
+          _context2.next = 21;
           break;
         }
         priceone = baseassetlatestpricehistory.price / quoteassetlatestpricehistory.price;
         pricetwo = baseassetlastpricehistory.price / quoteassetlastpricehistory.price;
         return _context2.abrupt("return", calculatePercentageChange(priceone, pricetwo));
-      case 19:
-        console.log('check here');
-        return _context2.abrupt("return", 0);
       case 21:
-        _context2.next = 27;
+        return _context2.abrupt("return", 0);
+      case 22:
+        _context2.next = 28;
         break;
-      case 23:
-        _context2.prev = 23;
+      case 24:
+        _context2.prev = 24;
         _context2.t0 = _context2["catch"](0);
         console.error('Error calculating price:', _context2.t0.message, this.pair);
         return _context2.abrupt("return", null);
-      case 27:
+      case 28:
       case "end":
         return _context2.stop();
     }
-  }, _callee2, this, [[0, 23]]);
+  }, _callee2, this, [[0, 24]]);
 }));
 pairSchema.methods.gendumborders = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
   var _this = this;

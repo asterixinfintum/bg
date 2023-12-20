@@ -24,6 +24,7 @@ asset.get('/assets/', /*#__PURE__*/function () {
         case 3:
           assets = _context.sent;
           assetlist = [];
+          console.log(assets);
           assets.forEach(function (_ref2) {
             var _id = _ref2._id,
               name = _ref2.name,
@@ -31,34 +32,38 @@ asset.get('/assets/', /*#__PURE__*/function () {
               symbol = _ref2.symbol,
               assetType = _ref2.assetType,
               price = _ref2.price,
-              image = _ref2.image;
-            return assetlist.push({
-              _id: _id,
-              name: name,
-              coin: coin,
-              symbol: symbol,
-              assetType: assetType,
-              price: price,
-              image: image
-            });
+              image = _ref2.image,
+              listed = _ref2.listed;
+            if (listed) {
+              assetlist.push({
+                _id: _id,
+                name: name,
+                coin: coin,
+                symbol: symbol,
+                assetType: assetType,
+                price: price,
+                image: image,
+                listed: listed
+              });
+            }
           });
           res.status(200).json({
             assets: assetlist
           });
-          _context.next = 13;
+          _context.next = 14;
           break;
-        case 9:
-          _context.prev = 9;
+        case 10:
+          _context.prev = 10;
           _context.t0 = _context["catch"](0);
           console.error('Error retrieving assets:', _context.t0);
           res.status(500).json({
             error: 'An error occurred while retrieving assets'
           });
-        case 13:
+        case 14:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 9]]);
+    }, _callee, null, [[0, 10]]);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);
@@ -66,7 +71,7 @@ asset.get('/assets/', /*#__PURE__*/function () {
 }());
 asset.get('/asset/', /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var assetid, _asset, _id, name, coin, symbol, assetType, price, image, pricehistory, result;
+    var assetid, _asset, _id, name, coin, symbol, assetType, price, image, listed, pricehistory, result;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
@@ -86,7 +91,7 @@ asset.get('/asset/', /*#__PURE__*/function () {
           });
         case 6:
           _asset = _context2.sent;
-          _id = _asset._id, name = _asset.name, coin = _asset.coin, symbol = _asset.symbol, assetType = _asset.assetType, price = _asset.price, image = _asset.image, pricehistory = _asset.pricehistory;
+          _id = _asset._id, name = _asset.name, coin = _asset.coin, symbol = _asset.symbol, assetType = _asset.assetType, price = _asset.price, image = _asset.image, listed = _asset.listed, pricehistory = _asset.pricehistory;
           result = {
             _id: _id,
             name: name,
@@ -94,7 +99,8 @@ asset.get('/asset/', /*#__PURE__*/function () {
             assetType: assetType,
             symbol: symbol,
             price: price,
-            image: image
+            image: image,
+            listed: listed
             //pricehistory: pricehistory.slice(0, 20)
           };
 

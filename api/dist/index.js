@@ -28,7 +28,7 @@ var _transactions = _interopRequireDefault(require("./wallet/routes/transactions
 var _seedAssets = _interopRequireDefault(require("./functions/seedAssets"));
 var _getBitcoinBalances = _interopRequireDefault(require("./wallet/functions/getBitcoinBalances"));
 var _getprices = _interopRequireDefault(require("./trade/getprices.js"));
-var _updatecommodities = _interopRequireDefault(require("./trade/updatecommodities.js"));
+var _updatecommoditiesprices = _interopRequireDefault(require("./trade/commodities/updatecommoditiesprices.js"));
 var _setonlineuser = _interopRequireDefault(require("./functions/setonlineuser"));
 var _setofflineuser = _interopRequireDefault(require("./functions/setofflineuser"));
 var _setpairinview = _interopRequireDefault(require("./functions/setpairinview"));
@@ -137,12 +137,9 @@ _nodeCron["default"].schedule("*/1 * * * *", /*#__PURE__*/_asyncToGenerator( /*#
   return _regeneratorRuntime().wrap(function _callee2$(_context2) {
     while (1) switch (_context2.prev = _context2.next) {
       case 0:
-        date = getCurrentDateTime();
-        _context2.next = 3;
-        return (0, _getprices["default"])(date);
-      case 3:
+        date = getCurrentDateTime(); //await getprices(date);
         io.emit('assetupdate');
-      case 4:
+      case 2:
       case "end":
         return _context2.stop();
     }
@@ -170,9 +167,12 @@ _nodeCron["default"].schedule("*/3 * * * * *", /*#__PURE__*/_asyncToGenerator( /
     }
   }, _callee3);
 })));
+_nodeCron["default"].schedule('0 */5 * * *', function () {
+  (0, _updatecommoditiesprices["default"])();
+});
 
 //updatecommodities();
-
+(0, _updatecommoditiesprices["default"])();
 var staticPath = _path["default"].join(__dirname, '../public');
 app.use(_express["default"]["static"](staticPath));
 

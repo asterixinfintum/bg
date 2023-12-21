@@ -75,18 +75,27 @@ var autoTradeSchema = new Schema({
     required: true,
     "default": 'profit',
     "enum": ['profit', 'loss']
+  },
+  status: {
+    type: String,
+    "enum": ['running', 'canceled'],
+    required: true,
+    "default": 'running'
   }
 });
-autoTradeSchema.statics.recordbuy = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+autoTradeSchema.methods.cancel = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
   return _regeneratorRuntime().wrap(function _callee$(_context) {
     while (1) switch (_context.prev = _context.next) {
       case 0:
+        this.status = 'canceled';
+        this.save();
+      case 2:
       case "end":
         return _context.stop();
     }
-  }, _callee);
+  }, _callee, this);
 }));
-autoTradeSchema.statics.recordsell = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+autoTradeSchema.statics.recordbuy = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
   return _regeneratorRuntime().wrap(function _callee2$(_context2) {
     while (1) switch (_context2.prev = _context2.next) {
       case 0:
@@ -94,6 +103,15 @@ autoTradeSchema.statics.recordsell = /*#__PURE__*/_asyncToGenerator( /*#__PURE__
         return _context2.stop();
     }
   }, _callee2);
+}));
+autoTradeSchema.statics.recordsell = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+  return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+    while (1) switch (_context3.prev = _context3.next) {
+      case 0:
+      case "end":
+        return _context3.stop();
+    }
+  }, _callee3);
 }));
 var AutoTrade = mongoose.model('Autotrade', autoTradeSchema);
 module.exports = AutoTrade;

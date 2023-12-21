@@ -370,38 +370,116 @@ orders.get('/trades', _authenticateToken["default"], /*#__PURE__*/function () {
     return _ref6.apply(this, arguments);
   };
 }());
-orders.get('/autotrades', _authenticateToken["default"], /*#__PURE__*/function () {
+orders.put('/order/cancel', _authenticateToken["default"], /*#__PURE__*/function () {
   var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(req, res) {
-    var userId, autotrades;
+    var orderid, orderitem;
     return _regeneratorRuntime().wrap(function _callee7$(_context7) {
       while (1) switch (_context7.prev = _context7.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context7.next = 14;
+            _context7.next = 10;
             break;
           }
-          _context7.prev = 1;
+          orderid = req.query.orderid;
+          _context7.next = 4;
+          return _order["default"].findOne({
+            _id: orderid
+          });
+        case 4:
+          orderitem = _context7.sent;
+          _context7.next = 7;
+          return orderitem.cancel();
+        case 7:
+          res.status(200).send({
+            message: 'order cancelled'
+          });
+          _context7.next = 11;
+          break;
+        case 10:
+          res.status(404).send({
+            message: 'Error in found'
+          });
+        case 11:
+        case "end":
+          return _context7.stop();
+      }
+    }, _callee7);
+  }));
+  return function (_x13, _x14) {
+    return _ref7.apply(this, arguments);
+  };
+}());
+orders.put('/autotrade/cancel', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(req, res) {
+    var autotradeid, autotradeitem;
+    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+      while (1) switch (_context8.prev = _context8.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context8.next = 10;
+            break;
+          }
+          autotradeid = req.query.autotradeid;
+          _context8.next = 4;
+          return _autotrade["default"].findOne({
+            _id: autotradeid
+          });
+        case 4:
+          autotradeitem = _context8.sent;
+          _context8.next = 7;
+          return autotradeitem.cancel();
+        case 7:
+          res.status(200).send({
+            message: 'auto trade cancelled'
+          });
+          _context8.next = 11;
+          break;
+        case 10:
+          res.status(404).send({
+            message: 'Error in found'
+          });
+        case 11:
+        case "end":
+          return _context8.stop();
+      }
+    }, _callee8);
+  }));
+  return function (_x15, _x16) {
+    return _ref8.apply(this, arguments);
+  };
+}());
+orders.get('/autotrades', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(req, res) {
+    var userId, autotrades;
+    return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+      while (1) switch (_context9.prev = _context9.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context9.next = 14;
+            break;
+          }
+          _context9.prev = 1;
           userId = req.user._id;
-          _context7.next = 5;
+          _context9.next = 5;
           return _autotrade["default"].find({
             userId: userId
           });
         case 5:
-          autotrades = _context7.sent;
+          autotrades = _context9.sent;
           res.status(200).send({
             autotrades: autotrades
           });
-          _context7.next = 12;
+          _context9.next = 12;
           break;
         case 9:
-          _context7.prev = 9;
-          _context7.t0 = _context7["catch"](1);
+          _context9.prev = 9;
+          _context9.t0 = _context9["catch"](1);
           res.status(500).send({
             message: 'Error fetching auto trades',
-            error: _context7.t0.message
+            error: _context9.t0.message
           });
         case 12:
-          _context7.next = 15;
+          _context9.next = 15;
           break;
         case 14:
           res.status(404).send({
@@ -409,33 +487,33 @@ orders.get('/autotrades', _authenticateToken["default"], /*#__PURE__*/function (
           });
         case 15:
         case "end":
-          return _context7.stop();
+          return _context9.stop();
       }
-    }, _callee7, null, [[1, 9]]);
+    }, _callee9, null, [[1, 9]]);
   }));
-  return function (_x13, _x14) {
-    return _ref7.apply(this, arguments);
+  return function (_x17, _x18) {
+    return _ref9.apply(this, arguments);
   };
 }());
 orders.get('/orderplayground', /*#__PURE__*/function () {
-  var _ref8 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8(req, res) {
+  var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(req, res) {
     var id, userOrder, orderItem, _yield$orderItem$exec, walletasset, order, executedtrade;
-    return _regeneratorRuntime().wrap(function _callee8$(_context8) {
-      while (1) switch (_context8.prev = _context8.next) {
+    return _regeneratorRuntime().wrap(function _callee10$(_context10) {
+      while (1) switch (_context10.prev = _context10.next) {
         case 0:
           id = '650f3a7b1c2829c7bdbf9bdf';
-          _context8.prev = 1;
-          _context8.next = 4;
+          _context10.prev = 1;
+          _context10.next = 4;
           return _order["default"].find({
             _id: id
           });
         case 4:
-          userOrder = _context8.sent;
+          userOrder = _context10.sent;
           orderItem = userOrder[0];
-          _context8.next = 8;
+          _context10.next = 8;
           return orderItem.executesell(0.01, 0.16);
         case 8:
-          _yield$orderItem$exec = _context8.sent;
+          _yield$orderItem$exec = _context10.sent;
           walletasset = _yield$orderItem$exec.walletasset;
           order = _yield$orderItem$exec.order;
           executedtrade = _yield$orderItem$exec.executedtrade;
@@ -444,71 +522,71 @@ orders.get('/orderplayground', /*#__PURE__*/function () {
             order: order,
             executedtrade: executedtrade
           });
-          _context8.next = 18;
+          _context10.next = 18;
           break;
         case 15:
-          _context8.prev = 15;
-          _context8.t0 = _context8["catch"](1);
+          _context10.prev = 15;
+          _context10.t0 = _context10["catch"](1);
           res.status(500).send({
             message: 'Error executing sell',
-            error: _context8.t0.message
+            error: _context10.t0.message
           });
         case 18:
         case "end":
-          return _context8.stop();
+          return _context10.stop();
       }
-    }, _callee8, null, [[1, 15]]);
+    }, _callee10, null, [[1, 15]]);
   }));
-  return function (_x15, _x16) {
-    return _ref8.apply(this, arguments);
+  return function (_x19, _x20) {
+    return _ref10.apply(this, arguments);
   };
 }());
 orders["delete"]('/allorders', /*#__PURE__*/function () {
-  var _ref9 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9(req, res) {
-    return _regeneratorRuntime().wrap(function _callee9$(_context9) {
-      while (1) switch (_context9.prev = _context9.next) {
+  var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(req, res) {
+    return _regeneratorRuntime().wrap(function _callee11$(_context11) {
+      while (1) switch (_context11.prev = _context11.next) {
         case 0:
-          _context9.prev = 0;
-          _context9.next = 3;
+          _context11.prev = 0;
+          _context11.next = 3;
           return deleteAllOrders();
         case 3:
           res.status(200).send({
             message: 'All Orders have been deleted.'
           });
-          _context9.next = 9;
+          _context11.next = 9;
           break;
         case 6:
-          _context9.prev = 6;
-          _context9.t0 = _context9["catch"](0);
+          _context11.prev = 6;
+          _context11.t0 = _context11["catch"](0);
           res.status(500).send({
             message: 'Error deleting orders',
-            error: _context9.t0.message
+            error: _context11.t0.message
           });
         case 9:
         case "end":
-          return _context9.stop();
+          return _context11.stop();
       }
-    }, _callee9, null, [[0, 6]]);
+    }, _callee11, null, [[0, 6]]);
   }));
-  return function (_x17, _x18) {
-    return _ref9.apply(this, arguments);
+  return function (_x21, _x22) {
+    return _ref11.apply(this, arguments);
   };
 }());
 function deleteAllOrders() {
   return _deleteAllOrders.apply(this, arguments);
 }
 function _deleteAllOrders() {
-  _deleteAllOrders = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10() {
-    return _regeneratorRuntime().wrap(function _callee10$(_context10) {
-      while (1) switch (_context10.prev = _context10.next) {
+  _deleteAllOrders = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12() {
+    return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+      while (1) switch (_context12.prev = _context12.next) {
         case 0:
-          _context10.next = 2;
+          _context12.next = 2;
           return _order["default"].deleteMany({});
         case 2:
         case "end":
-          return _context10.stop();
+          return _context12.stop();
       }
-    }, _callee10);
+    }, _callee12);
   }));
   return _deleteAllOrders.apply(this, arguments);
 }

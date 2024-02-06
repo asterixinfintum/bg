@@ -10,7 +10,7 @@
               <div>
                 <div class="auth__inputarea">
                   <label class="auth__inputarea--label">
-                    <p>User name</p>
+                    <p>User name here</p>
                     <p>*</p>
                   </label>
                   <span class="auth__inputarea--input">

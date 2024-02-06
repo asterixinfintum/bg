@@ -67,8 +67,19 @@ const autoTradeSchema = new Schema({
         required: true,
         default: 'profit',
         enum: ['profit', 'loss']
-    }
+    },
+    status: {
+        type: String,
+        enum: ['running', 'canceled'],
+        required: true,
+        default: 'running'
+    },
 });
+
+autoTradeSchema.methods.cancel = async function () {
+    this.status = 'canceled';
+    this.save();
+}
 
 autoTradeSchema.statics.recordbuy = async function () {
 

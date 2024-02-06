@@ -39,6 +39,10 @@
             position: relative;
             display: inline-block;
 
+            &.withdrawal {
+                width: 100%
+            }
+
             & img {
                 opacity: .3;
                 cursor: pointer;
@@ -60,6 +64,10 @@
                 height: #{scaleValue(50)};
                 padding: #{scaleValue(15)};
 
+                &.withdrawal {
+                    width: 100%
+                }
+
                 &:hover {
                     border-color: $primary-color;
                 }
@@ -71,6 +79,16 @@
                 &.error {
                     border-color: $red;
                 }
+            }
+
+            & textarea {
+                @include input;
+                border: $border;
+                border-radius: #{scaleValue(5)};
+                width: #{scaleValue(400)};
+                height: #{scaleValue(200)};
+
+                padding: #{scaleValue(15)};
             }
         }
     }

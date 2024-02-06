@@ -3,8 +3,8 @@ import { mapState } from 'vuex';
 export default {
     computed: {
         ...mapState({
-            client: state => state.auth.client,
-            client_token: state => state.auth.client_token,
+            //client: state => state.auth.client,
+            //client_token: state => state.auth.client_token,
             wallets: state => state.wallet.wallets,
             assets: state => state.list.assets
         }),

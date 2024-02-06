@@ -8,7 +8,6 @@ var walletSchema = new Schema({
     required: true,
     index: true // Adding an index for faster queries on ownerId
   },
-
   walletType: {
     type: String,
     required: true,

@@ -5,12 +5,24 @@
 
     &.row {
         display: flex;
+
+        @media only screen and (max-width: 414px) {
+            flex-direction: column;
+        }
     }
 
     &__section {
 
+        @media only screen and (max-width: 414px) {
+            margin-bottom: #{scaleValue(80)};
+        }
+
         &.main {
             width: #{scaleValue(650)};
+
+            @media only screen and (max-width: 414px) {
+                width: auto;
+            }
         }
 
         &.secondary {
@@ -30,6 +42,11 @@
             font-size: #{scaleValue(16)};
             font-weight: 500;
             margin-right: #{scaleValue(10)};
+
+            @media only screen and (max-width: 414px) {
+                font-size: #{scaleValue(70)};
+                margin-bottom: #{scaleValue(30)};
+            }
         }
 
         &--eyesvg {
@@ -45,6 +62,11 @@
                 height: #{scaleValue(15)};
                 width: #{scaleValue(15)};
                 opacity: .6;
+
+                @media only screen and (max-width: 414px) {
+                    height: #{scaleValue(60)};
+                    width: #{scaleValue(60)};
+                }
             }
         }
     }
@@ -55,18 +77,37 @@
         font-size: #{scaleValue(23)};
         font-weight: 600;
 
+        @media only screen and (max-width: 414px) {
+            font-size: #{scaleValue(50)};
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
         &--btcvalue {
             opacity: .9;
+
+            @media only screen and (max-width: 414px) {
+                font-size: #{scaleValue(50)};
+            }
         }
 
         &--equals {
             display: flex;
             margin: 0 #{scaleValue(10)};
             opacity: .6;
+
+            @media only screen and (max-width: 414px) {
+                font-size: #{scaleValue(50)};
+                margin: 0;
+            }
         }
 
         &--usdvalue {
             opacity: .6;
+
+            @media only screen and (max-width: 414px) {
+                font-size: #{scaleValue(50)};
+            }
         }
     }
 
@@ -78,6 +119,11 @@
             font-size: #{scaleValue(14)};
             font-weight: 400;
             margin-bottom: #{scaleValue(12)};
+
+            @media only screen and (max-width: 414px) {
+                font-size: #{scaleValue(70)};
+                margin-bottom: #{scaleValue(30)};
+            }
         }
 
         &--btcvalue {
@@ -85,12 +131,20 @@
             font-weight: 600;
             opacity: .9;
             margin-bottom: #{scaleValue(5.5)};
+
+            @media only screen and (max-width: 414px) {
+                font-size: #{scaleValue(50)};
+            }
         }
 
         &--usdvalue {
             font-size: #{scaleValue(16)};
             font-weight: 500;
             opacity: .6;
+
+            @media only screen and (max-width: 414px) {
+                font-size: #{scaleValue(50)};
+            }
         }
     }
 }

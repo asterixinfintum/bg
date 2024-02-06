@@ -19,8 +19,7 @@ export default {
             assets: state => state.list.assets,
             originalList: state => state.list.originalList,
             paginatedList: state => state.list.paginatedList,
-            inhouseassets: state => state.inhouseassets.items,
-            inhouseasset: state => state.inhouseassets.item
+            walletassets: state => state.wallet.walletassets
         }),
         numberOfPages() {
             const { pageSize, paginatedList } = this;
@@ -40,7 +39,7 @@ export default {
     methods: {
         ...mapActions('list', ['search']),
         ...mapMutations('list', ['SET_PAGINATEDLIST', 'SET_ORIGINALLIST']),
-        ...mapActions('wallet', ['getwallets']),
+        ...mapActions('wallet', ['getwallets', 'getwalletsassets']),
         setCurrentPage(page) {
             const { scrollToTop } = this;
             this.currentPage = page;
@@ -85,7 +84,12 @@ export default {
             }
         },
         setCurrentCategory(category) {
-            const { assets, assetsOwned, wallet, mergeUnique } = this;
+            this.getwalletsassets({
+                assettype: category,
+                pageSize: this.pageSize,
+                currentPage: this.currentPage
+            });
+            /*const { assets, assetsOwned, wallet, mergeUnique } = this;
             this.currentAssetcategory = category;
             let assetsOwnedFilter;
             let assetsFilter;
@@ -115,7 +119,7 @@ export default {
                 assetsFilter = assets.filter(asset => asset.assetType.toLowerCase() === this.currentAssetcategory);
                 this.SET_PAGINATEDLIST(assetsFilter);
                 this.SET_ORIGINALLIST(assetsFilter)
-            }
+            }*/
         },
         mergeUnique(arr, attributeName) {
             const combinedArray = [...arr];
@@ -136,10 +140,10 @@ export default {
             const { assetsOwned } = this;
 
             if (asset && assetsOwned.length) {
-                const found = assetsOwned.find(assetowned => assetowned.symbol === asset.symbol);
+                const found = assetsOwned.find(assetowned => assetowned.symbol === asset.symbol && assetowned.asset.assetType === asset.assetType);
 
                 if (found) {
-                    return found.blc.balance;
+                    return parseFloat(`${found.blc.balance}`.replace(/,/g, ""));
                 }
             }
 
@@ -148,8 +152,8 @@ export default {
         assetblcUSD(asset) {
             const { assetblc } = this;
 
-            if (parseFloat(assetblc(asset)) !== 0 && parseFloat(asset.price) !== 0) {
-                return (parseFloat(assetblc(asset)) * parseFloat(asset.price))
+            if (parseFloat(assetblc(asset)) !== 0 && parseFloat(`${asset.price}`.replace(/,/g, "")) !== 0) {
+                return (parseFloat(assetblc(asset)) * parseFloat(`${asset.price}`.replace(/,/g, "")))
             }
 
             return `0.00000000`
@@ -158,8 +162,8 @@ export default {
             const { assetblcUSD, assets } = this;
 
             const btc = assets.find(asst => asst.coin === 'BTC');
-            const btcprice = parseFloat(btc.price);
-            const assetblc = parseFloat(assetblcUSD(asset));
+            const btcprice = parseFloat(`${btc.price}`.replace(/,/g, ""));
+            const assetblc = parseFloat(`${assetblcUSD(asset)}`.replace(/,/g, ""));
             const assetpriceBTC = (assetblc / btcprice);
 
             if (assetpriceBTC !== 0) {
@@ -177,14 +181,14 @@ export default {
                 const ownedAssets = wallet.blcs
 
                 const btc = assets.find(asst => asst.coin === 'BTC');
-                const btcprice = parseFloat(btc.price);
+                const btcprice = parseFloat(`${btc.price}`.replace(/,/g, ''));
 
                 ownedAssets.forEach(ownedasset => {
                     blcs.push({
                         balance: ownedasset.blc.balance,
                         price: ownedasset.asset.price,
                         usdblc: function usdblc() {
-                            return (this.balance * this.price)
+                            return (`${this.balance}`.replace(/,/g, '') * `${this.price}`.replace(/,/g, ''))
                         },
                         btcblc: function () {
                             return (this.usdblc() / btcprice)
@@ -196,23 +200,23 @@ export default {
             }
         },
         totalBlcUSD(wallettype) {
-            const { wallets, assets, retrnblcs } = this;
+            const { wallets } = this;
 
-            if (wallets.length && assets.length) {
-                const usdblcs = retrnblcs(wallettype).map(blc => blc.usdblc());
-                const total = usdblcs.reduce((acc, current) => acc + current, 0);
-                return parseFloat(total)
+            if (wallets.length) {
+                const walletdata = wallets.find(wallet => wallet.walletType === wallettype);
+
+                return walletdata.totalblc.totalusdblc;
             }
 
             return `0.00000000`
         },
         totalBlcBTC(wallettype) {
-            const { wallets, assets, retrnblcs } = this;
+            const { wallets } = this;
 
-            if (wallets.length && assets.length) {
-                const btcblcs = retrnblcs(wallettype).map(blc => blc.btcblc());
-                const total = btcblcs.reduce((acc, current) => acc + current, 0);
-                return parseFloat(total)
+            if (wallets.length) {
+                const walletdata = wallets.find(wallet => wallet.walletType === wallettype);
+
+                return walletdata.totalblc.totalbtcblc;
             }
 
             return `0.00000000`

@@ -1,117 +1,102 @@
+import { mapActions, mapState } from "vuex";
+import createorderMixin from "@/mixins/createorder";
+
 export default {
+    mixins: [createorderMixin],
     methods: {
-        marketorder({ side }) {
-            {
-                const {
-                    asset_price,
-                    buy_quantity,
-                    sell_quantity,
-                    buyTotal,
-                    sellTotal,
-                    asset,
-                    assetOnRightSideOfOrderPair,
-                    wallettype,
-                    currentpair,
-                    wallets,
-                    assetblc,
-                    createMktOrder
-                } = this;
+        ...mapActions("order", ["getorders", "getautotrades", "gettrades"]),
+        async createmarketorder({ side, total, price, quantity, assettobuy, assettosell, assettobuytype, assettoselltype, fees }) {
+            const { orderdetails, currentpair, orderType, wallettype, wallets } = this;
 
-                const tradingPair = `${asset.symbol}/${assetOnRightSideOfOrderPair.symbol}`;
-                const assetId = asset._id;
-                
-                const oppstasstId = assetOnRightSideOfOrderPair._id;
-                const assetType = asset.assetType;
-                const type = 'market';
-                const price = parseFloat(asset_price);
-                const wllt = wallets.find(wallet => wallet.walletType === wallettype);
-                const wallet = wllt._id;
-                let orderAmount;
+            const tradingPair = currentpair.pair;
+            const type = orderType;
+            const wallet = wallets.find(wallet => wallet.walletType === wallettype);
 
-                if (currentpair) {
-                    const orderTemp = {
-                        tradingPair,
-                        assetId,
-                        oppstasstId,
-                        assetType,
-                        type,
-                        side,
-                        price,
-                        wallet
-                    }; 
-
-                    if (side === 'buy') {
-                        const quantity = parseFloat(buy_quantity);
-                        orderAmount = parseFloat(buyTotal)
-
-                        if (quantity) {
-                            const order = {
-                                ...orderTemp,
-                                quantity,
-                                orderAmount,
-                            }
-
-                            if (assetblc(assetOnRightSideOfOrderPair)) {
-                                if (assetblc(assetOnRightSideOfOrderPair).usdblc) {
-                                    if (assetblc(assetOnRightSideOfOrderPair).usdblc > orderAmount) {
-                                        createMktOrder(order)
-                                            .then(() => {
-                                                this.successMessage = 'Buy market order executed';
-                                                this.refreshpage();
-                                            }).catch(() => {
-                                                this.errorMessage = 'There was an error no funds lost pls try again';
-                                            })
-                                    } else {
-                                        this.errorMessage = `Not enough ${assetOnRightSideOfOrderPair.coin} to buy ${asset.coin}`;
-                                    }
-                                } else {
-                                    this.errorMessage = `Not enough ${assetOnRightSideOfOrderPair.coin} to buy ${asset.coin}`;
-                                }
-                            } else {
-                                this.errorMessage = `Not enough ${assetOnRightSideOfOrderPair.coin} to buy ${asset.coin}`;
-                            }
-                        } else {
-                            this.errorMessage = 'Specify a buy quantity'
-                        }
-
-                    }
-
-                    if (side === 'sell') {
-                        const quantity = parseFloat(sell_quantity);
-                        orderAmount = parseFloat(sellTotal)
-
-                        if (quantity) {
-                            const order = {
-                                ...orderTemp,
-                                quantity,
-                                orderAmount,
-                            }
-
-                            if (assetblc(asset)) {
-                                if (assetblc(asset).usdblc) {
-                                    if (assetblc(asset).usdblc > orderAmount) {
-                                        createMktOrder(order)
-                                            .then(() => {
-                                                this.successMessage = 'Sell market order executed';
-                                                this.refreshpage();
-                                            }).catch(() => {
-                                                this.errorMessage = 'There was an error no funds lost pls try again';
-                                            });
-                                    } else {
-                                        this.errorMessage = `Not enough ${asset.coin} to sell for ${assetOnRightSideOfOrderPair.coin}`;
-                                    }
-                                } else {
-                                    this.errorMessage = `Not enough ${asset.coin} to sell for ${assetOnRightSideOfOrderPair.coin}`;
-                                }
-                            } else {
-                                this.errorMessage = `Not enough ${asset.coin} to sell for ${assetOnRightSideOfOrderPair.coin}`;
-                            }
-                        } else {
-                            this.errorMessage = 'Specify a sell quantity'
-                        }
-                    }
-                }
+            const order = {
+                pairId: currentpair._id,
+                tradingPair,
+                type,
+                side,
+                total,
+                price: parseFloat(`${this.assetequivalence}`.replace(/,/g, '')),
+                quantity,
+                assettobuy,
+                assettosell,
+                assettobuytype,
+                assettoselltype,
+                wallettype,
+                wallet: wallet._id,
+                fees
             }
+
+            if (!orderdetails) {
+                this.orderdetails = {
+                    'Trading Pair': tradingPair,
+                    type,
+                    fees: fees.toFixed(10),
+                    side,
+                    Sell: `${total.toFixed(10)} ${side === 'sell' ? this.asset.coin : this.assetOnRightSideOfOrderPair.coin}`,
+                    Buy: `${quantity.toFixed(10)} ${side === 'buy' ? this.asset.coin : this.assetOnRightSideOfOrderPair.coin}`
+                }
+
+                console.log(this.orderdetails);
+            }
+
+            if (orderdetails) {
+                this.loading = true;
+                try {
+                    const response = await this.createMktOrder(order);
+
+                    if (response.message) {
+                        this.successMessage = 'Market order executed successfully';
+                        this.orderdetails = null;
+                    } else {
+                        // Handle the case where the operation may be successful but doesn't have a 'message'
+                        // Maybe set some other flags or log for debugging
+                    }
+                } catch (error) {
+                    console.log(error)
+                } finally {
+                    this.loading = false;
+                    this.getorders();
+                    this.reset();
+                }
+
+            }
+        },
+        createbuymarketorder() {
+            const fees = (this.tradepercentage / 100) * this.totalbuycost;
+
+            console.log(this.buyquantity, 'check here yo');
+
+            this.createmarketorder({
+                side: 'buy',
+                total: this.totalbuycost,
+                price: this.asset.price,
+                quantity: this.buyquantity,
+                assettobuy: this.asset._id,
+                assettosell: this.assetOnRightSideOfOrderPair._id,
+                assettobuytype: this.asset.assetType,
+                assettoselltype: this.assetOnRightSideOfOrderPair.assetType,
+                fees
+            })
+        },
+        createsellmarketorder() {
+            const fees = (this.tradepercentage / 100) * this.totalsellcost;
+
+            console.log(this.sellquantity, 'check here yo');
+
+            this.createmarketorder({
+                side: 'sell',
+                total: this.totalsellcost,
+                price: this.asset.price,
+                quantity: this.sellquantity,
+                assettosell: this.asset._id,
+                assettobuy: this.assetOnRightSideOfOrderPair._id,
+                assettoselltype: this.asset.assetType,
+                assettobuytype: this.assetOnRightSideOfOrderPair.assetType,
+                fees
+            })
         }
     }
 }

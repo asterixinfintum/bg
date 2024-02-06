@@ -20,7 +20,6 @@ var strategySchema = new Schema({
     winRate: Number
     // Add more as needed
   },
-
   closed: {
     type: Boolean,
     "default": false

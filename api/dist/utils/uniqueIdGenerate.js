@@ -14,5 +14,4 @@ function uniqueIdGenerate() {
   var uniqueNumber = parseInt(timestamp.getTime().toString() + randomPart.toString());
   return uniqueNumber;
 }
-var _default = uniqueIdGenerate;
-exports["default"] = _default;
+var _default = exports["default"] = uniqueIdGenerate;

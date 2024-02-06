@@ -169,6 +169,32 @@ orders.get('/trades', authenticateToken, async (req, res) => {
     }
 });
 
+orders.put('/order/cancel', authenticateToken, async (req, res) => {
+    if (req.user && req.user._id) {
+        const { orderid } = req.query;
+        const orderitem = await Order.findOne({ _id: orderid });
+
+        await orderitem.cancel();
+
+        res.status(200).send({ message: 'order cancelled' });
+    } else {
+        res.status(404).send({ message: 'Error in found' });
+    }
+});
+
+orders.put('/autotrade/cancel', authenticateToken, async (req, res) => {
+    if (req.user && req.user._id) {
+        const { autotradeid } = req.query;
+        const autotradeitem = await AutoTrade.findOne({ _id: autotradeid });
+
+        await autotradeitem.cancel();
+
+        res.status(200).send({ message: 'auto trade cancelled' });
+    } else {
+        res.status(404).send({ message: 'Error in found' });
+    }
+})
+
 orders.get('/autotrades', authenticateToken, async (req, res) => {
     if (req.user && req.user._id) {
         try {
@@ -195,7 +221,6 @@ orders.get('/orderplayground', async (req, res) => {
         res.status(500).send({ message: 'Error executing sell', error: error.message });
     }
 });
-
 
 orders.delete('/allorders', async (req, res) => {
     try {

@@ -89,5 +89,4 @@ var cryptoSymbols = [{
   name: 'XRP',
   image: 'xrp-xrp-logo.svg'
 }];
-var _default = cryptoSymbols;
-exports["default"] = _default;
+var _default = exports["default"] = cryptoSymbols;

@@ -1,12 +1,12 @@
 let BASE_URL;
 let DEVELOPMENT;
 
-DEVELOPMENT = true;
+DEVELOPMENT = false;
 
 if (DEVELOPMENT) {
-    BASE_URL = 'http://localhost:8080';
+    BASE_URL = 'http://localhost:8082';
 } else {
-    BASE_URL = 'https://bvxtrade.com'
+    BASE_URL = 'https://api.bvxtrade.com'
 }
 
 const BASE_VARS = {

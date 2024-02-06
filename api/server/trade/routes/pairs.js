@@ -1,6 +1,9 @@
 import express from 'express';
 import Pair from '../../models/pair';
 
+
+import updatetradingpairsorders from '../updatetradingpairsorders.js';
+
 const pairs = express.Router();
 
 function specifichours(dataArray, hrs) {
@@ -88,8 +91,48 @@ pairs.get('/pairs', async (req, res) => {
     }
 });
 
+pairs.get('/pairs/by-base-vtwo', async (req, res) => {
+    const { baseAsset } = req.query;
+
+    if (!baseAsset) {
+        return res.status(400).send({ error: 'Base currency is required' });
+    }
+
+    const pairitems = await Pair.find({ listed: true });
+    const result = [];
+
+    //console.log(pairitems.length, 'check here')
+
+    for (const pairitem of pairitems) {
+        const pairprice = await pairitem.calculatePrice();
+        const pricedifference = await pairitem.calculatepricedifference();
+
+        const item = {
+            _id: pairitem._id,
+            pair: pairitem.pair,
+            price: pairprice,
+            pricedifference,
+            baseAssetType: pairitem.baseAssetType,
+            quoteAssetType: pairitem.quoteAssetType,
+            listed: pairitem.listed
+        };
+
+        if (pairitem.pair.includes(baseAsset)) {
+            result.unshift(item);
+        } else {
+            result.push(item);
+        }
+    }
+
+    res.status(200).send({ pairs: result });
+
+    //console.log(pairitems, 'here');
+})
+
 pairs.get('/pairs/by-base', async (req, res) => {
     const { baseAsset, assetType } = req.query;
+
+    console.log(baseAsset, 'say hello')
 
     // Check if baseCurrency is provided
     if (!baseAsset) {
@@ -125,7 +168,9 @@ pairs.get('/pairs/by-base', async (req, res) => {
                 price: pairprice,
                 pricedifference,
                 baseAssetType: pair.baseAssetType,
-                quoteAssetType: pair.quoteAssetType
+                quoteAssetType: pair.quoteAssetType,
+                listed: pair.listed,
+                inview: pair.inview
             };
         });
 
@@ -173,9 +218,13 @@ pairs.get('/pair/orders', async (req, res) => {
     }
 
     try {
-        const pairitem = await Pair.findOne({ _id: pairid });
+        //const pairitem = await Pair.findOne({ _id: pairid });
 
-        const { orders } = pairitem;
+        const orders = await updatetradingpairsorders(pairid);
+
+        //console.log(orders);
+
+        //const { orders } = pairitem;
 
         res.status(200).send({ orders });
     } catch {
@@ -261,6 +310,46 @@ pairs.get('/pair/pricehistory/fifteenmin', async (req, res) => {
         const mins = getFirst15MinutesData(getpricehistory);
 
         res.status(200).send({ mins });
+    } catch (error) {
+        res.status(500).send({ error: 'An error occurred while fetching pair price history.' });
+    }
+});
+
+pairs.get('/pair/pricehistory/hours/candlestick', async (req, res) => {
+    const { pairid, candlestickdatalength } = req.query;
+
+    if (!pairid) {
+        return res.status(400).send({ error: 'Base currency is required' });
+    }
+
+    try {
+        const pairitem = await Pair.findOne({ _id: pairid });
+        const getpricehistory = await pairitem.getpricehistorycandlestick();
+
+        const candlestickdata = getpricehistory.splice(-candlestickdatalength);
+        res.status(200).send({ candlestickdata });
+
+    } catch (error) {
+        res.status(500).send({ error: 'An error occurred while fetching pair price history.' });
+    }
+});
+
+pairs.get('/pair/pricehistory/mins/candlestick', async (req, res) => {
+    const { pairid, candlestickdatalength } = req.query;
+
+    if (!pairid) {
+        return res.status(400).send({ error: 'Base currency is required' });
+    }
+
+    try {
+        const pairitem = await Pair.findOne({ _id: pairid });
+        const getpricehistory = await pairitem.getpricehistorycandlestickMins();
+
+        const candlestickdata = getpricehistory.splice(-candlestickdatalength);
+
+        //console.log(candlestickdata)
+        res.status(200).send({ candlestickdata });
+
     } catch (error) {
         res.status(500).send({ error: 'An error occurred while fetching pair price history.' });
     }

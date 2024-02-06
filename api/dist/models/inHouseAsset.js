@@ -66,13 +66,11 @@ var inHouseAssetSchema = new Schema({
     index: true,
     "default": '' //stock, tokenized stock, fiat
   },
-
   createdBy: {
     type: Schema.Types.ObjectId,
     required: true,
     index: true // Adding an index for faster queries on ownerId
   },
-
   open: {
     type: String,
     required: true,
@@ -152,6 +150,5 @@ var inHouseAssetSchema = new Schema({
     ref: 'Admin' // assuming you have a User model
   }]
 });
-
 var inHouseAsset = mongoose.model('inHouseAsset', inHouseAssetSchema);
 module.exports = inHouseAsset;

@@ -22,6 +22,6 @@ export default {
         }
     },
     mounted() {
-        this.getassets();
+        //this.getassets();
     }
 }

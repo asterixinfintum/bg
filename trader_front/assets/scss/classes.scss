@@ -8,6 +8,10 @@
     border-radius: 8px;
     font-size: #{scaleValue(13)};
 
+    @media only screen and (max-width: 414px) {
+        font-size: #{scaleValue(70)};
+    }
+
     &.landing {
         padding: #{scaleValue(10)};
         color: $white;
@@ -34,10 +38,14 @@
         }
 
         &.scrolled-far-enough {
-            border-color: $landing-primary;
+            border-color: $landing-primary !important;
             color: $landing-primary;
         }
     }
+}
+
+.inline-block {
+    display: inline-block;
 }
 
 .opacity-dim {
@@ -50,15 +58,22 @@
 
 .padded-btn {
     padding: #{scaleValue(10)} #{scaleValue(24)};
+
+    @media only screen and (max-width: 414px) {
+        padding: #{scaleValue(50)} #{scaleValue(100)};
+    }
 }
 
 .greyed-btn {
     background: $greyed-out;
 }
 
-
 .layout-padding {
     padding: #{scaleValue(30)};
+
+    @media only screen and (max-width: 414px) {
+        padding: #{scaleValue(60)};
+    }
 }
 
 .layout-padding-2 {
@@ -74,6 +89,10 @@
 .layout-stretch {
     flex-grow: 1;
     padding-left: #{scaleValue(230)};
+
+    @media only screen and (max-width: 414px) {
+        padding-left: 0;
+    }
 }
 
 .contentheader {
@@ -118,6 +137,10 @@ h3 {
     width: 100%;
 }
 
+.basic-flex {
+    display: flex !important;
+}
+
 .flex-direction-column {
     flex-direction: column;
 }
@@ -131,7 +154,7 @@ h3 {
 }
 
 .center-align-default {
-    align-items: center;
+    align-items: center !important;
 }
 
 .pointer {
@@ -236,12 +259,24 @@ h3 {
     font-size: #{scaleValue(20)};
 }
 
+.fontSize13 {
+    font-size: #{scaleValue(13)} !important;
+}
+
+.fontSize11 {
+    font-size: #{scaleValue(11)} !important;
+}
+
+.fontSize10 {
+    font-size: #{scaleValue(10)} !important;
+}
+
 .centertext {
     text-align: center;
 }
 
 .gold-colored {
-    color: $gold;
+    color: $gold !important;
 }
 
 .neon-green {
@@ -264,10 +299,113 @@ h3 {
     color: $neon-blue;
 }
 
+.neon-border {
+    border: 1px solid $neon-blue;
+}
+
 .landing-green {
     color: $landing-green
 }
 
 .color-primary {
     color: $primary-color !important;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+.green-usdt {
+    color: $usdt-green;
+}
+
+.warning-red {
+    color: $warning-red
+}
+
+.line-height-18 {
+    line-height: #{scaleValue(18)}
+}
+
+.invisible {
+    opacity: 0;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.mobile-invisible {
+    @media only screen and (max-width: 414px) {
+        display: none;
+    }
+}
+
+.white-color {
+    color: $white !important
+}
+
+.admincontainer {
+    padding: #{scaleValue(100)};
+    padding-top: #{scaleValue(140)};
+
+    & h2 {
+        font-weight: 500;
+        font-size: #{scaleValue(25)};
+        margin-bottom: #{scaleValue(40)};
+        display: flex;
+        align-items: center;
+
+        & span {
+            display: flex;
+            align-items: center;
+
+            &.assettype {
+                font-size: #{scaleValue(10)};
+                background: rgba($success, .5);
+                padding:  #{scaleValue(10)};
+                border-radius: 3rem;
+                margin-left: #{scaleValue(10)};
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+.pointer-cursor {
+    cursor: pointer;
+}
+
+.header-h2 {
+    font-size: #{scaleValue(15)};
+    font-weight: 500;
+}
+
+.zeromargin {
+    margin: 0 !important;
+}
+
+.roundindicator {
+    display: inline-block;
+    height: #{scaleValue(10)};
+    width: #{scaleValue(10)};
+    border-radius: 100%;
+    background: $red;
+}
+
+.red-background  {
+    background: $red;
+}
+
+.green-background {
+    background: $neon-green;
+}
+
+.hoveropacitytoggle {
+    opacity: .7;
+    transition: all .5s ease;
+
+    &:hover {
+        opacity: 1;
+    }
 }

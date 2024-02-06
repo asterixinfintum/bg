@@ -22,7 +22,7 @@ const orderSchema = new Schema({
         required: true
     },
     pairId: {
-        type: String,
+        type: String, 
         required: true
     },
     type: {
@@ -109,6 +109,7 @@ orderSchema.methods.cancel = async function () {
     this.status = 'canceled';
     this.save();
 }
+
 orderSchema.methods.executeorder = executeorder;
 orderSchema.methods.executesell = executesell;
 

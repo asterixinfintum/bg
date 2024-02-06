@@ -8,13 +8,12 @@ import http from "http";
 import bodyParser from 'body-parser';
 import path from 'path';
 import cors from 'cors';
-import socket from 'socket.io';
 import cron from "node-cron";
 
 const app = express();
 const server = http.createServer(app);
 
-const allowlist = ['http://localhost:3000'];
+const allowlist = ["http://localhost:3000", 'https://bvxtrade.com', 'https://www.bvxtrade.com'];
 
 const corsOptionsDelegate = (req, callback) => {
   let corsOptions;
@@ -31,14 +30,17 @@ const corsOptionsDelegate = (req, callback) => {
 
 app.use(cors(corsOptionsDelegate));
 
-const io = socket(server, {
+/*const io = socket(server, {
   cors: {
-    origin: "http://localhost:3000", // Replace with the URL of your client
+    origin: [`${process.env.baseurl}`, `${process.env.wwwbaseurl}`],
     methods: ["GET", "POST"],
     allowedHeaders: ["Authorization"],
     credentials: true
   }
 });
+
+let ioInstance;*/
+
 
 import mongoose from 'mongoose';
 
@@ -63,63 +65,81 @@ import pairsRoute from './trade/routes/pairs.js';
 import ordersRoute from './trade/routes/orders.js';
 import assetsRoute from './trade/routes/assets.js';
 
+import dailyreport from './userdashboard/dailyreport';
+
 import transactionsRoute from './wallet/routes/transactions.js';
 
 import seedAssets from './functions/seedAssets';
 import getBitcoinBalances from './wallet/functions/getBitcoinBalances';
 
 import getprices from './trade/getprices.js';
-import updatetradingpairsorders from './trade/updatetradingpairsorders.js';
+import updatecommoditiesprices from './trade/commodities/updatecommoditiesprices.js';
 
 import setonlineuser from './functions/setonlineuser';
 import setofflineuser from './functions/setofflineuser';
 import setpairinview from './functions/setpairinview';
 import setpairoutofview from './functions/setpairoutofview';
 
-import authenticateToken from './utils/authenticateToken';
+import userwalletadmin from './userwallet/controllers/admin';
+import userwalletuser from './userwallet/controllers/user';
+import dashboardcontroller from './userdashboard/controller';
+import admindashboardcontroller from './userdashboard/controller/admin';
+import swapcontroller from './swaps/controllers';
+import transfercontroller from './transfer/controllers';
+import tradercontroller from './trader/controllers'
 
-io.on('connection', (socket) => {
-  console.log('A user connected');
+import asset_route from './assets/controller';
 
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
+import './userdashboard';
 
-    if (socket.user) {
-      setofflineuser(socket.user._id)
+/*function initSocketIO() {
+  io.on('connection', (socket) => {
+    console.log('A user connected');
+
+    socket.on('disconnect', () => {
+      console.log('User disconnected');
+
+      if (socket.user) {
+        setofflineuser(socket.user._id)
+      }
+    });
+
+    socket.on('pairinview', (data) => {
+
+      setpairinview(data.pairid);
+    });
+
+    socket.on('pairoutofview', (data) => {
+
+      setpairoutofview(data.pairid);
+    });
+  });
+
+  io.use(async (socket, next) => {
+    const token = socket.handshake.headers.authorization;
+
+    if (token && token.startsWith('Bearer ')) {
+      const actualToken = token.split(' ')[1];
+
+      const onlineuser = await setonlineuser(actualToken);
+
+      if (onlineuser) {
+        socket.user = {
+          _id: onlineuser._id,
+          firstname: onlineuser.firstname,
+          lastname: onlineuser.lastname,
+          email: onlineuser.email
+        };
+      }
+
+      //console.log(socket.user )
+
+      next();
     }
   });
 
-  socket.on('pairinview', (data) => {
-
-    setpairinview(data.pairid);
-  });
-
-  socket.on('pairoutofview', (data) => {
-
-    setpairoutofview(data.pairid);
-  });
-});
-
-io.use(async (socket, next) => {
-  const token = socket.handshake.headers.authorization;
-
-  if (token && token.startsWith('Bearer ')) {
-    const actualToken = token.split(' ')[1];
-
-    const onlineuser = await setonlineuser(actualToken);
-
-    socket.user = {
-      _id: onlineuser._id,
-      firstname: onlineuser.firstname,
-      lastname: onlineuser.lastname,
-      email: onlineuser.email
-    };
-
-    //console.log(socket.user )
-
-    next();
-  }
-})
+  ioInstance = io;
+}*/
 
 function getCurrentDateTime() {
   var now = new Date();
@@ -135,33 +155,18 @@ function getCurrentDateTime() {
 
 cron.schedule("*/1 * * * *", async () => {
   const date = getCurrentDateTime();
-  await getprices(date);
-
-  io.emit('assetupdate');
+  //await getprices(date);
 });
 
-let isGeneratingOrder = false;
 
-cron.schedule("*/2 * * * * *", async () => {
-  if (!isGeneratingOrder) {
-    isGeneratingOrder = true;
+cron.schedule('0 */5 * * *', () => {
+  updatecommoditiesprices();
+});
 
-    try {
-      await updatetradingpairsorders();
+const staticPath = path.join(__dirname, '../public');
+app.use(express.static(staticPath));
 
-      io.emit('getorders');
-    } catch (error) {
-      console.error('Error during order generation:', error);
-    }
-
-    isGeneratingOrder = false;
-  } else {
-    console.log('Previous operation still running. Skipping new execution.');
-  }
-})
-
-app.use(express.static(path.join(__dirname, '../public')));
-const staticPath = path.join(__dirname, '../public/ui');
+app.use(express.static(path.join(__dirname, '../public/ui')));
 
 app.use(express.urlencoded({
   extended: false
@@ -193,8 +198,19 @@ app.use(fileuploadRoute);
 app.use(imageuploadRoute);
 app.use(videouploadRoute);
 
+app.use(dailyreport);
+
+app.use(userwalletadmin);
+app.use(userwalletuser);
+app.use(asset_route);
+app.use(dashboardcontroller);
+app.use(admindashboardcontroller);
+app.use(swapcontroller);
+app.use(transfercontroller);
+app.use(tradercontroller);
+
 app.get('*', (req, res) => {
-  res.sendFile(path.join(staticPath, 'index.html'));
+  res.sendFile(path.join(staticPath, 'ui/index.html'));
 });
 
 mongoose.connect(`${process.env.DB}`, {

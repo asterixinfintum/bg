@@ -5,7 +5,10 @@ const { BASE_URL } = BASE_VARS;
 export const state = () => ({
     wallettypes: [],
     wallets: [],
-    balances: []
+    balances: [],
+    walletassets: [],
+    paginator: [],
+    assetscategory: 'crypto'
 });
 
 export const mutations = {
@@ -14,117 +17,68 @@ export const mutations = {
     },
     SET_WALLETS(state, data) {
         state.wallets = data;
+    },
+    SET_WALLETASSETS(state, data) {
+        state.walletassets = data;
+    },
+    SET_WALLETASSETSPAGINATOR(state, data) {
+        state.paginator = data;
+    },
+    SET_WALLETASSETSTCATEGORY(state, data) {
+        state.assetscategory = data;
     }
 }
 
 export const actions = {
-
     async getwallets({ commit }) {
-        return new Promise((resolve, reject) => {
+        try {
             const token = localStorage.getItem('873__jh6bdjktoken');
-
-            fetch(`${BASE_URL}/wallets`, {
+            const response = await fetch(`${BASE_URL}/wallets`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    const { wllts } = data;
-                    commit('SET_WALLETS', wllts);
-                    //console.log('tst', data)
-                    resolve(data)
-                })
-                .catch(error => {
-                    console.error(error);
-                    reject(error);
-                })
-        });
-    },
+            });
 
-
-
-
-    /*async withdraw({ commit }, withdrawal) {
-        return new Promise((resolve, reject) => {
-            try {
-                const token = localStorage.getItem('873__jh6bdjktoken');
-
-                fetch(`${BASE_URL}/client/withdraw`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(withdrawal)
-                }).then(response => response.json())
-                    .then(data => {
-                        commit('SET_WALLETTYPES', user_wallets);
-                        resolve(data)
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        reject(error);
-                    })
-            } catch (error) {
-                reject(error)
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        })
+
+            const data = await response.json();
+            const { wllts } = data;
+            commit('SET_WALLETS', wllts);
+
+            return data;
+        } catch (error) {
+            throw error; // Rethrowing the error to be handled by the caller
+        }
     },
-    async getwallettypes({ commit }) {
-        return new Promise((resolve, reject) => {
-            try {
-                const token = localStorage.getItem('873__jh6bdjktoken');
+    async getwalletsassets({ commit }, { wallettype, assettype, pageSize, currentPage }) {
+        try {
+            const token = localStorage.getItem('873__jh6bdjktoken');
 
-                fetch(`${BASE_URL}/client/wallets`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        const { user_wallets } = data;
-                        commit('SET_WALLETTYPES', user_wallets);
-                        resolve(user_wallets)
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        reject(error);
-                    })
-            } catch (error) {
+            const response = await fetch(`${BASE_URL}/wallet/assets?wallettype=${wallettype}&assetType=${assettype}&pageSize=${pageSize}&currentPage=${currentPage}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-        });
+
+            const data = await response.json();
+            const { assets, paginator } = data;
+            commit('SET_WALLETASSETS', assets);
+            commit('SET_WALLETASSETSPAGINATOR', paginator);
+        } catch (error) {
+            throw error;
+        }
     },
-    async getwalletassets({ commit }, wallet_id) {
-        return new Promise((resolve, reject) => {
-            //req.query http://example.com/api/users?name=John&age=30
-            try {
-                const token = localStorage.getItem('873__jh6bdjktoken');
-
-                fetch(`${BASE_URL}/client/walletassets?wallet=${wallet_id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    }
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        const { walletAssets } = data;
-                        resolve(walletAssets);
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        reject(error);
-                    })
-            } catch (error) {
-                console.log(error);
-            }
-        })
-    }*/
+    async setwalletassetscategory({ commit }, assettype) {
+        commit('SET_WALLETASSETSTCATEGORY', assettype);
+    }
 }

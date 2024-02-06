@@ -33,200 +33,171 @@ export const mutations = {
 
 export const actions = {
     addAutoTradeStrategy({ commit, state }, subStrategyData) {
-        const { autotradestrategies } = state;
-
-        const strategies = autotradestrategies;
-        const filter = strategies.filter(strat => strat.substrategy !== subStrategyData.substrategy);
-        const update = [...[subStrategyData], ...filter];
-        commit('SET_AUTOTRADESTRATEGIES', update);
+        const updatedStrategies = [subStrategyData, ...state.autotradestrategies.filter(strat => strat.substrategy !== subStrategyData.substrategy)];
+        commit('SET_AUTOTRADESTRATEGIES', updatedStrategies);
     },
     removeStrategy({ commit }, filter) {
         commit('SET_AUTOTRADESTRATEGIESARRAY', filter);
     },
     async getorders({ commit }) {
-        return new Promise((resolve, reject) => {
-            try {
-                const token = localStorage.getItem('873__jh6bdjktoken');
+        try {
+            const token = localStorage.getItem('873__jh6bdjktoken');
+            const response = await fetch(`${BASE_URL}/orders`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
-                fetch(`${BASE_URL}/orders`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                }).then(response => response.json())
-                    .then(data => {
-                        const { orders } = data;
-                        commit('SET_ORDERS', orders)
-                        resolve(orders);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        reject(error)
-                    })
-            } catch (error) {
-                console.log(error, 'error here')
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        })
+
+            const { orders } = await response.json();
+            commit('SET_ORDERS', orders);
+            return orders;
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+            throw error;
+        }
     },
     async getautotrades({ commit }) {
-        return new Promise((resolve, reject) => {
-            try {
-                const token = localStorage.getItem('873__jh6bdjktoken');
+        try {
+            const token = localStorage.getItem('873__jh6bdjktoken');
+            const response = await fetch(`${BASE_URL}/autotrades`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
-                fetch(`${BASE_URL}/autotrades`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                }).then(response => response.json())
-                    .then(data => {
-                        const { autotrades } = data;
-
-                        commit('SET_AUTOTRADES', autotrades);
-                        resolve(autotrades);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        reject(error)
-                    })
-            } catch (error) {
-
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        })
+
+            const { autotrades } = await response.json();
+            commit('SET_AUTOTRADES', autotrades);
+            return autotrades;
+        } catch (error) {
+            console.error('Error fetching autotrades:', error);
+            throw error;
+        }
     },
     async gettrades({ commit }) {
-        return new Promise((resolve, reject) => {
-            try {
-                const token = localStorage.getItem('873__jh6bdjktoken');
+        try {
+            const token = localStorage.getItem('873__jh6bdjktoken');
+            const response = await fetch(`${BASE_URL}/trades`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
 
-                fetch(`${BASE_URL}/trades`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                }).then(response => response.json())
-                    .then(data => {
-                        const { executedtrades } = data;
-
-                        console.log(executedtrades)
-
-                        commit('SET_TRADES', executedtrades);
-                        resolve(executedtrades);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        reject(error)
-                    })
-            } catch (error) {
-
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        })
+
+            const { executedtrades } = await response.json();
+            commit('SET_TRADES', executedtrades);
+            return executedtrades;
+        } catch (error) {
+            console.error('Error fetching trades:', error);
+            throw error;
+        }
     },
-    async createAutoTrade({ commit }, autoTrade) {
-        return new Promise((resolve, reject) => {
-            try {
-                const token = localStorage.getItem('873__jh6bdjktoken');
+    async createAutoTrade({ commit }, autotrade) {
+        try {
+            const token = localStorage.getItem('873__jh6bdjktoken');
 
-                fetch(`${BASE_URL}/createautotrade`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(autoTrade)
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        resolve(data);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        reject(error)
-                    })
-            } catch (error) {
-                console.log(error);
+            const response = await fetch(`${BASE_URL}/order/automatictrade`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(autotrade)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        });
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error creating market order:', error);
+            // Handle or throw the error based on your use case
+            throw error;
+        }
     },
     async createMktOrder({ commit }, order) {
-        return new Promise((resolve, reject) => {
-            try {
-                const token = localStorage.getItem('873__jh6bdjktoken');
+        try {
+            const token = localStorage.getItem('873__jh6bdjktoken');
 
-                fetch(`${BASE_URL}/order/market`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(order)
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        resolve(data);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        reject(error)
-                    })
-            } catch (error) {
-                reject(error);
+            const response = await fetch(`${BASE_URL}/order/market`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(order)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        });
+
+            return await response.json();
+        } catch (error) {
+            console.error('Error creating market order:', error);
+            // Handle or throw the error based on your use case
+            throw error;
+        }
     },
     async createLmtOrder({ commit }, order) {
-        return new Promise((resolve, reject) => {
-            try {
-                const token = localStorage.getItem('873__jh6bdjktoken');
+        try {
+            const token = localStorage.getItem('873__jh6bdjktoken');
 
-                fetch(`${BASE_URL}/order`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(order)
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        resolve(data);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        reject(error)
-                    })
-            } catch (error) {
-                reject(error);
+            const response = await fetch(`${BASE_URL}/order/limit`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(order)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        });
+
+            return await response.json();
+        } catch (error) {
+            throw error;
+        }
     },
-    createStpLmtOrder({ commit }, order) {
-        return new Promise((resolve, reject) => {
-            try {
-                const token = localStorage.getItem('873__jh6bdjktoken');
+    async createStpLmtOrder({ commit }, order) {
+        try {
+            const token = localStorage.getItem('873__jh6bdjktoken');
 
-                fetch(`${BASE_URL}/order`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
-                    },
-                    body: JSON.stringify(order)
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        resolve(data);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        reject(error)
-                    })
-            } catch (error) {
-                reject(error);
+            const response = await fetch(`${BASE_URL}/order/stoplimit`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(order)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
             }
-        });
+
+            return await response.json();
+        } catch (error) {
+            throw error;
+        }
     }
 }

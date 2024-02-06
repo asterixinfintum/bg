@@ -8,42 +8,35 @@ var assetBalanceSchema = new Schema({
     required: true,
     index: true // Adding an index for faster queries on ownerId
   },
-
   assetId: {
     type: String,
     required: true,
     index: true // Adding an index for faster queries on assetId
   },
-
   balanceAmount: {
     type: Number,
     required: true,
     min: 0 // Ensuring the balanceAmount is non-negative
   },
-
   swapOrConvertFrom: {
     type: String,
     required: true,
     "default": "none" // Defaulting to "none" if not provided
   },
-
   swapOrConvertTo: {
     type: String,
     required: true,
     "default": "none" // Defaulting to "none" if not provided
   },
-
   assetInteractedWith: {
     type: String,
     "default": "none" // Defaulting to "none" if not provided
   },
-
   assetType: {
     type: String,
     required: true,
     "enum": ["crypto", "stock", "fiat", "other", "tokenized stock"] // Adding an enum to restrict possible values
   },
-
   transactionType: {
     type: {
       type: String,
@@ -54,7 +47,6 @@ var assetBalanceSchema = new Schema({
       type: Number,
       min: 0 // Ensuring the fee is non-negative
     },
-
     fromWallet: {
       type: String,
       "default": "none",
@@ -71,18 +63,15 @@ var assetBalanceSchema = new Schema({
       type: String,
       "default": "" // if conversion or swap Defaulting to an empty string if not provided
     },
-
     toAsset: {
       type: String,
       "default": "" // if conversion or swap Defaulting to an empty string if not provided
     },
-
     balanceAmountOftoAsset: {
       type: Number,
       min: 0 // Ensuring the fee is non-negative
     }
   },
-
   transactionDescription: {
     type: String,
     required: true

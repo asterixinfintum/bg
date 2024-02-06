@@ -89,6 +89,9 @@ wlltSchema.statics.returnBlcs = async function (_id) {
                 assetname: asset.name,
                 symbol: asset.coin,
                 blc,
+                usdblc: await blc.returnusdblc(),
+                btcblc: await blc.returnbtcblc(),
+                assetblc: blc.balance,
                 asset
             }
         });
@@ -106,21 +109,18 @@ wlltSchema.statics.returnTotalBlc = async function (_id) {
         return numbers.reduce((total, num) => total + num, 0);
     }
 
-    const wallet = await this.findOne({ _id });
-    const assetBlcs = wallet.assetBlcs;
+    const blcs = await this.returnBlcs(_id);
+    const usdblcs = [];
+    const btcblcs = [];
 
-    if (assetBlcs.length) {
-        const balancesPromises = assetBlcs.map(async (assetBlc) => {
-            let assetblc = await AssetBlc.findOne({ id: assetBlc, wallet: wallet._id });
-            const blc = await assetblc.balance;
-            return blc;
-        });
+    blcs.forEach(blc => {
+        usdblcs.push(blc.usdblc);
+        btcblcs.push(blc.btcblc)
+    });
 
-        const balances = await Promise.all(balancesPromises);
-
-        return sumArray(balances);
-    } else {
-        return 0;
+    return {
+        totalbtcblc: sumArray(btcblcs),
+        totalusdblc: sumArray(usdblcs)
     }
 }
 

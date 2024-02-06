@@ -54,7 +54,11 @@ export default {
             return '';
         },
         enablePreviewBtn() {
-            const { fromInput, toInput, inputError } = this;
+            const { fromInput, toInput, inputError, currentAssetFrom, currentAssetTo } = this;
+
+            if (currentAssetFrom._id === currentAssetTo._id) {
+                return false;
+            }
 
             if (!isNaN(parseFloat(fromInput)) && !isNaN(parseFloat(toInput))) {
 

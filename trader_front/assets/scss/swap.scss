@@ -8,10 +8,18 @@
         border: $border;
         width: #{scaleValue(600)};
 
+        @media only screen and (max-width: 414px) {
+            width: auto;
+        }
+
         &--h2 {
             font-size: #{scaleValue(15)};
             font-weight: 500;
             margin-bottom: #{scaleValue(25)};
+
+            @media only screen and (max-width: 414px) {
+                font-size: #{scaleValue(60)};
+            }
         }
     }
 
@@ -59,6 +67,11 @@
             & svg {
                 height: #{scaleValue(15)};
                 width: #{scaleValue(15)};
+
+                @media only screen and (max-width: 414px) {
+                    height: #{scaleValue(70)};
+                    width: #{scaleValue(70)};
+                }
             }
         }
     }
@@ -210,6 +223,10 @@
 
         &--action {
             font-size: #{scaleValue(13)};
+
+            @media only screen and (max-width: 414px) {
+                font-size: #{scaleValue(60)};
+            }
         }
 
         &--convertion {
@@ -262,6 +279,10 @@
                 color: $white;
                 position: relative;
                 z-index: 2;
+
+                @media only screen and (max-width: 414px) {
+                    font-size: #{scaleValue(50)};
+                }
 
                 &~span::after {
                     content: '';
@@ -337,6 +358,11 @@
 
         line-height: #{scaleValue(30)};
 
+        @media only screen and (max-width: 414px) {
+            font-size: #{scaleValue(50)};
+            line-height: #{scaleValue(100)};
+        }
+
         &--area {
             display: flex;
             flex-direction: column;
@@ -406,10 +432,19 @@
         width: 100%;
         margin-top: #{scaleValue(22)};
 
+        @media only screen and (max-width: 414px) {
+            margin-top: #{scaleValue(60)};
+        }
+
         & button {
             width: 100%;
             font-size: #{scaleValue(16)};
             padding: #{scaleValue(12)} #{scaleValue(14)};
+
+            @media only screen and (max-width: 414px) {
+                padding: #{scaleValue(50)} #{scaleValue(14)};
+                font-size: #{scaleValue(70)};
+            }
 
             &.dim {
                 opacity: .6;

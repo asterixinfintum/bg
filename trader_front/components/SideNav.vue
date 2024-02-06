@@ -1,51 +1,115 @@
 <template>
-    <div>
-        <div class="sidenav">
-            <div class="sidenav__item" 
-                @click="navigateToPage('overview')" 
-                :class="{ 'current': currentRoute === 'overview' }">
-                <div class="sidenav__item--svg">
-                    <span>
-                        <svg viewBox="0 0 24 24" focusable="false" class="chakra-icon css-onkibi" aria-hidden="true"><g fill="currentColor" fill-rule="nonzero"><g id="circular-graph"><path d="M20.23,0H3.77C1.69,0,0,1.69,0,3.77V20.23c0,2.08,1.69,3.77,3.77,3.77H20.23c2.08,0,3.77-1.69,3.77-3.77V3.77c0-2.08-1.69-3.77-3.77-3.77ZM3.77,2.06H20.23c.95,0,1.71,.77,1.71,1.71v.76L13.45,13.23l-3.23-4.53c-.19-.26-.48-.44-.8-.47s-.65,.07-.88,.29L2.06,14.46V3.77c0-.95,.77-1.71,1.71-1.71ZM20.23,21.94H3.77c-.95,0-1.71-.77-1.71-1.71v-2.71s.04-.02,.05-.03l7.01-6.43,3.27,4.59c.19,.27,.5,.45,.84,.47,.33,.03,.66-.1,.9-.34l7.82-8.01v12.45c0,.95-.77,1.71-1.71,1.71Z" id="Shape"></path></g></g></svg>
-                    </span>
-                </div>
-                <div class="sidenav__item--text">Fiancial Overview</div>
-            </div>
+  <div>
+    <div class="sidenav">
+      <div
+        class="sidenav__item"
+        @click="navigateToPage('overview')"
+        :class="{ current: currentRoute === 'overview' }"
+      >
+        <div class="sidenav__item--svg">
+          <span>
+            <svg
+              viewBox="0 0 24 24"
+              focusable="false"
+              class="chakra-icon css-onkibi"
+              aria-hidden="true"
+            >
+              <g fill="currentColor" fill-rule="nonzero">
+                <g id="circular-graph">
+                  <path
+                    d="M20.23,0H3.77C1.69,0,0,1.69,0,3.77V20.23c0,2.08,1.69,3.77,3.77,3.77H20.23c2.08,0,3.77-1.69,3.77-3.77V3.77c0-2.08-1.69-3.77-3.77-3.77ZM3.77,2.06H20.23c.95,0,1.71,.77,1.71,1.71v.76L13.45,13.23l-3.23-4.53c-.19-.26-.48-.44-.8-.47s-.65,.07-.88,.29L2.06,14.46V3.77c0-.95,.77-1.71,1.71-1.71ZM20.23,21.94H3.77c-.95,0-1.71-.77-1.71-1.71v-2.71s.04-.02,.05-.03l7.01-6.43,3.27,4.59c.19,.27,.5,.45,.84,.47,.33,.03,.66-.1,.9-.34l7.82-8.01v12.45c0,.95-.77,1.71-1.71,1.71Z"
+                    id="Shape"
+                  ></path>
+                </g>
+              </g>
+            </svg>
+          </span>
+        </div>
+        <div class="sidenav__item--text">Financial Overview</div>
+      </div>
 
-            <div class="sidenav__item" 
-                @click="navigateToPage('fiatandspot')"
-                :class="{ 'current': currentRoute === 'fiatandspot' }">
-                <div class="sidenav__item--svg">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="css-199zucj"><path fill-rule="evenodd" clip-rule="evenodd" d="M15 3.5a5.502 5.502 0 00-5.302 4.032 7.502 7.502 0 016.77 6.77A5.502 5.502 0 0015 3.5zM14.5 15a5.5 5.5 0 10-11 0 5.5 5.5 0 0011 0zm-8 0L9 17.5l2.5-2.5L9 12.5 6.5 15zM9 4H4v5l5-5zm11 16h-5l5-5v5z" fill="currentColor"></path></svg>
-                    </span>
-                </div>
-                <div class="sidenav__item--text">Spot</div>
-            </div>
+      <div
+        class="sidenav__item"
+        @click="navigateToPage('fiatandspot')"
+        :class="{ current: currentRoute === 'fiatandspot' }"
+      >
+        <div class="sidenav__item--svg">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              class="css-199zucj"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M15 3.5a5.502 5.502 0 00-5.302 4.032 7.502 7.502 0 016.77 6.77A5.502 5.502 0 0015 3.5zM14.5 15a5.5 5.5 0 10-11 0 5.5 5.5 0 0011 0zm-8 0L9 17.5l2.5-2.5L9 12.5 6.5 15zM9 4H4v5l5-5zm11 16h-5l5-5v5z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </span>
+        </div>
+        <div class="sidenav__item--text">Spot</div>
+      </div>
 
-            <div class="sidenav__item"
-                @click="navigateToPage('margin')"
-                :class="{ 'current': currentRoute === 'margin' }">
-                <div class="sidenav__item--svg">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="css-199zucj"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.5 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zm0-5.031L5.969 7.5 7.5 9.031l1.531-1.53L7.5 5.968zM20 4h-8l3.125 3.125L4.061 18.19l1.768 1.768L16.893 8.893 20 12V4zm0 12.5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0z" fill="currentColor"></path></svg>
-                    </span>
-                </div>
-                <div class="sidenav__item--text">Margin Wallet</div>
-            </div>
+      <div
+        class="sidenav__item"
+        @click="navigateToPage('margin')"
+        :class="{ current: currentRoute === 'margin' }"
+      >
+        <div class="sidenav__item--svg">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              class="css-199zucj"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M7.5 11a3.5 3.5 0 100-7 3.5 3.5 0 000 7zm0-5.031L5.969 7.5 7.5 9.031l1.531-1.53L7.5 5.968zM20 4h-8l3.125 3.125L4.061 18.19l1.768 1.768L16.893 8.893 20 12V4zm0 12.5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </span>
+        </div>
+        <div class="sidenav__item--text">Margin Wallet</div>
+      </div>
 
-            <div class="sidenav__item"
-                @click="navigateToPage('swap')"
-                :class="{ 'current': currentRoute === 'swap' }">
-                <div class="sidenav__item--svg">
-                    <span>
-                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 512 512" aria-hidden="true" focusable="false" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96"></path></svg>
-                    </span>
-                </div>
-                <div class="sidenav__item--text">Swaps/Convertions</div>
-            </div>
+      <div
+        class="sidenav__item"
+        @click="navigateToPage('swaps')"
+        :class="{ current: currentRoute === 'swap' }"
+      >
+        <div class="sidenav__item--svg">
+          <span>
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              stroke-width="0"
+              viewBox="0 0 512 512"
+              aria-hidden="true"
+              focusable="false"
+              height="1em"
+              width="1em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="32"
+                d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96"
+              ></path>
+            </svg>
+          </span>
+        </div>
+        <div class="sidenav__item--text">Swaps/Convertions</div>
+      </div>
 
-           <!-- <div class="sidenav__item"
+      <!-- <div class="sidenav__item"
                 @click="navigateToPageWithParams('trade', originalList[0]._id)"
                 :class="{ 'current': currentRoute === 'trade' }">
                 <div class="sidenav__item--svg">
@@ -56,7 +120,7 @@
                 <div class="sidenav__item--text">Trade</div>
             </div>-->
 
-           <!--<div class="sidenav__item"
+      <!--<div class="sidenav__item"
                 @click="navigateToPage('defi')"
                 :class="{ 'current': currentRoute === 'defi' }">
                 <div class="sidenav__item--svg">
@@ -111,7 +175,7 @@
                 <div class="sidenav__item--text">dApps</div>
             </div>-->
 
-            <!--<div class="sidenav__item"
+      <!--<div class="sidenav__item"
                 @click="navigateToPage('tokenizedstocks')"
                 :class="{ 'current': currentRoute === 'tokenizedstocks' }">
                 <div class="sidenav__item--svg">
@@ -122,22 +186,36 @@
                 <div class="sidenav__item--text">Tokenized Stocks</div>
             </div>-->
 
-            <div class="sidenav__demarcation">
-                <span class="sidenav__demarcation--line"></span>
-            </div>
+      <div class="sidenav__demarcation">
+        <span class="sidenav__demarcation--line"></span>
+      </div>
 
-            <div class="sidenav__item"
-                @click="navigateToPage('transactionhistory')"
-                :class="{ 'current': currentRoute === 'transactionhistory' }">
-                <div class="sidenav__item--svg">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="css-19ss7aa"><path fill-rule="evenodd" clip-rule="evenodd" d="M16.597 16.594A6.48 6.48 0 0112 18.498h-1.25v2.5H12a9 9 0 006.364-15.364 9 9 0 00-12.728 0l1.767 1.768a6.5 6.5 0 019.193 9.192zM13.25 8h-2.5v4.518l3.185 3.185 1.768-1.768-2.453-2.453V8zM5.627 9.568v1.2l-.092.006c-.767.062-1.371.29-1.783.662-.41.37-.639.891-.639 1.564 0 .684.24 1.223.676 1.642.438.421 1.08.726 1.889.925l.076.019v1.901l-.123-.029a3.94 3.94 0 01-.838-.305 2.512 2.512 0 01-.596-.4L3.14 17.935c.446.416 1.309.784 2.268.974l.08.016v1.277h1.578v-1.207l.086-.011c.796-.11 1.357-.448 1.718-.891a2.457 2.457 0 00.532-1.562c0-.669-.246-1.177-.668-1.568-.426-.394-1.037-.675-1.772-.874l-.074-.02v-1.802l.125.033c.406.106.816.31 1.099.558l1.035-1.136c-.43-.4-1.102-.697-1.875-.861l-.08-.017V9.568H5.628zm.19 4.272l-.137-.056c-.221-.09-.381-.185-.485-.303a.599.599 0 01-.149-.418c0-.133.028-.298.126-.448.1-.152.265-.279.522-.34l.123-.03v1.595zm1.057 3.678v-1.732l.147.08a.934.934 0 01.376.346.936.936 0 01.122.483.9.9 0 01-.096.429.744.744 0 01-.414.343l-.135.05z" fill="currentColor"></path></svg>
-                    </span>
-                </div>
-                <div class="sidenav__item--text">My Transaction History</div>
-            </div>
+      <div
+        class="sidenav__item"
+        @click="navigateToPage('transactionhistory')"
+        :class="{ current: currentRoute === 'transactionhistory' }"
+      >
+        <div class="sidenav__item--svg">
+          <span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              class="css-19ss7aa"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M16.597 16.594A6.48 6.48 0 0112 18.498h-1.25v2.5H12a9 9 0 006.364-15.364 9 9 0 00-12.728 0l1.767 1.768a6.5 6.5 0 019.193 9.192zM13.25 8h-2.5v4.518l3.185 3.185 1.768-1.768-2.453-2.453V8zM5.627 9.568v1.2l-.092.006c-.767.062-1.371.29-1.783.662-.41.37-.639.891-.639 1.564 0 .684.24 1.223.676 1.642.438.421 1.08.726 1.889.925l.076.019v1.901l-.123-.029a3.94 3.94 0 01-.838-.305 2.512 2.512 0 01-.596-.4L3.14 17.935c.446.416 1.309.784 2.268.974l.08.016v1.277h1.578v-1.207l.086-.011c.796-.11 1.357-.448 1.718-.891a2.457 2.457 0 00.532-1.562c0-.669-.246-1.177-.668-1.568-.426-.394-1.037-.675-1.772-.874l-.074-.02v-1.802l.125.033c.406.106.816.31 1.099.558l1.035-1.136c-.43-.4-1.102-.697-1.875-.861l-.08-.017V9.568H5.628zm.19 4.272l-.137-.056c-.221-.09-.381-.185-.485-.303a.599.599 0 01-.149-.418c0-.133.028-.298.126-.448.1-.152.265-.279.522-.34l.123-.03v1.595zm1.057 3.678v-1.732l.147.08a.934.934 0 01.376.346.936.936 0 01.122.483.9.9 0 01-.096.429.744.744 0 01-.414.343l-.135.05z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </span>
+        </div>
+        <div class="sidenav__item--text">My Transaction History</div>
+      </div>
 
-            <!--<div class="sidenav__item"
+      <!--<div class="sidenav__item"
             @click="navigateToPage('identification')"
                 :class="{ 'current': currentRoute === 'verification' }">
                 <div class="sidenav__item--svg">
@@ -148,104 +226,127 @@
                 <div class="sidenav__item--text">My Identification</div>
             </div>-->
 
-            <div class="sidenav__item"
-                @click="navigateToPage('settings')"
-                :class="{ 'current': currentRoute === 'settings' }">
-                <div class="sidenav__item--svg">
-                    <span>
-                        <svg viewBox="0 0 14 14" focusable="false" class="chakra-icon css-onkibi" aria-hidden="true"><path fill="currentColor" d="M14,7.77 L14,6.17 L12.06,5.53 L11.61,4.44 L12.49,2.6 L11.36,1.47 L9.55,2.38 L8.46,1.93 L7.77,0.01 L6.17,0.01 L5.54,1.95 L4.43,2.4 L2.59,1.52 L1.46,2.65 L2.37,4.46 L1.92,5.55 L0,6.23 L0,7.82 L1.94,8.46 L2.39,9.55 L1.51,11.39 L2.64,12.52 L4.45,11.61 L5.54,12.06 L6.23,13.98 L7.82,13.98 L8.45,12.04 L9.56,11.59 L11.4,12.47 L12.53,11.34 L11.61,9.53 L12.08,8.44 L14,7.75 L14,7.77 Z M7,10 C5.34,10 4,8.66 4,7 C4,5.34 5.34,4 7,4 C8.66,4 10,5.34 10,7 C10,8.66 8.66,10 7,10 Z"></path></svg>
-                    </span>
-                </div>
-                <div class="sidenav__item--text">Settings</div>
-            </div>
-
+      <div
+        class="sidenav__item"
+        @click="navigateToPage('settings')"
+        :class="{ current: currentRoute === 'settings' }"
+      >
+        <div class="sidenav__item--svg">
+          <span>
+            <svg
+              viewBox="0 0 14 14"
+              focusable="false"
+              class="chakra-icon css-onkibi"
+              aria-hidden="true"
+            >
+              <path
+                fill="currentColor"
+                d="M14,7.77 L14,6.17 L12.06,5.53 L11.61,4.44 L12.49,2.6 L11.36,1.47 L9.55,2.38 L8.46,1.93 L7.77,0.01 L6.17,0.01 L5.54,1.95 L4.43,2.4 L2.59,1.52 L1.46,2.65 L2.37,4.46 L1.92,5.55 L0,6.23 L0,7.82 L1.94,8.46 L2.39,9.55 L1.51,11.39 L2.64,12.52 L4.45,11.61 L5.54,12.06 L6.23,13.98 L7.82,13.98 L8.45,12.04 L9.56,11.59 L11.4,12.47 L12.53,11.34 L11.61,9.53 L12.08,8.44 L14,7.75 L14,7.77 Z M7,10 C5.34,10 4,8.66 4,7 C4,5.34 5.34,4 7,4 C8.66,4 10,5.34 10,7 C10,8.66 8.66,10 7,10 Z"
+              ></path>
+            </svg>
+          </span>
         </div>
+        <div class="sidenav__item--text">Settings</div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
-
-import generalutilities from '@/mixins/generalutilities.js';
-import listMixin from '@/mixins/list';
+import generalutilities from "@/mixins/generalutilities.js";
+import listMixin from "@/mixins/list";
 
 export default {
-    data() {
-        return {
-            current: 'overview'
-        }
-    },
-    mixins: [generalutilities, listMixin]
-}
+  data() {
+    return {
+      current: "overview",
+    };
+  },
+  mixins: [generalutilities, listMixin],
+};
 </script>
 
 <style lang="scss">
 .sidenav {
-    border-right: $border;
-    height: 100vh;
-    width: #{scaleValue(230)};
-    padding-top: #{scaleValue(20)};
-    position: fixed;
-    background: $black-background;
-    top: 0;
-    left: 0;
+  border-right: $border;
+  height: 100vh;
+  width: #{scaleValue(230)};
+  padding-top: #{scaleValue(20)};
+  position: fixed;
+  background: $black-background;
+  top: 0;
+  left: 0;
 
-    padding-top: #{scaleValue(130)};
+  padding-top: #{scaleValue(130)};
 
-    &__item {
+  @media only screen and (max-width: 414px) {
+    display: none;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: #{scaleValue(10)} #{scaleValue(24)};
+    cursor: pointer;
+    position: relative;
+    margin-bottom: #{scaleValue(14)};
+
+    &--svg {
+      margin-right: #{scaleValue(6)};
+
+      @media only screen and (max-width: 414px) {
+        margin-right: #{scaleValue(25)};
+      }
+
+      & span {
         display: flex;
         align-items: center;
-        padding: #{scaleValue(10)} #{scaleValue(24)};
-        cursor: pointer;
-        position: relative;
-        margin-bottom: #{scaleValue(14)};
 
-        &--svg {
-            margin-right: #{scaleValue(6)};
+        & svg {
+          height: #{scaleValue(22)};
+          width: #{scaleValue(22)};
+          fill: $white;
+          opacity: 0.4;
 
-            & span {
-                display: flex;
-                align-items: center;
-
-                & svg {
-                    height: #{scaleValue(22)};
-                    width: #{scaleValue(22)};
-                    fill: $white;
-                    opacity: .4;
-                }
-            }
+          @media only screen and (max-width: 414px) {
+            height: #{scaleValue(60)};
+            width: #{scaleValue(60)};
+          }
         }
-
-        &--text {
-            display: flex;
-            align-items: center;
-            font-size: #{scaleValue(12.5)};
-        }
-
-        &.current {
-            background: $current;
-            color: $neon-green;
-
-            &::before {
-                content: '';
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: #{scaleValue(5)};
-                height: 100%;
-                background: $primary-color;
-            }
-        }
+      }
     }
 
-    &__demarcation {
-        padding: #{scaleValue(10)} #{scaleValue(24)};
-
-        &--line {
-            display: inline-block;
-            height: 1px;
-            width: 100%;
-            background: rgba($white, .3);
-        }
+    &--text {
+      display: flex;
+      align-items: center;
+      font-size: #{scaleValue(12.5)};
     }
+
+    &.current {
+      background: $current;
+      color: $neon-green;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: #{scaleValue(5)};
+        height: 100%;
+        background: $primary-color;
+      }
+    }
+  }
+
+  &__demarcation {
+    padding: #{scaleValue(10)} #{scaleValue(24)};
+
+    &--line {
+      display: inline-block;
+      height: 1px;
+      width: 100%;
+      background: rgba($white, 0.3);
+    }
+  }
 }
 </style>

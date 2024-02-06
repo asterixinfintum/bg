@@ -5,12 +5,19 @@ import TransferEventBus from '~/plugins/event-transfer';
 export default {
     data() {
         return {
-            transfer: false
+            transfer: false,
+            withdrawalmodalopen: false
         }
     },
     props: ['page_name', 'nobtns', 'transparent', 'showdepositbtn', 'showwithdrawbtn'],
     mixins: [clientMixin],
     methods: {
+        showwithdrawalmodal() {
+            this.withdrawalmodalopen = true;
+        },
+        hidewithdrawalmodal() {
+            this.withdrawalmodalopen = false;
+        },
         toggleTransferPanel() {
             this.transfer ? this.transfer = false : this.transfer = true;
         },

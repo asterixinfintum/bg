@@ -4,6 +4,13 @@ const { Schema } = mongoose;
 import Asset from './asset';
 import PriceHistory from './pricehistory';
 
+function parseNumber(str) {
+    // Remove commas from the string
+    const numericString = str.replace(/,/g, '');
+    // Parse the string to a floating point number
+    return parseFloat(numericString);
+}
+
 function calculatePercentageChange(originalValue, newValue) {
     const difference = newValue - originalValue;
     const percentageChange = (difference / originalValue) * 100;
@@ -21,6 +28,169 @@ function getRandomPrice(basePrice, maxVariation) {
     return parseFloat(newPrice); // Convert string back to a float, with precision for small values
 }
 
+function calculateOHLC(data) {
+    // Helper function to extract hour from datetime
+    const getHour = (datetime) => {
+        const date = new Date(datetime);
+        return new Date(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours());
+    };
+
+    // Group data by hour
+    const groupedData = data.reduce((acc, entry) => {
+        const hour = getHour(entry.datetime).getTime();
+        if (!acc[hour]) {
+            acc[hour] = { prices: [], open: null, close: null };
+        }
+        acc[hour].prices.push(entry.price);
+        if (acc[hour].open === null) {
+            acc[hour].open = entry.price;
+        }
+        acc[hour].close = entry.price;
+        return acc;
+    }, {});
+
+    // Calculate OHLC for each hour
+    const ohlcData = Object.keys(groupedData).map((hour) => {
+        const prices = groupedData[hour].prices;
+        return {
+            time: parseInt(hour) / 1000,
+            open: groupedData[hour].open,
+            high: Math.max(...prices),
+            low: Math.min(...prices),
+            close: groupedData[hour].close
+        };
+    });
+
+    return ohlcData;
+}
+
+function grouphours(subjectgroup) {
+    function getBeforeColon(str) {
+        return str.split(':')[0];
+    }
+
+    function returnhigh(hrgroup) {
+        if (!hrgroup.length) return null;
+
+        let highest = hrgroup[0];
+
+        hrgroup.forEach(item => {
+            if (item.price > highest.price) {
+                highest = item;
+            }
+        });
+
+        return highest;
+    }
+
+    function returnlow(hrgroup) {
+        if (!hrgroup.length) return null;
+
+        let lowest = hrgroup[0];
+
+        hrgroup.forEach(item => {
+            if (item.price < lowest.price) {
+                lowest = item;
+            }
+        });
+
+        return lowest;
+    }
+
+    function returnopen(hrgroup) {
+        return hrgroup[0]
+    }
+
+    function returnclose(hrgroup) {
+        return hrgroup[hrgroup.length - 1]
+    }
+
+    function convertToMilliseconds(dateTimeStr) {
+        const date = new Date(dateTimeStr);
+        return date.getTime();
+    }
+
+    const hourgroups = {}
+    const hourgroupsarray = [];
+    const final = [];
+
+    subjectgroup.forEach(item => {
+        const hourgroup = getBeforeColon(item.time);
+
+        if (!hourgroups[hourgroup]) {
+            hourgroups[hourgroup] = [];
+        }
+
+        hourgroups[hourgroup].push(item)
+    });
+
+    for (let key in hourgroups) {
+        hourgroupsarray.push(hourgroups[key]);
+    }
+
+    hourgroupsarray.forEach(hrgp => {
+        const item = {
+            time: convertToMilliseconds(hrgp[0].datetime),
+            high: returnhigh(hrgp).price,
+            low: returnlow(hrgp).price,
+            open: returnopen(hrgp).price,
+            close: returnclose(hrgp).price,
+            //basetime: hrgp[0].datetime
+        }
+
+        final.push(item);
+    })
+
+    return final;
+}
+
+function calculateOHLCMinute(data) {
+    function getobjectkey(object, key) {
+        return object[`${key}`]
+    }
+
+    function getDateString(dateTimeStr) {
+        return dateTimeStr.split(' ')[0];
+    }
+
+    function getTimeString(dateTimeStr) {
+        return dateTimeStr.split(' ')[1];
+    }
+
+    const spliceddata = data.splice(-4000);
+    const datetimegroups = {};
+    const datekeys = [];
+
+    spliceddata.forEach(spl => {
+        const datekey = getDateString(spl.datetime);
+        const timekey = getTimeString(spl.datetime);
+        const price = spl.price
+        const datetime = spl.datetime;
+
+        if (!datetimegroups[datekey]) {
+            datetimegroups[datekey] = [];
+        }
+
+        const item = {
+            day: datekey,
+            time: timekey,
+            price,
+            datetime
+        }
+
+        datetimegroups[datekey].push(item);
+        datekeys.push(datekey);
+    });
+
+    const uniquedatekeys = [...new Set(datekeys)];
+    //console.log(uniquedatekeys);
+
+    const subjectgroupone = getobjectkey(datetimegroups, uniquedatekeys[uniquedatekeys.length - 1]);
+    const subjectgrouptwo = getobjectkey(datetimegroups, uniquedatekeys[uniquedatekeys.length - 2]);
+
+    return [...grouphours(subjectgrouptwo), ...grouphours(subjectgroupone)];
+}
+
 const pairSchema = new Schema({
     pair: {
         type: String,
@@ -28,7 +198,8 @@ const pairSchema = new Schema({
     },
     baseAsset: {
         type: String,
-        required: true
+        required: true,
+        index: true // Indexing the baseAsset
     },
     baseAssetId: {
         type: String,
@@ -36,6 +207,7 @@ const pairSchema = new Schema({
     },
     baseAssetType: {
         type: String,
+        index: true // Indexing the baseAssetType if needed
     },
     quoteAsset: {
         type: String,
@@ -47,14 +219,22 @@ const pairSchema = new Schema({
     },
     quoteAssetType: {
         type: String,
+        index: true // Indexing the quoteAssetType
     },
     price: {
         type: Number,
         required: true
     },
+    pricedifference: {
+        type: String,
+    },
     orders: {
         type: Array,
         default: []
+    },
+    listed: {
+        type: Boolean,
+        default: false
     },
     pricehistory: [],
     inview: {
@@ -73,7 +253,9 @@ pairSchema.methods.calculatePrice = async function () {
             throw new Error('Assets not found');
         }
 
-        return baseAsset.price / quoteAsset.price;
+        //console.log((baseAsset.price / quoteAsset.price), baseAsset.price, quoteAsset.price, this.pair)
+
+        return parseNumber(baseAsset.price) / parseNumber(quoteAsset.price);
     } catch (error) {
         console.error('Error calculating price:', error.message);
         return null;
@@ -95,13 +277,18 @@ pairSchema.methods.calculatepricedifference = async function () {
         const baseassetlastpricehistory = baseAsset.pricehistory[5];
         const quoteassetlastpricehistory = quoteAsset.pricehistory[5];
 
+        if (this.baseAssetType === 'commodity') {
+            //console.log(this, 'check here');
+            return this.pricedifference;
+        }
+
         if (baseassetlatestpricehistory && quoteassetlatestpricehistory && baseassetlastpricehistory && quoteassetlastpricehistory) {
             const priceone = baseassetlatestpricehistory.price / quoteassetlatestpricehistory.price;
             const pricetwo = baseassetlastpricehistory.price / quoteassetlastpricehistory.price;
 
             return calculatePercentageChange(priceone, pricetwo)
         } else {
-            console.log('check here')
+            //console.log('check here')
             return 0
         }
 
@@ -117,7 +304,7 @@ pairSchema.methods.gendumborders = async function () {
 
     try {
         const orders = await Promise.all(
-            Array.from({ length: 70 }, async (_, i) => {
+            Array.from({ length: 80 }, async (_, i) => {
                 const calculateprice = await this.calculatePrice();
                 const price = getRandomPrice(calculateprice, 1); // Ensure getRandomPrice function is defined
                 const amount = getRandomValue();
@@ -176,6 +363,76 @@ pairSchema.methods.getpricehistory = async function () {
         });
 
         return combinedPriceHistory;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+pairSchema.methods.getpricehistorycandlestick = async function () {
+    try {
+        const baseAsset = await Asset.findById(this.baseAssetId);
+        const quoteAsset = await Asset.findById(this.quoteAssetId);
+
+        const baseAssetPriceHistory = await PriceHistory.find({ asset: baseAsset._id });
+        const quoteAssetPriceHistory = await PriceHistory.find({ asset: quoteAsset._id });
+
+        const baseAssetPriceHistoryMap = new Map();
+
+        baseAssetPriceHistory.forEach(item => {
+            baseAssetPriceHistoryMap.set(item.datetime, item);
+        });
+
+        const combinedPriceHistory = [];
+
+        quoteAssetPriceHistory.forEach(item => {
+            if (baseAssetPriceHistoryMap.has(item.datetime)) {
+                const data = {
+                    datetime: item.datetime,
+                    baseAssetData: baseAssetPriceHistoryMap.get(item.datetime),
+                    quoteAssetData: item,
+                    price: baseAssetPriceHistoryMap.get(item.datetime).price / item.price
+                }
+
+                combinedPriceHistory.push(data);
+            }
+        });
+
+        return calculateOHLC(combinedPriceHistory);
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+pairSchema.methods.getpricehistorycandlestickMins = async function () {
+    try {
+        const baseAsset = await Asset.findById(this.baseAssetId);
+        const quoteAsset = await Asset.findById(this.quoteAssetId);
+
+        const baseAssetPriceHistory = await PriceHistory.find({ asset: baseAsset._id });
+        const quoteAssetPriceHistory = await PriceHistory.find({ asset: quoteAsset._id });
+
+        const baseAssetPriceHistoryMap = new Map();
+
+        baseAssetPriceHistory.forEach(item => {
+            baseAssetPriceHistoryMap.set(item.datetime, item);
+        });
+
+        const combinedPriceHistory = [];
+
+        quoteAssetPriceHistory.forEach(item => {
+            if (baseAssetPriceHistoryMap.has(item.datetime)) {
+                const data = {
+                    datetime: item.datetime,
+                    baseAssetData: baseAssetPriceHistoryMap.get(item.datetime),
+                    quoteAssetData: item,
+                    price: baseAssetPriceHistoryMap.get(item.datetime).price / item.price
+                }
+
+                combinedPriceHistory.push(data);
+            }
+        });
+
+        return calculateOHLCMinute(combinedPriceHistory);
     } catch (error) {
         console.error(error);
     }

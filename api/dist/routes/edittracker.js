@@ -45,5 +45,4 @@ editTracker.get('/trackers', function (req, res) {
     console.log(error);
   }
 });
-var _default = editTracker;
-exports["default"] = _default;
+var _default = exports["default"] = editTracker;

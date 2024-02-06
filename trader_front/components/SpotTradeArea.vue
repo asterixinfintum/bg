@@ -167,7 +167,7 @@
           </span>
         </div>
 
-        <div class="spottradearea__fundoption">
+        <!--<div class="spottradearea__fundoption">
           <div class="spottradearea__fundoption--left">
             <h3 class="spottradearea__fundoption--h3">Internal Transfer</h3>
             <span class="spottradearea__fundoption--description"
@@ -179,7 +179,7 @@
               Transfer
             </button>
           </div>
-        </div>
+        </div>-->
 
         <div class="spottradearea__fundoption">
           <div class="spottradearea__fundoption--left">

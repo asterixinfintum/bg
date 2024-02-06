@@ -58,6 +58,13 @@ const assetSchema = new Schema({
     faileddatafetch: {
         type: Boolean,
         default: false
+    },
+    pricechange: {
+        type: String,
+    },
+    listed: {
+        type: Boolean,
+        default: true
     }
 });
 

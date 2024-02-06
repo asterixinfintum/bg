@@ -45,5 +45,4 @@ var commoditySymbols = [{
   symbol: "COFFEE",
   image: '17nasdaq-logo-200.png'
 }];
-var _default = commoditySymbols;
-exports["default"] = _default;
+var _default = exports["default"] = commoditySymbols;

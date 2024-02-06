@@ -44,6 +44,7 @@ export const actions = {
                     commit('SET_ASSETS', assets);
                 })
                 .catch(error => {
+                    console.log(error)
                     console.error('Error:', error);
                 });
         } catch (error) {

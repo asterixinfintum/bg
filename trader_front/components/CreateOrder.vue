@@ -1,113 +1,64 @@
 <template>
   <div class="spottradearea__inputsections" :class="{ autotrade: autoTrade === 'true' }">
-    <!--<div class="popup" v-if="orderDetailsOpen">
-            <div class="popup__body transactionstyle__body">
-                <div class="transactionstyle__subject">
-                    <div class="transactionstyle__subject--name">
-                        <h3>Order Details</h3>
-                    </div>
-                    <div class="transactionstyle__subject--closebtn">
-                        <svg viewBox="0 0 24 24" focusable="false" class="chakra-icon css-onkibi" aria-hidden="true">
-                            <path fill="currentColor"
-                                d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z">
-                            </path>
-                        </svg>
-                    </div>
+    <div class="popup" v-if="orderdetailspreview.length && !successMessage">
+      <div class="popup__body transactionstyle__body">
+        <div class="transactionstyle__subject">
+          <div class="transactionstyle__subject--name">
+            <h3>Confirm Order/Trade Details</h3>
+          </div>
+          <div class="transactionstyle__subject--closebtn" @click="hideorderdetails">
+            <svg
+              viewBox="0 0 24 24"
+              focusable="false"
+              class="chakra-icon css-onkibi"
+              aria-hidden="true"
+            >
+              <path
+                fill="currentColor"
+                d="M.439,21.44a1.5,1.5,0,0,0,2.122,2.121L11.823,14.3a.25.25,0,0,1,.354,0l9.262,9.263a1.5,1.5,0,1,0,2.122-2.121L14.3,12.177a.25.25,0,0,1,0-.354l9.263-9.262A1.5,1.5,0,0,0,21.439.44L12.177,9.7a.25.25,0,0,1-.354,0L2.561.44A1.5,1.5,0,0,0,.439,2.561L9.7,11.823a.25.25,0,0,1,0,.354Z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+
+        <div class="transactionstyle__container">
+          <div class="previewtrade__content">
+            <div class="previewtrade__contentarea">
+              <div
+                class="previewtrade__contentitem"
+                v-for="preview in orderdetailspreview"
+              >
+                <div class="previewtrade__contentitemleft">{{ preview }}</div>
+                <div class="previewtrade__contentitemright">
+                  {{ orderdetails[`${preview}`] }}
                 </div>
-
-                <div class="transactionstyle__container">
-                    <div class="previewtrade__content">
-                        <div class="previewtrade__contentarea">
-
-                            <div class="previewtrade__contentitem">
-                                <div class="previewtrade__contentitemleft">Trading Pair</div>
-
-                                <div class="previewtrade__contentitemright">
-                                    <div class="previewtrade__contentitemright--top">
-                                        {{ order.tradingPair }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="previewtrade__contentitem">
-                                <div class="previewtrade__contentitemleft">Order type</div>
-
-                                <div class="previewtrade__contentitemright">
-                                    <div class="previewtrade__contentitemright--top">
-                                        {{ order.type }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="previewtrade__contentitem">
-                                <div class="previewtrade__contentitemleft">Side</div>
-
-                                <div class="previewtrade__contentitemright">
-                                    <div class="previewtrade__contentitemright--top">
-                                        {{ order.side }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="previewtrade__contentitem">
-                                <div class="previewtrade__contentitemleft">Quantity</div>
-
-                                <div class="previewtrade__contentitemright">
-                                    <div class="previewtrade__contentitemright--top">
-                                        {{ order.quantity }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="previewtrade__contentitem">
-                                <div class="previewtrade__contentitemleft">Price</div>
-
-                                <div class="previewtrade__contentitemright">
-                                    <div class="previewtrade__contentitemright--top">
-                                        {{ order.type === 'market' ? 'Optimal price' : `$${order.price}` }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="previewtrade__contentitem" v-if="orderType === 'limit' || orderType === 'stop limit'">
-                                <div class="previewtrade__contentitemleft">Limit</div>
-
-                                <div class="previewtrade__contentitemright">
-                                    <div class="previewtrade__contentitemright--top">
-                                        ${{ side === 'buy' ? asset_price_buy : asset_price_sell }}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="previewtrade__contentitem" v-if="orderType === 'stop limit'">
-                                <div class="previewtrade__contentitemleft">Trigger price</div>
-
-                                <div class="previewtrade__contentitemright">
-                                    <div class="previewtrade__contentitemright--top">
-                                        ${{ side === 'buy' ? triggerpricebuy : triggerpricesell }}
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="transactionstyle__btn">
-                    <button class="btn colored-btn padded-btn dim" v-if="submittingOrder">
-                        <span class="loader-button"></span>
-                    </button>
-                    <button class="btn colored-btn padded-btn" v-if="!submittingOrder" @click="createMarketOrder">Complete order</button>
-                </div>
+              </div>
             </div>
-        </div>-->
+          </div>
 
-    <div v-if="strategiesOpen">
+          <div class="transactionstyle__btn">
+            <button
+              class="btn colored-btn padded-btn"
+              @click="calltradecreation"
+              v-if="!loading"
+            >
+              Confirm and Trade
+            </button>
+
+            <button class="btn colored-btn padded-btn dim" v-if="loading">
+              <span class="loader-button"></span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="strategiesOpen && !orderdetails">
       <AutoTradeSettings
         :togglestrategiesState="togglestrategiesState"
         :autoTradeDetails="autoTradeDetails"
         :loading="loading"
-        :automatictrade="automatictrade"
+        :automatictrade="createautotradeorder"
       />
     </div>
 
@@ -140,17 +91,36 @@
           >
         </div>
 
-        <div v-if="autoTrade === 'true'">
-          <span class="spottradearea__balance--label color-primary">Avblcs</span>
-          <span class="spottradearea__balance--value"
-            ><span class="neon-green">{{
-              addEllipsis(`${assetblc(asset).blc}`, 13)
-            }}</span>
-            <span class="gold-colored">{{ asset.coin }}</span></span
-          >
-          <span class="spottradearea__balance--value opacity-dim"
-            >${{ addEllipsis(`${assetblc(asset).usdblc}`, 13) }}</span
-          >
+        <div class="index__flexbalance" v-if="autoTrade === 'true'">
+          <div>
+            <span class="spottradearea__balance--label color-primary">Avblcg</span>
+            <span class="spottradearea__balance--value"
+              ><span class="neon-green">{{
+                addEllipsis(`${assetblc(asset).blc}`, 13)
+              }}</span>
+              <span class="gold-colored">{{ asset.coin }}</span></span
+            >
+            <span class="spottradearea__balance--value opacity-dim"
+              >${{ addEllipsis(`${assetblc(asset).usdblc}`, 13) }}</span
+            >
+          </div>
+
+          <div>
+            <span class="spottradearea__balance--label color-primary">Avblc</span>
+            <span class="spottradearea__balance--value"
+              ><span class="neon-green">{{
+                addEllipsis(`${assetblc(assetOnRightSideOfOrderPair).blc}`, 13)
+              }}</span>
+              <span class="gold-colored">{{
+                assetOnRightSideOfOrderPair.coin
+              }}</span></span
+            >
+            <span class="spottradearea__balance--value opacity-dim"
+              >${{
+                addEllipsis(`${assetblc(assetOnRightSideOfOrderPair).usdblc}`, 13)
+              }}</span
+            >
+          </div>
         </div>
 
         <span class="spottradearea__balance--svg" @click="fundaccount_popup_toggle">
@@ -180,9 +150,9 @@
           class="spottradearea__inputsection--input"
           placeholder="Trigger price"
           type="number"
-          v-model="triggerpricebuy"
+          v-model="stopbuy"
         />
-        <span class="spottradearea__inputsection--placeholder">Trigger price</span>
+        <span class="spottradearea__inputsection--placeholder">Stop</span>
         <div class="spottradearea__inputsection--labels">
           <span class="spottradearea__inputsection--symbol">{{
             assetOnRightSideOfOrderPair.coin
@@ -192,33 +162,14 @@
 
       <div
         class="spottradearea__inputsection--inputarea"
-        v-if="orderType === 'stop limit' && autoTrade !== 'true'"
+        v-if="orderType !== 'market' && autoTrade !== 'true'"
         :class="{ autotrade: autoTrade === 'true' }"
       >
         <input
           class="spottradearea__inputsection--input"
           placeholder="Price"
           type="number"
-          v-model="asset_price_buy"
-        />
-        <span class="spottradearea__inputsection--placeholder">Price</span>
-        <div class="spottradearea__inputsection--labels">
-          <span class="spottradearea__inputsection--symbol">{{
-            assetOnRightSideOfOrderPair.coin
-          }}</span>
-        </div>
-      </div>
-
-      <div
-        class="spottradearea__inputsection--inputarea"
-        v-if="orderType === 'limit' && autoTrade !== 'true'"
-        :class="{ autotrade: autoTrade === 'true' }"
-      >
-        <input
-          class="spottradearea__inputsection--input"
-          placeholder="Price"
-          type="number"
-          v-model="asset_price_buy"
+          v-model="buyprice"
         />
         <span class="spottradearea__inputsection--placeholder">Price</span>
         <div class="spottradearea__inputsection--labels">
@@ -272,21 +223,15 @@
           error: buyError,
           autotrade: autoTrade === 'true',
         }"
+        v-if="autoTrade !== 'true' && orderType !== 'market'"
       >
         <input
           class="spottradearea__inputsection--input"
           placeholder="Amount"
           type="number"
-          v-model="buy_quantity"
+          v-model="buyquantity"
         />
-        <span
-          class="spottradearea__inputsection--placeholder"
-          v-if="autoTrade === 'false'"
-          >Quantity</span
-        >
-        <span class="spottradearea__inputsection--placeholder" v-if="autoTrade === 'true'"
-          >Quantity to trade with</span
-        >
+        <span class="spottradearea__inputsection--placeholder">Quantity</span>
         <div class="spottradearea__inputsection--labels">
           <span class="spottradearea__inputsection--symbol">{{ asset.coin }}</span>
         </div>
@@ -298,55 +243,36 @@
             <div class="spottradearea__slider">
               <div
                 class="spottradearea__slidertrack buy"
-                :style="{ width: buyTrackWidth + '%' }"
+                :style="{ width: buyquantitypercentage + '%' }"
               ></div>
               <div
                 class="spottradearea__sliderthumb"
-                :style="{ left: buyThumbPosition + '%' }"
+                :style="{ left: buyquantitypercentage + '%' }"
               ></div>
             </div>
             <input
               type="range"
               min="0"
               max="100"
-              v-model="sliderBuyValue"
+              v-model="buyquantitypercentage"
               class="spottradearea__sliderinput"
               :class="{ autotrade: autoTrade === 'true' }"
             />
           </div>
-          <p class="spottradearea__slidervalue buy">{{ sliderBuyValue }}%</p>
+          <p class="spottradearea__slidervalue buy">{{ buyquantitypercentage }}%</p>
         </div>
       </div>
 
       <div
         class="spottradearea__inputsection--inputarea"
         :class="{ autotrade: autoTrade === 'true' }"
-        v-if="orderType === 'market' && autoTrade !== 'true'"
+        v-if="autoTrade !== 'true'"
       >
         <input
           class="spottradearea__inputsection--input"
           placeholder="Amount"
           type="number"
-          v-model="buyTotal"
-        />
-        <span class="spottradearea__inputsection--placeholder">Total</span>
-        <div class="spottradearea__inputsection--labels">
-          <span class="spottradearea__inputsection--symbol">{{
-            assetOnRightSideOfOrderPair.coin
-          }}</span>
-        </div>
-      </div>
-
-      <div
-        class="spottradearea__inputsection--inputarea"
-        :class="{ autotrade: autoTrade === 'true' }"
-        v-if="orderType !== 'market' && autoTrade !== 'true'"
-      >
-        <input
-          class="spottradearea__inputsection--input"
-          placeholder="Amount"
-          type="number"
-          v-model="buyTotalLimit"
+          v-model="totalbuycost"
         />
         <span class="spottradearea__inputsection--placeholder">Total</span>
         <div class="spottradearea__inputsection--labels">
@@ -365,7 +291,7 @@
           class="spottradearea__inputsection--input"
           placeholder="Amount"
           type="number"
-          v-model="autotradingtotal"
+          v-model="totalbuycost"
         />
         <span class="spottradearea__inputsection--placeholder">Total</span>
         <div class="spottradearea__inputsection--labels">
@@ -380,33 +306,46 @@
         v-if="autoTrade === 'true'"
         :class="{ autotrade: autoTrade === 'true' }"
       >
-        <button class="btn" @click="showautotdset">
-          Open Autotrade for {{ asset.coin }}
+        <button class="btn opacity-dim" v-if="!allowbuy">
+          Buy {{ asset.coin }} and Create Automatic Trade for {{ asset.coin }}/{{ assetOnRightSideOfOrderPair.coin }} pair
+        </button>
+
+        <button class="btn gold-colored" @click="togglestrategiesState" v-if="allowbuy">
+          Buy {{ asset.coin }} and Create Automatic Trade for {{ asset.coin }}/{{ assetOnRightSideOfOrderPair.coin }} pair
         </button>
       </div>
 
       <div
         class="spottradearea__buybtn"
         v-if="orderType === 'market' && autoTrade !== 'true'"
-        @click="marketorder({ side: 'buy' })"
       >
-        <button class="btn">Buy {{ asset.coin }}</button>
+        <button class="btn opacity-dim" v-if="!allowbuy">Buy {{ asset.coin }}</button>
+
+        <button class="btn gold-colored" v-if="allowbuy" @click="createbuymarketorder">
+          Buy {{ asset.coin }}
+        </button>
       </div>
 
       <div
         class="spottradearea__buybtn"
         v-if="orderType === 'limit' && autoTrade !== 'true'"
-        @click="limitorder({ side: 'buy' })"
       >
-        <button class="btn">Buy {{ asset.coin }}</button>
+        <button class="btn opacity-dim" v-if="!allowbuy">Buy {{ asset.coin }}</button>
+
+        <button class="btn gold-colored" v-if="allowbuy" @click="createlimitbuyorder">
+          Buy {{ asset.coin }}
+        </button>
       </div>
 
       <div
         class="spottradearea__buybtn"
         v-if="orderType === 'stop limit' && autoTrade !== 'true'"
-        @click="stoplimitorder({ side: 'buy' })"
       >
-        <button class="btn">Buy {{ asset.coin }}</button>
+        <button class="btn opacity-dim" v-if="!allowbuy">Buy {{ asset.coin }}</button>
+
+        <button class="btn gold-colored" v-if="allowbuy" @click="createstopbuyorder">
+          Buy {{ asset.coin }}
+        </button>
       </div>
     </div>
 
@@ -446,9 +385,9 @@
           class="spottradearea__inputsection--input"
           placeholder="Trigger price"
           type="number"
-          v-model="triggerpricesell"
+          v-model="stopsell"
         />
-        <span class="spottradearea__inputsection--placeholder">Trigger price</span>
+        <span class="spottradearea__inputsection--placeholder">Stop</span>
         <div class="spottradearea__inputsection--labels">
           <span class="spottradearea__inputsection--symbol">{{
             assetOnRightSideOfOrderPair.coin
@@ -456,30 +395,12 @@
         </div>
       </div>
 
-      <div
-        class="spottradearea__inputsection--inputarea"
-        v-if="orderType === 'stop limit'"
-      >
+      <div class="spottradearea__inputsection--inputarea" v-if="orderType !== 'market'">
         <input
           class="spottradearea__inputsection--input"
           placeholder="Price"
           type="number"
-          v-model="asset_price_sell"
-        />
-        <span class="spottradearea__inputsection--placeholder">Price</span>
-        <div class="spottradearea__inputsection--labels">
-          <span class="spottradearea__inputsection--symbol">{{
-            assetOnRightSideOfOrderPair.coin
-          }}</span>
-        </div>
-      </div>
-
-      <div class="spottradearea__inputsection--inputarea" v-if="orderType === 'limit'">
-        <input
-          class="spottradearea__inputsection--input"
-          placeholder="Price"
-          type="number"
-          v-model="asset_price_sell"
+          v-model="sellprice"
         />
         <span class="spottradearea__inputsection--placeholder">Price</span>
         <div class="spottradearea__inputsection--labels">
@@ -512,12 +433,13 @@
         :class="{
           error: sellError,
         }"
+        v-if="orderType !== 'market'"
       >
         <input
           class="spottradearea__inputsection--input"
           placeholder="Amount"
           type="number"
-          v-model="sell_quantity"
+          v-model="sellquantity"
         />
         <span class="spottradearea__inputsection--placeholder">Quantity</span>
         <div class="spottradearea__inputsection--labels">
@@ -531,22 +453,22 @@
             <div class="spottradearea__slider">
               <div
                 class="spottradearea__slidertrack sell"
-                :style="{ width: sellTrackWidth + '%' }"
+                :style="{ width: sellquantitypercentage + '%' }"
               ></div>
               <div
                 class="spottradearea__sliderthumb"
-                :style="{ left: sellThumbPosition + '%' }"
+                :style="{ left: sellquantitypercentage + '%' }"
               ></div>
             </div>
             <input
               type="range"
               min="0"
               max="100"
-              v-model="sliderSellValue"
+              v-model="sellquantitypercentage"
               class="spottradearea__sliderinput sell"
             />
           </div>
-          <p class="spottradearea__slidervalue sell">{{ sliderSellValue }}%</p>
+          <p class="spottradearea__slidervalue sell">{{ sellquantitypercentage }}%</p>
         </div>
       </div>
 
@@ -555,13 +477,11 @@
           class="spottradearea__inputsection--input"
           placeholder="Amount"
           type="number"
-          v-model="sellTotal"
+          v-model="totalsellcost"
         />
         <span class="spottradearea__inputsection--placeholder">Total</span>
         <div class="spottradearea__inputsection--labels">
-          <span class="spottradearea__inputsection--symbol">{{
-            assetOnRightSideOfOrderPair.coin
-          }}</span>
+          <span class="spottradearea__inputsection--symbol">{{ asset.coin }}</span>
         </div>
       </div>
 
@@ -570,7 +490,7 @@
           class="spottradearea__inputsection--input"
           placeholder="Amount"
           type="number"
-          v-model="sellTotalLimit"
+          v-model="totalsellcost"
         />
         <span class="spottradearea__inputsection--placeholder">Total</span>
         <div class="spottradearea__inputsection--labels">
@@ -583,41 +503,53 @@
       <div>
         <div
           class="spottradearea__buybtn"
-          v-if="orderType === 'market' && autoTrade === 'true'"
-        >
-          <button class="btn sell">Open Autotrade for {{ asset.coin }}</button>
-        </div>
-
-        <div
-          class="spottradearea__buybtn"
           v-if="orderType === 'market' && autoTrade !== 'true'"
         >
-          <button class="btn sell" @click="marketorder({ side: 'sell' })">
+          <button class="btn sell opacity-dim" v-if="!allowsell">
+            Sell {{ asset.coin }}
+          </button>
+
+          <button
+            class="btn sell gold-colored"
+            @click="createsellmarketorder"
+            v-if="allowsell"
+          >
             Sell {{ asset.coin }}
           </button>
         </div>
 
         <div
           class="spottradearea__buybtn"
-          v-if="orderType !== 'market' && autoTrade === 'true'"
-        >
-          <button class="btn sell">Open Autotrade for {{ asset.coin }}</button>
-        </div>
-
-        <div
-          class="spottradearea__buybtn"
           v-if="orderType === 'limit' && autoTrade !== 'true'"
-          @click="limitorder({ side: 'sell' })"
         >
-          <button class="btn sell">Sell {{ asset.coin }}</button>
+          <button class="btn sell opacity-dim" v-if="!allowsell">
+            Sell {{ asset.coin }}
+          </button>
+
+          <button
+            class="btn sell gold-colored"
+            v-if="allowsell"
+            @click="createlimitsellorder"
+          >
+            Sell {{ asset.coin }}
+          </button>
         </div>
 
         <div
           class="spottradearea__buybtn"
           v-if="orderType === 'stop limit' && autoTrade !== 'true'"
-          @click="stoplimitorder({ side: 'sell' })"
         >
-          <button class="btn sell">Sell {{ asset.coin }}</button>
+          <button class="btn sell opacity-dim" v-if="!allowsell">
+            Sell {{ asset.coin }}
+          </button>
+
+          <button
+            class="btn sell gold-colored"
+            @click="createstopsellorder"
+            v-if="allowsell"
+          >
+            Sell {{ asset.coin }}
+          </button>
         </div>
       </div>
     </div>

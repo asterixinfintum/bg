@@ -67,5 +67,4 @@ fileupload.post('/upload', upload.single('file'), function (req, res) {
     console.log(error);
   }
 });
-var _default = fileupload;
-exports["default"] = _default;
+var _default = exports["default"] = fileupload;

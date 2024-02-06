@@ -14,6 +14,10 @@
         @include popup-close;
     }
 
+    &.cover {
+        background: rgba($index-body, .9);
+    }
+
     &__warningsvg {
 
         &--svg {

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+import Asset from '../../models/asset';
+
 const { Schema } = mongoose;
 
 const assetBlcSchema = new Schema({
@@ -48,6 +50,29 @@ assetBlcSchema.methods.reduceBalance = async function (amount) {
         // Handle any errors that occur during the save
         console.error('Error updating balance:', error);
         throw error; // Re-throw the error to be handled by the caller
+    }
+}
+
+assetBlcSchema.methods.returnusdblc = async function () {
+    try {
+        const asset = await Asset.findOne({ _id: this.assetid });
+        const usdblc = convertToFloat(`${this.balance}`) * convertToFloat(`${asset.price}`);
+        return usdblc;
+    } catch (error) {
+        throw error;
+    }
+}
+
+assetBlcSchema.methods.returnbtcblc = async function () {
+    try {
+        const btcasset = await Asset.findOne({ coin: 'BTC' });
+        const asset = await Asset.findOne({ _id: this.assetid });
+        const usdblc = convertToFloat(`${this.balance}`) * convertToFloat(`${asset.price}`);
+        const btcprice = usdblc / convertToFloat(`${btcasset.price}`);
+
+        return btcprice;
+    } catch (error) {
+        throw error
     }
 }
 

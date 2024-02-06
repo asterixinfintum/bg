@@ -1,312 +1,114 @@
 <template>
   <div>
-    <div class="landing">
-      <div class="landing__header">
-        <HeaderBox />
-      </div>
+    <div class="landingpage">
+      <div class="landingpage__content">
+        <div class="landing__header">
+          <HeaderBox />
+        </div>
 
-      <div class="landing__container">
-        <div class="landing__jumbotron">
-          <div class="landing__jumbotrontop">
-            <h2 class="landing__jumbotrontop--header" id="landing__jumbotrontop--header">
-              <span>The complete Defi/Cefi</span>
-              <span>trading experience</span>
+        <div class="landingpage__jumbotron">
+          <div class="landingpage__jumbotron--area">
+            <h1>
+              <span>Optimise your trades</span>
+              <span>Maximize profits</span>
+            </h1>
+          </div>
+          <div class="landingpage__jumbotron--area">
+            <h2>
+              Engage in commerce with the world's foremost retail broker and take
+              advantage of conditions that surpass market standards. Your profit is our
+              win
             </h2>
-
-            <div class="landing__jumbotrontop--sub">
-              <p>
-                Exceptional platforms, competitive spreads, minimal fees, and unwavering
-                assistance.
-              </p>
-              <p>
-                Discover why over a million traders globally trust us as their preferred
-              </p>
-              <p>trading partner.</p>
-            </div>
-
-            <div class="landing__jumbotrontop--btns">
-              <button class="btn" @click="navigateToPage('register')">
-                Open an account
-              </button>
-            </div>
+          </div>
+          <div class="landingpage__jumbotron--area buttons">
+            <button class="btn left" @click="$router.push('/register')">
+              Open an account
+            </button>
+            <button class="btn right" @click="$router.push('/login')">Sign in</button>
           </div>
 
-          <div class="landing__jumbotronassetclasses">
-            <div class="landing__jumbotronassetclasses--content">
-              <div class="landing__jumbotronassetclass">
-                <h4>Crypto</h4>
+          <div class="landingpage__jumbotron--area landingpage__jumbotron--facts">
+            <div class="landingpage__jumbotron--fact">
+              <span class="image">
+                <img src="@/assets/imgs/users_group_4fae4ed806.svg" />
+              </span>
+              <span>890,000+ active traders</span>
+            </div>
+            <div class="landingpage__jumbotron--fact">
+              <span class="image">
+                <img src="@/assets/imgs/users_group_4fae4ed806.svg" />
+              </span>
+              <span>Multiple regulatory licenses</span>
+            </div>
+            <div class="landingpage__jumbotron--fact">
+              <span class="image">
+                <img src="@/assets/imgs/users_group_4fae4ed806.svg" />
+              </span>
+              <span>24/7 multilingual customer support</span>
+            </div>
+            <div class="landingpage__jumbotron--fact">
+              <span class="image">
+                <img src="@/assets/imgs/users_group_4fae4ed806.svg" />
+              </span>
+              <span>Regular certified security audits</span>
+            </div>
+          </div>
+        </div>
 
-                <p>Dive into digital with secure, real-time crypto trading.</p>
-
-                <div class="landing__jumbotronassetclass--btnarea">
-                  <button class="btn" @click="navigateToPage('introductory')">
-                    CRYPTO TRADING
-                  </button>
-                  <span>&#8594;</span>
-                </div>
-              </div>
-
-              <div class="landing__jumbotronassetclass">
-                <h4>Stocks</h4>
-
+        <div class="landingpage__features">
+          <div class="landingpage__features--header">
+            <h2>Trade without tradeoffs</h2>
+          </div>
+          <div class="landingpage__features--grid">
+            <div class="landingpage__features--gridarea">
+              <div class="landingpage__features--feature">
+                <label>Withdrawals</label>
+                <h3>Instant withdrawals</h3>
                 <p>
-                  Access global stocks with confidence. Trade top companies effortlessly.
+                  Get your deposits and withdrawals approved the moment you click the
+                  button.*
                 </p>
-
-                <div class="landing__jumbotronassetclass--btnarea">
-                  <button class="btn" @click="navigateToPage('introductory')">
-                    TOKENIZED STOCKS
-                  </button>
-                  <span>&#8594;</span>
-                </div>
               </div>
-
-              <div class="landing__jumbotronassetclass">
-                <h4>Defi Staking</h4>
-
-                <p>Maximize returns with secure DeFi staking. Grow your assets.</p>
-
-                <div class="landing__jumbotronassetclass--btnarea">
-                  <button class="btn" @click="navigateToPage('introductory')">
-                    DEFI STAKING
-                  </button>
-                  <span>&#8594;</span>
-                </div>
-              </div>
-
-              <div class="landing__jumbotronassetclass">
-                <h4>Commodities</h4>
-
-                <p>Trade commodities with fixed spreads and 10% margin.</p>
-
-                <div class="landing__jumbotronassetclass--btnarea">
-                  <button class="btn" @click="navigateToPage('introductory')">
-                    COMMODITY TRADING
-                  </button>
-                  <span>&#8594;</span>
-                </div>
-              </div>
-
-              <div class="landing__jumbotronassetclass">
-                <h4>Margin Trades</h4>
-
-                <p>Leverage with our robust margin options. Amplify profits wisely.</p>
-
-                <div class="landing__jumbotronassetclass--btnarea">
-                  <button class="btn" @click="navigateToPage('introductory')">
-                    MARGIN TRADING
-                  </button>
-                  <span>&#8594;</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="landing__jumbotronbottom">
-            <div class="landing__jumbotronbottom--left">
-              <h3 class="landing__jumbotronbottom--left-header landing__copyheaderstyle">
-                <span>Backing your trading endeavors since</span>
-                <span>2001.</span>
-              </h3>
-
-              <div class="landing__jumbotronbottom--left-sub landing__copyfontstyle">
-                <p>Markets pulse through our veins. With two</p>
-                <p>decades under our belt, bvx has empowered</p>
-                <p>traders to achieve their dreams, consistently</p>
-                <p>raising the industry standard.</p>
-              </div>
-
-              <div class="landing__jumbotrontop--btns">
-                <button class="btn" @click="navigateToPage('register')">
-                  Open an account
-                </button>
+              <div class="landingpage__features--feature">
+                <label>Stop outs</label>
+                <h3>30% fewer stop outs</h3>
+                <p>Be unstoppable with our proprietary Stop Out Protection feature.</p>
               </div>
             </div>
 
-            <div class="landing__jumbotronbottom--right">
-              <div class="landing__jumbotronbottom--right-grid">
-                <div class="landing__jumbotronbottom--right-gridbox">
-                  <div class="landing__jumbotronbottom--right-gridboxsvg">
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      stroke-width="0"
-                      viewBox="0 0 512 512"
-                      aria-hidden="true"
-                      focusable="false"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="32"
-                        d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96"
-                      ></path>
-                    </svg>
-                  </div>
-                  <h4 class="landing__jumbotronbottom--right-gridboxh4">
-                    Dominate the trading landscape
-                  </h4>
-                  <div
-                    class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle"
-                  >
-                    <p>
-                      Explore diverse markets with Bvx, from Crypto to Germany 40 and
-                      gold.
-                    </p>
-                  </div>
-                  <div
-                    class="landing__jumbotronbottom--right-gridboxbtn"
-                    @click="navigateToPage('register')"
-                  >
-                    <button class="btn">TRADE MARKETS</button>
-                    <span></span>
-                  </div>
-                </div>
+            <div class="landingpage__features--photoarea">
+              <img src="@/assets/imgs/forexview.png" />
+            </div>
 
-                <div class="landing__jumbotronbottom--right-gridbox">
-                  <div class="landing__jumbotronbottom--right-gridboxsvg">
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      stroke-width="0"
-                      viewBox="0 0 512 512"
-                      aria-hidden="true"
-                      focusable="false"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="32"
-                        d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96"
-                      ></path>
-                    </svg>
-                  </div>
-                  <h4 class="landing__jumbotronbottom--right-gridboxh4">
-                    Experience trading on the benchmark in golden standards.
-                  </h4>
-                  <div
-                    class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle"
-                  >
-                    <p>
-                      Seek only the best in trading. bvx, the top Forex Platform of 2020
-                      Shares Awards.
-                    </p>
-                  </div>
-                  <div
-                    class="landing__jumbotronbottom--right-gridboxbtn"
-                    @click="navigateToPage('register')"
-                  >
-                    <button class="btn">TRADE MARKETS</button>
-                    <span></span>
-                  </div>
-                </div>
+            <div class="landingpage__features--gridarea">
+              <div class="landingpage__features--feature">
+                <label>Execution speed</label>
+                <h3>Ultra-fast execution</h3>
+                <p>Execute your orders in milliseconds, no matter how big they are.</p>
+              </div>
 
-                <div class="landing__jumbotronbottom--right-gridbox">
-                  <div class="landing__jumbotronbottom--right-gridboxsvg">
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      stroke-width="0"
-                      viewBox="0 0 512 512"
-                      aria-hidden="true"
-                      focusable="false"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="32"
-                        d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96"
-                      ></path>
-                    </svg>
-                  </div>
-                  <h4 class="landing__jumbotronbottom--right-gridboxh4">
-                    Ascend to the pinnacle of asset trading with Bvx.
-                  </h4>
-                  <div
-                    class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle"
-                  >
-                    <p>
-                      Lost in trading terms? Join bvx's free Trading Plan and boost your
-                      skills.
-                    </p>
-                  </div>
-                  <div
-                    class="landing__jumbotronbottom--right-gridboxbtn"
-                    @click="scrollToDiv('landing__perks-parent')"
-                  >
-                    <button class="btn">SEE PLANS</button>
-                    <span></span>
-                  </div>
-                </div>
-
-                <div class="landing__jumbotronbottom--right-gridbox">
-                  <div class="landing__jumbotronbottom--right-gridboxsvg">
-                    <svg
-                      stroke="currentColor"
-                      fill="currentColor"
-                      stroke-width="0"
-                      viewBox="0 0 512 512"
-                      aria-hidden="true"
-                      focusable="false"
-                      height="1em"
-                      width="1em"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill="none"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="32"
-                        d="M464 208L352 96 240 208m112-94.87V416M48 304l112 112 112-112m-112 94V96"
-                      ></path>
-                    </svg>
-                  </div>
-                  <h4 class="landing__jumbotronbottom--right-gridboxh4">
-                    Align with bvx, a trading provider built on unshakeable pillars.
-                  </h4>
-                  <div
-                    class="landing__jumbotronbottom--right-gridboxcopy landing__copyfontstyle"
-                  >
-                    <p>
-                      As part of Voltex Singapore with $10 billion in assets, trust Bvx
-                      with your trading journey.
-                    </p>
-                  </div>
-                  <div
-                    class="landing__jumbotronbottom--right-gridboxbtn"
-                    @click="navigateToPage('register')"
-                  >
-                    <button class="btn">JOIN</button>
-                    <span></span>
-                  </div>
-                </div>
+              <div class="landingpage__features--feature">
+                <label>Swaps</label>
+                <h3>No overnight fees</h3>
+                <p>
+                  Hold your leveraged positions for as long as you like, swap-free. T&C
+                  apply.
+                </p>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="landing__tradingtypes">
+        <div class="landingpage__tradingtypes" id="landingoffers">
           <h2>Control, power and speed. Our platforms give you every possible edge.</h2>
-          <div class="landing__tradingtypesbody">
-            <div class="landing__tradingtypesarea">
-              <div class="landing__tradingtypesbox">
-                <h4 class="landing__tradingtypesbox--h4">
+          <div class="landingpage__tradingtypesbody">
+            <div class="landingpage__tradingtypesarea">
+              <div class="landingpage__tradingtypesbox">
+                <h4 class="landingpage__tradingtypesbox--h4">
                   Safety First: Uncompromised Security
                 </h4>
 
-                <p class="landing__tradingtypesbox--p">
+                <p class="landingpage__tradingtypesbox--p">
                   Trust in bvx's robust security measures that prioritize your assets and
                   information. Our state-of-the-art protection ensures you trade with
                   peace of mind, every step of the way.
@@ -318,29 +120,12 @@
                                 </div>--->
               </div>
 
-              <div class="landing__tradingtypesbox">
-                <h4 class="landing__tradingtypesbox--h4">
-                  Guided Growth: Agent-Backed Learning
-                </h4>
-
-                <p class="landing__tradingtypesbox--p">
-                  Navigate the trading world with bvx's experienced agents at your side.
-                  Our tailored tutorials and hands-on mentoring propel your skills,
-                  turning novice moves into expert strategies.
-                </p>
-
-                <!--<div class="landing__tradingtypesbox--btnarea">
-                                    <button class="btn">LEARN MORE </button>
-                                    <span>&#8594;</span>
-                                </div>--->
-              </div>
-
-              <div class="landing__tradingtypesbox">
-                <h4 class="landing__tradingtypesbox--h4">
+              <div class="landingpage__tradingtypesbox">
+                <h4 class="landingpage__tradingtypesbox--h4">
                   Amplify Your Portfolio: Rewarding Asset Returns
                 </h4>
 
-                <p class="landing__tradingtypesbox--p">
+                <p class="landingpage__tradingtypesbox--p">
                   With bvx, your assets work harder for you. Enjoy unparalleled returns
                   and watch your investments flourish as you capitalize on our unique
                   reward programs.
@@ -353,18 +138,348 @@
               </div>
             </div>
 
-            <div class="landing__tradingtypesarea">
-              <ForexTable />
+            <div class="landingpage__tradingtypesarea--mast">
+              <figure>
+                <img
+                  src="https://d33vw3iu5hs0zi.cloudfront.net/media/xl_exness_trading_apps_eaab53405d.jpg"
+                />
+              </figure>
             </div>
           </div>
         </div>
 
-        <div class="landing__rewards">
-          <h3 class="landing__rewards--h3">Defi Staking</h3>
-          <h2 class="landing__rewards--h2">Earn crypto rewards on your assets</h2>
+        <div class="landingpage__stats">
+          <div class="landingpage__features--header">
+            <h2>Trade with confidence</h2>
+            <p class="landingpage__stats--para">
+              The numbers speak for themselves. Trade with the support of the world’s
+              largest retail broker.
+            </p>
+          </div>
 
-          <div class="landing__rewardsbody">
-            <div class="landing__reward">
+          <div class="landingpage__stats--grid">
+            <div class="landingpage__stats--item">
+              <label>$2+ trillion</label>
+              <span>monthly trading volume</span>
+            </div>
+            <div class="landingpage__stats--item">
+              <label>1.2 billion</label>
+              <span>trades executed in 2023</span>
+            </div>
+            <div class="landingpage__stats--item">
+              <label>24,000+</label>
+              <span>registered partners</span>
+            </div>
+            <div class="landingpage__stats--item">
+              <label>10,000+</label>
+              <span>security audits passed</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="landingpage__perks" id="landingperks">
+          <div class="landingpage__perksarea">
+            <h4>Master the Markets with Bvx</h4>
+            <h3>Our agents amplify your market acumen for confident trading</h3>
+            <p class="landingpage__perksarea--p">
+              Starting from scratch? No worries. With bvx's seasoned trading agents by
+              your side, watch your market know-how skyrocket to unparalleled heights.
+            </p>
+          </div>
+
+          <div class="landingpage__perksarea bottomrow">
+            <div class="landingpage__perk">
+              <div class="landingpage__perk--section">
+                <span class="landingpage__perk--section-header"
+                  >Standard Prodigy Account:</span
+                >
+                <p class="landingpage__perk--section-copy">
+                  Ideal for newcomers, this plan offers weekly market insights and an
+                  introduction to trading basics, complemented by monthly sessions with a
+                  trading agent for guidance.
+                </p>
+                <div class="landingpage__perk--list">
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext"
+                      >Minimum Balance:</span
+                    >
+                    <span class="landingpage__perk--listitemtext">$1,000</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext">Commission:</span>
+                    <span class="landingpage__perk--listitemtext">$10 per trade</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span
+                      class="landingpage__perk--listitemboldtext landingpage__perk--listitemfeaturesheader"
+                      >Features:</span
+                    >
+                    <ul class="landingpage__perk--listitemfeatures">
+                      <li>Basic market access</li>
+                      <li>Standard customer support</li>
+                      <li>Access to basic trading tools and educational resources</li>
+                    </ul>
+                  </div>
+                </div>
+                <div
+                  class="landingpage__jumbotrontop--btns"
+                  @click="navigateToPage('register')"
+                >
+                  <button class="btn">Get Started</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="landingpage__perk">
+              <div class="landingpage__perk--section"></div>
+              <div class="landingpage__perk--section">
+                <span class="landingpage__perk--section-header"
+                  >Professional Account:</span
+                >
+                <p class="landingpage__perk--section-copy">
+                  For intermediate traders, this plan provides bi-weekly in-depth market
+                  analyses, advanced strategy tutorials, and regular coaching sessions,
+                  backed by priority email support.
+                </p>
+
+                <div class="landingpage__perk--list">
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext"
+                      >Minimum Balance:</span
+                    >
+                    <span class="landingpage__perk--listitemtext">$5,000</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext">Commission:</span>
+                    <span class="landingpage__perk--listitemtext">$8 per trade</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span
+                      class="landingpage__perk--listitemboldtext landingpage__perk--listitemfeaturesheader"
+                      >Features:</span
+                    >
+                    <ul class="landingpage__perk--listitemfeatures">
+                      <li>All Standard Prodigy features</li>
+                      <li>Extended market access</li>
+                      <li>Enhanced trading tools</li>
+                      <li>Priority customer support</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div
+                  class="landingpage__jumbotrontop--btns"
+                  @click="navigateToPage('register')"
+                >
+                  <button class="btn">Get Started</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="landingpage__perk">
+              <div class="landingpage__perk--section"></div>
+              <div class="landingpage__perk--section">
+                <span class="landingpage__perk--section-header">Elite Gold Account:</span>
+                <p class="landingpage__perk--section-copy">
+                  Advanced traders can benefit from weekly detailed market forecasts,
+                  exclusive webinars, and consistent personalized coaching. 24/7 priority
+                  support ensures they're always ahead.
+                </p>
+
+                <div class="landingpage__perk--list">
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext"
+                      >Minimum Balance:</span
+                    >
+                    <span class="landingpage__perk--listitemtext">$10,000</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext">Commission:</span>
+                    <span class="landingpage__perk--listitemtext">$5 per trade</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span
+                      class="landingpage__perk--listitemboldtext landingpage__perk--listitemfeaturesheader"
+                      >Features:</span
+                    >
+                    <ul class="landingpage__perk--listitemfeatures">
+                      <li>All Professional Account features</li>
+                      <li>Access to advanced market data and analytics</li>
+                      <li>One-on-one coaching sessions</li>
+                      <li>Reduced withdrawal fees</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div
+                  class="landingpage__jumbotrontop--btns"
+                  @click="navigateToPage('register')"
+                >
+                  <button class="btn">Get Started</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="landingpage__perk">
+              <div class="landingpage__perk--section"></div>
+              <div class="landingpage__perk--section" id="landingpage__perks-parent">
+                <span class="landingpage__perk--section-header"
+                  >Pioneer Silver Account:</span
+                >
+                <p class="landingpage__perk--section-copy">
+                  The ultimate offering for seasoned traders, with daily market insights,
+                  direct expert access, unlimited sessions with top agents, and early
+                  access to new tools and features.
+                </p>
+
+                <div class="landingpage__perk--list">
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext"
+                      >Minimum Balance:</span
+                    >
+                    <span class="landingpage__perk--listitemtext">$25,000</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext">Commission:</span>
+                    <span class="landingpage__perk--listitemtext">$3 per trade</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span
+                      class="landingpage__perk--listitemboldtext landingpage__perk--listitemfeaturesheader"
+                      >Features:</span
+                    >
+                    <ul class="landingpage__perk--listitemfeatures">
+                      <li>All Elite Gold Account features</li>
+                      <li>Access to exclusive investment opportunities</li>
+                      <li>Personal account manager</li>
+                      <li>Invitations to webinars and events</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div
+                  class="landingpage__jumbotrontop--btns"
+                  @click="navigateToPage('register')"
+                >
+                  <button class="btn">Get Started</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="landingpage__perk">
+              <div class="landingpage__perk--section"></div>
+              <div class="landingpage__perk--section" id="landingpage__perks-parent">
+                <span class="landingpage__perk--section-header"
+                  >Premier Gold Membership:</span
+                >
+                <p class="landingpage__perk--section-copy">
+                  The ultimate offering for seasoned traders, with daily market insights,
+                  direct expert access, unlimited sessions with top agents, and early
+                  access to new tools and features.
+                </p>
+
+                <div class="landingpage__perk--list">
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext"
+                      >Minimum Balance:</span
+                    >
+                    <span class="landingpage__perk--listitemtext">$50,000</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext">Commission:</span>
+                    <span class="landingpage__perk--listitemtext">$1 per trade</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span
+                      class="landingpage__perk--listitemboldtext landingpage__perk--listitemfeaturesheader"
+                      >Features:</span
+                    >
+                    <ul class="landingpage__perk--listitemfeatures">
+                      <li>All Pioneer Silver Account features</li>
+                      <li>Tailored investment advice</li>
+                      <li>Higher withdrawal limits</li>
+                      <li>Complimentary access to premium market research</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div
+                  class="landingpage__jumbotrontop--btns"
+                  @click="navigateToPage('register')"
+                >
+                  <button class="btn">Get Started</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="landingpage__perk">
+              <div class="landingpage__perk--section"></div>
+              <div class="landingpage__perk--section" id="landingpage__perks-parent">
+                <span class="landingpage__perk--section-header"
+                  >Premier Platinum Membership:</span
+                >
+                <p class="landingpage__perk--section-copy">
+                  The ultimate offering for seasoned traders, with daily market insights,
+                  direct expert access, unlimited sessions with top agents, and early
+                  access to new tools and features.
+                </p>
+
+                <div class="landingpage__perk--list">
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext"
+                      >Minimum Balance:</span
+                    >
+                    <span class="landingpage__perk--listitemtext">$100,000+</span>
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span class="landingpage__perk--listitemboldtext">Commission:</span>
+                    <span class="landingpage__perk--listitemtext"
+                      >Zero commission on trades</span
+                    >
+                  </div>
+
+                  <div class="landingpage__perk--listitem">
+                    <span
+                      class="landingpage__perk--listitemboldtext landingpage__perk--listitemfeaturesheader"
+                      >Features:</span
+                    >
+                    <ul class="landingpage__perk--listitemfeatures">
+                      <li>All Premier Gold Membership features</li>
+                      <li>Bespoke financial planning and portfolio management</li>
+                      <li>Exclusive VIP customer support</li>
+                      <li>Access to invite-only investment opportunities</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div
+                  class="landingpage__jumbotrontop--btns"
+                  @click="navigateToPage('register')"
+                >
+                  <button class="btn">Get Started</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="landingpage__rewards" id="rewards">
+          <h3 class="landingpage__rewards--h3">Defi Staking</h3>
+          <h2 class="landingpage__rewards--h2">Earn crypto rewards on your assets</h2>
+
+          <div class="landingpage__rewardsbody">
+            <div class="landingpage__reward">
               <figure>
                 <img src="@/assets/imgs/61a900c6c0c19d4855dc0323_BTC.svg" />
               </figure>
@@ -376,7 +491,7 @@
               <span>6%</span>
             </div>
 
-            <div class="landing__reward">
+            <div class="landingpage__reward">
               <figure>
                 <img src="@/assets/imgs/60d21880724092061738067c_fox-Icon.svg" />
               </figure>
@@ -388,7 +503,7 @@
               <span>4%</span>
             </div>
 
-            <div class="landing__reward">
+            <div class="landingpage__reward">
               <figure>
                 <img src="@/assets/imgs/61b0dabab79d32a580afa34d_eth.svg" />
               </figure>
@@ -400,7 +515,7 @@
               <span>4%</span>
             </div>
 
-            <div class="landing__reward">
+            <div class="landingpage__reward">
               <figure>
                 <img src="@/assets/imgs/61b0da972b0526e4b219cd42_ltc.svg" />
               </figure>
@@ -412,7 +527,7 @@
               <span>18%</span>
             </div>
 
-            <div class="landing__reward">
+            <div class="landingpage__reward">
               <figure>
                 <img
                   src="@/assets/imgs/632ca2c35d0556b7df05357b_avalanche-avax-logo.svg"
@@ -426,7 +541,7 @@
               <span>6%</span>
             </div>
 
-            <div class="landing__reward">
+            <div class="landingpage__reward">
               <figure>
                 <img src="@/assets/imgs/629e539eed9254aca6e47d59_cosmos-atom-logo.svg" />
               </figure>
@@ -438,7 +553,7 @@
               <span>6%</span>
             </div>
 
-            <div class="landing__reward">
+            <div class="landingpage__reward">
               <figure>
                 <img src="@/assets/imgs/632ca22eb77a6b0093b19d11_doge.svg" />
               </figure>
@@ -450,7 +565,7 @@
               <span>7%</span>
             </div>
 
-            <div class="landing__reward">
+            <div class="landingpage__reward">
               <figure>
                 <img src="@/assets/imgs/61b12434ca293848b210e4ad_bch.svg" />
               </figure>
@@ -464,141 +579,8 @@
           </div>
         </div>
 
-        <div class="landing__perks">
-          <div class="landing__perksarea">
-            <h4>Master the Markets with Bvx</h4>
-            <h3>Our agents amplify your market acumen for confident trading</h3>
-            <p class="landing__perksarea--p">
-              Starting from scratch? No worries. With bvx's seasoned trading agents by
-              your side, watch your market know-how skyrocket to unparalleled heights.
-            </p>
-          </div>
-
-          <div class="landing__perksarea bottomrow">
-            <div class="landing__perk">
-              <div class="landing__perk--section"></div>
-              <div class="landing__perk--section">
-                <span class="landing__perk--section-header">Starter Prodigy Plan:</span>
-                <p class="landing__perk--section-copy">
-                  Ideal for newcomers, this plan offers weekly market insights and an
-                  introduction to trading basics, complemented by monthly sessions with a
-                  trading agent for guidance.
-                </p>
-                <div
-                  class="landing__jumbotrontop--btns"
-                  @click="navigateToPage('register')"
-                >
-                  <button class="btn">Get Started</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="landing__perk">
-              <div class="landing__perk--section"></div>
-              <div class="landing__perk--section">
-                <span class="landing__perk--section-header">Market Maven Plan:</span>
-                <p class="landing__perk--section-copy">
-                  For intermediate traders, this plan provides bi-weekly in-depth market
-                  analyses, advanced strategy tutorials, and regular coaching sessions,
-                  backed by priority email support.
-                </p>
-                <div
-                  class="landing__jumbotrontop--btns"
-                  @click="navigateToPage('register')"
-                >
-                  <button class="btn">Get Started</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="landing__perk">
-              <div class="landing__perk--section"></div>
-              <div class="landing__perk--section">
-                <span class="landing__perk--section-header">Elite Intellect Plan:</span>
-                <p class="landing__perk--section-copy">
-                  Advanced traders can benefit from weekly detailed market forecasts,
-                  exclusive webinars, and consistent personalized coaching. 24/7 priority
-                  support ensures they're always ahead.
-                </p>
-                <div
-                  class="landing__jumbotrontop--btns"
-                  @click="navigateToPage('register')"
-                >
-                  <button class="btn">Get Started</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="landing__perk">
-              <div class="landing__perk--section"></div>
-              <div class="landing__perk--section" id="landing__perks-parent">
-                <span class="landing__perk--section-header"
-                  >Platinum Pioneer Membership:</span
-                >
-                <p class="landing__perk--section-copy">
-                  The ultimate offering for seasoned traders, with daily market insights,
-                  direct expert access, unlimited sessions with top agents, and early
-                  access to new tools and features.
-                </p>
-                <div
-                  class="landing__jumbotrontop--btns"
-                  @click="navigateToPage('register')"
-                >
-                  <button class="btn">Get Started</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!--<div class="landing__inthenews">
-                    <h2 class="landing__rewards--h2">In the News</h2>
-
-                    <div class="landing__inthenewsbody">
-                        <div class="landing__inthenewscard">
-                            <div class="landing__inthenewscard--header">
-                                <span>January 6, 2023</span>
-                                <span>Vetago</span>
-                            </div>
-
-                            <h2 class="landing__inthenewscard--copy">ShapeShift Plans a Multi-chain Roadmap</h2>
-
-                            <div class="landing__inthenewscard--btn">
-                                <button class="btn">Read More</button>
-                            </div>
-                        </div>
-
-                        <div class="landing__inthenewscard">
-                            <div class="landing__inthenewscard--header">
-                                <span>January 6, 2023</span>
-                                <span>Vetago</span>
-                            </div>
-
-                            <h2 class="landing__inthenewscard--copy">ShapeShift Plans a Multi-chain Roadmap</h2>
-
-                            <div class="landing__inthenewscard--btn">
-                                <button class="btn">Read More</button>
-                            </div>
-                        </div>
-
-                        <div class="landing__inthenewscard">
-                            <div class="landing__inthenewscard--header">
-                                <span>January 6, 2023</span>
-                                <span>Vetago</span>
-                            </div>
-
-                            <h2 class="landing__inthenewscard--copy">ShapeShift Plans a Multi-chain Roadmap</h2>
-
-                            <div class="landing__inthenewscard--btn">
-                                <button class="btn">Read More</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>-->
-
-        <div class="landing__disclaimers">
-          <div class="landing__disclaimers--content">
+        <div class="landingpage__disclaimers">
+          <div class="landingpage__disclaimers--content">
             <p>
               BVX offerings are intricate tools that carry a high possibility of swift
               financial loss due to leverage. 77.1% of retail investor accounts suffer
@@ -654,14 +636,29 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
-
 export default {
   mounted() {
     window.addEventListener("scroll", this.handleScrollLanding);
   },
   beforeUnmount() {
     window.removeEventListener("scroll", this.handleScrollLanding);
+  },
+  handleScrollLanding() {
+    const headerPropTracker = document.getElementById("landing__jumbotrontop--header");
+    const rect = headerPropTracker.getBoundingClientRect();
+    const header = document.getElementById("header");
+    //const headerSearch = document.getElementById("header__search");
+    const loginBtn = document.getElementById("login-btn");
+
+    if (rect.top <= 116.5) {
+      header.classList.add("scrolled-far-enough");
+      //headerSearch.classList.add("scrolled-far-enough");
+      loginBtn.classList.add("scrolled-far-enough");
+    } else {
+      header.classList.remove("scrolled-far-enough");
+      //headerSearch.classList.remove("scrolled-far-enough");
+      loginBtn.classList.remove("scrolled-far-enough");
+    }
   },
   methods: {
     navigateToPage(page, id) {
@@ -674,50 +671,64 @@ export default {
 
       window.scroll(0, distanceToTarget);
     },
-    handleScrollLanding() {
-      const headerPropTracker = document.getElementById("landing__jumbotrontop--header");
-      const rect = headerPropTracker.getBoundingClientRect();
-      const header = document.getElementById("header");
-      const headerSearch = document.getElementById("header__search");
-      const loginBtn = document.getElementById("login-btn");
-
-      if (rect.top <= 116.5) {
-        header.classList.add("scrolled-far-enough");
-        headerSearch.classList.add("scrolled-far-enough");
-        loginBtn.classList.add("scrolled-far-enough");
-      } else {
-        header.classList.remove("scrolled-far-enough");
-        headerSearch.classList.remove("scrolled-far-enough");
-        loginBtn.classList.remove("scrolled-far-enough");
-      }
-    },
   },
 };
 </script>
 
-<style lang="scss" scoped>
-.landing {
-  min-height: 100vh;
-  background: $white;
+<style lang="scss">
+$landing-textcolor: #141d22;
 
-  &__header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    width: 100vw;
+@mixin greenbtnlanding {
+  padding: #{scaleValue(15)} #{scaleValue(19)};
+  font-size: #{scaleValue(13)};
+  text-transform: uppercase;
+  background: $landing-green;
+  border-radius: 3rem;
+  font-weight: 600;
+  color: $landing-textcolor;
+
+  &.left {
+    margin-right: #{scaleValue(19)};
+  }
+
+  &.right {
+    background: transparent;
+    color: $landing-green;
+    border: 1px solid $landing-green;
+  }
+
+  @media only screen and (max-width: 414px) {
+    padding: #{scaleValue(60)} #{scaleValue(100)};
+    font-size: #{scaleValue(50)};
+    border-radius: 8rem;
+  }
+}
+
+.landingpage {
+  &__content {
+    &--desktopheader {
+      @media only screen and (max-width: 412px) {
+        display: none;
+      }
+    }
+
+    &--mobileheader {
+      display: none;
+
+      @media only screen and (max-width: 412px) {
+        display: block;
+      }
+    }
   }
 
   &__jumbotron {
     color: $white;
-    position: relative;
-  }
-
-  &__jumbotrontop {
+    height: #{scaleValue(800)};
     display: flex;
     flex-direction: column;
-    height: #{scaleValue(630)};
-    padding: 0 #{scaleValue(220)};
+    align-items: center;
+    padding-top: #{scaleValue(130)};
+
     padding-top: #{scaleValue(170)};
     background-image: linear-gradient(
         to bottom,
@@ -729,223 +740,253 @@ export default {
     background-position: top;
     position: relative;
 
-    &--header {
-      font-size: #{scaleValue(60)};
-      font-weight: 300;
-      display: flex;
-      flex-direction: column;
+    @media only screen and (max-width: 412px) {
+      height: #{scaleValue(2900)};
+      padding-top: #{scaleValue(500)};
     }
 
-    &--sub {
-      line-height: #{scaleValue(25)};
-      font-size: #{scaleValue(16)};
-      margin-top: #{scaleValue(17)};
-    }
-
-    &--btns {
-      @include flex-align;
-      margin-top: #{scaleValue(17)};
-
-      & button {
-        padding: #{scaleValue(12)} #{scaleValue(19)};
-        font-size: #{scaleValue(13)};
-        text-transform: uppercase;
-        background: $landing-green;
-        border-radius: 3rem;
-      }
-    }
-  }
-
-  &__jumbotronassetclasses {
-    padding: $basic-landing-area-padding;
-    width: 100vw;
-    background: transparent;
-    position: absolute;
-    top: #{scaleValue(540)};
-    left: 0;
-
-    display: flex;
-    justify-content: center;
-    z-index: 2;
-
-    &--content {
-      border-radius: $box-radius;
-      background: $white;
-      width: 100%;
-      height: #{scaleValue(200)};
-
-      position: relative;
-      padding: #{scaleValue(21)};
-      display: flex;
-    }
-  }
-
-  &__jumbotronassetclass {
-    display: flex;
-    flex-direction: column;
-    color: $landing-primary;
-    flex: 1;
-    position: relative;
-
-    &--btnarea {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      cursor: pointer;
-
-      &:hover {
-        & button {
-          color: rgba($landing-primary, 0.8);
-        }
-
-        & span {
-          display: inline-block;
-          transition: 0.4s ease;
-          transform: translateX(#{scaleValue(5)});
-        }
-      }
-    }
-
-    & button {
-      color: $landing-primary;
-      font-weight: 500;
-      font-size: #{scaleValue(13)};
-      transition: all 0.4s ease;
-    }
-
-    & p {
-      font-size: #{scaleValue(15)};
-      line-height: #{scaleValue(22)};
-    }
-
-    & h4 {
-      background: linear-gradient(to right, #12225c 2%, #6c3483 70%);
-      background-size: 100%;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 800;
-      text-transform: uppercase;
-      font-size: #{scaleValue(21)};
-      margin-bottom: #{scaleValue(21)};
-    }
-
-    &:not(:last-child) {
-      border-right: $border;
-      border-color: $second-border-color;
-      border-width: #{scaleValue(2)};
-      padding-right: #{scaleValue(21)};
-    }
-
-    &:not(:first-child) {
-      padding-left: #{scaleValue(21)};
-
-      & .landing__jumbotronassetclass {
-        &--btnarea {
-          left: #{scaleValue(21)};
-        }
-      }
-    }
-  }
-
-  &__jumbotronbottom {
-    position: relative;
-    min-height: #{scaleValue(200)};
-    background: $landing-primary;
-    padding: 0 #{scaleValue(220)};
-    padding-top: #{scaleValue(190)};
-    padding-bottom: #{scaleValue(80)};
-    display: flex;
-    justify-content: space-between;
-
-    &--left {
-      margin-right: #{scaleValue(19)};
-    }
-
-    &--right-grid {
-      display: grid;
-      grid-template-columns: repeat(2, #{scaleValue(340)});
-      grid-gap: #{scaleValue(19)};
-    }
-
-    &--right-gridbox {
-      border: $border;
-      border-radius: $box-radius;
-      border-color: $white;
-      border-width: #{scaleValue(1)};
-      position: relative;
-      padding: #{scaleValue(21)};
-    }
-
-    &--right-gridboxsvg {
-      margin-bottom: #{scaleValue(10)};
-
-      & svg {
-        height: #{scaleValue(20)};
-        width: #{scaleValue(20)};
-      }
-    }
-
-    &--right-gridboxh4 {
-      font-size: #{scaleValue(18)};
-      font-weight: 400;
-      margin-bottom: #{scaleValue(24)};
-    }
-
-    &--right-gridboxcopy {
-      min-height: #{scaleValue(106)};
-    }
-
-    &--right-gridboxbtn {
-      position: absolute;
-      bottom: #{scaleValue(21)};
-      left: #{scaleValue(21)};
-      display: flex;
-
-      & button {
+    &--area {
+      & h1 {
         font-weight: 500;
-        font-size: #{scaleValue(13)};
+        font-size: #{scaleValue(50)};
+        line-height: #{scaleValue(70)};
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+
+        @media only screen and (max-width: 412px) {
+          font-size: #{scaleValue(130)};
+          line-height: #{scaleValue(200)};
+          font-weight: 400;
+        }
+      }
+
+      & h2 {
+        font-weight: 400;
+        font-size: #{scaleValue(18)};
+        line-height: #{scaleValue(28)};
+        width: #{scaleValue(700)};
+        margin-top: #{scaleValue(20)};
+        text-align: center;
+
+        @media only screen and (max-width: 412px) {
+          font-size: #{scaleValue(60)};
+          line-height: #{scaleValue(90)};
+          width: #{scaleValue(1500)};
+          margin-top: #{scaleValue(55)};
+        }
+      }
+
+      & button {
+        @include greenbtnlanding;
+
+        border-radius: 0.5rem;
+
+        @media only screen and (max-width: 412px) {
+          margin-top: #{scaleValue(100)};
+        }
+      }
+
+      &.buttons {
+        margin-top: #{scaleValue(60)};
+
+        @media only screen and (max-width: 412px) {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+
+    &--facts {
+      display: flex;
+      align-items: center;
+      margin-top: #{scaleValue(130)};
+      padding: #{scaleValue(10)} #{scaleValue(30)};
+      color: $landing-textcolor;
+      background: $green;
+      border-radius: #{scaleValue(20)};
+      border: 1px solid $green;
+
+      @media only screen and (max-width: 412px) {
+        margin-top: #{scaleValue(400)};
+        flex-direction: column;
+        align-items: start;
+        width: #{scaleValue(1500)};
+      }
+    }
+
+    &--fact {
+      display: flex;
+      align-items: center;
+      font-size: #{scaleValue(13)};
+      margin-right: #{scaleValue(50)};
+      font-weight: 600;
+
+      @media only screen and (max-width: 412px) {
+        font-size: #{scaleValue(60)};
+        font-weight: 400;
+        line-height: #{scaleValue(150)};
+      }
+
+      &:last-child {
+        margin: 0;
       }
 
       & span {
-        &::after {
-          border-style: solid;
-          content: "";
-          display: inline-block;
-          vertical-align: baseline;
-          position: relative;
-          left: 8px;
-          transition: all 0.2s ease-in-out;
-          margin-right: -10px;
+        display: flex;
+        align-items: center;
 
-          width: 0;
-          height: 0;
-          border-style: solid;
-          border-width: 6px 0 6px 10px;
-          border-color: transparent transparent transparent #fff;
+        &.image {
+          margin-right: #{scaleValue(10)};
+
+          @media only screen and (max-width: 412px) {
+            width: #{scaleValue(20)};
+            height: #{scaleValue(20)};
+            margin-right: #{scaleValue(100)};
+          }
         }
       }
     }
   }
 
-  &__copyheaderstyle {
-    font-size: #{scaleValue(38)};
-    font-weight: 400;
-    display: flex;
-    flex-direction: column;
-  }
+  &__features {
+    padding: $basic-landing-area-padding;
+    padding-top: #{scaleValue(100)};
+    padding-bottom: #{scaleValue(100)};
 
-  &__copyfontstyle {
-    line-height: #{scaleValue(25)};
-    font-size: #{scaleValue(16)};
-    margin-top: #{scaleValue(17)};
+    background: linear-gradient(
+      to bottom,
+      rgba($landing-primary, 1),
+      rgba($landing-primary, 0.8)
+    );
+
+    &--header {
+      text-align: center;
+      font-size: #{scaleValue(20)};
+      margin-bottom: #{scaleValue(50)};
+
+      @media only screen and (max-width: 412px) {
+        margin-bottom: #{scaleValue(200)};
+        font-size: #{scaleValue(70)};
+      }
+
+      & h2 {
+        font-weight: 500;
+      }
+    }
+
+    &--grid {
+      display: flex;
+      justify-content: center;
+
+      @media only screen and (max-width: 412px) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+
+    &--photoarea {
+      height: #{scaleValue(500)};
+      width: #{scaleValue(700)};
+      margin: 0 #{scaleValue(30)};
+
+      @media only screen and (max-width: 412px) {
+        height: #{scaleValue(800)};
+        width: #{scaleValue(900)};
+        margin-top: #{scaleValue(200)};
+      }
+
+      & img {
+        height: 100%;
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+    &--feature {
+      text-align: center;
+      width: #{scaleValue(350)};
+      margin-top: #{scaleValue(60)};
+
+      @media only screen and (max-width: 412px) {
+        width: #{scaleValue(1000)};
+        margin-top: #{scaleValue(200)};
+      }
+
+      & label {
+        padding: #{scaleValue(8)};
+        border-radius: 3rem;
+        background: $greyed-out;
+        display: inline-block;
+        font-size: #{scaleValue(10)};
+        margin-bottom: #{scaleValue(16)};
+
+        @media only screen and (max-width: 412px) {
+          font-size: #{scaleValue(60)};
+          padding: #{scaleValue(30)} #{scaleValue(60)};
+          margin-bottom: #{scaleValue(90)};
+          border-radius: 5rem;
+        }
+      }
+
+      & h3 {
+        font-size: #{scaleValue(18)};
+        margin-bottom: #{scaleValue(16)};
+        font-weight: 400;
+
+        @media only screen and (max-width: 412px) {
+          font-size: #{scaleValue(90)};
+          margin-bottom: #{scaleValue(70)};
+        }
+      }
+
+      & p {
+        color: rgba($white, 0.5);
+        font-size: #{scaleValue(15)};
+
+        @media only screen and (max-width: 412px) {
+          font-size: #{scaleValue(50)};
+        }
+      }
+    }
   }
 
   &__tradingtypes {
     padding: $basic-landing-area-padding;
     padding-top: #{scaleValue(80)};
 
+    background: linear-gradient(
+      to bottom,
+      rgba($landing-primary, 1),
+      rgba($landing-primary, 0.8)
+    );
+
+    @media only screen and (max-width: 414px) {
+      padding: #{scaleValue(70)};
+      padding-top: #{scaleValue(200)};
+      padding-bottom: #{scaleValue(200)};
+    }
+
     & h2 {
       @include h2-landing;
+      color: $white;
+      font-weight: 500;
+      margin-bottom: #{scaleValue(100)};
+    }
+  }
+
+  &__tradingtypesarea {
+    &--mast {
+      & figure {
+        height: #{scaleValue(500)};
+        width: #{scaleValue(700)};
+
+        & img {
+          object-fit: cover;
+          height: 100%;
+          width: 100%;
+        }
+      }
     }
   }
 
@@ -953,6 +994,10 @@ export default {
     display: flex;
     justify-content: space-between;
     position: relative;
+
+    @media only screen and (max-width: 414px) {
+      flex-direction: column;
+    }
   }
 
   &__tradingtypesbox {
@@ -961,8 +1006,13 @@ export default {
     flex-direction: column;
     width: #{scaleValue(400)};
     padding-bottom: #{scaleValue(30)};
-    color: $landing-primary;
+    color: rgba($white, 0.9);
     margin-bottom: #{scaleValue(30)};
+
+    @media only screen and (max-width: 414px) {
+      width: auto;
+      margin-bottom: #{scaleValue(100)};
+    }
 
     &:not(:last-child) {
       border-bottom: $border;
@@ -990,7 +1040,7 @@ export default {
     }
 
     & button {
-      color: $landing-primary;
+      color: rgba($white, 0.9);
       font-weight: 500;
       font-size: #{scaleValue(13)};
       transition: all 0.4s ease;
@@ -1000,91 +1050,101 @@ export default {
     &--p {
       font-size: #{scaleValue(16)};
       line-height: #{scaleValue(26)};
-      color: $index-body;
+      color: rgba($white, 0.9);
       margin-bottom: #{scaleValue(30)};
+
+      @media only screen and (max-width: 414px) {
+        font-size: #{scaleValue(65)};
+        line-height: #{scaleValue(90)};
+        margin-bottom: #{scaleValue(60)};
+      }
     }
 
     &--h4 {
-      color: $landing-primary;
+      color: $landing-green;
       font-weight: 600;
       font-size: #{scaleValue(20)};
       margin-bottom: #{scaleValue(10)};
+
+      @media only screen and (max-width: 414px) {
+        font-size: #{scaleValue(70)};
+        line-height: #{scaleValue(90)};
+        margin-bottom: #{scaleValue(60)};
+      }
     }
   }
 
-  &__rewards {
+  &__stats {
     padding: $basic-landing-area-padding;
-    padding-top: #{scaleValue(80)};
-    padding-bottom: #{scaleValue(80)};
-
-    background: linear-gradient(to right, #12225c 2%, #6c3483 70%);
-
-    &--h2 {
-      @include h2-landing;
-      color: $white;
-    }
-
-    &--h3 {
-      color: $green;
-      font-size: #{scaleValue(15)};
-      font-weight: 600;
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: #{scaleValue(10)};
-    }
-  }
-
-  &__rewardsbody {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: #{scaleValue(19)};
-  }
-
-  &__reward {
+    padding-top: #{scaleValue(100)};
+    padding-bottom: #{scaleValue(100)};
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-radius: $box-radius;
-    background: $light-black;
-    padding: #{scaleValue(21)};
-    border: $border;
-    border-color: $green;
-    border-width: #{scaleValue(2)};
+    justify-content: center;
 
-    & figure {
-      height: #{scaleValue(40)};
-      width: #{scaleValue(40)};
-      overflow: hidden;
-      border-radius: 100%;
-      margin-bottom: #{scaleValue(15)};
+    background: linear-gradient(
+      to bottom,
+      rgba($landing-primary, 1),
+      rgba($landing-primary, 0.8)
+    );
 
-      & img {
-        height: 100%;
+    &--para {
+      font-size: #{scaleValue(15)};
+      width: #{scaleValue(500)};
+      line-height: #{scaleValue(26)};
+      text-align: center;
+      margin-top: #{scaleValue(20)};
+
+      @media only screen and (max-width: 414px) {
+        font-size: #{scaleValue(50)};
+        line-height: #{scaleValue(70)};
+        width: #{scaleValue(1400)};
+      }
+    }
+
+    &--grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: #{scaleValue(40)};
+
+      @media only screen and (max-width: 414px) {
+        grid-template-columns: repeat(1, 1fr);
         width: 100%;
-        object-fit: cover;
       }
     }
 
-    & h5 {
-      text-transform: uppercase;
-      font-weight: 500;
-      font-size: #{scaleValue(16)};
-      margin-bottom: #{scaleValue(7)};
-    }
+    &--item {
+      display: flex;
+      flex-direction: column;
+      padding-left: #{scaleValue(20)};
+      padding-right: #{scaleValue(70)};
+      border-left: $border;
+      padding-bottom: #{scaleValue(20)};
+      padding-bottom: #{scaleValue(30)};
 
-    & span {
-      display: inline-block;
-
-      &:nth-child(3) {
-        font-size: #{scaleValue(13)};
-        color: $greyed-out;
-        margin-bottom: #{scaleValue(17)};
+      @media only screen and (max-width: 414px) {
+        padding-left: #{scaleValue(70)};
+        padding-bottom: #{scaleValue(180)};
       }
 
-      &:nth-child(4) {
+      & label {
         font-size: #{scaleValue(30)};
-        color: $green;
-        font-weight: 200;
+        font-weight: 500;
+        margin-bottom: #{scaleValue(20)};
+
+        @media only screen and (max-width: 414px) {
+          font-size: #{scaleValue(100)};
+          margin-bottom: #{scaleValue(50)};
+        }
+      }
+
+      & span {
+        font-size: #{scaleValue(15)};
+
+        @media only screen and (max-width: 414px) {
+          font-size: #{scaleValue(60)};
+        }
       }
     }
   }
@@ -1100,6 +1160,12 @@ export default {
     background: $landing-primary;
 
     flex-direction: column;
+
+    @media only screen and (max-width: 414px) {
+      padding: #{scaleValue(70)};
+      padding-top: #{scaleValue(130)};
+      padding-bottom: #{scaleValue(130)};
+    }
   }
 
   &__perksarea {
@@ -1108,6 +1174,10 @@ export default {
 
     &:nth-child(1) {
       width: #{scaleValue(500)};
+
+      @media only screen and (max-width: 414px) {
+        width: auto;
+      }
     }
 
     &.bottomrow {
@@ -1115,6 +1185,16 @@ export default {
       margin-top: #{scaleValue(30)};
       justify-content: space-between;
       flex-wrap: wrap;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 1rem;
+
+      @media only screen and (max-width: 414px) {
+        padding-top: #{scaleValue(130)};
+
+        grid-template-columns: repeat(1, 1fr);
+      }
     }
 
     & h4 {
@@ -1124,6 +1204,11 @@ export default {
       text-transform: uppercase;
       text-align: left;
       margin-bottom: #{scaleValue(10)};
+
+      @media only screen and (max-width: 414px) {
+        font-size: #{scaleValue(65)};
+        margin-bottom: #{scaleValue(40)};
+      }
     }
 
     & h3 {
@@ -1142,6 +1227,11 @@ export default {
       font-weight: 500;
       line-height: #{scaleValue(23)};
       font-size: #{scaleValue(15)};
+
+      @media only screen and (max-width: 414px) {
+        font-size: #{scaleValue(68)};
+        line-height: #{scaleValue(95)};
+      }
     }
 
     & button {
@@ -1149,92 +1239,223 @@ export default {
     }
   }
 
+  &__rewards {
+    padding: $basic-landing-area-padding;
+    padding-top: #{scaleValue(80)};
+    padding-bottom: #{scaleValue(80)};
+
+    background: linear-gradient(to right, #12225c 2%, #6c3483 70%);
+
+    background: linear-gradient(
+      to bottom,
+      rgba($landing-primary, 1),
+      rgba($landing-primary, 0.8)
+    );
+
+    @media only screen and (max-width: 414px) {
+      padding: #{scaleValue(70)};
+      padding-top: #{scaleValue(200)};
+      padding-bottom: #{scaleValue(200)};
+    }
+
+    &--h2 {
+      @include h2-landing;
+      color: $white;
+    }
+
+    &--h3 {
+      color: $green;
+      font-size: #{scaleValue(15)};
+      font-weight: 600;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: #{scaleValue(10)};
+
+      @media only screen and (max-width: 414px) {
+        font-size: #{scaleValue(90)};
+      }
+    }
+  }
+
+  &__rewardsbody {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: #{scaleValue(19)};
+
+    @media only screen and (max-width: 414px) {
+      grid-template-columns: repeat(1, #{scaleValue(1475)});
+      grid-gap: #{scaleValue(70)};
+    }
+  }
+
+  &__reward {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: $box-radius;
+    background: $light-black;
+    padding: #{scaleValue(21)};
+    border: $border;
+    border-color: $green;
+    border-width: #{scaleValue(2)};
+
+    @media only screen and (max-width: 414px) {
+      padding: #{scaleValue(100)};
+    }
+
+    & figure {
+      height: #{scaleValue(40)};
+      width: #{scaleValue(40)};
+      overflow: hidden;
+      border-radius: 100%;
+      margin-bottom: #{scaleValue(15)};
+
+      @media only screen and (max-width: 414px) {
+        height: #{scaleValue(140)};
+        width: #{scaleValue(140)};
+        margin-bottom: #{scaleValue(100)};
+      }
+
+      & img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    & h5 {
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: #{scaleValue(16)};
+      margin-bottom: #{scaleValue(7)};
+
+      @media only screen and (max-width: 414px) {
+        font-size: #{scaleValue(70)};
+        margin-bottom: #{scaleValue(70)};
+      }
+    }
+
+    & span {
+      display: inline-block;
+
+      &:nth-child(3) {
+        font-size: #{scaleValue(13)};
+        color: $greyed-out;
+        margin-bottom: #{scaleValue(17)};
+
+        @media only screen and (max-width: 414px) {
+          font-size: #{scaleValue(50)};
+        }
+      }
+
+      &:nth-child(4) {
+        font-size: #{scaleValue(30)};
+        color: $green;
+        font-weight: 200;
+
+        @media only screen and (max-width: 414px) {
+          font-size: #{scaleValue(60)};
+        }
+      }
+    }
+  }
+
   &__perk {
     border-radius: $box-radius;
     background: rgba($defipopup-body, 0.6);
     padding: #{scaleValue(31)};
-    width: #{scaleValue(570)};
     flex-shrink: 0;
 
-    margin-bottom: #{scaleValue(20)};
+    position: relative;
+    padding-bottom: #{scaleValue(100)};
+
+    & button {
+      position: absolute;
+      bottom: #{scaleValue(30)};
+
+      @include greenbtnlanding;
+
+      @media only screen and (max-width: 414px) {
+        bottom: #{scaleValue(70)};
+      }
+    }
+
+    @media only screen and (max-width: 414px) {
+      width: auto;
+      margin-bottom: #{scaleValue(100)};
+      padding: #{scaleValue(120)};
+
+      padding-bottom: #{scaleValue(300)};
+    }
 
     &--section-header {
       display: inline-block;
       margin-bottom: #{scaleValue(8)};
       font-weight: 600;
+
+      @media only screen and (max-width: 414px) {
+        font-size: #{scaleValue(90)};
+      }
     }
 
     &--section-copy {
       line-height: #{scaleValue(21)};
       font-size: #{scaleValue(14)};
       opacity: 0.9;
-    }
-  }
+      margin-top: #{scaleValue(18)};
 
-  &__inthenews {
-    padding: $basic-landing-area-padding;
-    padding-top: #{scaleValue(80)};
-    padding-bottom: #{scaleValue(80)};
-    background: $light-black;
-  }
-
-  &__inthenewsbody {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: #{scaleValue(19)};
-  }
-
-  &__inthenewscard {
-    border-radius: $box-radius;
-    background: rgba($defipopup-body, 0.4);
-    padding: #{scaleValue(31)};
-    height: #{scaleValue(250)};
-    position: relative;
-
-    &--header {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: #{scaleValue(20)};
-
-      & span {
-        display: inline-block;
-        text-transform: uppercase;
-
-        &:nth-child(1) {
-          font-size: #{scaleValue(14)};
-          font-weight: 500;
-          opacity: 0.7;
-        }
-
-        &:nth-child(2) {
-          font-size: #{scaleValue(13)};
-          color: $green;
-        }
+      @media only screen and (max-width: 414px) {
+        line-height: #{scaleValue(100)};
+        font-size: #{scaleValue(70)};
+        margin-top: #{scaleValue(100)};
+        margin-bottom: #{scaleValue(100)};
       }
     }
 
-    &--copy {
-      font-weight: 600;
-      font-size: #{scaleValue(17)};
-      margin-bottom: #{scaleValue(20)};
-      line-height: #{scaleValue(27)};
+    &--list {
+      margin-top: #{scaleValue(18)};
+      font-size: #{scaleValue(14)};
+
+      @media only screen and (max-width: 414px) {
+        line-height: #{scaleValue(100)};
+        font-size: #{scaleValue(65)};
+      }
     }
 
-    &--btn {
-      width: 100%;
-      position: absolute;
-      bottom: #{scaleValue(31)};
-      left: 0;
-      padding: 0 #{scaleValue(31)};
+    &--listitem {
+      margin-bottom: #{scaleValue(18)};
+      font-size: #{scaleValue(14)};
+
+      @media only screen and (max-width: 414px) {
+        line-height: #{scaleValue(100)};
+        font-size: #{scaleValue(65)};
+      }
     }
 
-    & button {
-      width: 100%;
-      background: $landing-primary;
-      padding: #{scaleValue(14)};
-      font-size: #{scaleValue(16)};
+    &--listitemfeaturesheader {
+      display: block;
+      margin-bottom: #{scaleValue(10)};
+    }
+
+    &--listitemfeatures {
+      display: flex;
+      flex-direction: column;
+      line-height: #{scaleValue(30)};
+
+      @media only screen and (max-width: 414px) {
+        line-height: #{scaleValue(120)};
+      }
+    }
+
+    &--listitemboldtext {
       font-weight: 600;
-      box-shadow: 1px 1px 8px rgba(18, 34, 92, 0.5);
+      font-size: #{scaleValue(15)};
+      color: $green;
+
+      @media only screen and (max-width: 414px) {
+        font-weight: 600;
+        font-size: #{scaleValue(60)};
+      }
     }
   }
 
@@ -1243,10 +1464,19 @@ export default {
 
     background: $light-black;
 
+    @media only screen and (max-width: 414px) {
+      padding: 0 #{scaleValue(60)};
+    }
+
     &--content {
       border-top: $border;
       padding-top: #{scaleValue(80)};
       padding-bottom: #{scaleValue(80)};
+
+      @media only screen and (max-width: 414px) {
+        padding-top: #{scaleValue(160)};
+        padding-bottom: #{scaleValue(160)};
+      }
 
       & p {
         font-size: #{scaleValue(13)};
@@ -1254,6 +1484,11 @@ export default {
         opacity: 0.9;
         line-height: #{scaleValue(23)};
         margin-bottom: #{scaleValue(30)};
+
+        @media only screen and (max-width: 414px) {
+          font-size: #{scaleValue(50)};
+          line-height: #{scaleValue(100)};
+        }
       }
     }
   }

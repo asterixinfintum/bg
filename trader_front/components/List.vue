@@ -1,33 +1,32 @@
 <template>
-  <div class="list">
-    <div v-if="headers && headers.length && currentpair" class="list__headers list__item">
+  <div class="list" :key="componentKey">
+    <div class="list__headers list__item">
       <div class="list__item--section1">
-        <div class="list__item--left">Price ({{ currentpair.right }})</div>
+        <div class="list__item--left">
+          Price <span class="uppercase">({{ quotesymbol }})</span>
+        </div>
       </div>
 
       <div class="list__item--section2">
+        <div class="list__item--middle">
+          Amount <span class="uppercase">({{ basesymbol }})</span>
+        </div>
+        <div class="list__item--right">Total</div>
+      </div>
+    </div>
+
+    <div v-for="(order, index) in orders">
+      <div
+        class="list__item orderbookitem"
+        v-if="order.price !== 0 && order.amount !== 0 && order.total !== 0"
+      >
         <div
-          class="list__item--middle"
-          v-if="currentpair.assettype === 'commodity'"
+          class="list__item--colorcode"
+          :style="{
+            background: color,
+            width: `${order.hierarchyPercentage}%`,
+          }"
         ></div>
-        <div class="list__item--middle" v-if="currentpair.assettype === 'commodity'">
-          Date ({{ currentpair.left }})
-        </div>
-        <div class="list__item--middle" v-if="currentpair.assettype !== 'commodity'">
-          Amount ({{ currentpair.left }})
-        </div>
-        <div class="list__item--right" v-if="currentpair.assettype !== 'commodity'">
-          Total ({{ currentpair.right }})
-        </div>
-      </div>
-    </div>
-
-    <div v-if="currentpair && currentpair.assettype !== 'commodity'">
-      <div
-        v-for="order in order_items"
-        class="list__item orderbookitem"
-        v-if="type !== 'market trades'"
-      >
         <div class="list__item--section1">
           <div
             class="list__item--left"
@@ -35,64 +34,13 @@
               color,
             }"
           >
-            {{ order.price }}
+            {{ roundUpToFourDecimalPlaces(order.price) }}
           </div>
         </div>
 
         <div class="list__item--section2">
-          <div class="list__item--middle">
-            {{ formatNumberCommasMoreDecims(order.amount) }}
-          </div>
-          <div class="list__item--right">
-            {{ formatNumberCommasMoreDecims(order.total) }}
-          </div>
-        </div>
-      </div>
-
-      <div
-        v-for="marketTrade in marketTrades"
-        class="list__item orderbookitem"
-        v-if="type === 'market trades'"
-      >
-        <div class="list__item--section1">
-          <div
-            class="list__item--left"
-            :style="{
-              color,
-            }"
-          >
-            {{ marketTrade.price }}
-          </div>
-        </div>
-
-        <div class="list__item--section2">
-          <div class="list__item--middle">
-            {{ formatNumberCommasMoreDecims(marketTrade.amount) }}
-          </div>
-          <div class="list__item--right">
-            {{ formatNumberCommasMoreDecims(marketTrade.total) }}
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="currentpair && currentpair.assettype === 'commodity'">
-      <div v-for="value in currentpair.values" class="list__item orderbookitem">
-        <div class="list__item--section2">
-          <div class="list__item--middle blue">{{ value.value }}</div>
-        </div>
-
-        <div class="list__item--section1">
-          <div
-            class="list__item--left"
-            :style="{
-              color,
-            }"
-          ></div>
-        </div>
-
-        <div class="list__item--section2">
-          <div class="list__item--middle green">{{ value.date }}</div>
+          <div class="list__item--middle">{{ order.amount }}</div>
+          <div class="list__item--right">{{ order.total }}</div>
         </div>
       </div>
     </div>
@@ -106,126 +54,61 @@ import generalutilities from "@/mixins/generalutilities";
 
 export default {
   mixins: [generalutilities],
-  props: ["type", "headers", "color", "asset", "interval", "currentpair"],
+  props: ["type", "headers", "color", "asset", "interval", "currentpair", "orders"],
   data() {
     return {
-      orderBookLength: 20,
-      order_items: [],
+      componentKey: 0,
     };
   },
-  mounted() {
-    this.triggergen();
-  },
+  mounted() {},
   methods: {
-    ...mapMutations("cryptoassets", ["SET_SELLORDERS", "SET_BUYORDERS"]),
-    triggergen() {
-      if (this.currentpair) {
-        if (this.currentpair.assettype !== "commodity") {
-          setTimeout(() => {
-            setInterval(() => {
-              this.generateOrderBook();
-            }, this.interval);
-          }, 600);
-        }
-      }
-    },
-    generateRandomNumberWithDecimals() {
-      const min = 3000;
-      const max = 40000;
-      const decimalPlaces = 8;
-
-      const randomNumber = Math.random() * (max - min) + min;
-      const roundedNumber = Number(randomNumber.toFixed(decimalPlaces));
-      return roundedNumber;
-    },
-    scrambleArray(arr) {
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-
-      return arr;
-    },
-    randomizeDecimalPoints(num) {
-      // Convert the number to a string
-      let numStr = num.toString();
-
-      // Split the number into its integer and decimal parts
-      let [integerPart, decimalPart] = numStr.split(".");
-
-      // If the number doesn't have a decimal part, initialize it to '0'
-      if (!decimalPart) {
-        decimalPart = "0";
-      }
-
-      // Randomize the decimal part
-      let randomizedDecimal = "";
-      for (let i = 0; i < decimalPart.length; i++) {
-        randomizedDecimal += Math.floor(Math.random() * 10).toString();
-      }
-
-      // Return the number with the randomized decimal part
-      return parseFloat(integerPart + "." + randomizedDecimal);
-    },
-    generateOrderBook() {
-      const { orderBookLength, asset, generateRandomNumberWithDecimals, color } = this;
-      const orderBook = [];
-
-      if (this.currentpair) {
-        if (
-          this.currentpair.assettype === "crypto" ||
-          this.currentpair.assettype === "stock"
-        ) {
-          const pricenum = this.asset.price;
-
-          for (let i = 0; i < orderBookLength; i++) {
-            const amount = generateRandomNumberWithDecimals();
-            const price = this.randomizeDecimalPoints(pricenum);
-            const total = amount * price;
-
-            const order = {
-              price,
-              amount,
-              total,
-              color,
-            };
-
-            orderBook.push(order);
-          }
-
-          this.order_items = orderBook;
-        }
-      }
-    },
-  },
-  computed: {
-    ...mapState({
-      sellorders: (state) => state.cryptoassets.sellorders,
-      buyorders: (state) => state.cryptoassets.buyorders,
-    }),
-    marketTrades() {
-      const arr = [...this.sellorders, ...this.buyorders];
-      return this.scrambleArray(arr);
+    roundUpToFourDecimalPlaces(number) {
+      return Math.ceil(number * 10000) / 10000;
     },
   },
   watch: {
-    order_items(newValue, oldValue) {
-      if (newValue.length && this.type === "order book sell") {
-        this.SET_SELLORDERS(newValue);
-      }
+    currentpair(newval, oldval) {
+      //console.log(newval)
+    },
+    orders(newval, oldval) {
+      //console.log(newval);
+      this.componentKey++;
+    },
+  },
+  computed: {
+    basesymbol() {
+      if (this.currentpair) {
+        const basesymbol = this.currentpair.pair.split("/")[0].toLowerCase();
 
-      if (newValue.length && this.type === "order book buy") {
-        this.SET_BUYORDERS(newValue);
+        return basesymbol;
+      } else {
+        return "";
       }
     },
-    currentpair() {
-      this.triggergen();
+    quotesymbol() {
+      if (this.currentpair) {
+        const quotesymbol = this.currentpair.pair.split("/")[1].toLowerCase();
+
+        return quotesymbol;
+      } else {
+        return "";
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
+@keyframes expandAndContract {
+  0%,
+  100% {
+    transform: scaleX(0);
+  }
+  50% {
+    transform: scaleX(1); // Original size
+  }
+}
+
 .list {
   padding: #{scaleValue(10)} 0;
   height: #{scaleValue(450)};
@@ -248,6 +131,22 @@ export default {
     font-size: #{scaleValue(12)};
     font-weight: 500;
     margin-bottom: #{scaleValue(5)};
+
+    position: relative;
+
+    &--colorcode {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+      opacity: 0.08;
+
+      //transition: all 0.3s ease;
+
+      animation: expandAndContract 0.3s ease-in-out;
+
+      transform-origin: right;
+    }
 
     &--section1 {
       @include flex-align;

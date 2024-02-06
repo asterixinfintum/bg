@@ -133,5 +133,4 @@ var stocks = [{
 // { symbol: "ZNGA", name: "Zynga Inc.", image: "ZNGA@2x.png" },
 // { symbol: "SPCE", name: "Virgin Galactic Holdings, Inc.", image: "SPCE@2x.png" }
 ];
-var _default = stocks;
-exports["default"] = _default;
+var _default = exports["default"] = stocks;

@@ -1,3 +1,5 @@
+
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -12,7 +14,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
       {
@@ -20,17 +22,22 @@ export default {
         type: 'text/javascript',
         body: true // Include the script just before the closing </body> tag
       },
-      {
-        src: 'https://unpkg.com/lightweight-charts@4.0/dist/lightweight-charts.standalone.production.js',
+      /*{
+        src: "https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js",
         type: 'text/javascript',
         body: true // Include the script just before the closing </body> tag
-      },
+      },*/
+      { src: 'https://unpkg.com/lightweight-charts@4.0.1/dist/lightweight-charts.standalone.production.js' },
       {
         src: 'https://unpkg.com/bsv@1.5.6/bsv.min.js',
         type: 'text/javascript'
       },
       {
         src: 'https://cdn.jsdelivr.net/gh/centrifugal/centrifuge-js@latest/dist/centrifuge.min.js',
+        type: 'text/javascript'
+      },
+      {
+        src: 'https://cdn.socket.io/4.0.0/socket.io.min.js',
         type: 'text/javascript'
       }
     ]
@@ -44,6 +51,8 @@ export default {
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
     '~/plugins/event-transfer.js',
+    '~/plugins/lightweight-charts.js',
+    '~/plugins/socket.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -82,6 +91,9 @@ export default {
       '~/assets/scss/wallet.scss',
       '~/assets/scss/swap.scss',
       '~/assets/scss/info.scss',
+      '~/assets/scss/assetscontainer.scss',
+      '~/assets/scss/traderheader.scss',
+      '~/assets/scss/slideup.scss',
     ],
     hoistUseStatements: true
   },

@@ -45,7 +45,8 @@ client.get('/getclient', authenticateToken, async (req, res) => {
                 password,
                 accountplan,
                 spotbtcaddress,
-                marginbtcaddress
+                marginbtcaddress,
+                tailoreddashboard
             } = client;
 
             res.json({
@@ -66,7 +67,8 @@ client.get('/getclient', authenticateToken, async (req, res) => {
                     password,
                     accountplan,
                     spotbtcaddress,
-                    marginbtcaddress
+                    marginbtcaddress,
+                    tailoreddashboard
                 }
             });
 

@@ -51,14 +51,14 @@ async function getprices(date) {
     try {
         const stocks = await Asset.find({ assetType: 'stock' });
         const cryptos = await Asset.find({ assetType: 'crypto' });
-        const commodities = await Asset.find({ assetType: 'commodity' });
+        //const commodities = await Asset.find({ assetType: 'commodity' });
 
         // Process stocks and cryptos in parallel with controlled concurrency
         const stockUpdatePromises = stocks.map(stock => updatestockprice(stock, date));
         const cryptoUpdatePromises = cryptos.map(crypto => updatecryptoprice(crypto, date));
-        const commodityUpdatePromises = commodities.map(commodity => updatecommodityprice(commodity, date));
+        //const commodityUpdatePromises = commodities.map(commodity => updatecommodityprice(commodity, date));
 
-        await Promise.all([...stockUpdatePromises, ...cryptoUpdatePromises, ...commodityUpdatePromises]);
+        await Promise.all([...stockUpdatePromises, ...cryptoUpdatePromises]);
 
     } catch (error) {
         console.error('Error in getPrices:', error);

@@ -13,5 +13,15 @@ export default {
         compareAssetsPrices(price0fAssetA, price0fAssetB) {
             return parseFloat(price0fAssetA) / parseFloat(price0fAssetB)
         },
+        toDecimal(num) {
+            if (num >= 1 && num <= 100) {
+                return num / 100;
+            } else {
+                return 0
+            }
+        },
+        containsOnlyLetters(str) {
+            return /^[A-Za-z]+$/.test(str);
+        }
     }
 }

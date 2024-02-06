@@ -9,5 +9,4 @@ var fiatSymbols = [{
   name: 'US Dollar',
   image: 'usd.png'
 }];
-var _default = fiatSymbols;
-exports["default"] = _default;
+var _default = exports["default"] = fiatSymbols;

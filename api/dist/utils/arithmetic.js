@@ -12,8 +12,7 @@ function subtractAndConvertToNumber(num1, num2) {
   var result = (num1 - num2).toFixed(8);
   return parseFloat(result);
 }
-var _default = {
+var _default = exports["default"] = {
   addAndConvertToNumber: addAndConvertToNumber,
   subtractAndConvertToNumber: subtractAndConvertToNumber
 };
-exports["default"] = _default;

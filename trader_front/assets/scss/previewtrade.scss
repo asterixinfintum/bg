@@ -8,15 +8,17 @@
     &__contentitem {
         display: flex;
         justify-content: space-between;
-        margin-bottom: #{scaleValue(20)};
+        margin-bottom: #{scaleValue(20)}
     }
 
     &__contentitemleft {
         font-size: #{scaleValue(13)};
         opacity: .6;
+        text-transform: capitalize
     }
 
     &__contentitemright {
+        text-transform: capitalize
 
         &--top {
             font-size: #{scaleValue(13)};

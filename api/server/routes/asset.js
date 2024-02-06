@@ -9,7 +9,13 @@ asset.get('/assets/', async (req, res) => {
         const assets = await Asset.find({});
         const assetlist = []
 
-        assets.forEach(({ _id, name, coin, symbol, assetType, price, image }) => assetlist.push({ _id, name, coin, symbol, assetType, price, image }));
+        //console.log(assets)
+
+        assets.forEach(({ _id, name, coin, symbol, assetType, price, image, listed }) => {
+            if (listed) {
+                assetlist.push({ _id, name, coin, symbol, assetType, price, image, listed })
+            }
+        });
 
         res.status(200).json({ assets: assetlist });
     } catch (err) {
@@ -28,7 +34,7 @@ asset.get('/asset/', async (req, res) => {
         }
 
         const asset = await Asset.findOne({ _id: assetid });
-        const { _id, name, coin, symbol, assetType, price, image, pricehistory } = asset;
+        const { _id, name, coin, symbol, assetType, price, image, listed, pricehistory } = asset;
 
         const result = {
             _id,
@@ -38,7 +44,8 @@ asset.get('/asset/', async (req, res) => {
             symbol,
             price,
             image,
-            pricehistory: pricehistory.slice(0, 20)
+            listed
+            //pricehistory: pricehistory.slice(0, 20)
         }
 
         res.status(200).json({ asset: result });

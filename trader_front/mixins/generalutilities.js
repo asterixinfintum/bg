@@ -74,11 +74,11 @@ export default {
         formatNumber(number) {
             return this.formatNumberCommas(parseInt(number, 10));
         },
-        returnCryptoLogo(symbol) {
+        /*returnCryptoLogo(symbol) {
             const { base_url, cryptoLogos } = this;
             const logo = cryptoLogos.find(cryptoLogo => cryptoLogo.toLowerCase().includes(symbol.toLowerCase()));
             return `${base_url}/${logo}`;
-        }
+        }*/
     },
     computed: {
         currentRoute: function () {

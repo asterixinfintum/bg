@@ -11,6 +11,6 @@ export default {
         ...mapActions('inhouseassets', ['getinhouseassets']),
     },
     mounted() {
-        this.getinhouseassets();
+        //this.getinhouseassets();
     }
 }

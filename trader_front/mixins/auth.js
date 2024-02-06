@@ -1,8 +1,12 @@
 import { mapActions, mapState, mapMutations } from 'vuex';
 
+import global from "@/mixins/global.js";
+
 export default {
     data() {
         return {
+            firstname: null,
+            lastname: null,
             email: null,
             phonenumber: null,
             password: null,
@@ -14,6 +18,7 @@ export default {
             autherror: false
         }
     },
+    mixins: [global],
     computed: {
         ...mapState({
             assets: state => state.list.assets,

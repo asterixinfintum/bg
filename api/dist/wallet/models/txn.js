@@ -16,7 +16,6 @@ var TxnSchema = new Schema({
     type: String,
     required: true //text to display for transaction
   },
-
   date: {
     type: Date,
     "default": Date.now

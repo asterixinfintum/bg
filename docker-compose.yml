@@ -26,3 +26,18 @@ services:
     build: ./api
     environment:
       - PORT=8001
+
+  apitwo:
+    container_name: apitwo
+    restart: always
+    build: ./apitwo
+    environment:
+      - PORT=8002
+
+  nuxt-app:
+    build: ./trader_front
+    container_name: nuxt-app
+    restart: always
+    environment:
+      - PORT=4000
+    command: 'npm run start'

@@ -35,6 +35,7 @@ export default {
                 .then(response => response.json())
                 .then(data => {
                     const { token, userData } = data;
+
                     this.SET_CLIENT(userData);
                     this.SET_CLIENT_TOKEN(token);
                 })

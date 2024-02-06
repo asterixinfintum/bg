@@ -49,6 +49,5 @@ var fileSchema = new Schema({
   }
   // Additional properties...
 });
-
 var File = mongoose.model('File', fileSchema);
 module.exports = File;

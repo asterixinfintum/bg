@@ -68,5 +68,4 @@ videoupload.post('/videoupload', upload.single('video'), function (req, res) {
     });
   }
 });
-var _default = videoupload;
-exports["default"] = _default;
+var _default = exports["default"] = videoupload;

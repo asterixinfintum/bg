@@ -93,5 +93,4 @@ var cryptoSymbols = [{
   name: 'USD Coin',
   image: 'usd-coin-usdc-logo.png'
 }];
-var _default = cryptoSymbols;
-exports["default"] = _default;
+var _default = exports["default"] = cryptoSymbols;

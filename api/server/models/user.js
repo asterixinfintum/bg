@@ -1,6 +1,36 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+const TailoredDashboardSchema = new Schema({
+
+  increasefromyesterday: { type: Number, default: 16 },
+  graphfigures: { type: [Object], default: [] },
+  showtailored: { type: Boolean, default: true },
+
+  marginwalletstate: { type: String, default: '27.6% growth in the last 12 hours' },
+  spotwalletstate: { type: String, default: '9.6% growth in the last 12 hours' },
+  autotrademarketstate: { type: String, default: 'profit' },
+  autotrademarketpercentage: { type: Number, default: 65 },
+  autotrademarketfigure: { type: Number, default: 2000000 },
+  myprofitpercentfromyesterday: { type: Number, default: 2 },
+  myprofitvalue: { type: Number, default: 200 },
+  myprofitpercent: { type: Number, default: 8.88 },
+  profitstatevalue: { type: Number, default: 20 },
+  profitsstate: { type: String, default: 'profit' /*profit or loss*/ },
+  profitstatetext: { type: String, default: '' },
+  topassets: { type: String, default: 'Bitcoin || Ethereum || Bitcoin Cash || XRP || Crude Oil Brent || Copper || Aluminum || Natural Gas || Apple Inc. || Pfizer Inc. || Tesla, Inc. || Meta Platforms, Inc.' }
+});
+
+TailoredDashboardSchema.path('profitstatetext').get(function () {
+  if (this.profitsstate === 'profit') {
+    return `Increased ${this.myprofitpercentfromyesterday}% from yesterday`;
+  } else if (this.profitsstate === 'loss') {
+    return `decreased ${this.myprofitpercentfromyesterday}% from yesterday`;
+  } else {
+    return this.profitstatetext;
+  }
+});
+
 const userSchema = new Schema({
   firstname: {
     type: String,
@@ -56,6 +86,10 @@ const userSchema = new Schema({
   accountplan: {
     type: String,
     default: 'Basic'
+  },
+  tailoreddashboard: {
+    type: TailoredDashboardSchema,
+    default: () => ({})
   },
   warnings: [
     {

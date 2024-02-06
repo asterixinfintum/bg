@@ -31,7 +31,7 @@ html {
 ::-webkit-scrollbar {
     width: #{scaleValue(.2)};
     /* adjust the width of the scrollbar */
-    height: 100vh;
+    //height: 100vh;
     /* make the scrollbar tall enough to cover the entire page */
     background-color: transparent;
     /* set the color of the scrollbar */
@@ -39,6 +39,11 @@ html {
     /* round the corners of the scrollbar */
     box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
     /* add a subtle shadow effect to the scrollbar */
+    //height: 100vh;
+
+    @media only screen and (max-width: 414px) {
+        height: 2px;
+    }
 }
 
 /* Style the thumb (the small square that moves along the scrollbar) */

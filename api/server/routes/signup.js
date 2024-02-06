@@ -9,6 +9,8 @@ import Wallet from '../wallet/models/wllt';
 
 import uniqueIdGenerate from '../utils/uniqueIdGenerate';
 
+import createuserwallet from '../userwallet/utilities/createuserwallet';
+
 const signup = express.Router();
 
 async function createBitcoinWallet(type, ownerId, { address, mnemonic, privateKey, xpub }) {
@@ -65,6 +67,7 @@ signup.post('/register', async (req, res) => {
 
         // Create Bitcoin wallets
         const btcWallets = await createBitcoinWallets({ ownerId: user._id });
+        await createuserwallet(user._id);
 
         // Respond with user data
         res.json({

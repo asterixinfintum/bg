@@ -2,7 +2,7 @@
   <div>
     <div class="margin">
       <div class="content">
-        <HeaderBox />
+        <TraderHeader />
 
         <div class="content__body">
           <div class="container">
@@ -45,11 +45,11 @@
 
                     <div class="balancearea__primarybalance">
                       <p class="balancearea__primarybalance--btcvalue">
-                        {{ totalBlcBTC("margin") }} BTC
+                        {{ formatNumberForSpecificLocale(walletbtctotal) }} BTC
                       </p>
                       <span class="balancearea__primarybalance--equals">≈</span>
                       <p class="balancearea__primarybalance--usdvalue">
-                        ${{ totalBlcUSD("margin") }}
+                        ${{ formatNumberForSpecificLocale(walletusdtotal) }}
                       </p>
                     </div>
                   </div>
@@ -95,7 +95,16 @@
                   </div>
                 </div>
 
-                <AssetSearch />
+                <div v-if="marginwallet">
+                  <AssetSearch
+                    :walletid="marginwallet._id"
+                    :start="start"
+                    :end="end"
+                    :setassetclass="setassetclass"
+                    :setsearchInput="setsearchInput"
+                    :togglehideemptybalances="togglehideemptybalances"
+                  />
+                </div>
 
                 <div class="assetlistheader">
                   <div class="assetlistheader__item margin">
@@ -121,6 +130,27 @@
 
                   <div class="assetlistheader__item margin">
                     <label class="assetlistheader__item--label">Total balance</label>
+                    <div class="assetlistheader__item--arrows">
+                      <span>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          class="css-1c0zcq0"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M8.75 8.849V10.5h6.5V8.85L12 5.348l-3.25 3.5zm6.5 6.303V13.5h-6.5v1.652l3.25 3.5 3.25-3.5z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+
+                  <div class="assetlistheader__item margin">
+                    <label class="assetlistheader__item--label">Balance in USD</label>
                     <div class="assetlistheader__item--arrows">
                       <span>
                         <svg
@@ -227,32 +257,43 @@
                 </div>
 
                 <div class="assetlist">
-                  <div
-                    class="assetlist__item fiatandspot"
-                    v-for="asset in listByPages[currentPage - 1]"
-                  >
+                  <div class="assetlist__item fiatandspot" v-for="asset in visibleassets">
                     <div class="assetlist__area fiatandspot">
                       <figure class="assetlist__area--assetlogo">
-                        <img :src="returnCryptoLogo(asset.image)" />
+                        <img :src="returnCryptoLogo(asset.assetlogo)" />
                       </figure>
                       <div class="assetlist__area--asset">
-                        <span class="assetlist__area--assetsymbol">{{ asset.coin }}</span>
+                        <span class="assetlist__area--assetsymbol">{{
+                          asset.assetinitials
+                        }}</span>
                         <span class="assetlist__area--assetname">{{
-                          limitTextLength(asset.name, 9)
+                          limitTextLength(asset.assetname, 9)
                         }}</span>
                       </div>
                     </div>
 
                     <div class="assetlist__area fiatandspot number-value">
                       <p class="neon-blue">
-                        {{ addEllipsis(`${assetblc(asset)}`, 13) }}
+                        {{
+                          asset.blc !== 0
+                            ? formatNumberForSpecificLocale(asset.blc)
+                            : `0.00000000`
+                        }}
                       </p>
                     </div>
 
                     <div class="assetlist__area fiatandspot number-value">
                       <p class="neon-blue">
-                        {{ `0.00000000` }}
+                        ${{
+                          asset.usdblc !== 0
+                            ? formatNumberForSpecificLocale(asset.usdblc)
+                            : `0.00000000`
+                        }}
                       </p>
+                    </div>
+
+                    <div class="assetlist__area fiatandspot number-value">
+                      <p class="neon-blue">${{ `0.00000000` }}</p>
                     </div>
 
                     <div class="assetlist__area fiatandspot number-value">
@@ -271,15 +312,14 @@
                       <!--<button class="btn color-primary">Buy</button>-->
                       <!--<button class="btn color-primary">Sell</button>-->
                       <!--<button class="btn color-primary">Deposit</button>-->
-                      <button class="btn neon-pink" @click.stop="$router.push('/swap')">
+                      <button class="btn neon-pink" @click.stop="$router.push('/swaps')">
                         Swap/Convert
                       </button>
                       <button
                         class="btn neon-pink"
                         @click.stop="
-                          navigateToTradePage(
-                            `trade?autotrader=false&wallet=margin&assettype=${asset.assetType}`,
-                            asset._id
+                          $router.push(
+                            `/trader?tradetype=margin&assetid=${asset.assetid}&assettype=${asset.assettype}&assetinitials=${asset.assetinitials}&assetname=${asset.assetname}&userid=${client._id}`
                           )
                         "
                         v-if="asset.coin !== 'USDT' && asset.coin !== 'USD'"
@@ -290,7 +330,7 @@
                         class="btn neon-pink"
                         @click.stop="
                           navigateToTradePage(
-                            `trade?autotrader=true&wallet=margin&assettype=${asset.assetType}`,
+                            `trade?autotrader=true&wallet=margin&assettype=${asset.assetType}&baseAsset=${asset.coin}`,
                             asset._id
                           )
                         "
@@ -304,76 +344,15 @@
                   </div>
                 </div>
 
-                <div class="assetlist__navigation">
+                <div class="assetlist__navigation color-primary fontWeight600">
                   <span
-                    @click="reduPage"
-                    class="assetlist__navigation--prev"
+                    v-for="pagi in pagesbuttons"
+                    @click="setpage(pagi)"
                     :class="{
-                      visible: currentPage > 1,
-                      notvisible: currentPage === 1,
+                      current: currentpage === pagi,
                     }"
+                    >{{ pagi }}</span
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      class="css-3kwgah"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M11.934 12l3.89 3.89-1.769 1.767L8.398 12l1.768-1.768 3.89-3.889 1.767 1.768-3.889 3.89z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </span>
-                  <span v-if="currentPage >= 5" @click="setCurrentPage(1)">1</span>
-                  <span v-if="currentPage >= 5">...</span>
-                  <span
-                    v-for="(arrItem, index) in listByPages"
-                    @click="setCurrentPage(index + 1)"
-                    :class="{
-                      current: currentPage === index + 1,
-                      notvisible:
-                        index + 1 > currentPage + 4 || index + 1 < currentPage - 3,
-                    }"
-                    >{{ index + 1 }}</span
-                  >
-                  <span
-                    v-if="
-                      listByPages.length >= 6 && currentPage <= listByPages.length - 5
-                    "
-                    >...</span
-                  >
-                  <span
-                    v-if="
-                      listByPages.length >= 6 && currentPage <= listByPages.length - 5
-                    "
-                    @click="setCurrentPage(listByPages.length)"
-                    >{{ listByPages.length }}</span
-                  >
-                  <span
-                    @click="incrPage"
-                    class="assetlist__navigation--next"
-                    :class="{
-                      visible: currentPage >= 1,
-                      notvisible: currentPage === listByPages.length,
-                    }"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      class="css-3kwgah"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M12.288 12l-3.89 3.89 1.768 1.767L15.823 12l-1.768-1.768-3.889-3.889-1.768 1.768 3.89 3.89z"
-                        fill="currentColor"
-                      ></path>
-                    </svg>
-                  </span>
                 </div>
               </div>
             </div>
@@ -385,18 +364,138 @@
 </template>
 
 <script>
-//import walletMixin from '@/mixins/wallet';
-import listMixin from "@/mixins/list";
-import generalutilities from "@/mixins/generalutilities.js";
-import cryptologosMixin from "@/mixins/cryptologos";
-import globalMixin from "@/mixins/global";
+import walletMixin from "@/mixins/walletv2";
+import { mapActions, mapMutations, mapState } from "vuex";
 
 export default {
   data() {
     return {
-      wallettype: "margin",
+      assetclass: "commodity",
+      start: 0,
+      end: 10,
+      currentpage: 1,
+      searchInput: "",
+      hideemptybalances: false,
     };
   },
-  mixins: [generalutilities, listMixin, cryptologosMixin, globalMixin],
+  mixins: [walletMixin],
+  computed: {
+    ...mapState({
+      client: (state) => state.auth.client,
+      marginwallet: (state) => state.userwallet.marginwallet,
+      assetslist: (state) => state.userwallet.userwalletassets_list,
+      walletusdtotal: (state) => state.userwallet.walletusdtotal,
+      walletbtctotal: (state) => state.userwallet.walletbtctotal,
+      totalitems: (state) => state.userwallet.totalitems,
+    }),
+    pages() {
+      const { totalitems } = this;
+
+      return Math.ceil(totalitems / 10);
+    },
+    pagesbuttons() {
+      const { pages } = this;
+
+      const numberToArray = (num) => {
+        const resultArray = [];
+        for (let i = 1; i <= num; i++) {
+          resultArray.push(i);
+        }
+        return resultArray;
+      };
+
+      return numberToArray(pages);
+    },
+    visibleassets() {
+      if (this.hideemptybalances) {
+        return this.assetslist.filter((itm) => itm.blc !== 0);
+      }
+
+      return this.assetslist;
+    },
+  },
+  methods: {
+    togglehideemptybalances(val) {
+      this.hideemptybalances = val;
+    },
+    setsearchInput(value) {
+      this.searchInput = value;
+    },
+    setpage(page) {
+      const pageSize = 10;
+
+      if (page === 1) {
+        this.start = 0;
+        this.end = pageSize;
+        this.currentpage = 1;
+      } else if (page > 1) {
+        this.start = (page - 1) * pageSize;
+        this.end = page * pageSize;
+        this.currentpage = page;
+      }
+
+      if (this.searchInput.length) {
+        this.getuserwallet({
+          walletid: this.spotwallet._id,
+          assettype: this.assetclass,
+          start: this.start,
+          end: this.end,
+          searchquery: this.searchInput,
+        });
+      } else {
+        this.getuserwallet({
+          walletid: this.marginwallet._id,
+          assettype: this.assetclass,
+          start: this.start,
+          end: this.end,
+        });
+      }
+    },
+    formatNumberForSpecificLocale(number, locale = "en-US") {
+      if (number) {
+        return number.toLocaleString(locale);
+      } else {
+        return "0";
+      }
+    },
+    ...mapActions("userwallet", ["getuserwallet"]),
+    setassetclass(assettype) {
+      this.assetclass = assettype;
+    },
+  },
+  watch: {
+    marginwallet(newval, oldval) {
+      if (newval) {
+        if (this.marginwallet) {
+          this.getuserwallet({
+            walletid: this.marginwallet._id,
+            assettype: this.assetclass,
+            start: this.start,
+            end: this.end,
+          });
+        }
+      }
+    },
+    searchInput() {
+      this.start = 0;
+      this.end = 10;
+    },
+    assetclass() {
+      this.start = 0;
+      this.end = 10;
+    },
+    spotwallet(newval, oldval) {
+      if (newval) {
+        if (this.spotwallet) {
+          this.getuserwallet({
+            walletid: this.spotwallet._id,
+            assettype: this.assetclass,
+            start: this.start,
+            end: this.end,
+          });
+        }
+      }
+    },
+  },
 };
 </script>

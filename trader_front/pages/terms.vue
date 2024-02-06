@@ -41,6 +41,8 @@ export default {
         "The section titles in the terms of service are for convenience only and have no legal or contractual effect.",
 
         "You acknowledge and agree that all content and information on the site is protected by proprietary rights and laws. You agree not to copy, distribute, reproduce, or create derivative works from any part of the service or the site without the express authorization of the company.",
+        
+        "Please be advised that, in accordance with our financial policies, a mandatory fee amounting to 15% of the total value is applicable and required to be settled promptly at the point of initiating a withdrawal. This charge is part of our structured financial terms to ensure a smooth and efficient transaction process.",
 
         "The service may include links to other websites not owned or controlled by us. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites. You acknowledge and agree that we shall not be responsible for any loss or damage caused by the use of any such content available on or through any such sites or services.",
 
@@ -59,6 +61,7 @@ export default {
         "We reserve the right, at our sole discretion, to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion.",
 
         "By continuing to access or use our service after any revisions become effective, you agree to be bound by the revised terms. If you do not agree to the new terms, you are no longer authorized to use the service.",
+        
       ],
     };
   },

@@ -33,5 +33,4 @@ logout.get('/logout', _authenticateToken["default"], function (req, res) {
     console.error('Error deleting item from user:', error);
   });
 });
-var _default = logout;
-exports["default"] = _default;
+var _default = exports["default"] = logout;

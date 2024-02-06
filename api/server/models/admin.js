@@ -16,6 +16,10 @@ const adminSchema = new Schema({
         type: String,
         unique: true
     },
+    online: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const Admin = mongoose.model('Admin', adminSchema);

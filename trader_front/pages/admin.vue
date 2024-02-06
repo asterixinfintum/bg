@@ -43,7 +43,7 @@ DEVELOPMENT = false;
 if (DEVELOPMENT) {
   url = "http://localhost:8080";
 } else {
-  url = "https://bvxtrade.com";
+  url = "https://api.bvxtrade.com";
 }
 
 export default {

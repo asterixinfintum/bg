@@ -623,7 +623,7 @@
         <div v-for="asset in walletassets_list" class="user__walletasset">
           <div class="user__walletasset__body">
             <figure class="user__walletasset--logo">
-              <img :src="`https://bvxtrade.com/${asset.assetlogo}`" />
+              <img :src="`https://api.bvxtrade.com/${asset.assetlogo}`" />
             </figure>
             <div class="user__walletasset--name">
               <p>{{ asset.assetname }}</p>

@@ -90,6 +90,8 @@ import tradercontroller from './trader/controllers'
 
 import asset_route from './assets/controller';
 
+import usersettings from './routes/usersettings';
+
 import './userdashboard';
 
 /*function initSocketIO() {
@@ -208,6 +210,7 @@ app.use(admindashboardcontroller);
 app.use(swapcontroller);
 app.use(transfercontroller);
 app.use(tradercontroller);
+app.use(usersettings);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(staticPath, 'ui/index.html'));

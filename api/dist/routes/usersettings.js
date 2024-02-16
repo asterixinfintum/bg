@@ -19,11 +19,11 @@ usersettings.post('/settings/email', _authenticateToken["default"], /*#__PURE__*
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          if (!(req.user && req.user.id)) {
-            _context.next = 15;
+          if (!(req.user && req.user._id)) {
+            _context.next = 16;
             break;
           }
-          userId = req.user.id;
+          userId = req.user._id;
           email = req.body.email;
           _context.prev = 3;
           _context.next = 6;
@@ -43,15 +43,16 @@ usersettings.post('/settings/email', _authenticateToken["default"], /*#__PURE__*
           }));
         case 9:
           res.json(user);
-          _context.next = 15;
+          _context.next = 16;
           break;
         case 12:
           _context.prev = 12;
           _context.t0 = _context["catch"](3);
+          console.log(_context.t0);
           res.status(500).json({
             message: 'Server error'
           });
-        case 15:
+        case 16:
         case "end":
           return _context.stop();
       }
@@ -67,11 +68,11 @@ usersettings.post('/settings/phonenumber', _authenticateToken["default"], /*#__P
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
-          if (!(req.user && req.user.id)) {
+          if (!(req.user && req.user._id)) {
             _context2.next = 15;
             break;
           }
-          userId = req.user.id;
+          userId = req.user._id;
           phonenumber = req.body.phonenumber;
           _context2.prev = 3;
           _context2.next = 6;
@@ -107,6 +108,66 @@ usersettings.post('/settings/phonenumber', _authenticateToken["default"], /*#__P
   }));
   return function (_x3, _x4) {
     return _ref2.apply(this, arguments);
+  };
+}());
+usersettings.post('/settings/password', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
+    var userId, _req$body, oldpassword, newpassword, user;
+    return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+      while (1) switch (_context3.prev = _context3.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context3.next = 22;
+            break;
+          }
+          userId = req.user._id;
+          _context3.prev = 2;
+          _req$body = req.body, oldpassword = _req$body.oldpassword, newpassword = _req$body.newpassword;
+          _context3.next = 6;
+          return _user["default"].findOne({
+            _id: userId
+          });
+        case 6:
+          user = _context3.sent;
+          if (!user) {
+            _context3.next = 16;
+            break;
+          }
+          if (!(user.password === oldpassword)) {
+            _context3.next = 15;
+            break;
+          }
+          user.password = newpassword;
+          _context3.next = 12;
+          return user.save();
+        case 12:
+          res.status(200).json({
+            message: 'password changed successfully'
+          });
+          _context3.next = 16;
+          break;
+        case 15:
+          res.status(404).json({
+            message: 'wrong password'
+          });
+        case 16:
+          _context3.next = 22;
+          break;
+        case 18:
+          _context3.prev = 18;
+          _context3.t0 = _context3["catch"](2);
+          console.log(_context3.t0);
+          res.status(500).json({
+            message: 'Server error'
+          });
+        case 22:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[2, 18]]);
+  }));
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
   };
 }());
 var _default = exports["default"] = usersettings;

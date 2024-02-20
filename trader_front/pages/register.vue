@@ -48,7 +48,7 @@
                   <p>*</p>
                 </label>
                 <span class="auth__inputarea--input">
-                  <input ref="email" v-model="email" />
+                  <input ref="email" v-model="email" type="email" />
                 </span>
               </div>
 
@@ -216,8 +216,8 @@ export default {
   methods: {
     ...mapActions("auth", ["checkDuplicate", "signup"]),
     containsOnlyPhoneNumber(str) {
-      var phonePattern = /^\+?\d{1,3}?[-\s.]?\(?\d{2,3}\)?[-\s.]?\d{3}[-\s.]?\d{4}$/;
-      return phonePattern.test(str);
+      var regex = /^[0-9+\-\s().]+$/;
+      return regex.test(str);
     },
     previoustonameview() {
       this.view = "nameview";
@@ -327,6 +327,8 @@ export default {
         phonenumber,
         password,
       };
+
+      this.loading = true;
 
       this.signup(credentials)
         .then(() => {

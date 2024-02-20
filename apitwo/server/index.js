@@ -11,6 +11,8 @@ import cors from 'cors';
 import socket from 'socket.io';
 import cron from "node-cron";
 
+const { formatDistanceToNow } = require('date-fns');
+
 import User from './models/user';
 
 const app = express();
@@ -89,6 +91,8 @@ function initSocketIO() {
                 { new: true }
             );
 
+            //await updateUserLastOnlineAgo(socket.clientid);
+
             io.emit('updateclientonlinestate', { userid: socket.clientid });
 
             socket.clientid = null;
@@ -113,6 +117,21 @@ function initSocketIO() {
 
     ioInstance = io;
 }
+
+/*async function updateUserLastOnlineAgo(userId) {
+    const user = await User.findById(userId);
+
+    if (user && user.lastOnline) {
+        // Calculate 'lastOnlineAgo' using date-fns
+        const lastOnlineAgo = formatDistanceToNow(new Date(user.lastOnline), { addSuffix: true });
+
+        // Optionally update 'lastOnlineAgo' in the document if needed
+        user.lastOnlineAgo = lastOnlineAgo;
+        await user.save();
+    }
+
+    return user;
+}*/
 
 import mongoose from 'mongoose';
 

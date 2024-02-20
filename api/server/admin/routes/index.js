@@ -12,6 +12,8 @@ import Pair from '../../models/pair';
 import UserWallet from '../../userwallet/models/wallet';
 import TraderOrder from '../../trader/models/tradeOrder';
 
+const { formatDistanceToNow } = require('date-fns');
+
 const admin = express.Router();
 
 import generatetradingpairs from '../../functions/generatetradingpairs';
@@ -225,8 +227,20 @@ admin.delete('/admin/deleteall', async (req, res) => {
 admin.get('/allusers', authenticateToken, async (req, res) => {
     try {
         const users = await User.find();
+        const useritems = [];
 
-        res.status(200).send({ users });
+        users.forEach(user => {
+            const userObject = user.toObject();
+
+            if (userObject.lastOnline) {
+                const lastseen = formatDistanceToNow(new Date(user.lastOnline), { addSuffix: true });
+                userObject.lastseen = lastseen;
+            }
+
+            useritems.push(userObject); //
+        })
+
+        res.status(200).send({ users: useritems });
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred');
@@ -239,7 +253,14 @@ admin.get('/user', authenticateToken, async (req, res) => {
 
         const user = await User.findOne({ _id: id });
 
-        res.status(200).send({ user });
+        const userObject = user.toObject();
+
+        if (userObject.lastOnline) {
+            const lastseen = formatDistanceToNow(new Date(user.lastOnline), { addSuffix: true });
+            userObject.lastseen = lastseen;
+        }
+
+        res.status(200).send({ user: userObject });
     } catch (error) {
         console.error(error);
         res.status(500).send('An error occurred');
@@ -538,7 +559,7 @@ admin.put('/jhgchdh/tradeorder/update', authenticateToken, async (req, res) => {
                 res.status(500).send('error updating tradeorder');
             }
 
-            res.status(200).send({message: 'order updated'});
+            res.status(200).send({ message: 'order updated' });
         });
     } catch (error) {
         res.status(500).send('error updating tradeorder');
@@ -563,7 +584,7 @@ admin.put('/jhgchdh/assetitem/update', authenticateToken, async (req, res) => {
                 res.status(500).send('error updating asset');
             }
 
-            res.status(200).send({message: 'asset updated'});
+            res.status(200).send({ message: 'asset updated' });
         });
     } catch (error) {
         res.status(500).send('error updating asset');

@@ -18,6 +18,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 if (process.env.NODE_ENV !== 'production') {
   require("dotenv").config();
 }
+var _require = require('date-fns'),
+  formatDistanceToNow = _require.formatDistanceToNow;
 var app = (0, _express["default"])();
 var server = _http["default"].createServer(app);
 var allowlist = ["http://localhost:3000", 'https://bvxtrade.com', 'https://www.bvxtrade.com'];
@@ -135,6 +137,8 @@ function initSocketIO() {
               "new": true
             });
           case 2:
+            //await updateUserLastOnlineAgo(socket.clientid);
+
             io.emit('updateclientonlinestate', {
               userid: socket.clientid
             });
@@ -173,6 +177,22 @@ function initSocketIO() {
   }());
   ioInstance = io;
 }
+
+/*async function updateUserLastOnlineAgo(userId) {
+    const user = await User.findById(userId);
+
+    if (user && user.lastOnline) {
+        // Calculate 'lastOnlineAgo' using date-fns
+        const lastOnlineAgo = formatDistanceToNow(new Date(user.lastOnline), { addSuffix: true });
+
+        // Optionally update 'lastOnlineAgo' in the document if needed
+        user.lastOnlineAgo = lastOnlineAgo;
+        await user.save();
+    }
+
+    return user;
+}*/
+
 app.use(_express["default"].urlencoded({
   extended: false
 }));

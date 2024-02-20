@@ -66,6 +66,10 @@ const userSchema = new Schema({
   lastOnline: {
     type: Date,
   },
+  lastOnlineAgo: {
+    type: String,
+    default: ''
+  },
   password: {
     type: String,
     required: true

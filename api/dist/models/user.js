@@ -129,6 +129,13 @@ var userSchema = new Schema({
     type: String,
     "default": 'Basic'
   },
+  lastOnline: {
+    type: Date
+  },
+  lastOnlineAgo: {
+    type: String,
+    "default": ''
+  },
   tailoreddashboard: {
     type: TailoredDashboardSchema,
     "default": function _default() {

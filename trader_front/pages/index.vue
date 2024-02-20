@@ -636,8 +636,31 @@
 </template>
 
 <script>
+import { mapActions, mapMutations, mapState } from "vuex";
+
+import socket from "@/plugins/socket.js";
+
 export default {
+  watch: {
+    client(newval, oldval) {
+      if (newval) {
+        
+        socket.emit("clientloggedin", { clientid: newval._id });
+      }
+    },
+  },
+  computed: {
+    ...mapState({
+      client: (state) => state.auth.client,
+    }),
+  },
   mounted() {
+    if (this.client) {
+      this.getuserwallets(this.client._id);
+
+      socket.emit("clientloggedin", { clientid: this.client._id });
+    }
+
     window.addEventListener("scroll", this.handleScrollLanding);
   },
   beforeUnmount() {

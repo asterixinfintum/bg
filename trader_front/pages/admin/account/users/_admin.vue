@@ -40,6 +40,14 @@
                   :class="{ 'green-background': user.online }"
                 ></span>
               </div>
+
+              <div
+                class="assetscontainer__listbodyitem--listed"
+                v-if="user.lastOnline && !user.online"
+              >
+                <span class="green-usdt">Last online:</span>
+                <span class="neon-blue">{{ user.lastseen }}</span>
+              </div>
             </div>
 
             <div class="assetscontainer__listbodyitem--buttons">
@@ -100,6 +108,24 @@ export default {
     },
   },
   methods: {
+    extractDateAndTime(isoTimestamp) {
+      const date = new Date(isoTimestamp);
+
+      const year = date.getUTCFullYear();
+      const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Adjust for 0-indexed months and ensure two digits
+      const day = String(date.getUTCDate()).padStart(2, "0");
+
+      // Extracting time parts
+      const hours = String(date.getUTCHours()).padStart(2, "0");
+      const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+      const seconds = String(date.getUTCSeconds()).padStart(2, "0");
+
+      // Formatting the output
+      const formattedDate = `${year}-${month}-${day}`;
+      const formattedTime = `${hours}:${minutes}:${seconds}`;
+
+      return `Date: ${formattedDate}, Time: ${formattedTime}`;
+    },
     getuser(userid) {
       const { baseurl } = this;
 
@@ -114,7 +140,6 @@ export default {
       })
         .then((response) => response.json())
         .then((data) => {
-
           let userIndex = this.users.findIndex((u) => u._id === userid);
 
           if (userIndex !== -1) {
@@ -149,7 +174,7 @@ export default {
 
     if (this.socket) {
       this.socket.on("updateclientonlinestate", (data) => {
-        console.log(data.userid);
+        //console.log(data.userid);
         this.getuser(data.userid);
       });
     }

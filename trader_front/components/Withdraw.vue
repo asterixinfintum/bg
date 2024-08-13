@@ -441,6 +441,10 @@ export default {
         return false;
       }
 
+      if (parseFloat(this.withdrawalinput) <= 0) {
+        return false;
+      }
+
       return true;
     },
     withdrawalfee() {
@@ -535,7 +539,8 @@ export default {
       const { assettowithdraw } = this;
 
       if (percnt === 100) {
-        const withdrawval = (parseFloat(percnt) / 100) * parseFloat(assettowithdraw.blc) * 0.98;
+        const withdrawval =
+          (parseFloat(percnt) / 100) * parseFloat(assettowithdraw.blc) * 0.98;
 
         this.withdrawalinput = `${withdrawval}`;
 

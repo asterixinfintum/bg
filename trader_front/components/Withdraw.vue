@@ -447,7 +447,8 @@ export default {
       const { withdrawalinput, assettowithdraw } = this;
 
       if (withdrawalinput && assettowithdraw.blc) {
-        return withdrawalinput / 0.005;
+        //console.log(parseFloat(withdrawalinput));
+        return parseFloat(withdrawalinput) * 0.005;
       }
 
       return 0;
@@ -461,10 +462,11 @@ export default {
     },
     withdrawalinput(newval, oldval) {
       if (newval) {
-        this.withamountUsd = parseFloat(newval) * parseFloat(this.assettowithdraw.assetprice)
+        this.withamountUsd =
+          parseFloat(newval) * parseFloat(this.assettowithdraw.assetprice);
       }
-      
-      if (newval && newval < this.assettowithdraw.blc) {
+
+      if (newval && parseFloat(newval) < parseFloat(this.assettowithdraw.blc)) {
         this.addressinputopen = true;
       } else {
         this.addressinputopen = false;
@@ -508,6 +510,9 @@ export default {
         this.loading = false;
         this.withdrawdetails = null;
         this.withdrawalinput = 0;
+
+        this.withdrawalaccount = "";
+        this.withdrawalbank = "";
       } catch (error) {
         console.error("Error creating market order:", error);
         // Handle or throw the error based on your use case
@@ -529,8 +534,15 @@ export default {
     selectwithdrawalpercent(percnt) {
       const { assettowithdraw } = this;
 
-      const withdrawval = (percnt / 100) * assettowithdraw.blc;
-      //const withdrawvalBlc = (percnt / 100) * assetblcUSD(assettowithdraw);
+      if (percnt === 100) {
+        const withdrawval = (parseFloat(percnt) / 100) * parseFloat(assettowithdraw.blc) * 0.98;
+
+        this.withdrawalinput = `${withdrawval}`;
+
+        return;
+      }
+
+      const withdrawval = (parseFloat(percnt) / 100) * parseFloat(assettowithdraw.blc);
 
       this.withdrawalinput = `${withdrawval}`;
     },

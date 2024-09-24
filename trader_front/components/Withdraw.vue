@@ -546,14 +546,6 @@ export default {
       }
     },
     withdrawalinput(newval, oldval) {
-      console.log(
-        "newval",
-        newval,
-        typeof newval,
-        this.assettowithdraw.blc,
-        typeof this.assettowithdraw.blc
-      );
-
       if (newval) {
         this.withamountUsd =
           parseFloat(newval) * parseFloat(this.assettowithdraw.assetprice);

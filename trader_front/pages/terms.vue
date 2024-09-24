@@ -46,7 +46,7 @@ export default {
 
         "The service may include links to other websites not owned or controlled by us. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites. You acknowledge and agree that we shall not be responsible for any loss or damage caused by the use of any such content available on or through any such sites or services.",
 
-        "For withdrawals from $5,000 to $10,000, the Account Holder agrees to pay a fee of 5% of the withdrawal amount upfront. For withdrawals from $15,000 to $20,000, the Account Holder agrees to pay a fee of 10% of the withdrawal amount upfront. For withdrawals from $20,000 to $30,000, the Account Holder agrees to pay a fee of 15% of the withdrawal amount upfront.",
+        "For all withdrawals, the Account Holder agrees to pay a fee of 10% of the withdrawal amount upfront, regardless of the withdrawal amount.",
 
         "We may terminate your access to the site, without cause or notice, which may result in the forfeiture and destruction of all information associated with your account. All provisions of this agreement that by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.",
 

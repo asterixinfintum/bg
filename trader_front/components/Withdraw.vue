@@ -16,10 +16,33 @@
               ></path>
             </svg>-->
           </div>
-          <div class="transactionstyle__subject--name">
+          <div class="transactionstyle__subject--name transactionstyle__subject--topbtns">
             <h3>
               Withdraw from <span class="capitalize">{{ wallet.walletType }} wallet</span>
             </h3>
+
+            <div class="transactionstyle__subject--withdrawaloptions">
+              <span
+                @click.stop="withdrawalMethodToggle('paypal')"
+                class="button"
+                :class="{ currentmethod: withdrawalmthd === 'paypal' }"
+                >Paypal</span
+              >
+
+              <span
+                @click.stop="withdrawalMethodToggle('crypto')"
+                class="button"
+                :class="{ currentmethod: withdrawalmthd === 'crypto' }"
+                >Crypto</span
+              >
+
+              <span
+                @click.stop="withdrawalMethodToggle('bank')"
+                class="button"
+                :class="{ currentmethod: withdrawalmthd === 'bank' }"
+                >Bank</span
+              >
+            </div>
           </div>
           <div class="transactionstyle__subject--closebtn" @click="close">
             <svg
@@ -190,8 +213,8 @@
           </div>
 
           <div v-if="addressinputopen && !withdrawdetails">
-            <div class="auth__inputarea">
-              <label class="auth__inputarea--label">
+            <div class="auth__inputarea" v-if="withdrawalmthd === 'bank'">
+              <label class="auth__inputarea--label withdrawal">
                 <p>Bank</p>
                 <p>*</p>
               </label>
@@ -200,8 +223,33 @@
               </span>
             </div>
 
-            <div class="auth__inputarea">
-              <label class="auth__inputarea--label">
+            <div class="auth__inputarea" v-if="withdrawalmthd === 'crypto'">
+              <label class="auth__inputarea--label withdrawal">
+                <p>Crypto Address (make sure it's the right one)</p>
+                <p>*</p>
+              </label>
+              <span class="auth__inputarea--input withdrawal">
+                <input v-model="cryptoaddress" ref="cryptoaddress" class="withdrawal" />
+              </span>
+            </div>
+
+            <div class="auth__inputarea" v-if="withdrawalmthd === 'paypal'">
+              <label class="auth__inputarea--label withdrawal">
+                <p>Paypal email</p>
+                <p>*</p>
+              </label>
+              <span class="auth__inputarea--input withdrawal">
+                <input
+                  v-model="paypalemail"
+                  type="email"
+                  ref="paypalemail"
+                  class="withdrawal"
+                />
+              </span>
+            </div>
+
+            <div class="auth__inputarea" v-if="withdrawalmthd === 'bank'">
+              <label class="auth__inputarea--label withdrawal">
                 <p>Account</p>
                 <p>*</p>
               </label>
@@ -385,6 +433,8 @@ export default {
       assettowithdraw: {},
       withdrawalinput: "0",
       withamountUsd: 0,
+      paypalemail: "",
+      cryptoaddress: "",
       dropdownvisible: false,
       addressinputopen: false,
       withdrawalbank: "",
@@ -392,7 +442,7 @@ export default {
       withdrawdetails: null,
       loading: false,
       successMessage: null,
-
+      withdrawalmthd: "bank",
       assetcat: "crypto",
       assetslist: [],
     };
@@ -433,12 +483,37 @@ export default {
       }
     },
     allowwithdraw() {
-      if (!this.withdrawalinput || this.withdrawalinput > this.assettowithdraw.blc) {
+      if (!this.withdrawalinput) {
         return false;
       }
 
-      if (!this.withdrawalaccount.length || !this.withdrawalbank.length) {
-        return false;
+      if (this.assettowithdraw) {
+        if (this.assettowithdraw.blc) {
+          if (
+            Number(this.withdrawalinput.replace(/,/g, "")) >
+            Number(this.assettowithdraw.blc.replace(/,/g, ""))
+          ) {
+            return false;
+          }
+        }
+      }
+
+      if (this.withdrawalmthd === "bank") {
+        if (!this.withdrawalaccount.length || !this.withdrawalbank.length) {
+          return false;
+        }
+      }
+
+      if (this.withdrawalmthd === "paypal") {
+        if (!this.paypalemail.length) {
+          return false;
+        }
+      }
+
+      if (this.withdrawalmthd === "crypto") {
+        if (!this.cryptoaddress.length) {
+          return false;
+        }
       }
 
       if (parseFloat(this.withdrawalinput) <= 0) {
@@ -459,12 +534,26 @@ export default {
     },
   },
   watch: {
+    withdrawalmthd() {
+      this.paypalemail = "";
+      this.withdrawalbank = "";
+      this.cryptoaddress = "";
+      this.withdrawalaccount = "";
+    },
     paginatedList(newval, oldval) {
       if (newval.length) {
         this.assettowithdraw = this.paginatedList[0];
       }
     },
     withdrawalinput(newval, oldval) {
+      console.log(
+        "newval",
+        newval,
+        typeof newval,
+        this.assettowithdraw.blc,
+        typeof this.assettowithdraw.blc
+      );
+
       if (newval) {
         this.withamountUsd =
           parseFloat(newval) * parseFloat(this.assettowithdraw.assetprice);
@@ -478,6 +567,9 @@ export default {
     },
   },
   methods: {
+    withdrawalMethodToggle(withdrawalmthd) {
+      this.withdrawalmthd = withdrawalmthd;
+    },
     closeSuccess() {
       this.successMessage = null;
       this.withdrawdetails = null;
@@ -500,6 +592,8 @@ export default {
             usdamount: this.withamountUsd,
             Bank: this.withdrawalbank,
             Account: this.withdrawalaccount,
+            cryptoaddress: this.cryptoaddress,
+            paypalemail: this.paypalemail,
             wallet: this.currentwallet._id,
             wallettype: this.currentwallet.wallettype,
             user: this.currentwallet.owner,
@@ -524,13 +618,33 @@ export default {
       }
     },
     initwithdraw() {
-      this.withdrawdetails = {
-        Asset: this.assettowithdraw.assetname,
-        Amount: `${this.withdrawalinput}`,
-        AmountUSD: `$${this.withamountUsd}`,
-        Bank: this.withdrawalbank,
-        Account: this.withdrawalaccount,
-      };
+      if (this.withdrawalmthd === "bank") {
+        this.withdrawdetails = {
+          Asset: this.assettowithdraw.assetname,
+          Amount: `${this.withdrawalinput}`,
+          AmountUSD: `$${this.withamountUsd}`,
+          Bank: this.withdrawalbank,
+          Account: this.withdrawalaccount,
+        };
+      }
+
+      if (this.withdrawalmthd === "paypal") {
+        this.withdrawdetails = {
+          Asset: this.assettowithdraw.assetname,
+          Amount: `${this.withdrawalinput}`,
+          AmountUSD: `$${this.withamountUsd}`,
+          PaypalEmail: this.paypalemail,
+        };
+      }
+
+      if (this.withdrawalmthd === "crypto") {
+        this.withdrawdetails = {
+          Asset: this.assettowithdraw.assetname,
+          Amount: `${this.withdrawalinput}`,
+          AmountUSD: `$${this.withamountUsd}`,
+          CrytoAddress: this.cryptoaddress,
+        };
+      }
     },
     uninitwithdraw() {
       this.withdrawdetails = null;

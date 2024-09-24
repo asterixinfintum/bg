@@ -255,7 +255,7 @@ userwalletuser.post('/userwallet/request/withdraw', _authenticateToken["default"
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context4.next = 12;
+            _context4.next = 13;
             break;
           }
           _context4.prev = 1;
@@ -266,7 +266,9 @@ userwalletuser.post('/userwallet/request/withdraw', _authenticateToken["default"
             walletid: req.body.wallet,
             amountusd: req.body.usdamount,
             bank: req.body.Bank,
-            account: req.body.Account
+            account: req.body.Account,
+            cryptoaddress: req.body.cryptoaddress,
+            paypalemail: req.body.paypalemail
           };
           newwithdrawalrequest = new _withdrawalrequest["default"](withdrawalrequest);
           _context4.next = 6;
@@ -275,15 +277,16 @@ userwalletuser.post('/userwallet/request/withdraw', _authenticateToken["default"
           res.status(200).send({
             message: 'withdrawal request processing'
           });
-          _context4.next = 12;
+          _context4.next = 13;
           break;
         case 9:
           _context4.prev = 9;
           _context4.t0 = _context4["catch"](1);
+          console.log(_context4.t0);
           res.status(500).send({
             error: 'error processing request'
           });
-        case 12:
+        case 13:
         case "end":
           return _context4.stop();
       }

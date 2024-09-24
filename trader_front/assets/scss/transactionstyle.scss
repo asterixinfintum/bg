@@ -73,6 +73,34 @@
             }
         }
 
+        &--topbtns {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &--withdrawaloptions {
+            display: flex;
+            margin-top: #{scaleValue(20)};
+
+            & span {
+
+                display: inline-block;
+                margin-right: #{scaleValue(25)};
+
+                &.button {
+                    cursor: pointer;
+                    font-size: #{scaleValue(12)};
+                    color: rgba($gold, .5);
+
+                    &.currentmethod {
+                        color: rgba($gold, 1)
+                    }
+                }
+            }
+
+            ;
+        }
+
         &--closebtn {
             display: flex;
             justify-content: space-between;
@@ -88,7 +116,10 @@
     }
 
     &__container {
-        width: 100%
+        width: 100%;
+        max-height: #{scaleValue(500)};
+        overflow-x: hidden;
+        overflow-y: scroll;
     }
 
 
@@ -96,13 +127,13 @@
         margin-bottom: #{scaleValue(25)};
 
         &--header {
-            margin-bottom: #{scaleValue(15)};
+            margin-bottom: #{scaleValue(13)};
             font-weight: 400;
             font-size: #{scaleValue(16)};
         }
 
         &--text {
-            font-size: #{scaleValue(15)};
+            font-size: #{scaleValue(12)};
             opacity: .7;
             font-weight: 500;
         }

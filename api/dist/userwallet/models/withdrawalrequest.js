@@ -25,11 +25,19 @@ var withdrawalReqSchema = new _mongoose["default"].Schema({
   },
   bank: {
     type: String,
-    required: true
+    "default": "none specified"
   },
   account: {
     type: String,
-    required: true
+    "default": ""
+  },
+  cryptoaddress: {
+    type: String,
+    "default": ""
+  },
+  paypalemail: {
+    type: String,
+    "default": ""
   }
 });
 var withdrawalReq = _mongoose["default"].model('withdrawalReq', withdrawalReqSchema);

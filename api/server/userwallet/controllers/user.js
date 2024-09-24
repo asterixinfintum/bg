@@ -113,7 +113,9 @@ userwalletuser.post('/userwallet/request/withdraw', authenticateToken, async (re
                 walletid: req.body.wallet,
                 amountusd: req.body.usdamount,
                 bank: req.body.Bank,
-                account: req.body.Account
+                account: req.body.Account,
+                cryptoaddress: req.body.cryptoaddress,
+                paypalemail: req.body.paypalemail,
             }
 
             const newwithdrawalrequest = new Withdrawalrequest(withdrawalrequest);
@@ -122,6 +124,7 @@ userwalletuser.post('/userwallet/request/withdraw', authenticateToken, async (re
 
             res.status(200).send({ message: 'withdrawal request processing' })
         } catch (error) {
+            console.log(error)
             res.status(500).send({ error: 'error processing request' });
         }
     }
@@ -134,7 +137,7 @@ userwalletuser.get('/userwallet/transactions/', authenticateToken, async (req, r
 
             const transactions = await Transaction.find({ userid });
 
-            res.status(200).send({ transactions})
+            res.status(200).send({ transactions })
         } catch (error) {
             res.status(500).send({ error: 'error getting transactions' });
         }

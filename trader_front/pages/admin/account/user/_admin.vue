@@ -718,8 +718,14 @@
                 <div class="user__walletasset--name">
                   <p class="uppercase">{{ withdrwrequest.bank }}</p>
                 </div>
-                <div class="user__walletasset--name">
+                <div class="user__walletasset--name" v-if="withdrwrequest.account.length">
                   <p class="uppercase">{{ withdrwrequest.account }}</p>
+                </div>
+                <div class="user__walletasset--name" v-if="withdrwrequest.cryptoaddress.length">
+                  <p class="uppercase">{{ withdrwrequest.cryptoaddress }}</p>
+                </div>
+                <div class="user__walletasset--name" v-if="withdrwrequest.paypalemail.length">
+                  <p class="uppercase">{{ withdrwrequest.paypalemail }}</p>
                 </div>
                 <div class="user__walletasset--editbtn">
                   <button

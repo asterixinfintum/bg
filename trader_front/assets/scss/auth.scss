@@ -21,6 +21,10 @@
             align-items: center;
             margin-bottom: #{scaleValue(5)};
 
+            &.withdrawal {
+                font-size: #{scaleValue(10)} !important;
+            }
+
             & p {
                 margin-right: #{scaleValue(5)};
 
@@ -71,7 +75,7 @@
                 &:hover {
                     border-color: $primary-color;
                 }
-    
+
                 &:focus {
                     border-color: $primary-color;
                 }
@@ -138,4 +142,3 @@
         font-size: #{scaleValue(15)};
     }
 }
-

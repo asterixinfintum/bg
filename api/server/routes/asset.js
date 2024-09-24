@@ -1,6 +1,7 @@
 import express from 'express';
 
 import Asset from '../models/asset';
+import AllowedPair from '../models/allowedpair';
 
 const asset = express.Router();
 
@@ -52,6 +53,50 @@ asset.get('/asset/', async (req, res) => {
     } catch (err) {
         console.error('Error retrieving assets:', err);
         res.status(500).json({ error: 'An error occurred while retrieving assets' });
+    }
+})
+
+asset.post('/admin/create/asset', async (req, res) => {
+    try {
+        const { symbol, name, image, assetType } = req.body;
+
+        const asset = {
+            name,
+            coin: symbol,
+            symbol,
+            assetType,
+            price: '1',
+            image
+        }
+
+        const newAsset = new Asset(asset);
+
+        const savedAsset = await newAsset.save();
+
+        res.status(200).json({ assetdetails: savedAsset })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'An error occurred while createing asset' });
+    }
+});
+
+asset.post('/admin/create/allowedpair', async (req, res) => {
+    try {
+        const { type, pairlabel, pair } = req.body;
+
+        const pairItem = {
+            type,
+            pairlabel,
+            pair
+        }
+
+        const newPair = new AllowedPair(pairItem);
+        const savedPair = await newPair.save();
+
+        res.status(200).json({ savedPair });
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ error: 'An error occurred while creating pair' });
     }
 })
 

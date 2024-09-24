@@ -90,15 +90,16 @@ tradercontroller.get('/trader/initialpair', /*#__PURE__*/function () {
             initialpair: initialpair
           });
         case 8:
-          _context2.next = 13;
+          _context2.next = 14;
           break;
         case 10:
           _context2.prev = 10;
           _context2.t0 = _context2["catch"](0);
+          console.log(_context2.t0);
           res.status(500).send({
             error: 'An error occurred'
           });
-        case 13:
+        case 14:
         case "end":
           return _context2.stop();
       }

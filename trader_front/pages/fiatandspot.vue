@@ -266,7 +266,7 @@
                       >
                         Trade
                       </button>
-                      <button
+                      <!--<button
                         class="btn neon-pink"
                         @click.stop="
                           navigateToTradePage(
@@ -277,7 +277,7 @@
                         v-if="asset.coin !== 'USDT' && asset.coin !== 'USD'"
                       >
                         AlgoTrade
-                      </button>
+                      </button>-->
                       <!--<button class="btn color-primary">Earn</button>-->
                     </div>
                   </div>

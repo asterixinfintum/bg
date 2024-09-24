@@ -1,4 +1,5 @@
 import Asset from '../../models/asset';
+import AllowedPair from '../../models/allowedpair';
 
 const allowedpairs = [
     {
@@ -619,8 +620,6 @@ const allowedpairs = [
         pair: "XOM/USD"
     },
 
-
-
     {
         type: 'commodity',
         pairlabel: "ACTIVTRADES:WHEATH2024",
@@ -868,7 +867,22 @@ function generateRandomPercentageWithDirectionAndColor() {
 }
 
 async function getSanitizedPairs(allowedpairs) {
-    const sanitizedPromises = allowedpairs.map(async pair => {
+
+    function processDBData(inputData) {
+        return inputData.map(item => ({
+            type: item.type,
+            pairlabel: item.pairlabel,
+            pair: item.pair
+        }));
+    }
+
+    const allowedPairsFromDB = await AllowedPair.find();
+
+    const dbDataProcessed = processDBData(allowedPairsFromDB)
+
+    const allAllowedPairs = [...allowedpairs, ...dbDataProcessed]
+
+    const sanitizedPromises = allAllowedPairs.map(async pair => {
         const [left, right] = pair.pair.split('/');
 
         const base = await Asset.findOne({ symbol: left });

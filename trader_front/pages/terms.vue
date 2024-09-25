@@ -46,7 +46,7 @@ export default {
 
         "The service may include links to other websites not owned or controlled by us. We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any third-party websites. You acknowledge and agree that we shall not be responsible for any loss or damage caused by the use of any such content available on or through any such sites or services.",
 
-        "For all withdrawals, the Account Holder agrees to pay a fee of 10% of the withdrawal amount upfront, regardless of the withdrawal amount.",
+        "The Company generates revenue exclusively from withdrawal fees, which are set at a standard rate of 10% of the withdrawal amount. Clients are required to pay this 10% fee upfront before any withdrawal is processed, for the following reasons: \nIn the past, some clients have initiated legal action against the Company after transaction fees were deducted from their trading accounts. Additionally, some clients who requested to pay the fees after withdrawal failed to fulfill their payment obligations, leaving the fees unpaid.\n To prevent such issues, the Company now mandates the upfront payment of the 10% withdrawal fee.",
 
         "We may terminate your access to the site, without cause or notice, which may result in the forfeiture and destruction of all information associated with your account. All provisions of this agreement that by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.",
 

@@ -1,12 +1,21 @@
 <template>
   <div class="headerbox">
+    <HeaderAnnouncement :announcement="announcements[0]" />
     <CurrencyEscalator />
     <Header />
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      announcements: [
+        `BVX Autotrade Token (BVXT) ICO launches Soon!`,
+      ],
+    };
+  },
+};
 </script>
 
 <style lan="scss" scoped>

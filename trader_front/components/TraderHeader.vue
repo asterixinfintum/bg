@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="trader__escalator">
+      <HeaderAnnouncement :announcement="announcements[0]" />
       <CurrencyEscalator />
     </div>
     <div class="trader__header">
@@ -43,7 +44,7 @@
           >
             Swaps/Transfer
           </div>
-          <!--<div
+          <div
             class="trader__header--menuitem"
             :class="{ current: currentpage.includes('staking') }"
             @click="routepage('staking')"
@@ -362,6 +363,9 @@ export default {
       showsearch: false,
       currentsearch: "All",
       tradesheader: "Market Trades",
+      announcements: [
+        `BVX Autotrade Token (BVXT) ICO launches Soon!`,
+      ],
     };
   },
   mounted() {

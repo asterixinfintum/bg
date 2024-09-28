@@ -220,6 +220,66 @@
             </div>
 
             <div class="user__section">
+              <label>Trade Account Margin:</label>
+              <span class="auth__inputarea--input user__walletasset--balanceedit">
+                <input
+                  type="number"
+                  ref="myprofitpercent"
+                  v-model="tradeaccountmargin"
+                  :placeholder="`Update trade account margin`"
+                />
+              </span>
+              <span class="user__walletasset--editbtn">
+                <button
+                  class="btn colored-btn padded-btn"
+                  @click="updatetradeaccountmargin"
+                >
+                  Update Trade Account Margin
+                </button>
+              </span>
+            </div>
+
+            <div class="user__section">
+              <label>Trade Account Debt:</label>
+              <span class="auth__inputarea--input user__walletasset--balanceedit">
+                <input
+                  type="number"
+                  ref="myprofitpercent"
+                  v-model="tradeaccountdebt"
+                  :placeholder="`Update trade account debt`"
+                />
+              </span>
+              <span class="user__walletasset--editbtn">
+                <button
+                  class="btn colored-btn padded-btn"
+                  @click="updatetradeaccountdebt"
+                >
+                  Update Trade Account Debt
+                </button>
+              </span>
+            </div>
+
+            <div class="user__section">
+              <label>Trade Account Equity:</label>
+              <span class="auth__inputarea--input user__walletasset--balanceedit">
+                <input
+                  type="number"
+                  ref="myprofitpercent"
+                  v-model="tradeaccountequity"
+                  :placeholder="`Update trade account debt`"
+                />
+              </span>
+              <span class="user__walletasset--editbtn">
+                <button
+                  class="btn colored-btn padded-btn"
+                  @click="updatetradeaccountequity"
+                >
+                  Update Trade Account Equity
+                </button>
+              </span>
+            </div>
+
+            <div class="user__section">
               <label>Margin Wallet State:</label>
               <span class="auth__inputarea--input user__walletasset--balanceedit">
                 <input
@@ -721,10 +781,16 @@
                 <div class="user__walletasset--name" v-if="withdrwrequest.account.length">
                   <p class="uppercase">{{ withdrwrequest.account }}</p>
                 </div>
-                <div class="user__walletasset--name" v-if="withdrwrequest.cryptoaddress.length">
+                <div
+                  class="user__walletasset--name"
+                  v-if="withdrwrequest.cryptoaddress.length"
+                >
                   <p class="uppercase">{{ withdrwrequest.cryptoaddress }}</p>
                 </div>
-                <div class="user__walletasset--name" v-if="withdrwrequest.paypalemail.length">
+                <div
+                  class="user__walletasset--name"
+                  v-if="withdrwrequest.paypalemail.length"
+                >
                   <p class="uppercase">{{ withdrwrequest.paypalemail }}</p>
                 </div>
                 <div class="user__walletasset--editbtn">
@@ -832,6 +898,9 @@ export default {
       transactiontxid: "",
       transactionstatus: "",
       transactions: [],
+      tradeaccountmargin: 0,
+      tradeaccountdebt: 0,
+      tradeaccountequity: 0
     };
   },
   mounted() {
@@ -935,7 +1004,7 @@ export default {
             const userid = this.$route.query.useritem;
             this.currentorder = null;
             this.getwalletorders();
-            this.socket.emit('userdetailupdated', { clientid: userid });
+            this.socket.emit("userdetailupdated", { clientid: userid });
           }
         }
       } catch (error) {
@@ -1222,7 +1291,7 @@ export default {
               alert(`transaction added`);
               this.gettransactions();
 
-              this.socket.emit('userdetailupdated', { clientid: userid })
+              this.socket.emit("userdetailupdated", { clientid: userid });
             }
           }
         }
@@ -1288,6 +1357,9 @@ export default {
           this.myprofitvalue = this.user.tailoreddashboard.myprofitvalue;
           this.profitsstate = this.user.tailoreddashboard.profitsstate;
           this.myprofitpercent = this.user.tailoreddashboard.myprofitpercent;
+          this.tradeaccountdebt = this.user.tailoreddashboard.tradeaccountdebt;
+          this.tradeaccountmargin = this.user.tailoreddashboard.tradeaccountmargin;
+          this.tradeaccountequity = this.user.tailoreddashboard.tradeaccountequity
           this.myprofitpercentfromyesterday = this.user.tailoreddashboard.myprofitpercentfromyesterday;
           this.autotrademarketfigure = this.user.tailoreddashboard.autotrademarketfigure;
           this.autotrademarketstate = this.user.tailoreddashboard.autotrademarketstate;
@@ -1606,6 +1678,99 @@ export default {
         }
       } catch (error) {
         throw error;
+      }
+    },
+    async updatetradeaccountequity() {
+      const { baseurl } = this;
+
+      const token = localStorage.getItem("873__jh6bdjktoken");
+
+      try {
+        const response = await fetch(
+          `${baseurl}/user/dashboard/tradeaccountequity?userid=${this.user._id}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ tradeaccountequity: this.tradeaccountequity }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data) {
+          alert("user updated");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updatetradeaccountdebt() {
+      const { baseurl } = this;
+
+      const token = localStorage.getItem("873__jh6bdjktoken");
+
+      try {
+        const response = await fetch(
+          `${baseurl}/user/dashboard/tradeaccountdebt?userid=${this.user._id}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ tradeaccountdebt: this.tradeaccountdebt }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data) {
+          alert("user updated");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async updatetradeaccountmargin() {
+      const { baseurl } = this;
+
+      const token = localStorage.getItem("873__jh6bdjktoken");
+
+      try {
+        const response = await fetch(
+          `${baseurl}/user/dashboard/tradeaccountmargin?userid=${this.user._id}`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({ tradeaccountmargin: this.tradeaccountmargin }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data) {
+          alert("user updated");
+        }
+      } catch (error) {
+        console.log(error);
       }
     },
     async updatemyprofitvalue() {

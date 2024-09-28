@@ -277,7 +277,7 @@ export default {
   top: 0;
   left: 0;
 
-  padding-top: #{scaleValue(130)};
+  padding-top: #{scaleValue(170)};
 
   @media only screen and (max-width: 414px) {
     display: none;

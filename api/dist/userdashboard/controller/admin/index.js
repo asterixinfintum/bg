@@ -474,9 +474,9 @@ admindashboardcontroller.post('/user/dashboard/myprofitvalue', _authenticateToke
     return _ref9.apply(this, arguments);
   };
 }());
-admindashboardcontroller.post('/user/dashboard/updatetopassets', _authenticateToken["default"], /*#__PURE__*/function () {
+admindashboardcontroller.post('/user/dashboard/tradeaccountmargin', _authenticateToken["default"], /*#__PURE__*/function () {
   var _ref10 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee10(req, res) {
-    var userid, topassets, useritem;
+    var userid, tradeaccountmargin, useritem;
     return _regeneratorRuntime().wrap(function _callee10$(_context10) {
       while (1) switch (_context10.prev = _context10.next) {
         case 0:
@@ -486,7 +486,7 @@ admindashboardcontroller.post('/user/dashboard/updatetopassets', _authenticateTo
           }
           _context10.prev = 1;
           userid = req.query.userid;
-          topassets = req.body.topassets;
+          tradeaccountmargin = req.body.tradeaccountmargin;
           _context10.next = 6;
           return _user["default"].findOne({
             _id: userid
@@ -497,7 +497,7 @@ admindashboardcontroller.post('/user/dashboard/updatetopassets', _authenticateTo
             _context10.next = 12;
             break;
           }
-          useritem.tailoreddashboard.topassets = topassets;
+          useritem.tailoreddashboard.tradeaccountmargin = tradeaccountmargin;
           _context10.next = 11;
           return useritem.save();
         case 11:
@@ -523,25 +523,172 @@ admindashboardcontroller.post('/user/dashboard/updatetopassets', _authenticateTo
     return _ref10.apply(this, arguments);
   };
 }());
-admindashboardcontroller.post('/user/dashboard/addmessage', _authenticateToken["default"], /*#__PURE__*/function () {
+admindashboardcontroller.post('/user/dashboard/tradeaccountdebt', _authenticateToken["default"], /*#__PURE__*/function () {
   var _ref11 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee11(req, res) {
-    var userid, message, useritem, notifications, options, update;
+    var userid, tradeaccountdebt, useritem;
     return _regeneratorRuntime().wrap(function _callee11$(_context11) {
       while (1) switch (_context11.prev = _context11.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context11.next = 19;
+            _context11.next = 17;
             break;
           }
           _context11.prev = 1;
           userid = req.query.userid;
-          message = req.body.message;
+          tradeaccountdebt = req.body.tradeaccountdebt;
           _context11.next = 6;
           return _user["default"].findOne({
             _id: userid
           });
         case 6:
           useritem = _context11.sent;
+          if (!useritem) {
+            _context11.next = 12;
+            break;
+          }
+          useritem.tailoreddashboard.tradeaccountdebt = tradeaccountdebt;
+          _context11.next = 11;
+          return useritem.save();
+        case 11:
+          res.status(201).send({
+            message: 'updated'
+          });
+        case 12:
+          _context11.next = 17;
+          break;
+        case 14:
+          _context11.prev = 14;
+          _context11.t0 = _context11["catch"](1);
+          res.status(500).send({
+            error: 'error updating dashboard'
+          });
+        case 17:
+        case "end":
+          return _context11.stop();
+      }
+    }, _callee11, null, [[1, 14]]);
+  }));
+  return function (_x21, _x22) {
+    return _ref11.apply(this, arguments);
+  };
+}());
+admindashboardcontroller.post('/user/dashboard/tradeaccountequity', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref12 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee12(req, res) {
+    var userid, tradeaccountequity, useritem;
+    return _regeneratorRuntime().wrap(function _callee12$(_context12) {
+      while (1) switch (_context12.prev = _context12.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context12.next = 17;
+            break;
+          }
+          _context12.prev = 1;
+          userid = req.query.userid;
+          tradeaccountequity = req.body.tradeaccountequity;
+          _context12.next = 6;
+          return _user["default"].findOne({
+            _id: userid
+          });
+        case 6:
+          useritem = _context12.sent;
+          if (!useritem) {
+            _context12.next = 12;
+            break;
+          }
+          useritem.tailoreddashboard.tradeaccountequity = tradeaccountequity;
+          _context12.next = 11;
+          return useritem.save();
+        case 11:
+          res.status(201).send({
+            message: 'updated'
+          });
+        case 12:
+          _context12.next = 17;
+          break;
+        case 14:
+          _context12.prev = 14;
+          _context12.t0 = _context12["catch"](1);
+          res.status(500).send({
+            error: 'error updating dashboard'
+          });
+        case 17:
+        case "end":
+          return _context12.stop();
+      }
+    }, _callee12, null, [[1, 14]]);
+  }));
+  return function (_x23, _x24) {
+    return _ref12.apply(this, arguments);
+  };
+}());
+admindashboardcontroller.post('/user/dashboard/updatetopassets', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref13 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee13(req, res) {
+    var userid, topassets, useritem;
+    return _regeneratorRuntime().wrap(function _callee13$(_context13) {
+      while (1) switch (_context13.prev = _context13.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context13.next = 17;
+            break;
+          }
+          _context13.prev = 1;
+          userid = req.query.userid;
+          topassets = req.body.topassets;
+          _context13.next = 6;
+          return _user["default"].findOne({
+            _id: userid
+          });
+        case 6:
+          useritem = _context13.sent;
+          if (!useritem) {
+            _context13.next = 12;
+            break;
+          }
+          useritem.tailoreddashboard.topassets = topassets;
+          _context13.next = 11;
+          return useritem.save();
+        case 11:
+          res.status(201).send({
+            message: 'updated'
+          });
+        case 12:
+          _context13.next = 17;
+          break;
+        case 14:
+          _context13.prev = 14;
+          _context13.t0 = _context13["catch"](1);
+          res.status(500).send({
+            error: 'error updating dashboard'
+          });
+        case 17:
+        case "end":
+          return _context13.stop();
+      }
+    }, _callee13, null, [[1, 14]]);
+  }));
+  return function (_x25, _x26) {
+    return _ref13.apply(this, arguments);
+  };
+}());
+admindashboardcontroller.post('/user/dashboard/addmessage', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref14 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee14(req, res) {
+    var userid, message, useritem, notifications, options, update;
+    return _regeneratorRuntime().wrap(function _callee14$(_context14) {
+      while (1) switch (_context14.prev = _context14.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context14.next = 19;
+            break;
+          }
+          _context14.prev = 1;
+          userid = req.query.userid;
+          message = req.body.message;
+          _context14.next = 6;
+          return _user["default"].findOne({
+            _id: userid
+          });
+        case 6:
+          useritem = _context14.sent;
           notifications = [].concat(_toConsumableArray(useritem.notifications), [{
             label: message,
             description: message
@@ -555,7 +702,7 @@ admindashboardcontroller.post('/user/dashboard/addmessage', _authenticateToken["
               notifications: notifications
             }
           };
-          _context11.next = 12;
+          _context14.next = 12;
           return _user["default"].findOneAndUpdate({
             _id: userid
           }, update, options);
@@ -563,23 +710,23 @@ admindashboardcontroller.post('/user/dashboard/addmessage', _authenticateToken["
           res.status(201).send({
             message: 'user notifications updated'
           });
-          _context11.next = 19;
+          _context14.next = 19;
           break;
         case 15:
-          _context11.prev = 15;
-          _context11.t0 = _context11["catch"](1);
-          console.log(_context11.t0);
+          _context14.prev = 15;
+          _context14.t0 = _context14["catch"](1);
+          console.log(_context14.t0);
           res.status(500).send({
             error: 'error adding message'
           });
         case 19:
         case "end":
-          return _context11.stop();
+          return _context14.stop();
       }
-    }, _callee11, null, [[1, 15]]);
+    }, _callee14, null, [[1, 15]]);
   }));
-  return function (_x21, _x22) {
-    return _ref11.apply(this, arguments);
+  return function (_x27, _x28) {
+    return _ref14.apply(this, arguments);
   };
 }());
 var _default = exports["default"] = admindashboardcontroller;

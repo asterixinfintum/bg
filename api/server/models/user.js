@@ -2,13 +2,12 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const TailoredDashboardSchema = new Schema({
-
   increasefromyesterday: { type: Number, default: 16 },
   graphfigures: { type: [Object], default: [] },
   showtailored: { type: Boolean, default: true },
 
-  marginwalletstate: { type: String, default: '27.6% growth in the last 12 hours' },
-  spotwalletstate: { type: String, default: '9.6% growth in the last 12 hours' },
+  marginwalletstate: { type: String, default: '' },
+  spotwalletstate: { type: String, default: '' },
   autotrademarketstate: { type: String, default: 'profit' },
   autotrademarketpercentage: { type: Number, default: 65 },
   autotrademarketfigure: { type: Number, default: 2000000 },
@@ -18,7 +17,19 @@ const TailoredDashboardSchema = new Schema({
   profitstatevalue: { type: Number, default: 20 },
   profitsstate: { type: String, default: 'profit' /*profit or loss*/ },
   profitstatetext: { type: String, default: '' },
-  topassets: { type: String, default: 'Bitcoin || Ethereum || Bitcoin Cash || XRP || Crude Oil Brent || Copper || Aluminum || Natural Gas || Apple Inc. || Pfizer Inc. || Tesla, Inc. || Meta Platforms, Inc.' }
+  topassets: { type: String, default: 'Bitcoin || Ethereum || Bitcoin Cash || XRP || Crude Oil Brent || Copper || Aluminum || Natural Gas || Apple Inc. || Pfizer Inc. || Tesla, Inc. || Meta Platforms, Inc.' },
+  tradeaccountmargin: {
+    type: Number,
+    default: 0,
+  },
+  tradeaccountdebt: {
+    type: Number,
+    default: 0,
+  },
+  tradeaccountequity: {
+    type: Number,
+    default: 0,
+  },
 });
 
 TailoredDashboardSchema.path('profitstatetext').get(function () {

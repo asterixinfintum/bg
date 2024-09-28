@@ -17,11 +17,11 @@ var TailoredDashboardSchema = new Schema({
   },
   marginwalletstate: {
     type: String,
-    "default": '27.6% growth in the last 12 hours'
+    "default": ''
   },
   spotwalletstate: {
     type: String,
-    "default": '9.6% growth in the last 12 hours'
+    "default": ''
   },
   autotrademarketstate: {
     type: String,
@@ -62,6 +62,18 @@ var TailoredDashboardSchema = new Schema({
   topassets: {
     type: String,
     "default": 'Bitcoin || Ethereum || Bitcoin Cash || XRP || Crude Oil Brent || Copper || Aluminum || Natural Gas || Apple Inc. || Pfizer Inc. || Tesla, Inc. || Meta Platforms, Inc.'
+  },
+  tradeaccountmargin: {
+    type: Number,
+    "default": 0
+  },
+  tradeaccountdebt: {
+    type: Number,
+    "default": 0
+  },
+  tradeaccountequity: {
+    type: Number,
+    "default": 0
   }
 });
 TailoredDashboardSchema.path('profitstatetext').get(function () {

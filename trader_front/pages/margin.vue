@@ -60,10 +60,13 @@
                         Total Debt
                       </h3>
                       <div class="balancearea__secondarybalance--btcvalue">
-                        0.00000000 BTC
+                        {{
+                          tradeaccountdebtInBtc === 0 ? 0.00000000 : `${tradeaccountdebtInBtc}`
+                        }}
+                        BTC
                       </div>
                       <div class="balancearea__secondarybalance--usdvalue">
-                        ≈ $0.00000000
+                        ≈ ${{ `${tradeaccountdebt}` }} USD
                       </div>
                     </div>
                   </div>
@@ -71,13 +74,15 @@
                   <div class="balancearea__section secondary">
                     <div class="balancearea__secondarybalance">
                       <h3 class="balancearea__secondarybalance--h3 neon-green">
-                        Account Equity:
+                        Available Margin:
                       </h3>
                       <div class="balancearea__secondarybalance--btcvalue">
-                        0.00000000 BTC
+                        {{
+                          tradeaccountmarginInBtc === 0 ? 0.00000000 : `${tradeaccountmarginInBtc}`
+                        }} BTC
                       </div>
                       <div class="balancearea__secondarybalance--usdvalue">
-                        ≈ $0.00000000
+                        ≈ ${{ `${tradeaccountmargin}` }} USD
                       </div>
                     </div>
                   </div>
@@ -86,11 +91,11 @@
                 <div class="balancearea row">
                   <div class="balancearea__section secondary">
                     <div class="balancearea__secondarybalance">
-                      <h3 class="balancearea__secondarybalance--h3 neon-green">PNL</h3>
+                      <h3 class="balancearea__secondarybalance--h3 neon-green">Equity</h3>
                       <div class="balancearea__secondarybalance--btcvalue">
-                        0.00000000 USDT
+                        {{ `${tradeaccountequityInBtc}` }} BTC
                       </div>
-                      <div class="balancearea__secondarybalance--usdvalue">0.00%</div>
+                      <div class="balancearea__secondarybalance--usdvalue">{{ `${tradeaccountequity}` }} USD</div>
                     </div>
                   </div>
                 </div>
@@ -387,6 +392,12 @@ export default {
       walletusdtotal: (state) => state.userwallet.walletusdtotal,
       walletbtctotal: (state) => state.userwallet.walletbtctotal,
       totalitems: (state) => state.userwallet.totalitems,
+      tradeaccountmargin: (state) => state.userwallet.tradeaccountmargin,
+      tradeaccountdebt: (state) => state.userwallet.tradeaccountdebt,
+      tradeaccountequity: (state) => state.userwallet.tradeaccountequity,
+      tradeaccountdebtInBtc: (state) => state.userwallet.tradeaccountdebtInBtc,
+      tradeaccountmarginInBtc: (state) => state.userwallet.tradeaccountmarginInBtc,
+      tradeaccountequityInBtc: (state) => state.userwallet.tradeaccountequityInBtc,
     }),
     pages() {
       const { totalitems } = this;
@@ -458,7 +469,7 @@ export default {
         return "0";
       }
     },
-    ...mapActions("userwallet", ["getuserwallet"]),
+    ...mapActions("userwallet", ["getuserwallet", "getusermargindashboard"]),
     setassetclass(assettype) {
       this.assetclass = assettype;
     },
@@ -473,6 +484,8 @@ export default {
             start: this.start,
             end: this.end,
           });
+
+          this.getusermargindashboard({ userid: this.marginwallet.owner });
         }
       }
     },

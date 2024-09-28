@@ -94,6 +94,7 @@ export default {
       '~/assets/scss/assetscontainer.scss',
       '~/assets/scss/traderheader.scss',
       '~/assets/scss/slideup.scss',
+      '~/assets/scss/headerannouncement.scss',
     ],
     hoistUseStatements: true
   },

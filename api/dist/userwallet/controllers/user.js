@@ -7,6 +7,8 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _express = _interopRequireDefault(require("express"));
 var _authenticateToken = _interopRequireDefault(require("../../utils/authenticateToken"));
+var _user = _interopRequireDefault(require("../../models/user"));
+var _asset = _interopRequireDefault(require("../../models/asset"));
 var _wallet = _interopRequireDefault(require("../models/wallet"));
 var _withdrawalrequest = _interopRequireDefault(require("../models/withdrawalrequest"));
 var _transaction = _interopRequireDefault(require("../models/transaction"));
@@ -126,14 +128,14 @@ userwalletuser.get('/userwallet/wallet', _authenticateToken["default"], /*#__PUR
     return _ref.apply(this, arguments);
   };
 }());
-userwalletuser.get('/userwallet/getall', _authenticateToken["default"], /*#__PURE__*/function () {
+userwalletuser.get('/userwallet/margindashboard', _authenticateToken["default"], /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
-    var userid, userwallets;
+    var userid, btcAsset, price, useritem, _useritem$tailoreddas, tradeaccountdebt, tradeaccountmargin, tradeaccountequity, tradeaccountdebtInBtc, tradeaccountmarginInBtc, tradeaccountequityInBtc;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context2.next = 15;
+            _context2.next = 23;
             break;
           }
           _context2.prev = 1;
@@ -148,81 +150,145 @@ userwalletuser.get('/userwallet/getall', _authenticateToken["default"], /*#__PUR
           return _context2.abrupt("return");
         case 6:
           _context2.next = 8;
-          return _wallet["default"].find({
-            owner: userid
+          return _asset["default"].findOne({
+            name: "Bitcoin"
           });
         case 8:
-          userwallets = _context2.sent;
-          res.status(200).send({
-            userwallets: userwallets
+          btcAsset = _context2.sent;
+          price = btcAsset.price;
+          _context2.next = 12;
+          return _user["default"].findById({
+            _id: userid
           });
-          _context2.next = 15;
-          break;
         case 12:
-          _context2.prev = 12;
+          useritem = _context2.sent;
+          _useritem$tailoreddas = useritem.tailoreddashboard, tradeaccountdebt = _useritem$tailoreddas.tradeaccountdebt, tradeaccountmargin = _useritem$tailoreddas.tradeaccountmargin, tradeaccountequity = _useritem$tailoreddas.tradeaccountequity;
+          tradeaccountdebtInBtc = (tradeaccountdebt / price).toFixed(7);
+          tradeaccountmarginInBtc = (tradeaccountmargin / price).toFixed(7);
+          tradeaccountequityInBtc = (tradeaccountequity / price).toFixed(7);
+          res.status(200).json({
+            tradeaccountdebtInBtc: tradeaccountdebtInBtc,
+            tradeaccountmarginInBtc: tradeaccountmarginInBtc,
+            tradeaccountequityInBtc: tradeaccountequityInBtc,
+            tradeaccountequity: tradeaccountequity,
+            tradeaccountdebt: tradeaccountdebt,
+            tradeaccountmargin: tradeaccountmargin
+          });
+          _context2.next = 23;
+          break;
+        case 20:
+          _context2.prev = 20;
           _context2.t0 = _context2["catch"](1);
           res.status(500).send({
             error: 'error getting wallets'
           });
-        case 15:
+        case 23:
         case "end":
           return _context2.stop();
       }
-    }, _callee2, null, [[1, 12]]);
+    }, _callee2, null, [[1, 20]]);
   }));
   return function (_x3, _x4) {
     return _ref2.apply(this, arguments);
   };
 }());
-userwalletuser.get('/userwallet/assetbalance', _authenticateToken["default"], /*#__PURE__*/function () {
+userwalletuser.get('/userwallet/getall', _authenticateToken["default"], /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(req, res) {
-    var _req$query2, walletid, assetid, assetinitial, _userwallet, _balances, userwallet, balances, assetbalance;
+    var userid, userwallets;
     return _regeneratorRuntime().wrap(function _callee3$(_context3) {
       while (1) switch (_context3.prev = _context3.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context3.next = 26;
+            _context3.next = 15;
             break;
           }
           _context3.prev = 1;
+          userid = req.query.userid;
+          if (userid) {
+            _context3.next = 6;
+            break;
+          }
+          res.status(500).send({
+            error: 'there must be a userid present'
+          });
+          return _context3.abrupt("return");
+        case 6:
+          _context3.next = 8;
+          return _wallet["default"].find({
+            owner: userid
+          });
+        case 8:
+          userwallets = _context3.sent;
+          res.status(200).send({
+            userwallets: userwallets
+          });
+          _context3.next = 15;
+          break;
+        case 12:
+          _context3.prev = 12;
+          _context3.t0 = _context3["catch"](1);
+          res.status(500).send({
+            error: 'error getting wallets'
+          });
+        case 15:
+        case "end":
+          return _context3.stop();
+      }
+    }, _callee3, null, [[1, 12]]);
+  }));
+  return function (_x5, _x6) {
+    return _ref3.apply(this, arguments);
+  };
+}());
+userwalletuser.get('/userwallet/assetbalance', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+    var _req$query2, walletid, assetid, assetinitial, _userwallet, _balances, userwallet, balances, assetbalance;
+    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+      while (1) switch (_context4.prev = _context4.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context4.next = 26;
+            break;
+          }
+          _context4.prev = 1;
           _req$query2 = req.query, walletid = _req$query2.walletid, assetid = _req$query2.assetid, assetinitial = _req$query2.assetinitial;
           if (!assetinitial) {
-            _context3.next = 12;
+            _context4.next = 12;
             break;
           }
           if (!(!walletid || !assetinitial)) {
-            _context3.next = 7;
+            _context4.next = 7;
             break;
           }
           res.status(404).send({
             error: 'there must be a assetid and a walletid present'
           });
-          return _context3.abrupt("return");
+          return _context4.abrupt("return");
         case 7:
-          _context3.next = 9;
+          _context4.next = 9;
           return _wallet["default"].findOne({
             _id: walletid
           });
         case 9:
-          _userwallet = _context3.sent;
+          _userwallet = _context4.sent;
           _balances = _userwallet.balances;
-          return _context3.abrupt("return");
+          return _context4.abrupt("return");
         case 12:
           if (!(!walletid || !assetid)) {
-            _context3.next = 15;
+            _context4.next = 15;
             break;
           }
           res.status(404).send({
             error: 'there must be a assetid and a walletid present'
           });
-          return _context3.abrupt("return");
+          return _context4.abrupt("return");
         case 15:
-          _context3.next = 17;
+          _context4.next = 17;
           return _wallet["default"].findOne({
             _id: walletid
           });
         case 17:
-          userwallet = _context3.sent;
+          userwallet = _context4.sent;
           balances = userwallet.balances;
           assetbalance = balances.find(function (blc) {
             return blc.asset_id === assetid;
@@ -230,35 +296,35 @@ userwalletuser.get('/userwallet/assetbalance', _authenticateToken["default"], /*
           res.status(200).send({
             assetbalance: assetbalance ? assetbalance.balance : 0
           });
-          _context3.next = 26;
+          _context4.next = 26;
           break;
         case 23:
-          _context3.prev = 23;
-          _context3.t0 = _context3["catch"](1);
+          _context4.prev = 23;
+          _context4.t0 = _context4["catch"](1);
           res.status(500).send({
             error: 'error getting asset balance'
           });
         case 26:
         case "end":
-          return _context3.stop();
+          return _context4.stop();
       }
-    }, _callee3, null, [[1, 23]]);
+    }, _callee4, null, [[1, 23]]);
   }));
-  return function (_x5, _x6) {
-    return _ref3.apply(this, arguments);
+  return function (_x7, _x8) {
+    return _ref4.apply(this, arguments);
   };
 }());
 userwalletuser.post('/userwallet/request/withdraw', _authenticateToken["default"], /*#__PURE__*/function () {
-  var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
     var withdrawalrequest, newwithdrawalrequest;
-    return _regeneratorRuntime().wrap(function _callee4$(_context4) {
-      while (1) switch (_context4.prev = _context4.next) {
+    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+      while (1) switch (_context5.prev = _context5.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context4.next = 13;
+            _context5.next = 13;
             break;
           }
-          _context4.prev = 1;
+          _context5.prev = 1;
           withdrawalrequest = {
             userid: req.body.user,
             amount: req.body.amount,
@@ -271,61 +337,22 @@ userwalletuser.post('/userwallet/request/withdraw', _authenticateToken["default"
             paypalemail: req.body.paypalemail
           };
           newwithdrawalrequest = new _withdrawalrequest["default"](withdrawalrequest);
-          _context4.next = 6;
+          _context5.next = 6;
           return newwithdrawalrequest.save();
         case 6:
           res.status(200).send({
             message: 'withdrawal request processing'
           });
-          _context4.next = 13;
-          break;
-        case 9:
-          _context4.prev = 9;
-          _context4.t0 = _context4["catch"](1);
-          console.log(_context4.t0);
-          res.status(500).send({
-            error: 'error processing request'
-          });
-        case 13:
-        case "end":
-          return _context4.stop();
-      }
-    }, _callee4, null, [[1, 9]]);
-  }));
-  return function (_x7, _x8) {
-    return _ref4.apply(this, arguments);
-  };
-}());
-userwalletuser.get('/userwallet/transactions/', _authenticateToken["default"], /*#__PURE__*/function () {
-  var _ref5 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5(req, res) {
-    var userid, transactions;
-    return _regeneratorRuntime().wrap(function _callee5$(_context5) {
-      while (1) switch (_context5.prev = _context5.next) {
-        case 0:
-          if (!(req.user && req.user._id)) {
-            _context5.next = 12;
-            break;
-          }
-          _context5.prev = 1;
-          userid = req.query.userid;
-          _context5.next = 5;
-          return _transaction["default"].find({
-            userid: userid
-          });
-        case 5:
-          transactions = _context5.sent;
-          res.status(200).send({
-            transactions: transactions
-          });
-          _context5.next = 12;
+          _context5.next = 13;
           break;
         case 9:
           _context5.prev = 9;
           _context5.t0 = _context5["catch"](1);
+          console.log(_context5.t0);
           res.status(500).send({
-            error: 'error getting transactions'
+            error: 'error processing request'
           });
-        case 12:
+        case 13:
         case "end":
           return _context5.stop();
       }
@@ -333,6 +360,45 @@ userwalletuser.get('/userwallet/transactions/', _authenticateToken["default"], /
   }));
   return function (_x9, _x10) {
     return _ref5.apply(this, arguments);
+  };
+}());
+userwalletuser.get('/userwallet/transactions/', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
+    var userid, transactions;
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context6.next = 12;
+            break;
+          }
+          _context6.prev = 1;
+          userid = req.query.userid;
+          _context6.next = 5;
+          return _transaction["default"].find({
+            userid: userid
+          });
+        case 5:
+          transactions = _context6.sent;
+          res.status(200).send({
+            transactions: transactions
+          });
+          _context6.next = 12;
+          break;
+        case 9:
+          _context6.prev = 9;
+          _context6.t0 = _context6["catch"](1);
+          res.status(500).send({
+            error: 'error getting transactions'
+          });
+        case 12:
+        case "end":
+          return _context6.stop();
+      }
+    }, _callee6, null, [[1, 9]]);
+  }));
+  return function (_x11, _x12) {
+    return _ref6.apply(this, arguments);
   };
 }());
 var _default = exports["default"] = userwalletuser;

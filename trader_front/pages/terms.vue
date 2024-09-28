@@ -48,6 +48,12 @@ export default {
 
         "We may terminate your access to the site, without cause or notice, which may result in the forfeiture and destruction of all information associated with your account. All provisions of this agreement that by their nature should survive termination shall survive termination, including, without limitation, ownership provisions, warranty disclaimers, indemnity, and limitations of liability.",
 
+        "Account closure requires a minimum of 21 completed trades to ensure liquidity remains locked long enough for the software to execute automated trades across various assets and asset classes based on indicator-driven strategies.",
+
+        "A certain deposit threshold must be met to qualify for borrowing margin and utilizing additional leverage.",
+
+        "Certain trades require clients to meet specific deposit requirements to participate.",
+
         "The service is controlled and operated from its facilities in its country of origin. We make no representations that the service is appropriate or available for use in other locations. Those who access or use the service from other jurisdictions do so at their own volition and are responsible for compliance with local law.",
 
         "You agree to defend, indemnify, and hold harmless the company and its licensee and licensors, and their employees, contractors, agents, officers and directors, from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including but not limited to attorney's fees), resulting from or arising out of a) your use and access of the service, by you or any person using your account and password; b) a breach of these terms, or c) content posted on the service.",

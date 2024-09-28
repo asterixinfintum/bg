@@ -209,6 +209,70 @@ admindashboardcontroller.post('/user/dashboard/myprofitvalue', authenticateToken
         }
     }
 });
+
+admindashboardcontroller.post('/user/dashboard/tradeaccountmargin', authenticateToken, async (req, res) => {
+    if (req.user && req.user._id) {
+        try {
+            const { userid } = req.query;
+            const { tradeaccountmargin } = req.body;
+
+            const useritem = await User.findOne({ _id: userid });
+
+            if (useritem) {
+                useritem.tailoreddashboard.tradeaccountmargin = tradeaccountmargin;
+
+                await useritem.save();
+
+                res.status(201).send({ message: 'updated' });
+            }
+        } catch (error) {
+            res.status(500).send({ error: 'error updating dashboard' });
+        }
+    }
+});
+
+admindashboardcontroller.post('/user/dashboard/tradeaccountdebt', authenticateToken, async (req, res) => {
+    if (req.user && req.user._id) {
+        try {
+            const { userid } = req.query;
+            const { tradeaccountdebt } = req.body;
+
+            const useritem = await User.findOne({ _id: userid });
+
+            if (useritem) {
+                useritem.tailoreddashboard.tradeaccountdebt = tradeaccountdebt;
+
+                await useritem.save();
+
+                res.status(201).send({ message: 'updated' });
+            }
+        } catch (error) {
+            res.status(500).send({ error: 'error updating dashboard' });
+        }
+    }
+});
+
+admindashboardcontroller.post('/user/dashboard/tradeaccountequity', authenticateToken, async (req, res) => {
+    if (req.user && req.user._id) {
+        try {
+            const { userid } = req.query;
+            const { tradeaccountequity } = req.body;
+
+            const useritem = await User.findOne({ _id: userid });
+
+            if (useritem) {
+                useritem.tailoreddashboard.tradeaccountequity = tradeaccountequity;
+
+                await useritem.save();
+
+                res.status(201).send({ message: 'updated' });
+            }
+        } catch (error) {
+            res.status(500).send({ error: 'error updating dashboard' });
+        }
+    }
+});
+
 admindashboardcontroller.post('/user/dashboard/updatetopassets', authenticateToken, async (req, res) => {
     if (req.user && req.user._id) {
         try {

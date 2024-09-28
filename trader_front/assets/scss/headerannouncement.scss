@@ -1,0 +1,16 @@
+.headerannouncement {
+    min-height: #{scaleValue(40)};
+    background: $bitcoin-orange;
+    color: $landing-primary;
+    display: flex;
+    align-items: center;
+
+    &__announcement {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
+        width: 100%;
+        font-size: #{scaleValue(15)};
+    }
+}

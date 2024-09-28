@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       announcements: [
-        `BVX Autotrade Token (BVXT) ICO launches Soon!`,
+        `BVX Token (BVXT) ICO launches Soon!`,
       ],
     };
   },

@@ -364,7 +364,7 @@ export default {
       currentsearch: "All",
       tradesheader: "Market Trades",
       announcements: [
-        `BVX Autotrade Token (BVXT) ICO launches Soon!`,
+        `BVX Token (BVXT) ICO launches Soon!`,
       ],
     };
   },

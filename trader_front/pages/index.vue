@@ -20,6 +20,14 @@
               win
             </h2>
           </div>
+          <div class="landingpage__icoannou">
+            <div class="landingpage__icoannou--content">
+              <HeaderAnnouncement
+                :background="'$landing-green'"
+                :announcement="announcements[0]"
+              />
+            </div>
+          </div>
           <div class="landingpage__jumbotron--area buttons">
             <button class="btn left" @click="$router.push('/register')">
               Open an account
@@ -641,10 +649,14 @@ import { mapActions, mapMutations, mapState } from "vuex";
 import socket from "@/plugins/socket.js";
 
 export default {
+  data() {
+    return {
+      announcements: [`BVX Token (BVXT) ICO launches Soon!`],
+    };
+  },
   watch: {
     client(newval, oldval) {
       if (newval) {
-        
         socket.emit("clientloggedin", { clientid: newval._id });
       }
     },
@@ -868,6 +880,31 @@ $landing-textcolor: #141d22;
             margin-right: #{scaleValue(100)};
           }
         }
+      }
+    }
+  }
+
+  &__icoannou {
+    margin-top: #{scaleValue(30)};
+    width: 100vw;
+    min-height: #{scaleValue(30)};
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media only screen and (max-width: 412px) {
+      width: 90vw;
+      margin-top: #{scaleValue(150)};
+    }
+
+    &--content {
+      border-radius: 3rem;
+      width: #{scaleValue(800)};
+      overflow: hidden;
+
+      @media only screen and (max-width: 412px) {
+        width: 90vw;
       }
     }
   }

@@ -11,3 +11,13 @@
       transform: rotate(360deg);  
     }
 }
+
+@keyframes moveinup {
+  0% {
+    transform: translateY(#{scaleValue(15)});
+  }
+  
+  100% {
+    transform: translateY(0);
+  }
+}

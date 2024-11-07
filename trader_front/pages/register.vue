@@ -110,7 +110,7 @@
                 </div>
                 <div class="auth__termsdescription">
                   <p class="auth__termsdescription--p">
-                    By creating an account, I agree to Binance's
+                    By creating an account, I agree to BVX's
                     <span class="highlight" @click="$router.push('/terms')"
                       >Terms of Service</span
                     >

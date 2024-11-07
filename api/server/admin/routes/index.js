@@ -105,6 +105,7 @@ admin.post('/admin/create', async (req, res) => {
             newagent
         });
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: 'An error occurred during registration.' });
     }
 });

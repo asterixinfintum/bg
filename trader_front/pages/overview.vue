@@ -93,6 +93,10 @@
                   </div>
                 </div>
 
+                <div class="bitcoinpromo__dashboard">
+                  <BitcoinPromo :dashboard="true"/>
+                </div>
+
                 <div class="overview__mainarea">
                   <div class="overview__mainareaoneleft" v-if="client">
                     <div class="overview__mainareaonecard first">

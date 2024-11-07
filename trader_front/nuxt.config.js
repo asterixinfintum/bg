@@ -74,6 +74,7 @@ export default {
       '~/assets/scss/animations.scss',
       '~/assets/scss/index.scss',
       '~/assets/scss/balancearea.scss',
+      '~/assets/scss/jumbotron.scss',
       '~/assets/scss/list.scss',
       '~/assets/scss/assetlistheader.scss',
       '~/assets/scss/assetlist.scss',

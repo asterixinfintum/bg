@@ -63,6 +63,8 @@
           </div>
         </div>
 
+        <BitcoinPromo />
+
         <div class="landingpage__features">
           <div class="landingpage__features--header">
             <h2>Trade without tradeoffs</h2>
@@ -647,6 +649,7 @@
 import { mapActions, mapMutations, mapState } from "vuex";
 
 import socket from "@/plugins/socket.js";
+import BitcoinPromo from "../components/BitcoinPromo.vue";
 
 export default {
   data() {
@@ -756,133 +759,7 @@ $landing-textcolor: #141d22;
     }
   }
 
-  &__jumbotron {
-    color: $white;
-    height: #{scaleValue(800)};
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-top: #{scaleValue(130)};
 
-    padding-top: #{scaleValue(170)};
-    background-image: linear-gradient(
-        to bottom,
-        rgba($landing-primary, 1),
-        rgba($landing-primary, 0.8)
-      ),
-      url(/imgs/skyline.avif);
-    background-size: cover;
-    background-position: top;
-    position: relative;
-
-    @media only screen and (max-width: 412px) {
-      height: #{scaleValue(2900)};
-      padding-top: #{scaleValue(500)};
-    }
-
-    &--area {
-      & h1 {
-        font-weight: 500;
-        font-size: #{scaleValue(50)};
-        line-height: #{scaleValue(70)};
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-
-        @media only screen and (max-width: 412px) {
-          font-size: #{scaleValue(130)};
-          line-height: #{scaleValue(200)};
-          font-weight: 400;
-        }
-      }
-
-      & h2 {
-        font-weight: 400;
-        font-size: #{scaleValue(18)};
-        line-height: #{scaleValue(28)};
-        width: #{scaleValue(700)};
-        margin-top: #{scaleValue(20)};
-        text-align: center;
-
-        @media only screen and (max-width: 412px) {
-          font-size: #{scaleValue(60)};
-          line-height: #{scaleValue(90)};
-          width: #{scaleValue(1500)};
-          margin-top: #{scaleValue(55)};
-        }
-      }
-
-      & button {
-        @include greenbtnlanding;
-
-        border-radius: 0.5rem;
-
-        @media only screen and (max-width: 412px) {
-          margin-top: #{scaleValue(100)};
-        }
-      }
-
-      &.buttons {
-        margin-top: #{scaleValue(60)};
-
-        @media only screen and (max-width: 412px) {
-          display: flex;
-          flex-direction: column;
-        }
-      }
-    }
-
-    &--facts {
-      display: flex;
-      align-items: center;
-      margin-top: #{scaleValue(130)};
-      padding: #{scaleValue(10)} #{scaleValue(30)};
-      color: $landing-textcolor;
-      background: $green;
-      border-radius: #{scaleValue(20)};
-      border: 1px solid $green;
-
-      @media only screen and (max-width: 412px) {
-        margin-top: #{scaleValue(400)};
-        flex-direction: column;
-        align-items: start;
-        width: #{scaleValue(1500)};
-      }
-    }
-
-    &--fact {
-      display: flex;
-      align-items: center;
-      font-size: #{scaleValue(13)};
-      margin-right: #{scaleValue(50)};
-      font-weight: 600;
-
-      @media only screen and (max-width: 412px) {
-        font-size: #{scaleValue(60)};
-        font-weight: 400;
-        line-height: #{scaleValue(150)};
-      }
-
-      &:last-child {
-        margin: 0;
-      }
-
-      & span {
-        display: flex;
-        align-items: center;
-
-        &.image {
-          margin-right: #{scaleValue(10)};
-
-          @media only screen and (max-width: 412px) {
-            width: #{scaleValue(20)};
-            height: #{scaleValue(20)};
-            margin-right: #{scaleValue(100)};
-          }
-        }
-      }
-    }
-  }
 
   &__icoannou {
     margin-top: #{scaleValue(30)};

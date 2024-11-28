@@ -13,7 +13,7 @@
     background: $black-background;
 
     &__desktop {
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             display: none;
         }
     }
@@ -23,7 +23,7 @@
         padding: #{scaleValue(80)};
         position: relative;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             display: block;
         }
 
@@ -95,13 +95,29 @@
         }
     }
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
         padding: #{scaleValue(50)};
         line-height: #{scaleValue(160)};
     }
 
     &.auth {
-        border: none
+        border: none;
+
+        @media only screen and (max-width: $breakpoint-tablet) {
+            padding-top: #{scaleValue(250)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+            padding-top: #{scaleValue(250)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+            padding-top: #{scaleValue(250)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+            padding-top: #{scaleValue(250)};
+        }
     }
 
     &__logo {
@@ -111,7 +127,7 @@
         margin-right: #{scaleValue(40)};
         cursor: pointer;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             margin-left: #{scaleValue(500)};
             font-size: #{scaleValue(100)};
         }
@@ -125,7 +141,7 @@
             background: $primary-color;
             margin-right: #{scaleValue(5)};
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 height: #{scaleValue(70)};
                 width: #{scaleValue(70)};
                 margin-right: #{scaleValue(20)};
@@ -224,7 +240,7 @@
         cursor: pointer;
         position: relative;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             font-size: #{scaleValue(55)};
 
             border-bottom: 1px solid rgba($white, .5);
@@ -241,7 +257,7 @@
             &.svg {
                 margin-left: #{scaleValue(5)};
 
-                @media only screen and (max-width: 414px) {
+                @media only screen and (max-width: $breakpoint-mobile-large) {
                     margin-left: #{scaleValue(20)};
                 }
 
@@ -249,7 +265,7 @@
                     height: #{scaleValue(8)};
                     width: #{scaleValue(8)};
 
-                    @media only screen and (max-width: 414px) {
+                    @media only screen and (max-width: $breakpoint-mobile-large) {
                         height: #{scaleValue(38)};
                         width: #{scaleValue(38)};
                     }

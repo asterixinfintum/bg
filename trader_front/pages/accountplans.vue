@@ -281,7 +281,7 @@ export default {};
     grid-template-rows: auto;
     gap: #{scaleValue(16)};
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       display: flex;
       flex-direction: column;
     }
@@ -294,7 +294,7 @@ export default {};
     width: #{scaleValue(570)};
     position: relative;
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       width: 100%;
       padding: #{scaleValue(110)};
       margin-bottom: #{scaleValue(100)};
@@ -308,7 +308,7 @@ export default {};
       font-size: #{scaleValue(18)};
       font-weight: 500;
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(70)};
         margin-bottom: #{scaleValue(120)};
       }
@@ -317,7 +317,7 @@ export default {};
     &--copy {
       margin-bottom: #{scaleValue(20)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         margin-bottom: #{scaleValue(70)};
         font-size: #{scaleValue(60)};
       }
@@ -326,7 +326,7 @@ export default {};
     &--prices {
       margin-bottom: #{scaleValue(17)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         margin-bottom: #{scaleValue(70)};
         font-size: #{scaleValue(60)};
       }
@@ -335,7 +335,7 @@ export default {};
     &--price {
       margin-bottom: #{scaleValue(17)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         margin-bottom: #{scaleValue(70)};
         font-size: #{scaleValue(60)};
       }
@@ -349,7 +349,7 @@ export default {};
       & li {
         margin-bottom: #{scaleValue(17)};
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           margin-bottom: #{scaleValue(70)};
           font-size: #{scaleValue(60)};
         }
@@ -357,7 +357,7 @@ export default {};
 
       margin-bottom: #{scaleValue(55)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         margin-bottom: #{scaleValue(250)};
       }
     }
@@ -370,7 +370,7 @@ export default {};
       bottom: 0;
       left: #{scaleValue(31)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         margin-top: #{scaleValue(200)};
         padding-bottom: #{scaleValue(120)};
         left: #{scaleValue(120)};
@@ -383,7 +383,7 @@ export default {};
         background: $landing-green;
         border-radius: 3rem;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           padding: #{scaleValue(60)} #{scaleValue(100)};
           font-size: #{scaleValue(50)};
           border-radius: 8rem;

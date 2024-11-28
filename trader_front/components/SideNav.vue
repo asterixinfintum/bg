@@ -279,7 +279,19 @@ export default {
 
   padding-top: #{scaleValue(170)};
 
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: $breakpoint-tablet) {
+    display: none;
+  }
+
+  @media only screen and (max-width: $breakpoint-mobile-large) {
+    display: none;
+  }
+
+  @media only screen and (max-width: $breakpoint-mobile-medium) {
+    display: none;
+  }
+
+  @media only screen and (max-width: $breakpoint-mobile-small) {
     display: none;
   }
 

@@ -160,7 +160,7 @@ export default {
   overflow-x: hidden;
   height: #{scaleValue(480)};
 
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: $breakpoint-mobile-large) {
     height: #{scaleValue(1800)};
   }
 
@@ -185,7 +185,7 @@ export default {
   position: relative;
   overflow: hidden;
 
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: $breakpoint-mobile-large) {
     height: #{scaleValue(2000)};
     width: auto;
   }

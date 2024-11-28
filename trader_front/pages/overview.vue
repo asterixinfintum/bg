@@ -94,7 +94,7 @@
                 </div>
 
                 <div class="bitcoinpromo__dashboard">
-                  <BitcoinPromo :dashboard="true"/>
+                  <BitcoinPromo :dashboard="true" />
                 </div>
 
                 <div class="overview__mainarea">
@@ -564,6 +564,30 @@ export default {
 
     width: #{scaleValue(650)};
 
+    @media only screen and (max-width: $breakpoint-tablet) {
+      width: 100%;
+      margin-bottom: 4rem;
+      padding: 6rem;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      width: 100%;
+      margin-bottom: 4rem;
+      padding: 6rem;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      width: 100%;
+      margin-bottom: 4rem;
+      padding: 6rem;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      width: 100%;
+      margin-bottom: 4rem;
+      padding: 6rem;
+    }
+
     &:hover {
       border: 0.5px solid $neon-blue;
       background: linear-gradient(
@@ -577,6 +601,22 @@ export default {
       font-size: #{scaleValue(30)};
       font-weight: 500;
       margin-bottom: #{scaleValue(30)};
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        font-size: #{scaleValue(130)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        font-size: #{scaleValue(130)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        font-size: #{scaleValue(130)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        font-size: #{scaleValue(130)};
+      }
 
       & span {
         &.green {
@@ -592,6 +632,22 @@ export default {
     &--wallet {
       color: $neon-yellow;
       font-size: #{scaleValue(12)};
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        font-size: #{scaleValue(60)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        font-size: #{scaleValue(60)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        font-size: #{scaleValue(60)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        font-size: #{scaleValue(60)};
+      }
     }
   }
 
@@ -601,6 +657,22 @@ export default {
     justify-content: space-between;
     margin-bottom: #{scaleValue(40)};
 
+    @media only screen and (max-width: $breakpoint-tablet) {
+      flex-direction: column;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      flex-direction: column;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      flex-direction: column;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      flex-direction: column;
+    }
+
     &.column {
       flex-direction: column;
     }
@@ -608,6 +680,22 @@ export default {
     &--assetcategories {
       font-size: #{scaleValue(14)};
       color: rgba($neon-blue, 0.8);
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        font-size: #{scaleValue(60)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        font-size: #{scaleValue(60)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        font-size: #{scaleValue(60)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        font-size: #{scaleValue(60)};
+      }
 
       & span {
         display: inline-block;
@@ -632,14 +720,48 @@ export default {
 
       position: relative;
 
+      @media only screen and (max-width: $breakpoint-tablet) {
+        grid-template-columns: repeat(1, #{scaleValue(1500)});
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        grid-template-columns: repeat(1, #{scaleValue(1500)});
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        grid-template-columns: repeat(1, #{scaleValue(1500)});
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        grid-template-columns: repeat(1, #{scaleValue(1500)});
+      }
+
       &.flex {
         display: flex;
         justify-content: space-between;
+
+        flex-direction: column;
       }
     }
 
     &--conveyor {
       height: #{scaleValue(80)};
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        height: auto;
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        height: auto;
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        height: auto;
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        height: auto;
+      }
     }
 
     &--asset {
@@ -677,6 +799,10 @@ export default {
           position: absolute;
           left: 0;
           top: 0;
+
+          position: relative;
+          width: 100%;
+          transform: translateX(0) !important;
         }
 
         &.rightphase {
@@ -717,6 +843,26 @@ export default {
         border-radius: 100%;
         margin-right: #{scaleValue(10)};
 
+        @media only screen and (max-width: $breakpoint-tablet) {
+          height: #{scaleValue(120)};
+          width: #{scaleValue(120)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+          height: #{scaleValue(120)};
+          width: #{scaleValue(120)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+          height: #{scaleValue(120)};
+          width: #{scaleValue(120)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+          height: #{scaleValue(120)};
+          width: #{scaleValue(120)};
+        }
+
         & img {
           height: 100%;
           width: 100%;
@@ -738,16 +884,72 @@ export default {
           color: rgba($white, 0.5);
           font-weight: 500;
           margin-bottom: #{scaleValue(5)};
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(65)};
+            margin-bottom: #{scaleValue(80)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(65)};
+            margin-bottom: #{scaleValue(80)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(65)};
+            margin-bottom: #{scaleValue(80)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(65)};
+            margin-bottom: #{scaleValue(80)};
+          }
         }
 
         &.amount {
           font-size: #{scaleValue(15)};
 
           color: $bitcoin-orange;
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(65)};
+            margin-bottom: #{scaleValue(80)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(65)};
+            margin-bottom: #{scaleValue(80)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(65)};
+            margin-bottom: #{scaleValue(80)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(65)};
+            margin-bottom: #{scaleValue(80)};
+          }
         }
 
         &.percent {
           font-size: #{scaleValue(10)};
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(65)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(65)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(65)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(65)};
+          }
 
           &.green {
             color: $usdt-green;
@@ -772,10 +974,46 @@ export default {
           color: rgba($white, 0.5);
           font-weight: 500;
           margin-bottom: #{scaleValue(5)};
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(65)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(65)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(65)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(65)};
+          }
         }
 
         &.amount {
           font-size: #{scaleValue(15)};
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            margin-top: #{scaleValue(20)};
+            font-size: #{scaleValue(65)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            margin-top: #{scaleValue(20)};
+            font-size: #{scaleValue(65)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            margin-top: #{scaleValue(20)};
+            font-size: #{scaleValue(65)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            margin-top: #{scaleValue(20)};
+            font-size: #{scaleValue(65)};
+          }
         }
       }
     }
@@ -787,6 +1025,22 @@ export default {
     background: rgba($light-black, 0.3);
     border-radius: #{scaleValue(10)};
     color: $white;
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+      flex-direction: column;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      flex-direction: column;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      flex-direction: column;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      flex-direction: column;
+    }
   }
 
   &__mainareaoneright {
@@ -795,18 +1049,82 @@ export default {
       rgba(0, 180, 160, 0.1),
       rgba(0, 255, 255, 0.2)
     );
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+      padding: 4rem;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      padding: 4rem;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      padding: 4rem;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      padding: 4rem;
+    }
   }
 
   &__mainareaonecard {
     width: #{scaleValue(408)};
     flex-shrink: 0;
 
+    @media only screen and (max-width: $breakpoint-tablet) {
+      width: 100%;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      width: 100%;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      width: 100%;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      width: 100%;
+    }
+
     &.first {
       width: #{scaleValue(310)};
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        width: #{scaleValue(1500)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        width: #{scaleValue(1500)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        width: #{scaleValue(1500)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        width: #{scaleValue(1500)};
+      }
     }
 
     &.graphparent {
       width: #{scaleValue(500)};
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        width: #{scaleValue(1500)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        width: #{scaleValue(1500)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        width: #{scaleValue(1500)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        width: #{scaleValue(1500)};
+      }
     }
 
     &--h2 {
@@ -816,6 +1134,26 @@ export default {
       display: flex;
       align-items: center;
 
+      @media only screen and (max-width: $breakpoint-tablet) {
+        font-size: #{scaleValue(65)};
+        margin-bottom: #{scaleValue(80)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        font-size: #{scaleValue(65)};
+        margin-bottom: #{scaleValue(80)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        font-size: #{scaleValue(65)};
+        margin-bottom: #{scaleValue(80)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        font-size: #{scaleValue(65)};
+        margin-bottom: #{scaleValue(80)};
+      }
+
       & span {
         &.label {
           margin-right: #{scaleValue(10)};
@@ -824,6 +1162,22 @@ export default {
         &.value {
           color: $neon-blue;
           font-size: #{scaleValue(14)};
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(60)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(60)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(60)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(60)};
+          }
         }
 
         &.twenthr {
@@ -871,6 +1225,22 @@ export default {
       color: rgba($white, 0.4);
       font-size: #{scaleValue(11)};
       font-weight: 500;
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        font-size: #{scaleValue(46)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        font-size: #{scaleValue(46)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        font-size: #{scaleValue(46)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        font-size: #{scaleValue(46)};
+      }
     }
 
     &--reportdaily {
@@ -902,11 +1272,51 @@ export default {
         &.dollarvalue {
           font-size: #{scaleValue(40)};
           font-weight: 500;
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(120)};
+            margin-bottom: #{scaleValue(80)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(120)};
+            margin-bottom: #{scaleValue(80)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(120)};
+            margin-bottom: #{scaleValue(80)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(120)};
+            margin-bottom: #{scaleValue(80)};
+          }
         }
 
         &.statement {
           font-size: #{scaleValue(11)};
           color: rgba($white, 0.4);
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(48)};
+            margin-bottom: #{scaleValue(50)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(48)};
+            margin-bottom: #{scaleValue(50)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(48)};
+            margin-bottom: #{scaleValue(50)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(48)};
+            margin-bottom: #{scaleValue(50)};
+          }
 
           & span {
             color: rgba($white, 0.6);
@@ -919,6 +1329,26 @@ export default {
       font-size: #{scaleValue(12)};
       cursor: pointer;
       margin-bottom: #{scaleValue(40)};
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        font-size: #{scaleValue(60)};
+        margin-bottom: #{scaleValue(80)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        font-size: #{scaleValue(60)};
+        margin-bottom: #{scaleValue(80)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        font-size: #{scaleValue(60)};
+        margin-bottom: #{scaleValue(80)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        font-size: #{scaleValue(60)};
+        margin-bottom: #{scaleValue(80)};
+      }
 
       & span {
         &.currenttrades {
@@ -944,11 +1374,51 @@ export default {
           font-size: #{scaleValue(23)};
           margin-bottom: #{scaleValue(10)};
           color: rgba($white, 0.8);
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: calc(
+              75 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
+            );
+            margin-bottom: calc(
+              141 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
+            );
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: calc(
+              75 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
+            );
+            margin-bottom: calc(
+              141 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
+            );
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: calc(
+              75 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
+            );
+            margin-bottom: calc(
+              141 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
+            );
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: calc(
+              75 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
+            );
+            margin-bottom: calc(
+              141 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
+            );
+          }
         }
 
         &:nth-child(2) {
           font-size: #{scaleValue(13)};
           color: rgba($bitcoin-orange, 0.9);
+
+          font-size: calc(
+            40 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
+          );
         }
       }
     }

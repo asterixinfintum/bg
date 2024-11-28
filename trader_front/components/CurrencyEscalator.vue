@@ -56,7 +56,7 @@ export default {
   overflow: hidden;
   background: $traderview-background;
 
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: $breakpoint-mobile-large) {
     display: none;
   }
 

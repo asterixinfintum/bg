@@ -717,6 +717,7 @@ export default {
 $landing-textcolor: #141d22;
 
 @mixin greenbtnlanding {
+  
   padding: #{scaleValue(15)} #{scaleValue(19)};
   font-size: #{scaleValue(13)};
   text-transform: uppercase;
@@ -735,7 +736,7 @@ $landing-textcolor: #141d22;
     border: 1px solid $landing-green;
   }
 
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width:$breakpoint-mobile-large) {
     padding: #{scaleValue(60)} #{scaleValue(100)};
     font-size: #{scaleValue(50)};
     border-radius: 8rem;
@@ -743,9 +744,12 @@ $landing-textcolor: #141d22;
 }
 
 .landingpage {
+
+  
+
   &__content {
     &--desktopheader {
-      @media only screen and (max-width: 412px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         display: none;
       }
     }
@@ -753,15 +757,14 @@ $landing-textcolor: #141d22;
     &--mobileheader {
       display: none;
 
-      @media only screen and (max-width: 412px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         display: block;
       }
     }
   }
 
-
-
   &__icoannou {
+    margin: 0 auto;
     margin-top: #{scaleValue(30)};
     width: 100vw;
     min-height: #{scaleValue(30)};
@@ -770,7 +773,7 @@ $landing-textcolor: #141d22;
     justify-content: center;
     align-items: center;
 
-    @media only screen and (max-width: 412px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       width: 90vw;
       margin-top: #{scaleValue(150)};
     }
@@ -780,7 +783,7 @@ $landing-textcolor: #141d22;
       width: #{scaleValue(800)};
       overflow: hidden;
 
-      @media only screen and (max-width: 412px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         width: 90vw;
       }
     }
@@ -802,7 +805,7 @@ $landing-textcolor: #141d22;
       font-size: #{scaleValue(20)};
       margin-bottom: #{scaleValue(50)};
 
-      @media only screen and (max-width: 412px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         margin-bottom: #{scaleValue(200)};
         font-size: #{scaleValue(70)};
       }
@@ -816,7 +819,7 @@ $landing-textcolor: #141d22;
       display: flex;
       justify-content: center;
 
-      @media only screen and (max-width: 412px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -828,7 +831,7 @@ $landing-textcolor: #141d22;
       width: #{scaleValue(700)};
       margin: 0 #{scaleValue(30)};
 
-      @media only screen and (max-width: 412px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         height: #{scaleValue(800)};
         width: #{scaleValue(900)};
         margin-top: #{scaleValue(200)};
@@ -845,7 +848,7 @@ $landing-textcolor: #141d22;
       width: #{scaleValue(350)};
       margin-top: #{scaleValue(60)};
 
-      @media only screen and (max-width: 412px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         width: #{scaleValue(1000)};
         margin-top: #{scaleValue(200)};
       }
@@ -858,7 +861,7 @@ $landing-textcolor: #141d22;
         font-size: #{scaleValue(10)};
         margin-bottom: #{scaleValue(16)};
 
-        @media only screen and (max-width: 412px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           font-size: #{scaleValue(60)};
           padding: #{scaleValue(30)} #{scaleValue(60)};
           margin-bottom: #{scaleValue(90)};
@@ -871,7 +874,7 @@ $landing-textcolor: #141d22;
         margin-bottom: #{scaleValue(16)};
         font-weight: 400;
 
-        @media only screen and (max-width: 412px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           font-size: #{scaleValue(90)};
           margin-bottom: #{scaleValue(70)};
         }
@@ -881,7 +884,7 @@ $landing-textcolor: #141d22;
         color: rgba($white, 0.5);
         font-size: #{scaleValue(15)};
 
-        @media only screen and (max-width: 412px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           font-size: #{scaleValue(50)};
         }
       }
@@ -898,7 +901,7 @@ $landing-textcolor: #141d22;
       rgba($landing-primary, 0.8)
     );
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width:$breakpoint-mobile-large) {
       padding: #{scaleValue(70)};
       padding-top: #{scaleValue(200)};
       padding-bottom: #{scaleValue(200)};
@@ -932,7 +935,7 @@ $landing-textcolor: #141d22;
     justify-content: space-between;
     position: relative;
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width:$breakpoint-mobile-large) {
       flex-direction: column;
     }
   }
@@ -946,7 +949,7 @@ $landing-textcolor: #141d22;
     color: rgba($white, 0.9);
     margin-bottom: #{scaleValue(30)};
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width:$breakpoint-mobile-large) {
       width: auto;
       margin-bottom: #{scaleValue(100)};
     }
@@ -990,7 +993,7 @@ $landing-textcolor: #141d22;
       color: rgba($white, 0.9);
       margin-bottom: #{scaleValue(30)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         font-size: #{scaleValue(65)};
         line-height: #{scaleValue(90)};
         margin-bottom: #{scaleValue(60)};
@@ -1003,7 +1006,7 @@ $landing-textcolor: #141d22;
       font-size: #{scaleValue(20)};
       margin-bottom: #{scaleValue(10)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         font-size: #{scaleValue(70)};
         line-height: #{scaleValue(90)};
         margin-bottom: #{scaleValue(60)};
@@ -1033,7 +1036,7 @@ $landing-textcolor: #141d22;
       text-align: center;
       margin-top: #{scaleValue(20)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         font-size: #{scaleValue(50)};
         line-height: #{scaleValue(70)};
         width: #{scaleValue(1400)};
@@ -1045,7 +1048,7 @@ $landing-textcolor: #141d22;
       grid-template-columns: repeat(4, 1fr);
       margin-top: #{scaleValue(40)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         grid-template-columns: repeat(1, 1fr);
         width: 100%;
       }
@@ -1060,7 +1063,7 @@ $landing-textcolor: #141d22;
       padding-bottom: #{scaleValue(20)};
       padding-bottom: #{scaleValue(30)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         padding-left: #{scaleValue(70)};
         padding-bottom: #{scaleValue(180)};
       }
@@ -1070,7 +1073,7 @@ $landing-textcolor: #141d22;
         font-weight: 500;
         margin-bottom: #{scaleValue(20)};
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width:$breakpoint-mobile-large) {
           font-size: #{scaleValue(100)};
           margin-bottom: #{scaleValue(50)};
         }
@@ -1079,7 +1082,7 @@ $landing-textcolor: #141d22;
       & span {
         font-size: #{scaleValue(15)};
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width:$breakpoint-mobile-large) {
           font-size: #{scaleValue(60)};
         }
       }
@@ -1098,7 +1101,7 @@ $landing-textcolor: #141d22;
 
     flex-direction: column;
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width:$breakpoint-mobile-large) {
       padding: #{scaleValue(70)};
       padding-top: #{scaleValue(130)};
       padding-bottom: #{scaleValue(130)};
@@ -1112,7 +1115,7 @@ $landing-textcolor: #141d22;
     &:nth-child(1) {
       width: #{scaleValue(500)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         width: auto;
       }
     }
@@ -1127,7 +1130,7 @@ $landing-textcolor: #141d22;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 1rem;
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         padding-top: #{scaleValue(130)};
 
         grid-template-columns: repeat(1, 1fr);
@@ -1142,7 +1145,7 @@ $landing-textcolor: #141d22;
       text-align: left;
       margin-bottom: #{scaleValue(10)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         font-size: #{scaleValue(65)};
         margin-bottom: #{scaleValue(40)};
       }
@@ -1165,7 +1168,7 @@ $landing-textcolor: #141d22;
       line-height: #{scaleValue(23)};
       font-size: #{scaleValue(15)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         font-size: #{scaleValue(68)};
         line-height: #{scaleValue(95)};
       }
@@ -1189,7 +1192,7 @@ $landing-textcolor: #141d22;
       rgba($landing-primary, 0.8)
     );
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width:$breakpoint-mobile-large) {
       padding: #{scaleValue(70)};
       padding-top: #{scaleValue(200)};
       padding-bottom: #{scaleValue(200)};
@@ -1208,7 +1211,7 @@ $landing-textcolor: #141d22;
       text-align: center;
       margin-bottom: #{scaleValue(10)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         font-size: #{scaleValue(90)};
       }
     }
@@ -1219,7 +1222,7 @@ $landing-textcolor: #141d22;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: #{scaleValue(19)};
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width:$breakpoint-mobile-large) {
       grid-template-columns: repeat(1, #{scaleValue(1475)});
       grid-gap: #{scaleValue(70)};
     }
@@ -1236,7 +1239,7 @@ $landing-textcolor: #141d22;
     border-color: $green;
     border-width: #{scaleValue(2)};
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width:$breakpoint-mobile-large) {
       padding: #{scaleValue(100)};
     }
 
@@ -1247,7 +1250,7 @@ $landing-textcolor: #141d22;
       border-radius: 100%;
       margin-bottom: #{scaleValue(15)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         height: #{scaleValue(140)};
         width: #{scaleValue(140)};
         margin-bottom: #{scaleValue(100)};
@@ -1266,7 +1269,7 @@ $landing-textcolor: #141d22;
       font-size: #{scaleValue(16)};
       margin-bottom: #{scaleValue(7)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         font-size: #{scaleValue(70)};
         margin-bottom: #{scaleValue(70)};
       }
@@ -1280,7 +1283,7 @@ $landing-textcolor: #141d22;
         color: $greyed-out;
         margin-bottom: #{scaleValue(17)};
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width:$breakpoint-mobile-large) {
           font-size: #{scaleValue(50)};
         }
       }
@@ -1290,7 +1293,7 @@ $landing-textcolor: #141d22;
         color: $green;
         font-weight: 200;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width:$breakpoint-mobile-large) {
           font-size: #{scaleValue(60)};
         }
       }
@@ -1312,12 +1315,12 @@ $landing-textcolor: #141d22;
 
       @include greenbtnlanding;
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         bottom: #{scaleValue(70)};
       }
     }
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width:$breakpoint-mobile-large) {
       width: auto;
       margin-bottom: #{scaleValue(100)};
       padding: #{scaleValue(120)};
@@ -1330,7 +1333,7 @@ $landing-textcolor: #141d22;
       margin-bottom: #{scaleValue(8)};
       font-weight: 600;
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         font-size: #{scaleValue(90)};
       }
     }
@@ -1341,7 +1344,7 @@ $landing-textcolor: #141d22;
       opacity: 0.9;
       margin-top: #{scaleValue(18)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         line-height: #{scaleValue(100)};
         font-size: #{scaleValue(70)};
         margin-top: #{scaleValue(100)};
@@ -1353,7 +1356,7 @@ $landing-textcolor: #141d22;
       margin-top: #{scaleValue(18)};
       font-size: #{scaleValue(14)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         line-height: #{scaleValue(100)};
         font-size: #{scaleValue(65)};
       }
@@ -1363,7 +1366,7 @@ $landing-textcolor: #141d22;
       margin-bottom: #{scaleValue(18)};
       font-size: #{scaleValue(14)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         line-height: #{scaleValue(100)};
         font-size: #{scaleValue(65)};
       }
@@ -1379,7 +1382,7 @@ $landing-textcolor: #141d22;
       flex-direction: column;
       line-height: #{scaleValue(30)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         line-height: #{scaleValue(120)};
       }
     }
@@ -1389,7 +1392,7 @@ $landing-textcolor: #141d22;
       font-size: #{scaleValue(15)};
       color: $green;
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         font-weight: 600;
         font-size: #{scaleValue(60)};
       }
@@ -1401,7 +1404,7 @@ $landing-textcolor: #141d22;
 
     background: $light-black;
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width:$breakpoint-mobile-large) {
       padding: 0 #{scaleValue(60)};
     }
 
@@ -1410,7 +1413,7 @@ $landing-textcolor: #141d22;
       padding-top: #{scaleValue(80)};
       padding-bottom: #{scaleValue(80)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width:$breakpoint-mobile-large) {
         padding-top: #{scaleValue(160)};
         padding-bottom: #{scaleValue(160)};
       }
@@ -1422,7 +1425,7 @@ $landing-textcolor: #141d22;
         line-height: #{scaleValue(23)};
         margin-bottom: #{scaleValue(30)};
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width:$breakpoint-mobile-large) {
           font-size: #{scaleValue(50)};
           line-height: #{scaleValue(100)};
         }

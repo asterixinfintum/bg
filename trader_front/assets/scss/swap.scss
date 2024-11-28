@@ -8,7 +8,7 @@
         border: $border;
         width: #{scaleValue(600)};
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             width: auto;
         }
 
@@ -17,7 +17,7 @@
             font-weight: 500;
             margin-bottom: #{scaleValue(25)};
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(60)};
             }
         }
@@ -68,7 +68,7 @@
                 height: #{scaleValue(15)};
                 width: #{scaleValue(15)};
 
-                @media only screen and (max-width: 414px) {
+                @media only screen and (max-width: $breakpoint-mobile-large) {
                     height: #{scaleValue(70)};
                     width: #{scaleValue(70)};
                 }
@@ -224,7 +224,7 @@
         &--action {
             font-size: #{scaleValue(13)};
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(60)};
             }
         }
@@ -280,7 +280,7 @@
                 position: relative;
                 z-index: 2;
 
-                @media only screen and (max-width: 414px) {
+                @media only screen and (max-width: $breakpoint-mobile-large) {
                     font-size: #{scaleValue(50)};
                 }
 
@@ -358,7 +358,7 @@
 
         line-height: #{scaleValue(30)};
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             font-size: #{scaleValue(50)};
             line-height: #{scaleValue(100)};
         }
@@ -432,7 +432,7 @@
         width: 100%;
         margin-top: #{scaleValue(22)};
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             margin-top: #{scaleValue(60)};
         }
 
@@ -441,7 +441,7 @@
             font-size: #{scaleValue(16)};
             padding: #{scaleValue(12)} #{scaleValue(14)};
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 padding: #{scaleValue(50)} #{scaleValue(14)};
                 font-size: #{scaleValue(70)};
             }

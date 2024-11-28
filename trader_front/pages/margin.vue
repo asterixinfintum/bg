@@ -2,7 +2,7 @@
   <div>
     <div class="margin">
       <div class="content">
-        <TraderHeader />
+       <TraderHeader />
 
         <div class="content__body">
           <div class="container">

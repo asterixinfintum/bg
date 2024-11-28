@@ -72,7 +72,30 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    //margin-bottom: #{scaleValue(30)};
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
   }
 
   &__header {
@@ -81,8 +104,9 @@ export default {
       font-size: #{scaleValue(30)};
       color: $primary-color;
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(70)};
+        margin-bottom: #{scaleValue(30)};
       }
     }
   }
@@ -90,7 +114,7 @@ export default {
   &__btns {
     font-weight: 600;
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       display: flex;
       flex-direction: column;
     }
@@ -101,7 +125,7 @@ export default {
       padding-top: #{scaleValue(13)};
       padding-bottom: #{scaleValue(13)};
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(55)};
         padding-top: #{scaleValue(50)};
         padding-bottom: #{scaleValue(50)};

@@ -8,7 +8,7 @@
     border-radius: 8px;
     font-size: #{scaleValue(13)};
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(70)};
     }
 
@@ -59,7 +59,7 @@
 .padded-btn {
     padding: #{scaleValue(10)} #{scaleValue(24)};
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
         padding: #{scaleValue(50)} #{scaleValue(100)};
     }
 }
@@ -71,7 +71,7 @@
 .layout-padding {
     padding: #{scaleValue(30)};
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
         padding: #{scaleValue(60)};
     }
 }
@@ -90,7 +90,7 @@
     flex-grow: 1;
     padding-left: #{scaleValue(230)};
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
         padding-left: 0;
     }
 }
@@ -336,7 +336,7 @@ h3 {
 }
 
 .mobile-invisible {
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
         display: none;
     }
 }
@@ -363,7 +363,7 @@ h3 {
             &.assettype {
                 font-size: #{scaleValue(10)};
                 background: rgba($success, .5);
-                padding:  #{scaleValue(10)};
+                padding: #{scaleValue(10)};
                 border-radius: 3rem;
                 margin-left: #{scaleValue(10)};
                 text-transform: uppercase;
@@ -393,7 +393,7 @@ h3 {
     background: $red;
 }
 
-.red-background  {
+.red-background {
     background: $red;
 }
 
@@ -407,5 +407,37 @@ h3 {
 
     &:hover {
         opacity: 1;
+    }
+}
+
+.mobile-menu-logo {
+    display: flex;
+    flex-direction: column;
+
+    display: none;
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+        display: flex;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+        display: flex;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+        display: flex;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+        display: flex;
+    }
+
+    & span {
+        display: inline-block;
+        border-radius: 3rem;
+        background: rgba($white, .7);
+        margin-bottom: #{scaleValue(10)};
+        height: #{scaleValue(25)};
+        width: #{scaleValue(120)};
     }
 }

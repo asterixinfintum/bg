@@ -136,7 +136,7 @@
               </button>
             </div>
 
-            <div class="auth__inputarea flex flex-direction-column" v-if="!loading">
+            <div class="auth__inputarea" v-if="!loading">
               <button
                 class="btn colored-btn padded-btn auth__btn"
                 @click="toggleView"

@@ -2083,6 +2083,22 @@ $red: rgb(246, 70, 93);
       display: flex;
       border-left: $border;
       border-right: $border;
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        flex-direction: column;
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        flex-direction: column;
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        flex-direction: column;
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        flex-direction: column;
+      }
     }
   }
 
@@ -2147,6 +2163,22 @@ $red: rgb(246, 70, 93);
   &__leftcontainer {
     width: #{scaleValue(1118)};
 
+    @media only screen and (max-width: $breakpoint-tablet) {
+      width: #{scaleValue(1500)};
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      width: #{scaleValue(1500)};
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      width: #{scaleValue(1500)};
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      width: #{scaleValue(1500)};
+    }
+
     &--body {
       display: flex;
     }
@@ -2154,6 +2186,22 @@ $red: rgb(246, 70, 93);
 
   &__leftarea {
     display: flex;
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+      flex-direction: column-reverse;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      flex-direction: column-reverse;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      flex-direction: column-reverse;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      flex-direction: column-reverse;
+    }
   }
 
   &__pairheader {
@@ -2161,6 +2209,30 @@ $red: rgb(246, 70, 93);
     padding: #{scaleValue(10)} #{scaleValue(20)};
     border-bottom: $border;
     font-size: #{scaleValue(13)};
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
 
     &--paircategory {
       color: rgba($bitcoin-orange, 0.8);
@@ -2188,6 +2260,22 @@ $red: rgb(246, 70, 93);
           font-weight: 600;
           font-size: #{scaleValue(17)};
           margin-right: #{scaleValue(10)};
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(70)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(70)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(70)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(70)};
+          }
         }
 
         &:nth-child(2) {
@@ -2237,12 +2325,27 @@ $red: rgb(246, 70, 93);
 
   &__graph {
     height: #{scaleValue(530)};
-    //background: red;
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+      height: #{scaleValue(2000)};
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      height: #{scaleValue(2000)};
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      height: #{scaleValue(2000)};
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      height: #{scaleValue(2000)};
+    }
   }
 
   &__ordercreator {
     position: relative;
-    with: 100%;
+    //with: 100%;
     background: $order-creator-background;
 
     &--ordertypes {
@@ -2337,6 +2440,26 @@ $red: rgb(246, 70, 93);
       grid-template-columns: repeat(2, 1fr);
       grid-gap: #{scaleValue(20)};
       padding: #{scaleValue(10)};
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: #{scaleValue(40)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: #{scaleValue(40)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: #{scaleValue(40)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: #{scaleValue(40)};
+      }
     }
 
     &--form {
@@ -2383,6 +2506,22 @@ $red: rgb(246, 70, 93);
       margin-bottom: #{scaleValue(20)};
       border: $border;
 
+      @media only screen and (max-width: $breakpoint-tablet) {
+        height: #{scaleValue(200)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        height: #{scaleValue(200)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        height: #{scaleValue(200)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        height: #{scaleValue(200)};
+      }
+
       &:hover {
         border: 1px solid $gold-b;
 
@@ -2405,6 +2544,22 @@ $red: rgb(246, 70, 93);
         font-size: #{scaleValue(13)};
         display: flex;
         align-items: center;
+
+        @media only screen and (max-width: $breakpoint-tablet) {
+          font-size: #{scaleValue(60)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+          font-size: #{scaleValue(60)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+          font-size: #{scaleValue(60)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+          font-size: #{scaleValue(60)};
+        }
 
         &.label {
           left: 0;
@@ -2446,6 +2601,22 @@ $red: rgb(246, 70, 93);
         color: rgba($white, 0.7);
         font-size: #{scaleValue(14)};
         text-align: right;
+
+        @media only screen and (max-width: $breakpoint-tablet) {
+          font-size: #{scaleValue(60)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+          font-size: #{scaleValue(60)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+          font-size: #{scaleValue(60)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+          font-size: #{scaleValue(60)};
+        }
       }
     }
 
@@ -2458,14 +2629,62 @@ $red: rgb(246, 70, 93);
       align-items: center;
       line-height: #{scaleValue(19)};
 
+      @media only screen and (max-width: $breakpoint-tablet) {
+        line-height: #{scaleValue(130)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        line-height: #{scaleValue(130)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        line-height: #{scaleValue(130)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        line-height: #{scaleValue(130)};
+      }
+
       & label {
         color: rgba($white, 0.4);
         font-size: #{scaleValue(11)};
         margin-right: #{scaleValue(12)};
+
+        @media only screen and (max-width: $breakpoint-tablet) {
+          font-size: #{scaleValue(70)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+          font-size: #{scaleValue(70)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+          font-size: #{scaleValue(70)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+          font-size: #{scaleValue(70)};
+        }
       }
 
       & span {
         font-size: #{scaleValue(11)};
+
+        @media only screen and (max-width: $breakpoint-tablet) {
+          font-size: #{scaleValue(70)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+          font-size: #{scaleValue(70)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+          font-size: #{scaleValue(70)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+          font-size: #{scaleValue(70)};
+        }
       }
     }
 
@@ -2481,6 +2700,22 @@ $red: rgb(246, 70, 93);
         opacity: 0.7; /* Set transparency (cross-browser) */
         -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
         transition: opacity 0.2s;
+
+        @media only screen and (max-width: $breakpoint-tablet) {
+          height: #{scaleValue(80)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+          height: #{scaleValue(80)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+          height: #{scaleValue(80)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+          height: #{scaleValue(80)};
+        }
       }
 
       input[type="range"]:hover {
@@ -2495,13 +2730,53 @@ $red: rgb(246, 70, 93);
         background: $neon-blue; /* Green background */
         cursor: pointer; /* Cursor on hover */
         border-radius: 100%;
+
+        @media only screen and (max-width: $breakpoint-tablet) {
+          width: #{scaleValue(100)}; /* Width of the thumb */
+          height: #{scaleValue(100)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+          width: #{scaleValue(100)}; /* Width of the thumb */
+          height: #{scaleValue(100)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+          width: #{scaleValue(100)}; /* Width of the thumb */
+          height: #{scaleValue(100)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+          width: #{scaleValue(100)}; /* Width of the thumb */
+          height: #{scaleValue(100)};
+        }
       }
 
       input[type="range"]::-moz-range-thumb {
-        width: #{scaleValue(10)}; /* Width of the thumb */
-        height: #{scaleValue(10)}; /* Height of the thumb */
+        width: #{scaleValue(100)}; /* Width of the thumb */
+        height: #{scaleValue(100)}; /* Height of the thumb */
         background: $neon-blue; /* Green background */
         cursor: pointer; /* Cursor on hover */
+
+        @media only screen and (max-width: $breakpoint-tablet) {
+          width: #{scaleValue(100)}; /* Width of the thumb */
+          height: #{scaleValue(100)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+          width: #{scaleValue(100)}; /* Width of the thumb */
+          height: #{scaleValue(100)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+          width: #{scaleValue(100)}; /* Width of the thumb */
+          height: #{scaleValue(100)};
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+          width: #{scaleValue(100)}; /* Width of the thumb */
+          height: #{scaleValue(100)};
+        }
       }
     }
 
@@ -2515,6 +2790,22 @@ $red: rgb(246, 70, 93);
       font-weight: 500;
       border-radius: #{scaleValue(3)};
       cursor: pointer;
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        height: #{scaleValue(200)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        height: #{scaleValue(200)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        height: #{scaleValue(200)};
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        height: #{scaleValue(200)};
+      }
 
       &.buy {
         background: $green;
@@ -2612,6 +2903,22 @@ $red: rgb(246, 70, 93);
       height: #{scaleValue(464)};
       overflow-x: hidden;
       overflow-y: scroll;
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        height: 100rem;
+      }
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        height: 100rem;
+      }
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        height: 100rem;
+      }
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        height: 100rem;
+      }
     }
 
     &--order {
@@ -2624,6 +2931,51 @@ $red: rgb(246, 70, 93);
       cursor: pointer;
       grid-template-columns: #{scaleValue(120)} 1fr 1fr;
       position: relative;
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        font-size: #{scaleValue(70.8)};
+
+        & span {
+          margin-bottom: #{scaleValue(20)};
+        }
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        font-size: #{scaleValue(70.8)};
+        & span {
+          margin-bottom: #{scaleValue(20)};
+        }
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        font-size: #{scaleValue(70.8)};
+        & span {
+          margin-bottom: #{scaleValue(20)};
+        }
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        font-size: #{scaleValue(70.8)};
+        & span {
+          margin-bottom: #{scaleValue(20)};
+        }
+      }
 
       &:hover {
         background: rgba(94, 102, 115, 0.4);
@@ -2702,11 +3054,43 @@ $red: rgb(246, 70, 93);
         &.assetunit {
           font-size: #{scaleValue(20.5)};
           margin-right: #{scaleValue(11.5)};
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(100.5)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(100.5)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(100.5)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(100.5)};
+          }
         }
 
         &.usd {
           font-size: #{scaleValue(12.5)};
           color: rgba($white, 0.5);
+
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(64.5)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(64.5)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(64.5)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(64.5)};
+          }
         }
       }
     }
@@ -2804,6 +3188,22 @@ $red: rgb(246, 70, 93);
       height: #{scaleValue(500)};
       overflow-y: scroll;
       overflow-x: hidden;
+
+      @media only screen and (max-width: $breakpoint-tablet) {
+        height: 100rem;
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        height: 100rem;
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-medium) {
+        height: 100rem;
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-small) {
+        height: 100rem;
+      }
     }
   }
 

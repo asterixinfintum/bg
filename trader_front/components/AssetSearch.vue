@@ -151,7 +151,7 @@ export default {
     display: flex;
     align-items: center;
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       flex-direction: column;
       align-items: flex-start;
     }
@@ -161,7 +161,7 @@ export default {
     margin-right: #{scaleValue(30)};
     font-size: #{scaleValue(14)};
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       font-size: #{scaleValue(55)};
       margin-right: #{scaleValue(100)};
     }
@@ -175,7 +175,7 @@ export default {
     height: #{scaleValue(38)};
     padding-left: #{scaleValue(13)};
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       width: #{scaleValue(1000)};
       height: #{scaleValue(180)};
       padding-left: #{scaleValue(50)};
@@ -188,7 +188,7 @@ export default {
       display: flex;
       align-items: center;
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         margin-right: #{scaleValue(20)};
       }
 
@@ -198,7 +198,7 @@ export default {
         fill: $white;
         opacity: 0.6;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           height: #{scaleValue(60)};
           width: #{scaleValue(60)};
         }
@@ -216,7 +216,7 @@ export default {
         color: $white;
         font-size: #{scaleValue(14)};
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           width: #{scaleValue(1000)};
           font-size: #{scaleValue(60)};
         }
@@ -230,7 +230,7 @@ export default {
     flex-shrink: 0;
     cursor: pointer;
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       margin-bottom: #{scaleValue(60)};
     }
 
@@ -266,7 +266,7 @@ export default {
       opacity: 0.3;
     }
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       margin-bottom: #{scaleValue(60)};
     }
   }

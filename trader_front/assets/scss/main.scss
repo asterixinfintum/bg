@@ -41,7 +41,7 @@ html {
     /* add a subtle shadow effect to the scrollbar */
     //height: 100vh;
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
         height: 2px;
     }
 }

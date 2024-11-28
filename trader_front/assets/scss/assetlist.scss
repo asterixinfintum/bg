@@ -1,7 +1,7 @@
 .assetlist {
     overflow: hidden;
 
-    @media only screen and (max-width: 414px) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
         overflow-x: scroll;
         overflow-y: hidden;
         width: #{scaleValue(1500)};
@@ -17,7 +17,7 @@
 
         overflow: hidden;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             width: #{scaleValue(4000)};
         }
 
@@ -39,7 +39,7 @@
             margin-right: #{scaleValue(19)};
             border-radius: 100%;
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 width: #{scaleValue(100)};
                 height: #{scaleValue(100)};
             }
@@ -56,7 +56,7 @@
             &:not(:last-child) {
                 width: #{scaleValue(165)};
 
-                @media only screen and (max-width: 414px) {
+                @media only screen and (max-width: $breakpoint-mobile-large) {
                     width: #{scaleValue(500)};
                 }
             }
@@ -67,7 +67,7 @@
             &:not(:last-child) {
                 width: #{scaleValue(140)};
 
-                @media only screen and (max-width: 414px) {
+                @media only screen and (max-width: $breakpoint-mobile-large) {
                     width: #{scaleValue(500)};
                 }
             }
@@ -81,7 +81,7 @@
                 font-size: #{scaleValue(13)};
             }
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(45)};
             }
         }
@@ -106,7 +106,7 @@
             display: flex;
             flex-direction: column;
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 flex-shrink: 0;
             }
         }
@@ -116,7 +116,7 @@
             font-size: #{scaleValue(12)};
             font-weight: 500;
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(50)};
             }
         }
@@ -156,7 +156,7 @@
             text-decoration: underline;
             opacity: .6;
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(53)};
             }
 
@@ -175,7 +175,7 @@
             margin-right: #{scaleValue(16)};
             cursor: pointer;
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(45)};
                 margin-right: #{scaleValue(100)};
             }
@@ -188,7 +188,7 @@
         justify-content: flex-end;
         padding: #{scaleValue(16)} 0;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             padding: #{scaleValue(50)} 0;
         }
 
@@ -203,7 +203,7 @@
             padding: #{scaleValue(7)} #{scaleValue(12)};
             border-radius: #{scaleValue(6)};
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(60)};
                 padding: #{scaleValue(20)} #{scaleValue(20)};
                 margin-left: #{scaleValue(70)};
@@ -214,7 +214,7 @@
                 height: #{scaleValue(19)};
                 width: #{scaleValue(19)};
 
-                @media only screen and (max-width: 414px) {
+                @media only screen and (max-width: $breakpoint-mobile-large) {
                     height: #{scaleValue(70)};
                     width: #{scaleValue(70)};
                 }

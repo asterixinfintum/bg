@@ -6,21 +6,21 @@
     &.row {
         display: flex;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             flex-direction: column;
         }
     }
 
     &__section {
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             margin-bottom: #{scaleValue(80)};
         }
 
         &.main {
             width: #{scaleValue(650)};
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 width: auto;
             }
         }
@@ -43,7 +43,7 @@
             font-weight: 500;
             margin-right: #{scaleValue(10)};
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(70)};
                 margin-bottom: #{scaleValue(30)};
             }
@@ -63,7 +63,7 @@
                 width: #{scaleValue(15)};
                 opacity: .6;
 
-                @media only screen and (max-width: 414px) {
+                @media only screen and (max-width: $breakpoint-mobile-large) {
                     height: #{scaleValue(60)};
                     width: #{scaleValue(60)};
                 }
@@ -77,7 +77,7 @@
         font-size: #{scaleValue(23)};
         font-weight: 600;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
             font-size: #{scaleValue(50)};
             flex-direction: column;
             align-items: flex-start;
@@ -86,7 +86,7 @@
         &--btcvalue {
             opacity: .9;
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(50)};
             }
         }
@@ -96,7 +96,7 @@
             margin: 0 #{scaleValue(10)};
             opacity: .6;
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(50)};
                 margin: 0;
             }
@@ -105,7 +105,7 @@
         &--usdvalue {
             opacity: .6;
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(50)};
             }
         }
@@ -120,7 +120,7 @@
             font-weight: 400;
             margin-bottom: #{scaleValue(12)};
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(70)};
                 margin-bottom: #{scaleValue(30)};
             }
@@ -132,7 +132,7 @@
             opacity: .9;
             margin-bottom: #{scaleValue(5.5)};
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(50)};
             }
         }
@@ -142,7 +142,7 @@
             font-weight: 500;
             opacity: .6;
 
-            @media only screen and (max-width: 414px) {
+            @media only screen and (max-width: $breakpoint-mobile-large) {
                 font-size: #{scaleValue(50)};
             }
         }

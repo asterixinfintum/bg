@@ -70,7 +70,7 @@ export default {
         { time: "2024-01-08 03:00", value: 156.25 },
         { time: "2024-01-08 04:00", value: 156.25 },
         { time: "2024-01-08 05:00", value: 156.05 },
-        { time: "2024-01-08 06:00", value: 158.05  },
+        { time: "2024-01-08 06:00", value: 158.05 },
         { time: "2024-01-08 07:00", value: 157.3 },
         { time: "2024-01-08 08:00", value: 144 },
         { time: "2024-01-08 09:00", value: 144.8 },
@@ -119,6 +119,26 @@ export default {
     width: #{scaleValue(500)};
     display: flex;
     align-items: center;
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+      height: #{scaleValue(600)};
+      width: #{scaleValue(1500)};
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      height: #{scaleValue(600)};
+      width: #{scaleValue(1500)};
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-medium) {
+      height: #{scaleValue(600)};
+      width: #{scaleValue(1500)};
+    }
+
+    @media only screen and (max-width: $breakpoint-mobile-small) {
+      height: #{scaleValue(600)};
+      width: #{scaleValue(1500)};
+    }
   }
 }
 </style>

@@ -70,7 +70,7 @@ $landing-textcolor: #141d22;
     padding-bottom: #{scaleValue(0)};
   }
 
-  @media only screen and (max-width: 414px) {
+  @media only screen and (max-width: $breakpoint-mobile-large) {
     width: auto;
     margin-bottom: #{scaleValue(100)};
   }
@@ -85,7 +85,7 @@ $landing-textcolor: #141d22;
 
       z-index: 3;
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(70)};
         line-height: #{scaleValue(90)};
         margin-bottom: #{scaleValue(60)};
@@ -109,7 +109,7 @@ $landing-textcolor: #141d22;
       position: relative;
       z-index: 3;
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(70)};
         line-height: #{scaleValue(100)};
         width: 100%;
@@ -123,7 +123,7 @@ $landing-textcolor: #141d22;
           font-size: #{scaleValue(13)};
           color: $bitcoin-orange;
 
-          @media only screen and (max-width: 414px) {
+          @media only screen and (max-width: $breakpoint-mobile-large) {
             font-size: #{scaleValue(50)};
             line-height: #{scaleValue(70)};
             margin-top: #{scaleValue(70)};
@@ -140,7 +140,7 @@ $landing-textcolor: #141d22;
 
       z-index: 2;
 
-      @media only screen and (max-width: 414px) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         overflow: hidden;
         position: absolute;
         right: 0;
@@ -164,7 +164,7 @@ $landing-textcolor: #141d22;
         width: 100%;
         object-fit: cover;
 
-        @media only screen and (max-width: 414px) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           width: 60%;
         }
       }

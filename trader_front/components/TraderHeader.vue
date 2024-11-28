@@ -4,16 +4,22 @@
       <HeaderAnnouncement :announcement="announcements[0]" />
       <CurrencyEscalator />
     </div>
-    <div class="trader__header">
+    <div class="trader__header" :class="{ mobilemenuopen }">
       <div class="trader__header--area">
         <div
           class="trader__header--logo"
           v-if="client"
-          @click="$router.push('/overview')"
+          
         >
-          <figure>
+          <figure @click="$router.push('/overview')">
             <img :src="`${primaryapi}/traderheaderlogotransparent.png`" />
           </figure>
+
+          <div class="mobile-menu-logo" @click="openmobilemenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </div>
 
         <div class="trader__header--logo" v-if="!client" @click="$router.push('/')">
@@ -23,48 +29,6 @@
         </div>
 
         <div class="trader__header--menu">
-          <!--<div
-            class="trader__header--menuitem"
-            :class="{ current: currentpage.includes('markets') }"
-            @click="routepage('markets')"
-          >
-            Markets
-          </div>
-          <div
-            class="trader__header--menuitem"
-            :class="{ current: currentpage.includes('spot') }"
-            @click="routepage('spot')"
-          >
-            Spot trade
-          </div>
-          <div
-            class="trader__header--menuitem"
-            :class="{ current: currentpage.includes('swaps') }"
-            @click="routepage('swaps')"
-          >
-            Swaps/Transfer
-          </div>
-          <div
-            class="trader__header--menuitem"
-            :class="{ current: currentpage.includes('staking') }"
-            @click="routepage('staking')"
-          >
-            Staking/Rewards
-          </div>
-          <div
-            class="trader__header--menuitem"
-            :class="{ current: currentpage.includes('automatic') }"
-            @click="routepage('automatic')"
-          >
-            Automatic trader (AI)
-          </div>
-          <div
-            class="trader__header--menuitem"
-            :class="{ current: currentpage.includes('margin') }"
-            @click="routepage('margin')"
-          >
-            Margin trade
-          </div>-->
           <div
             class="trader__header--menuitem"
             :class="{ current: currentpage.includes('accountplans') }"
@@ -72,7 +36,15 @@
           >
             Blog
           </div>
-          
+
+          <div
+            class="trader__header--menuitem"
+            :class="{ current: currentpage.includes('accountplans') }"
+            @click="$router.push('overview')"
+          >
+            Overview
+          </div>
+
           <div
             class="trader__header--menuitem"
             :class="{ current: currentpage.includes('accountplans') }"
@@ -94,7 +66,6 @@
           >
             Spot wallet
           </div>
-          
         </div>
       </div>
 
@@ -131,7 +102,10 @@
           >
             Log out
           </div>
-          <div class="trader__header--menuitem menuitembtn" @click="$router.push(`/wallet/fiatandspot`)">
+          <div
+            class="trader__header--menuitem menuitembtn"
+            @click="$router.push(`/wallet/fiatandspot`)"
+          >
             <span>
               <svg
                 viewBox="0 0 24 24"
@@ -363,9 +337,8 @@ export default {
       showsearch: false,
       currentsearch: "All",
       tradesheader: "Market Trades",
-      announcements: [
-        `BVX Token (BVXT) ICO launches Soon!`,
-      ],
+      announcements: [`BVX Token (BVXT) ICO launches Soon!`],
+      mobilemenuopen: false
     };
   },
   mounted() {
@@ -397,6 +370,9 @@ export default {
     },
   },
   methods: {
+    openmobilemenu() {
+      this.mobilemenuopen = !this.mobilemenuopen
+    },
     triggerlogout() {
       const { logout } = this;
       logout().then(() => this.$router.push("/"));

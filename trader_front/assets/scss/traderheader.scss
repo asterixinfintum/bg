@@ -30,17 +30,125 @@ $background: rgb(22, 26, 30);
                 rgba($landing-primary, 1),
                 rgba($landing-primary, 0.8));
 
+        @media only screen and (max-width: $breakpoint-tablet) {
+            height: 15rem;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+            height: 15rem;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+            height: 15rem;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+            
+            height: 15rem;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            overflow: hidden;
+        }
+
+        &.mobilemenuopen {
+            height: auto;
+        }
+
         &--area {
             display: flex;
             align-items: center;
+
+            @media only screen and (max-width: $breakpoint-tablet) {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                margin-bottom: 5rem;
+                width: #{scaleValue(1500)};
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-large) {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                margin-bottom: 5rem;
+                width: #{scaleValue(1500)};
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-medium) {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                margin-bottom: 5rem;
+                width: #{scaleValue(1500)};
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-small) {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+                margin-bottom: 5rem;
+                width: #{scaleValue(1500)};
+            }
         }
 
         &--logo {
             margin-right: #{scaleValue(20)};
 
+            @media only screen and (max-width: $breakpoint-tablet) {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-large) {
+                
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-medium) {
+
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-small) {
+
+            }
+
             & figure {
-                height: #{scaleValue(35)};
-                width: #{scaleValue(100)};
+                height: #{scaleValue(50)};
+                width: #{scaleValue(90)};
+
+                @media only screen and (max-width: $breakpoint-tablet) {
+                    height: #{scaleValue(200)};
+                    width: #{scaleValue(290)};
+                }
+
+                @media only screen and (max-width: $breakpoint-mobile-large) {
+                    height: #{scaleValue(200)};
+                    width: #{scaleValue(290)};
+                }
+
+                @media only screen and (max-width: $breakpoint-mobile-medium) {
+                    height: #{scaleValue(200)};
+                    width: #{scaleValue(290)};
+                }
+
+                @media only screen and (max-width: $breakpoint-mobile-small) {
+                    height: #{scaleValue(200)};
+                    width: #{scaleValue(290)};
+                }
 
                 & img {
                     height: 100%;
@@ -53,6 +161,32 @@ $background: rgb(22, 26, 30);
         &--menu {
             display: flex;
             align-items: center;
+
+            width: 100%;
+
+            @media only screen and (max-width: $breakpoint-tablet) {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-large) {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-medium) {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-small) {
+                flex-direction: column;
+                justify-content: flex-start;
+                align-items: flex-start;
+            }
         }
 
         &--menuitem {
@@ -62,6 +196,27 @@ $background: rgb(22, 26, 30);
 
             display: flex;
             align-items: center;
+
+
+            @media only screen and (max-width: $breakpoint-tablet) {
+                font-size: 4rem;
+                margin-bottom: 5rem;
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-large) {
+                font-size: 4rem;
+                margin-bottom: 5rem;
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-medium) {
+                font-size: 4rem;
+                margin-bottom: 5rem;
+            }
+
+            @media only screen and (max-width: $breakpoint-mobile-small) {
+                font-size: 4rem;
+                margin-bottom: 5rem;
+            }
 
             &.current {
                 color: $neon-blue;

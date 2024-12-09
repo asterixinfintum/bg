@@ -484,6 +484,60 @@
           </div>
         </div>
 
+        <div class="landingpage__bonusarea">
+          <div class="landingpage__perksarea">
+            <h4>Grow Your Account and Reap Rewards:</h4>
+            <h3>
+              Grow your account while enjoying bonuses on certain accounts and trades
+            </h3>
+            <p class="landingpage__perksarea--p">
+              Unlock growth opportunities while enjoying exclusive bonuses on select
+              accounts and trades, designed to help you maximize your success.
+            </p>
+          </div>
+
+          <div class="landingpage__bonuses">
+            <div class="landingpage__bonus">
+              <h3>Account Growth Bonus:</h3>
+              <p>
+                Earn up to 10% interest on deposits when you maintain a minimum account
+                balance of $5,000 or more. Tiered bonuses apply, with higher rates
+                available for larger balances.
+              </p>
+            </div>
+
+            <div class="landingpage__bonus">
+              <h3>Trade Volume Reward:</h3>
+              <p>
+                Receive 2% cashback on monthly trading fees when your trading volume
+                exceeds $50,000. Bonuses increase to 5% cashback for volumes over
+                $100,000.
+              </p>
+            </div>
+
+            <div class="landingpage__bonus">
+              <h3>New Account Welcome Bonus:</h3>
+              <p>
+                Enjoy a 5% deposit match on initial deposits for new accounts, capped at
+                $500. Higher percentages are available for deposits over $10,000, reaching
+                up to 8% match.
+              </p>
+            </div>
+
+            <div class="landingpage__bonus">
+              <h3>Boost Your Trading Power</h3>
+              <p>
+                Unlock a 25% top-up on your account, giving you more leverage to open
+                additional trades and seize market opportunities.
+              </p>
+            </div>
+          </div>
+
+          <nuxt-link to="/register" class="landingpage__bonus--registerlink"
+            >Register</nuxt-link
+          >
+        </div>
+
         <div class="landingpage__rewards" id="rewards">
           <h3 class="landingpage__rewards--h3">Defi Staking</h3>
           <h2 class="landingpage__rewards--h2">Earn crypto rewards on your assets</h2>
@@ -717,7 +771,6 @@ export default {
 $landing-textcolor: #141d22;
 
 @mixin greenbtnlanding {
-  
   padding: #{scaleValue(15)} #{scaleValue(19)};
   font-size: #{scaleValue(13)};
   text-transform: uppercase;
@@ -736,7 +789,7 @@ $landing-textcolor: #141d22;
     border: 1px solid $landing-green;
   }
 
-  @media only screen and (max-width:$breakpoint-mobile-large) {
+  @media only screen and (max-width: $breakpoint-mobile-large) {
     padding: #{scaleValue(60)} #{scaleValue(100)};
     font-size: #{scaleValue(50)};
     border-radius: 8rem;
@@ -744,9 +797,6 @@ $landing-textcolor: #141d22;
 }
 
 .landingpage {
-
-  
-
   &__content {
     &--desktopheader {
       @media only screen and (max-width: $breakpoint-mobile-large) {
@@ -901,7 +951,7 @@ $landing-textcolor: #141d22;
       rgba($landing-primary, 0.8)
     );
 
-    @media only screen and (max-width:$breakpoint-mobile-large) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       padding: #{scaleValue(70)};
       padding-top: #{scaleValue(200)};
       padding-bottom: #{scaleValue(200)};
@@ -935,7 +985,7 @@ $landing-textcolor: #141d22;
     justify-content: space-between;
     position: relative;
 
-    @media only screen and (max-width:$breakpoint-mobile-large) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       flex-direction: column;
     }
   }
@@ -949,7 +999,7 @@ $landing-textcolor: #141d22;
     color: rgba($white, 0.9);
     margin-bottom: #{scaleValue(30)};
 
-    @media only screen and (max-width:$breakpoint-mobile-large) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       width: auto;
       margin-bottom: #{scaleValue(100)};
     }
@@ -993,7 +1043,7 @@ $landing-textcolor: #141d22;
       color: rgba($white, 0.9);
       margin-bottom: #{scaleValue(30)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(65)};
         line-height: #{scaleValue(90)};
         margin-bottom: #{scaleValue(60)};
@@ -1006,7 +1056,7 @@ $landing-textcolor: #141d22;
       font-size: #{scaleValue(20)};
       margin-bottom: #{scaleValue(10)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(70)};
         line-height: #{scaleValue(90)};
         margin-bottom: #{scaleValue(60)};
@@ -1036,7 +1086,7 @@ $landing-textcolor: #141d22;
       text-align: center;
       margin-top: #{scaleValue(20)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(50)};
         line-height: #{scaleValue(70)};
         width: #{scaleValue(1400)};
@@ -1048,7 +1098,7 @@ $landing-textcolor: #141d22;
       grid-template-columns: repeat(4, 1fr);
       margin-top: #{scaleValue(40)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         grid-template-columns: repeat(1, 1fr);
         width: 100%;
       }
@@ -1063,7 +1113,7 @@ $landing-textcolor: #141d22;
       padding-bottom: #{scaleValue(20)};
       padding-bottom: #{scaleValue(30)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         padding-left: #{scaleValue(70)};
         padding-bottom: #{scaleValue(180)};
       }
@@ -1073,7 +1123,7 @@ $landing-textcolor: #141d22;
         font-weight: 500;
         margin-bottom: #{scaleValue(20)};
 
-        @media only screen and (max-width:$breakpoint-mobile-large) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           font-size: #{scaleValue(100)};
           margin-bottom: #{scaleValue(50)};
         }
@@ -1082,7 +1132,7 @@ $landing-textcolor: #141d22;
       & span {
         font-size: #{scaleValue(15)};
 
-        @media only screen and (max-width:$breakpoint-mobile-large) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           font-size: #{scaleValue(60)};
         }
       }
@@ -1092,7 +1142,6 @@ $landing-textcolor: #141d22;
   &__perks {
     padding: $basic-landing-area-padding;
     padding-top: #{scaleValue(80)};
-    padding-bottom: #{scaleValue(80)};
 
     display: flex;
     justify-content: space-between;
@@ -1101,7 +1150,7 @@ $landing-textcolor: #141d22;
 
     flex-direction: column;
 
-    @media only screen and (max-width:$breakpoint-mobile-large) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       padding: #{scaleValue(70)};
       padding-top: #{scaleValue(130)};
       padding-bottom: #{scaleValue(130)};
@@ -1115,7 +1164,7 @@ $landing-textcolor: #141d22;
     &:nth-child(1) {
       width: #{scaleValue(500)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         width: auto;
       }
     }
@@ -1130,7 +1179,7 @@ $landing-textcolor: #141d22;
       grid-template-columns: repeat(3, 1fr);
       grid-gap: 1rem;
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         padding-top: #{scaleValue(130)};
 
         grid-template-columns: repeat(1, 1fr);
@@ -1145,7 +1194,7 @@ $landing-textcolor: #141d22;
       text-align: left;
       margin-bottom: #{scaleValue(10)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(65)};
         margin-bottom: #{scaleValue(40)};
       }
@@ -1168,7 +1217,7 @@ $landing-textcolor: #141d22;
       line-height: #{scaleValue(23)};
       font-size: #{scaleValue(15)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(68)};
         line-height: #{scaleValue(95)};
       }
@@ -1192,7 +1241,7 @@ $landing-textcolor: #141d22;
       rgba($landing-primary, 0.8)
     );
 
-    @media only screen and (max-width:$breakpoint-mobile-large) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       padding: #{scaleValue(70)};
       padding-top: #{scaleValue(200)};
       padding-bottom: #{scaleValue(200)};
@@ -1211,7 +1260,7 @@ $landing-textcolor: #141d22;
       text-align: center;
       margin-bottom: #{scaleValue(10)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(90)};
       }
     }
@@ -1222,7 +1271,7 @@ $landing-textcolor: #141d22;
     grid-template-columns: repeat(4, 1fr);
     grid-gap: #{scaleValue(19)};
 
-    @media only screen and (max-width:$breakpoint-mobile-large) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       grid-template-columns: repeat(1, #{scaleValue(1475)});
       grid-gap: #{scaleValue(70)};
     }
@@ -1239,7 +1288,7 @@ $landing-textcolor: #141d22;
     border-color: $green;
     border-width: #{scaleValue(2)};
 
-    @media only screen and (max-width:$breakpoint-mobile-large) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       padding: #{scaleValue(100)};
     }
 
@@ -1250,7 +1299,7 @@ $landing-textcolor: #141d22;
       border-radius: 100%;
       margin-bottom: #{scaleValue(15)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         height: #{scaleValue(140)};
         width: #{scaleValue(140)};
         margin-bottom: #{scaleValue(100)};
@@ -1269,7 +1318,7 @@ $landing-textcolor: #141d22;
       font-size: #{scaleValue(16)};
       margin-bottom: #{scaleValue(7)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(70)};
         margin-bottom: #{scaleValue(70)};
       }
@@ -1283,7 +1332,7 @@ $landing-textcolor: #141d22;
         color: $greyed-out;
         margin-bottom: #{scaleValue(17)};
 
-        @media only screen and (max-width:$breakpoint-mobile-large) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           font-size: #{scaleValue(50)};
         }
       }
@@ -1293,7 +1342,7 @@ $landing-textcolor: #141d22;
         color: $green;
         font-weight: 200;
 
-        @media only screen and (max-width:$breakpoint-mobile-large) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           font-size: #{scaleValue(60)};
         }
       }
@@ -1315,12 +1364,12 @@ $landing-textcolor: #141d22;
 
       @include greenbtnlanding;
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         bottom: #{scaleValue(70)};
       }
     }
 
-    @media only screen and (max-width:$breakpoint-mobile-large) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       width: auto;
       margin-bottom: #{scaleValue(100)};
       padding: #{scaleValue(120)};
@@ -1333,7 +1382,7 @@ $landing-textcolor: #141d22;
       margin-bottom: #{scaleValue(8)};
       font-weight: 600;
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-size: #{scaleValue(90)};
       }
     }
@@ -1344,7 +1393,7 @@ $landing-textcolor: #141d22;
       opacity: 0.9;
       margin-top: #{scaleValue(18)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         line-height: #{scaleValue(100)};
         font-size: #{scaleValue(70)};
         margin-top: #{scaleValue(100)};
@@ -1356,7 +1405,7 @@ $landing-textcolor: #141d22;
       margin-top: #{scaleValue(18)};
       font-size: #{scaleValue(14)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         line-height: #{scaleValue(100)};
         font-size: #{scaleValue(65)};
       }
@@ -1366,7 +1415,7 @@ $landing-textcolor: #141d22;
       margin-bottom: #{scaleValue(18)};
       font-size: #{scaleValue(14)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         line-height: #{scaleValue(100)};
         font-size: #{scaleValue(65)};
       }
@@ -1382,7 +1431,7 @@ $landing-textcolor: #141d22;
       flex-direction: column;
       line-height: #{scaleValue(30)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         line-height: #{scaleValue(120)};
       }
     }
@@ -1392,7 +1441,7 @@ $landing-textcolor: #141d22;
       font-size: #{scaleValue(15)};
       color: $green;
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         font-weight: 600;
         font-size: #{scaleValue(60)};
       }
@@ -1404,7 +1453,7 @@ $landing-textcolor: #141d22;
 
     background: $light-black;
 
-    @media only screen and (max-width:$breakpoint-mobile-large) {
+    @media only screen and (max-width: $breakpoint-mobile-large) {
       padding: 0 #{scaleValue(60)};
     }
 
@@ -1413,7 +1462,7 @@ $landing-textcolor: #141d22;
       padding-top: #{scaleValue(80)};
       padding-bottom: #{scaleValue(80)};
 
-      @media only screen and (max-width:$breakpoint-mobile-large) {
+      @media only screen and (max-width: $breakpoint-mobile-large) {
         padding-top: #{scaleValue(160)};
         padding-bottom: #{scaleValue(160)};
       }
@@ -1425,10 +1474,98 @@ $landing-textcolor: #141d22;
         line-height: #{scaleValue(23)};
         margin-bottom: #{scaleValue(30)};
 
-        @media only screen and (max-width:$breakpoint-mobile-large) {
+        @media only screen and (max-width: $breakpoint-mobile-large) {
           font-size: #{scaleValue(50)};
           line-height: #{scaleValue(100)};
         }
+      }
+    }
+  }
+
+  &__bonusarea {
+    padding: $basic-landing-area-padding;
+    padding-bottom: #{scaleValue(50)};
+    background: linear-gradient(
+      to bottom,
+      rgba($landing-primary, 1),
+      rgba($landing-primary, 0.8)
+    );
+    padding-top: #{scaleValue(80)};
+    padding-bottom: #{scaleValue(80)};
+  }
+
+  &__bonuses {
+    margin-top: #{scaleValue(30)};
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: #{scaleValue(10)};
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      padding-top: #{scaleValue(130)};
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  &__bonus {
+    border-radius: #{scaleValue(8)};
+    min-height: #{scaleValue(200)};
+    background: rgba(45, 55, 72, 0.6);
+    padding: #{scaleValue(31)};
+
+    @media only screen and (max-width: $breakpoint-mobile-large) {
+      margin-top: #{scaleValue(100)};
+      padding: #{scaleValue(120)};
+      padding-bottom: #{scaleValue(300)};
+    }
+
+    & h3 {
+      display: inline-block;
+      margin-bottom: #{scaleValue(8)};
+      font-weight: 600;
+
+      color: $landing-green;
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        font-size: #{scaleValue(90)};
+      }
+    }
+
+    & p {
+      margin-top: #{scaleValue(18)};
+      font-size: #{scaleValue(14)};
+      line-height: #{scaleValue(21)};
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        line-height: #{scaleValue(120)};
+        font-size: #{scaleValue(70)};
+      }
+    }
+
+    &--registerlink {
+      display: inline-block;
+      font-size: #{scaleValue(15)};
+      text-decoration: none;
+      margin-top: #{scaleValue(21)};
+      color: $landing-green;
+      cursor: pointer;
+      margin-top: #{scaleValue(20)};
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: -0.6rem;
+        left: 0;
+        width: 100%;
+        height: 0.1rem;
+        border-radius: 3rem;
+        background: $landing-green;
+      }
+
+      @media only screen and (max-width: $breakpoint-mobile-large) {
+        line-height: #{scaleValue(120)};
+        font-size: #{scaleValue(70)};
+        margin-top: #{scaleValue(120)};
       }
     }
   }

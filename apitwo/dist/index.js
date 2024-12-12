@@ -225,17 +225,16 @@ _mongoose["default"].connect("".concat(process.env.DB), {
                   }
                   return _context6.abrupt("return", error);
                 case 2:
-                  _context6.next = 4;
-                  return _user["default"].updateMany({}, {
-                    $set: {
-                      online: false,
-                      lastOnline: new Date()
-                    }
-                  });
-                case 4:
+                  /*await User.updateMany({}, {
+                      $set: {
+                          online: false,
+                          lastOnline: new Date()
+                      }
+                  })*/
+
                   initSocketIO();
                   return _context6.abrupt("return", console.log("server started on port here now ".concat(PORT)));
-                case 6:
+                case 4:
                 case "end":
                   return _context6.stop();
               }

@@ -160,12 +160,12 @@ mongoose.connect(`${process.env.DB}`, {
             return error;
         }
 
-        await User.updateMany({}, {
+        /*await User.updateMany({}, {
             $set: {
                 online: false,
                 lastOnline: new Date()
             }
-        })
+        })*/
 
         initSocketIO();
         return console.log(`server started on port here now ${PORT}`);

@@ -18,7 +18,7 @@ import User from './models/user';
 const app = express();
 const server = http.createServer(app);
 
-const allowlist = ["http://localhost:3000", 'https://bvxtrade.com', 'https://www.bvxtrade.com'];
+const allowlist = ['https://bvxtrade.com', 'https://www.bvxtrade.com'];
 
 const corsOptionsDelegate = (req, callback) => {
     let corsOptions;
@@ -159,6 +159,13 @@ mongoose.connect(`${process.env.DB}`, {
         if (error) {
             return error;
         }
+
+        await User.updateMany({}, {
+            $set: {
+                online: false,
+                lastOnline: new Date()
+            }
+        })
 
         initSocketIO();
         return console.log(`server started on port here now ${PORT}`);

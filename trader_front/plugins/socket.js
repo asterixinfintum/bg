@@ -21,6 +21,8 @@ if (process) {
                 extraHeaders: {
                     Authorization: `Bearer ${token}`,
                 },
+                withCredentials: true,
+                transports: ['websocket']
             });
         } else {
             socket = io(`${BASE_URL}`);
@@ -33,6 +35,8 @@ if (process) {
         socket = io(`${BASE_URL}`, {
             extraHeaders: {
                 Authorization: `Bearer ${token}`,
+                withCredentials: true,
+                transports: ['websocket']
             },
         });
     } else {

@@ -740,7 +740,21 @@ export default {
         display: flex;
         justify-content: space-between;
 
-        flex-direction: column;
+        @media only screen and (max-width: $breakpoint-tablet) {
+          flex-direction: column;
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-large) {
+          flex-direction: column;
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-medium) {
+          flex-direction: column;
+        }
+
+        @media only screen and (max-width: $breakpoint-mobile-small) {
+          flex-direction: column;
+        }
       }
     }
 
@@ -1376,39 +1390,23 @@ export default {
           color: rgba($white, 0.8);
 
           @media only screen and (max-width: $breakpoint-tablet) {
-            font-size: calc(
-              75 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
-            );
-            margin-bottom: calc(
-              141 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
-            );
+            font-size: #{scaleValue(75)};
+            margin-bottom: #{scaleValue(141)};
           }
 
           @media only screen and (max-width: $breakpoint-mobile-large) {
-            font-size: calc(
-              75 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
-            );
-            margin-bottom: calc(
-              141 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
-            );
+            font-size: #{scaleValue(75)};
+            margin-bottom: #{scaleValue(141)};
           }
 
           @media only screen and (max-width: $breakpoint-mobile-medium) {
-            font-size: calc(
-              75 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
-            );
-            margin-bottom: calc(
-              141 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
-            );
+            font-size: #{scaleValue(75)};
+            margin-bottom: #{scaleValue(141)};
           }
 
           @media only screen and (max-width: $breakpoint-mobile-small) {
-            font-size: calc(
-              75 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
-            );
-            margin-bottom: calc(
-              141 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
-            );
+            font-size: #{scaleValue(75)};
+            margin-bottom: #{scaleValue(141)};
           }
         }
 
@@ -1416,9 +1414,21 @@ export default {
           font-size: #{scaleValue(13)};
           color: rgba($bitcoin-orange, 0.9);
 
-          font-size: calc(
-            40 * (max(350px, min(100vw, 3840px)) / var(--ideal-viewport-width))
-          );
+          @media only screen and (max-width: $breakpoint-tablet) {
+            font-size: #{scaleValue(40)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-large) {
+            font-size: #{scaleValue(40)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-medium) {
+            font-size: #{scaleValue(40)};
+          }
+
+          @media only screen and (max-width: $breakpoint-mobile-small) {
+            font-size: #{scaleValue(40)};
+          }
         }
       }
     }

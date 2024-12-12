@@ -6,11 +6,7 @@
     </div>
     <div class="trader__header" :class="{ mobilemenuopen }">
       <div class="trader__header--area">
-        <div
-          class="trader__header--logo"
-          v-if="client"
-          
-        >
+        <div class="trader__header--logo" v-if="client">
           <figure @click="$router.push('/overview')">
             <img :src="`${primaryapi}/traderheaderlogotransparent.png`" />
           </figure>
@@ -338,7 +334,7 @@ export default {
       currentsearch: "All",
       tradesheader: "Market Trades",
       announcements: [`BVX Token (BVXT) ICO launches Soon!`],
-      mobilemenuopen: false
+      mobilemenuopen: false,
     };
   },
   mounted() {
@@ -371,10 +367,11 @@ export default {
   },
   methods: {
     openmobilemenu() {
-      this.mobilemenuopen = !this.mobilemenuopen
+      this.mobilemenuopen = !this.mobilemenuopen;
     },
     triggerlogout() {
-      const { logout } = this;
+      const { logout, client } = this;
+      socket.emit("clientloggedout", { clientid: client._id });
       logout().then(() => this.$router.push("/"));
     },
     scrollToDiv(mydivid) {

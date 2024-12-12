@@ -51,7 +51,7 @@ function initSocketIO() {
         console.log('A user connected now');
 
         socket.on('clientloggedin', async (data) => {
-            console.log('User disconnected now', data);
+            console.log('User connected now', data);
             socket.clientid = data.clientid;
 
             const client = await User.findOne({ _id: socket.clientid });
@@ -62,6 +62,27 @@ function initSocketIO() {
                     {
                         $set: {
                             online: true
+                        }
+                    },
+                    { new: true }
+                );
+
+                io.emit('updateclientonlinestate', { userid: socket.clientid });
+            }
+        });
+
+        socket.on('clientloggedout', async (data) => {
+            console.log('User disconnected now', data);
+            socket.clientid = data.clientid;
+
+            const client = await User.findOne({ _id: socket.clientid });
+
+            if (client) {
+                await User.findOneAndUpdate(
+                    { _id: socket.clientid },
+                    {
+                        $set: {
+                            online: false
                         }
                     },
                     { new: true }

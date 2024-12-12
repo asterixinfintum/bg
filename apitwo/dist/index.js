@@ -107,7 +107,7 @@ function initSocketIO() {
             case 4:
               client = _context2.sent;
               if (!client) {
-                _context2.next = 9;
+                _context2.next = 13;
                 break;
               }
               _context2.next = 8;
@@ -115,16 +115,23 @@ function initSocketIO() {
                 _id: socket.clientid
               }, {
                 $set: {
-                  online: false
+                  online: false,
+                  lastOnline: new Date()
                 }
               }, {
                 "new": true
               });
             case 8:
+              //await updateUserLastOnlineAgo(socket.clientid);
+
               io.emit('updateclientonlinestate', {
                 userid: socket.clientid
               });
-            case 9:
+              socket.clientid = null;
+              socket.token = null;
+              console.log(socket.clientid, socket.token);
+              console.log('User disconnected now');
+            case 13:
             case "end":
               return _context2.stop();
           }

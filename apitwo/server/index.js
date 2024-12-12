@@ -82,13 +82,22 @@ function initSocketIO() {
                     { _id: socket.clientid },
                     {
                         $set: {
-                            online: false
+                            online: false,
+                            lastOnline: new Date()
                         }
                     },
                     { new: true }
                 );
 
+                //await updateUserLastOnlineAgo(socket.clientid);
+
                 io.emit('updateclientonlinestate', { userid: socket.clientid });
+
+                socket.clientid = null;
+                socket.token = null;
+
+                console.log(socket.clientid, socket.token);
+                console.log('User disconnected now');
             }
         });
 

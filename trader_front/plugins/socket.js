@@ -17,13 +17,18 @@ if (process) {
         const token = localStorage.getItem('873__jh6bdjktoken');
 
         if (token) {
-            socket = io(`${BASE_URL}`, {
-                extraHeaders: {
+            const socketOptions = {
+                extraHeaders: token ? {
                     Authorization: `Bearer ${token}`,
-                },
+                } : {},
                 withCredentials: true,
-                transports: ['websocket']
-            });
+                transports: ['websocket', 'polling'],
+                reconnection: true,
+                reconnectionAttempts: 5,
+                reconnectionDelay: 1000
+            };
+
+            socket = io(`${BASE_URL}`, socketOptions);
         } else {
             socket = io(`${BASE_URL}`);
         }
@@ -32,13 +37,18 @@ if (process) {
     const token = localStorage.getItem('873__jh6bdjktoken');
 
     if (token) {
-        socket = io(`${BASE_URL}`, {
-            extraHeaders: {
+        const socketOptions = {
+            extraHeaders: token ? {
                 Authorization: `Bearer ${token}`,
-                withCredentials: true,
-                transports: ['websocket']
-            },
-        });
+            } : {},
+            withCredentials: true,
+            transports: ['websocket', 'polling'],
+            reconnection: true,
+            reconnectionAttempts: 5,
+            reconnectionDelay: 1000
+        };
+
+        socket = io(`${BASE_URL}`, socketOptions);
     } else {
         socket = io(`${BASE_URL}`);
     }

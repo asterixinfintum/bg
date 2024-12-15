@@ -1,18 +1,18 @@
 <template>
   <div class="bitcoinpromo" :class="{ dashboard }">
     <div class="bitcoinpromo__content">
-      <h4 class="bitcoinpromo__content--h4">Bitcoin November Blast!</h4>
+      <h4 class="bitcoinpromo__content--h4">Bitcoin Christmas and New Year Blast!</h4>
 
       <div class="bitcoinpromo__box">
         <div class="bitcoinpromo__box--text">
           <p>
-            Don't miss out on our biggest Bitcoin savings of the year. From November 1st
-            to November 30th, slash your trading fees, take advantage of this arbitrage,
+            Don't miss out on our biggest Bitcoin leverage trade of the year. From December 1st
+            to January 31st, slash your trading fees, take advantage of this arbitrage,
             and stack more sats for less.
           </p>
 
           <p class="">
-            Get Bitcoin at lowest rates for as low as 50,000 usd. Zero fees on BTC
+            Get Bitcoin at lowest rates for as low as 60,000 usd. Zero fees on BTC
             purchases and swaps
           </p>
 
@@ -25,7 +25,7 @@
         </div>
 
         <figure class="bitcoinpromo__box--image">
-          <img src="@/assets/imgs/btcpromo.png" />
+          <img src="@/assets/imgs/christmas-tree.png" />
         </figure>
       </div>
     </div>
@@ -134,8 +134,8 @@ $landing-textcolor: #141d22;
 
     &--image {
       position: relative;
-      height: #{scaleValue(230)};
-      width: #{scaleValue(400)};
+      height: #{scaleValue(400)};
+      width: #{scaleValue(500)};
       overflow: hidden;
 
       z-index: 2;

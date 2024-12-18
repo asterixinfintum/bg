@@ -5,15 +5,16 @@
         <div class="swiper-slide">
           <div class="scrollslider__slideitem">
             <figure></figure>
-            <h2 class="scrollslider__slideitem--h2">Rollup as a Service</h2>
+            <h2 class="scrollslider__slideitem--h2">Account Growth Bonus:</h2>
             <p class="scrollslider__slideitem--p">
-              Deploy production-grade & fully-serviced rollups natively integrated with
-              Web3 Services
+              Earn up to 10% interest on deposits when you maintain a minimum account
+              balance of $5,000 or more. Tiered bonuses apply, with higher rates available
+              for larger balances.
             </p>
 
-            <button class="scrollslider__readmorebtn">
+            <button class="scrollslider__readmorebtn" @click="navigateToPage('register')">
               <div class="scrollslider__readmorebtn--text">
-                <span>Read more</span>
+                <span>Register</span>
                 <span>↗</span>
               </div>
             </button>
@@ -23,15 +24,15 @@
         <div class="swiper-slide">
           <div class="scrollslider__slideitem">
             <figure></figure>
-            <h2 class="scrollslider__slideitem--h2">Rollup as a Service</h2>
+            <h2 class="scrollslider__slideitem--h2">Trade Volume Reward:</h2>
             <p class="scrollslider__slideitem--p">
-              Deploy production-grade & fully-serviced rollups natively integrated with
-              Web3 Services
+              Receive 2% cashback on monthly trading fees when your trading volume exceeds
+              $50,000. Bonuses increase to 5% cashback for volumes over $100,000.
             </p>
 
-            <button class="scrollslider__readmorebtn">
+            <button class="scrollslider__readmorebtn" @click="navigateToPage('register')">
               <div class="scrollslider__readmorebtn--text">
-                <span>Read more</span>
+                <span>Register</span>
                 <span>↗</span>
               </div>
             </button>
@@ -41,15 +42,16 @@
         <div class="swiper-slide">
           <div class="scrollslider__slideitem">
             <figure></figure>
-            <h2 class="scrollslider__slideitem--h2">Rollup as a Service</h2>
+            <h2 class="scrollslider__slideitem--h2">New Account Welcome Bonus:</h2>
             <p class="scrollslider__slideitem--p">
-              Deploy production-grade & fully-serviced rollups natively integrated with
-              Web3 Services
+              Enjoy a 5% deposit match on initial deposits for new accounts, capped at
+              $500. Higher percentages are available for deposits over $10,000, reaching
+              up to 8% match.
             </p>
 
-            <button class="scrollslider__readmorebtn">
+            <button class="scrollslider__readmorebtn" @click="navigateToPage('register')">
               <div class="scrollslider__readmorebtn--text">
-                <span>Read more</span>
+                <span>Register</span>
                 <span>↗</span>
               </div>
             </button>
@@ -59,15 +61,15 @@
         <div class="swiper-slide">
           <div class="scrollslider__slideitem">
             <figure></figure>
-            <h2 class="scrollslider__slideitem--h2">Rollup as a Service</h2>
+            <h2 class="scrollslider__slideitem--h2">Boost Your Trading Power</h2>
             <p class="scrollslider__slideitem--p">
-              Deploy production-grade & fully-serviced rollups natively integrated with
-              Web3 Services
+              Unlock a 25% top-up on your account, giving you more leverage to open
+              additional trades and seize market opportunities.
             </p>
 
-            <button class="scrollslider__readmorebtn">
+            <button class="scrollslider__readmorebtn" @click="navigateToPage('register')">
               <div class="scrollslider__readmorebtn--text">
-                <span>Read more</span>
+                <span>Register</span>
                 <span>↗</span>
               </div>
             </button>
@@ -79,9 +81,11 @@
 </template>
 
 <script>
+import generalutilities from "@/mixins/generalutilities";
 import { Swiper } from "swiper";
 
 export default {
+  mixins: [generalutilities],
   mounted() {
     this.$nextTick(() => {
       const swiper = new Swiper(".swiper", {
@@ -104,7 +108,7 @@ export default {
     position: relative;
 
     margin: #{scaleValue(300)} 0;
-    padding-left: #{scaleValue(90)}
+    padding-left: #{scaleValue(90)};
   }
 }
 

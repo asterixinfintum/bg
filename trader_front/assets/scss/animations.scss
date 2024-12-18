@@ -21,3 +21,27 @@
     transform: translateY(0);
   }
 }
+
+@keyframes move {
+  from {
+      transform: translateX(0);
+  }
+
+  to {
+      transform: translateX(-100%);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+      background: linear-gradient(to right bottom,
+              rgba($primary-orange, 0.1),
+              rgba(255, 96, 0, 0.3));
+  }
+
+  100% {
+      background: linear-gradient(to right bottom,
+              rgba(255, 96, 0, 0.3),
+              rgba($primary-orange, 0.1));
+  }
+}

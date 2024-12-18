@@ -20,6 +20,8 @@ body {
     background: #0d0e0f;
     min-height: #{scaleValue(700)};
     color: #fff;
+    font-size: #{scaleValue(13)};
+    position: relative;
 }
 
 html {

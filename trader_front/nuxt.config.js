@@ -14,7 +14,11 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Inter:wght@100;200;300;400;500;600&family=Poppins:wght@100;200;300;400;500;600&display=swap' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap' }
     ],
     script: [
       {
@@ -39,6 +43,29 @@ export default {
       {
         src: 'https://cdn.socket.io/4.0.0/socket.io.min.js',
         type: 'text/javascript'
+      },
+      {
+        src: 'https://cdn.jsdelivr.net/npm/locomotive-scroll@3.5.4/dist/locomotive-scroll.js',
+        type: 'text/javascript'
+      },
+      // GSAP
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/gsap.min.js',
+        integrity: 'sha512-qF6akR/fsZAB4Co1QDDnUXWnaQseLGXoniuSuSlPQK6+aWhlMZcHzkasCSlnWoe+TJuudlka1/IQ01Dnhgq95g==',
+        crossorigin: 'anonymous',
+        referrerpolicy: 'no-referrer',
+        type: 'text/javascript'
+      },
+      // GSAP ScrollTrigger
+      {
+        src: 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.1/ScrollTrigger.min.js',
+        integrity: 'sha512-IHDCHrefnBT3vOCsvdkMvJF/MCPz/nBauQLzJkupa4Gn4tYg5a6VGyzIrjo6QAUy3We5HFOZUlkUpP0dkgE60A==',
+        crossorigin: 'anonymous',
+        referrerpolicy: 'no-referrer',
+        type: 'text/javascript'
+      },
+      {
+        src: "/index.js",
       }
     ]
   },
@@ -96,6 +123,9 @@ export default {
       '~/assets/scss/traderheader.scss',
       '~/assets/scss/slideup.scss',
       '~/assets/scss/headerannouncement.scss',
+      //'~/assets/scss/fonts.scss',
+      '~/assets/scss/section.scss',
+      '~/assets/scss/scrollslider.scss',
     ],
     hoistUseStatements: true
   },

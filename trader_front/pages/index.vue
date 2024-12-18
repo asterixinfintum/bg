@@ -36,7 +36,7 @@ export default {
   name: "IndexPage",
   data() {
     return {
-      swipenumber: "noswipe",
+      swipenumber: "noswipe"
     };
   },
   mounted() {
@@ -128,7 +128,7 @@ export default {
     scrollslidermoveM() {},
     scrollslidermove(swipenumber) {
       this.swipenumber = swipenumber;
-    },
+    }
   },
 };
 </script>

@@ -1,8 +1,8 @@
 <template>
-  <div class="dataconsensus">
-    <h3 class="section__area--h4">Cross Chain Crypto Infrastructure</h3>
+  <div class="dataconsensus" id="dataconsensus">
+    <h3 class="section__area--h4">Cross Chain Trading Infrastructure</h3>
     <p class="section__area--h3 section-header">
-      Industry-standard Web3 infra & service solutions on a single platform
+      Industry-standard Trading infra & service solutions on a single platform
     </p>
 
     <div class="dataconsensus__slider swiper">

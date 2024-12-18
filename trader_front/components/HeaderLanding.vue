@@ -14,11 +14,11 @@
             ></path>
           </svg>
         </div>
-        <div class="headerlanding__menu--item">
+        <div class="headerlanding__menu--item" @click="scrollToTarget('footer')">
           <span>About</span>
         </div>
-        <div class="headerlanding__menu--item">
-          <span>Getting Started</span>
+        <div class="headerlanding__menu--item" @click="scrollToTarget('dataconsensus')">
+          <span>Features</span>
         </div>
         <!-- <div class="headerlanding__menu--item">
           <span>Community</span>
@@ -62,10 +62,10 @@
           </div>
         </div>-->
 
-        <div class="headerlanding__menu--item">
+        <div class="headerlanding__menu--item" @click="scrollToTarget('accountversions')">
           <span>Account Plans</span>
         </div>
-        <div class="headerlanding__menu--item">
+        <div class="headerlanding__menu--item" @click="$router.push('blog')">
           <span>Blogs</span>
         </div>
         <div class="headerlanding__menu--item header__testnet mobile">
@@ -88,8 +88,7 @@
 
       <div class="headerlanding__testnet">
         <button
-        @click="navigateToPage('register')"
-
+          @click="navigateToPage('register')"
           class="landing-btn landing-btn__orange landing-btn__curved landing-btn__header"
         >
           OPEN AN ACCOUNT
@@ -118,10 +117,22 @@ export default {
   data() {
     return {
       mmenuopen: false,
+      current_div: "header",
     };
   },
   mixins: [generalutilities],
   methods: {
+    scrollToTarget(id) {
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ behavior: "smooth" });
+      } else {
+        console.error(`Element with ID '${id}' not found.`);
+      }
+
+      this.current_div = id;
+      this.mmenuopen = false;
+    },
     openmmenu() {
       this.mmenuopen ? (this.mmenuopen = false) : (this.mmenuopen = true);
     },
@@ -164,6 +175,10 @@ export default {
     color: $primary-orange;
     font-weight: 500;
     font-size: #{scaleValue(30)};
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+      font-size: #{scaleValue(120)};
+    }
   }
 
   &__menu {

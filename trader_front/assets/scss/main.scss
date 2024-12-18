@@ -20,13 +20,14 @@ body {
     background: #0d0e0f;
     min-height: #{scaleValue(700)};
     color: #fff;
-    font-size: #{scaleValue(13)};
     position: relative;
+    font-size: #{scaleValue(15)};
 }
 
 html {
+    background: $background;
     font-family: 'Inter', sans-serif;
-    font-size: #{scaleValue(15)};
+    //font-size: #{scaleValue(15)};
 }
 
 /* Create a styles rule for the scrollbar itself */

@@ -17,8 +17,8 @@
         </div>
       </div>
     </div>
-    <div class="landingpage__disclaimers">
-      <div class="landingpage__disclaimers--content">
+    <div class="footer__disclaimers">
+      <div class="footer__disclaimers--content">
         <p>
           BVX offerings are intricate tools that carry a high possibility of swift
           financial loss due to leverage. 77.1% of retail investor accounts suffer
@@ -103,6 +103,10 @@ export default {};
     color: $primary-orange;
     font-weight: 500;
     font-size: #{scaleValue(30)};
+
+    @media only screen and (max-width: $breakpoint-tablet) {
+      font-size: #{scaleValue(120)};
+    }
   }
 
   @media only screen and (max-width: 1024px) {
@@ -211,6 +215,11 @@ export default {};
     @media only screen and (max-width: 1024px) {
       font-size: 4rem;
     }
+  }
+
+  &__disclaimers {
+    font-size: 1rem;
+    line-height: 1.3rem;
   }
 }
 </style>

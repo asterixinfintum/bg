@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="accountversions">
+    <div class="accountversions" id="accountversions">
       <h3 class="section__area--h4">Master the markets</h3>
       <p class="section__area--h3 section-header">
         Industry-standard Web3 infra & service solutions on a single platform

@@ -28,7 +28,7 @@
     transition: all 0.5s ease;
 
     @media only screen and (max-width: 1024px) {
-      height: #{scaleValue(2225)};
+      height: #{scaleValue(1300)};
       display: none;
     }
 
@@ -101,13 +101,13 @@
     padding-bottom: 19rem;
 
     @media only screen and (max-width: 1024px) {
-      height: #{scaleValue(900)};
+      height: #{scaleValue(2225)};
       width: #{scaleValue(1500)};
       padding: #{scaleValue(100)};
     }
 
     @media only screen and (max-width: 430px) {
-      height: #{scaleValue(1300)};
+      height: #{scaleValue(2225)};
       width: #{scaleValue(1500)};
       padding: #{scaleValue(100)};
     }

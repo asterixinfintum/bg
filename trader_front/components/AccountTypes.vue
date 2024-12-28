@@ -123,9 +123,9 @@ export default {
           ],
         },
         {
-          tier: "Redifined Market Precision with Advanced Indicators",
+          tier: "Access New and Emerging Markets",
           description:
-            "Experience unparalled market clarity with tools designed for today's dynamic landscape. Our state of the art indicators deliver accurate forecasts and insights, giving you the edge in the markets",
+            "Stay ahead of the curve with exclusive opportunities in high-growth markets. Discover untapped potential, diversify your portfolio, and capitalize on the next big trends before the rest. Don’t follow the market—lead it",
           minimumBalance: 100000,
           maintenanceFee: 100,
           features: [

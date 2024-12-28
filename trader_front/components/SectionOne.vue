@@ -3,7 +3,7 @@
     <div class="section__area text-area">
       <h4 class="section__area--h4">Modern trading Infrastructure</h4>
       <h3 class="section__area--h3 section-header">
-        Introducing a new way to trade DEFI
+        Introducing a new way to access and trade DEFI
       </h3>
       <p class="section-paragraph">
         With bvx, your strategies work harder for you. Enjoy unparalleled returns and

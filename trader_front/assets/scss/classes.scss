@@ -561,4 +561,9 @@ h3 {
     &__curved {
       border-radius: 3rem;
     }
+
+    &__accounttypes {
+        position: absolute;
+        bottom: 3rem
+    }
   }

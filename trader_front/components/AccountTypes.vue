@@ -15,17 +15,17 @@
           <h2 class="accountversions__griditem--h2">{{ account.tier }}</h2>
           <p class="accountversions__griditem--desc">{{ account.description }}</p>
 
-          <div class="accountversions__griditem--label">
+          <!--<div class="accountversions__griditem--label">
             <span>Minimum Balance:</span>
             <span>${{ formatNumber(account.minimumBalance) }}</span>
-          </div>
+          </div>-->
 
-          <div class="accountversions__griditem--label">
+          <!--<div class="accountversions__griditem--label">
             <span>Monthly Fee:</span>
             <span>${{ account.maintenanceFee }}</span>
-          </div>
+          </div>-->
 
-          <div class="accountversions__griditem--label">
+         <!-- <div class="accountversions__griditem--label">
             <span>Features:</span>
           </div>
 
@@ -35,11 +35,11 @@
                 {{ feature }}
               </li>
             </ul>
-          </div>
+          </div>-->
 
           <button
             @click="navigateToPage('register')"
-            class="landing-btn landing-btn__curved landing-btn__white"
+            class="landing-btn landing-btn__curved landing-btn__white landing-btn__accounttypes"
           >
             <span>get started</span>
             <span>
@@ -72,22 +72,21 @@ export default {
     return {
       accountTypes: [
         {
-          tier: "Base Tier",
+          tier: "Maximise Your Earnings with Liquidity Rewards",
           description:
-            "Perfect for beginners looking to start their investment journey. Access basic market tools and standard features.",
+            "Put your assets to work amd earn competitive returns by providing liquidity. Take advantage of the opportunity to grow your portfolio while supporting decentralized finance",
           minimumBalance: 1000,
           maintenanceFee: 5,
           features: [
-            "Basic market access",
-            "Standard trading tools",
-            "Access to basic research",
-            "Email support",
+            "Liquidity management",
+            "Liquidity optimization",
+            "Liquidity pool management"
           ],
         },
         {
-          tier: "Silver Tier",
+          tier: "Access Exclusive Asset Launchpad Programs",
           description:
-            "Ideal for intermediate investors seeking enhanced trading capabilities and better support options.",
+            "Unlock new investment opportunities with our Asset Launchpad programs. Tailored for forward-thinking investors, these programs provide early access to high-potential assets, including emerging cryptocurrencies, tokenized stocks, and commodities.",
           minimumBalance: 5000,
           maintenanceFee: 15,
           features: [
@@ -98,9 +97,9 @@ export default {
           ],
         },
         {
-          tier: "Gold Tier",
+          tier: "Boost Your Returns with Specialized Asset combinations",
           description:
-            "For serious investors who need comprehensive tools and premium support for their trading activities.",
+            "Unlock the power of strategic asset pairing to maximise chances of profit. Choose tailored combinantions designed for optimal performance and diversify your portfolio like never before.",
           minimumBalance: 10000,
           maintenanceFee: 25,
           features: [
@@ -111,9 +110,9 @@ export default {
           ],
         },
         {
-          tier: "Platinum Tier",
+          tier: "State of the art market indicators",
           description:
-            "Premium service level with exclusive benefits and personalized attention for high-value investors.",
+            "Stay ahead of the curve with cutting-egde market insights. Our advanced indicators provide real time analysis, precision trends, and actionable data to empower your trading decisions. Navigate the markets with confidence-powered by innovation.",
           minimumBalance: 25000,
           maintenanceFee: 50,
           features: [
@@ -124,9 +123,9 @@ export default {
           ],
         },
         {
-          tier: "Diamond Tier",
+          tier: "Redifined Market Precision with Advanced Indicators",
           description:
-            "Elite tier offering comprehensive wealth management solutions and exclusive investment opportunities.",
+            "Experience unparalled market clarity with tools designed for today's dynamic landscape. Our state of the art indicators deliver accurate forecasts and insights, giving you the edge in the markets",
           minimumBalance: 100000,
           maintenanceFee: 100,
           features: [
@@ -137,9 +136,9 @@ export default {
           ],
         },
         {
-          tier: "Black Tier",
+          tier: "AI-Powered Risk Management and Rebalancing",
           description:
-            "Invitation-only tier with ultra-premium services and institutional-grade investment opportunities.",
+            "Optimize your portfolio with AI-driven strategies that manage risk, adapt to market shifts, and ensure sustainable growth. Effortlessly align investments with your goals for smarter, faster decision-making.",
           minimumBalance: 500000,
           maintenanceFee: 250,
           features: [
@@ -190,6 +189,7 @@ export default {
     border-radius: 1.1rem;
     padding: #{scaleValue(30)};
     padding-bottom: #{scaleValue(50)};
+    position: relative;
 
     @media only screen and (max-width: 1024px) {
       padding: #{scaleValue(100)};
@@ -211,11 +211,13 @@ export default {
       font-size: #{scaleValue(18)};
       line-height: #{scaleValue(25)};
       margin-bottom: #{scaleValue(30)};
+      min-height: 14rem;
 
       @media only screen and (max-width: 1024px) {
         font-size: #{scaleValue(80)};
         line-height: #{scaleValue(130)};
         margin-bottom: #{scaleValue(100)};
+        min-height: 20rem;
       }
     }
 

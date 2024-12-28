@@ -18,7 +18,7 @@
           <span>About</span>
         </div>
         <div class="headerlanding__menu--item" @click="scrollToTarget('dataconsensus')">
-          <span>Features</span>
+          <span>Rewards and Benefits</span>
         </div>
         <!-- <div class="headerlanding__menu--item">
           <span>Community</span>
@@ -63,7 +63,7 @@
         </div>-->
 
         <div class="headerlanding__menu--item" @click="scrollToTarget('accountversions')">
-          <span>Account Plans</span>
+          <span>Account Features</span>
         </div>
         <div class="headerlanding__menu--item" @click="$router.push('blog')">
           <span>Blogs</span>

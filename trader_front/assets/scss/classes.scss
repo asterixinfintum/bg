@@ -448,122 +448,126 @@ h3 {
     background: transparent;
     font-family: "Space Grotesk", sans-serif;
     cursor: pointer;
-  
+
     &__header {
-      color: $black;
-      padding: #{scaleValue(10)} #{scaleValue(20)};
-      text-transform: uppercase;
-      font-size: 0.88rem;
-      font-weight: 500;
-  
-      @media only screen and (max-width: 1024px) {
-        padding: #{scaleValue(47)} #{scaleValue(100)};
-        font-size: 2.2rem;
-      }
-  
-      @media only screen and (max-width: 430px) {
-        padding: #{scaleValue(47)} #{scaleValue(100)};
-        font-size: 1.2rem;
-      }
+        color: $black;
+        padding: #{scaleValue(10)} #{scaleValue(20)};
+        text-transform: uppercase;
+        font-size: 0.88rem;
+        font-weight: 500;
+
+        @media only screen and (max-width: 1024px) {
+            padding: #{scaleValue(47)} #{scaleValue(100)};
+            font-size: 2.2rem;
+        }
+
+        @media only screen and (max-width: 430px) {
+            padding: #{scaleValue(47)} #{scaleValue(100)};
+            font-size: 1.2rem;
+        }
     }
-  
+
     &__sectionbtn {
-      color: $white;
-      border-radius: #{scaleValue(10)};
-      border: 2px solid $white;
-      padding: #{scaleValue(13)} #{scaleValue(20)};
+        color: $white;
+        border-radius: #{scaleValue(10)};
+        border: 2px solid $white;
+        padding: #{scaleValue(13)} #{scaleValue(20)};
     }
-  
+
     &__white {
-      background: $white;
-      display: flex;
-      align-items: center;
-      text-transform: uppercase;
-      padding: #{scaleValue(10)} #{scaleValue(9)};
-      padding-left: #{scaleValue(30)};
-  
-      @media only screen and (max-width: 1024px) {
-        padding: #{scaleValue(47)} #{scaleValue(50)};
-        font-size: 2.2rem;
-        padding-left: #{scaleValue(100)};
-      }
-  
-      @media only screen and (max-width: 430px) {
-        padding: #{scaleValue(47)} #{scaleValue(50)};
-        font-size: 1.2rem;
-        padding-left: #{scaleValue(100)};
-      }
-  
-      & span {
-        &:nth-child(1) {
-          font-weight: 300;
-          font-size: 1.4rem;
-          display: flex;
-          align-items: center;
-          margin-right: #{scaleValue(18)};
-  
-          @media only screen and (max-width: 1024px) {
-            font-size: 2.4rem;
-          }
-  
-          @media only screen and (max-width: 430px) {
-            font-size: 1.4rem;
-          }
+        background: $white;
+        display: flex;
+        align-items: center;
+        text-transform: uppercase;
+        padding: #{scaleValue(10)} #{scaleValue(9)};
+        padding-left: #{scaleValue(30)};
+
+        @media only screen and (max-width: 1024px) {
+            padding: #{scaleValue(47)} #{scaleValue(50)};
+            font-size: 2.2rem;
+            padding-left: #{scaleValue(100)};
         }
-  
-        &:nth-child(2) {
-          background: $black;
-          border-radius: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          width: #{scaleValue(30)};
-          height: #{scaleValue(30)};
-  
-          @media only screen and (max-width: 1024px) {
-            width: #{scaleValue(100)};
-            height: #{scaleValue(100)};
-          }
-  
-          @media only screen and (max-width: 430px) {
-            width: #{scaleValue(80)};
-            height: #{scaleValue(80)};
-          }
-  
-          & svg {
-            width: #{scaleValue(15)};
-            height: #{scaleValue(15)};
-  
-            @media only screen and (max-width: 1024px) {
-              width: #{scaleValue(60)};
-              height: #{scaleValue(60)};
-            }
-  
-            @media only screen and (max-width: 430px) {
-              width: #{scaleValue(40)};
-              height: #{scaleValue(40)};
-            }
-          }
+
+        @media only screen and (max-width: 430px) {
+            padding: #{scaleValue(47)} #{scaleValue(50)};
+            font-size: 1.2rem;
+            padding-left: #{scaleValue(100)};
         }
-      }
+
+        & span {
+            &:nth-child(1) {
+                font-weight: 300;
+                font-size: 1.4rem;
+                display: flex;
+                align-items: center;
+                margin-right: #{scaleValue(18)};
+
+                @media only screen and (max-width: 1024px) {
+                    font-size: 2.4rem;
+                }
+
+                @media only screen and (max-width: 430px) {
+                    font-size: 1.4rem;
+                }
+            }
+
+            &:nth-child(2) {
+                background: $black;
+                border-radius: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: #{scaleValue(30)};
+                height: #{scaleValue(30)};
+
+                @media only screen and (max-width: 1024px) {
+                    width: #{scaleValue(100)};
+                    height: #{scaleValue(100)};
+                }
+
+                @media only screen and (max-width: 430px) {
+                    width: #{scaleValue(80)};
+                    height: #{scaleValue(80)};
+                }
+
+                & svg {
+                    width: #{scaleValue(15)};
+                    height: #{scaleValue(15)};
+
+                    @media only screen and (max-width: 1024px) {
+                        width: #{scaleValue(60)};
+                        height: #{scaleValue(60)};
+                    }
+
+                    @media only screen and (max-width: 430px) {
+                        width: #{scaleValue(40)};
+                        height: #{scaleValue(40)};
+                    }
+                }
+            }
+        }
     }
-  
+
     &__orange {
-      background: linear-gradient(to right, rgba(247, 146, 54, 1), rgba(205, 83, 34, 1));
+        background: linear-gradient(to right, rgba(247, 146, 54, 1), rgba(205, 83, 34, 1));
     }
-  
+
     &__transparent {
-      background: transparent;
-      border: 1px solid $primary-orange;
-      color: $primary-orange;
+        background: transparent;
+        border: 1px solid $primary-orange;
+        color: $primary-orange;
     }
-  
+
     &__curved {
-      border-radius: 3rem;
+        border-radius: 3rem;
     }
 
     &__accounttypes {
         position: absolute;
         bottom: 3rem
     }
-  }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.8s ease-in-out forwards;
+}

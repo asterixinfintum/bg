@@ -1,7 +1,11 @@
 <template>
   <div class="headerlanding">
-    <div class="headerlanding__curvearea" id="curvedarea">
-      <div class="headerlanding__logo">BVX</div>
+    <div
+      class="headerlanding__curvearea"
+      id="curvedarea"
+      :class="coloredbackground ? 'coloredbackground' : ''"
+    >
+      <div class="headerlanding__logo" @click="$router.push('/')">BVX</div>
 
       <div class="headerlanding__menu" :class="{ mmenuopen }">
         <div class="headerlanding__menu--xclose" @click="openmmenu">
@@ -65,11 +69,26 @@
         <div class="headerlanding__menu--item" @click="scrollToTarget('accountversions')">
           <span>Account Features</span>
         </div>
+
         <div class="headerlanding__menu--item" @click="$router.push('blog')">
           <span>Blogs</span>
         </div>
-        <div class="headerlanding__menu--item" @click="scrollToTarget('landing-faq')">
-          <span>Faq</span>
+        <div class="headerlanding__menu--item" @click="$router.push('launchpad')">
+          <span>Launch Program</span>
+          <!--<span>
+            <svg
+              class="bn-svg header-menu-item_dropdown-icon"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.11 12.178L16 8.287l1.768 1.768-5.657 5.657-1.768-1.768-3.889-3.889 1.768-1.768 3.889 3.89z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </span>-->
         </div>
         <div class="headerlanding__menu--item header__testnet mobile">
           <button
@@ -117,6 +136,12 @@
 import generalutilities from "@/mixins/generalutilities";
 
 export default {
+  props: {
+    coloredbackground: {
+      type: Boolean,
+      required: false,
+    },
+  },
   data() {
     return {
       mmenuopen: false,

@@ -21,6 +21,8 @@
 
         <AccountTypes />
 
+        <Faq />
+
         <ScrollSlider :swipenumber="swipenumber" />
 
         <ScrollSliderMobile />

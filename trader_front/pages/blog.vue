@@ -15,7 +15,7 @@
             <h2>{{ header }}</h2>
             <div class="info__display--content preview">
               <p class="info__display--p">
-                The investment terrain of 2023 presents a complex picture, shaped by a
+                The investment terrain of 2024 presents a complex picture, shaped by a
                 confluence of economic factors from heightened inflationary pressures to
                 the reverberations of global policy shifts. For modern investors, adapting
                 strategies to align with these changes is not just beneficial but
@@ -80,19 +80,19 @@ export default {
     blogposts() {
       const blogPostTopics = [
         {
-          header: "Navigating the 2023 Market: Strategies for Modern Investors",
+          header: "Navigating the 2024 Market: Strategies for Modern Investors",
           blogParagraphs: [
-            "The investment terrain of 2023 presents a complex picture, shaped by a confluence of economic factors from heightened inflationary pressures to the reverberations of global policy shifts. For modern investors, adapting strategies to align with these changes is not just beneficial but necessary for financial resilience.",
+            "The investment terrain of 2024 presents a complex picture, shaped by a confluence of economic factors from heightened inflationary pressures to the reverberations of global policy shifts. For modern investors, adapting strategies to align with these changes is not just beneficial but necessary for financial resilience.",
             "Diversification is an age-old tactic that has not lost its relevance. A diversified portfolio across asset classes such as stocks, bonds, real estate, and even commodities can protect investors from unsystematic risks inherent in individual investments. Moreover, geographical diversification reduces exposure to country-specific economic crises and currency devaluation.",
             "Technological advancements are significantly influencing investment strategies. The emergence of fintech has democratized access to markets, allowing retail investors to leverage tools previously reserved for professionals. Robo-advisors, powered by sophisticated algorithms, provide low-cost portfolio management, aligning investments with an investor's risk profile and long-term goals. Artificial Intelligence (AI) systems are capable of analyzing vast amounts of data to identify trends, offering insights that can inform investment decisions.",
             "The resurgence of interest in value investing is noteworthy in an environment where growth stocks have recently dominated. Investors are revisiting the principles of Warren Buffet and Benjamin Graham, focusing on companies that appear undervalued but have strong fundamentals and potential for sustained growth. With an eye for intrinsic value, these investors aim to capitalize on market overreactions.",
             "Inflationary environments typically shift the spotlight to real assets, which have intrinsic value such as real estate and infrastructure. These assets often act as a hedge against inflation, as their value and associated cash flows tend to rise with inflation. Additionally, with central banks tightening monetary policy to combat inflation, fixed-income securities are once again drawing attention. Higher interest rates have bolstered yields, making bonds, particularly short-term and inflation-indexed bonds, more appealing.",
             "Sustainable investing also continues to gain traction, as investors increasingly recognize that environmental, social, and governance (ESG) factors can materially affect a company's performance and risk profile. By incorporating ESG criteria into their investment analysis and decision-making processes, investors can identify companies better positioned to withstand environmental and social challenges.",
-            "In conclusion, the investment landscape of 2023 is one that requires agility and a keen understanding of macroeconomic trends. It calls for a balanced approach, blending traditional wisdom with innovative technologies. Investors who conduct diligent research, actively manage risks, and maintain a long-term perspective are likely to find opportunities for growth even in a market beset with uncertainties.",
+            "In conclusion, the investment landscape of 2024 is one that requires agility and a keen understanding of macroeconomic trends. It calls for a balanced approach, blending traditional wisdom with innovative technologies. Investors who conduct diligent research, actively manage risks, and maintain a long-term perspective are likely to find opportunities for growth even in a market beset with uncertainties.",
           ],
         },
         {
-          header: "Cryptocurrency in 2023: Trends and Predictions",
+          header: "Cryptocurrency in 2024: Trends and Predictions",
           blogParagraphs: [
             "In the tumultuous realm of cryptocurrencies, volatility has become an inherent trait that both entices and deters investors. The recent months have witnessed significant price swings in major cryptocurrencies, leading to a renewed discussion on the stability and long-term viability of digital assets. As mainstream adoption grows, the factors influencing volatility are increasingly complex, ranging from regulatory news to technological advancements and market sentiment.",
 
@@ -217,9 +217,9 @@ export default {
           ],
         },
         {
-          header: "Global Markets in Focus: Emerging Trends in 2023",
+          header: "Global Markets in Focus: Emerging Trends in 2024",
           blogParagraphs: [
-            "The year 2023 has ushered in new dynamics within global markets, marked by emerging trends that are shaping investment strategies. Investors worldwide are keeping a close watch on these developments, seeking to navigate the complexities of a rapidly changing economic landscape.",
+            "The year 2024 has ushered in new dynamics within global markets, marked by emerging trends that are shaping investment strategies. Investors worldwide are keeping a close watch on these developments, seeking to navigate the complexities of a rapidly changing economic landscape.",
 
             "One of the most significant trends is the increasing interconnectivity of markets. As technology continues to advance, borders are becoming less of a barrier to capital flow. This has resulted in a more integrated global market system, where events in one part of the world can have immediate repercussions across the globe. Such interconnectivity demands that investors maintain a vigilant eye on international events, regardless of their geographic focus.",
 
@@ -233,7 +233,7 @@ export default {
 
             "Lastly, geopolitical tensions and the realignment of global powers are creating a complex environment for investors. Trade relations, regulatory changes, and political shifts can significantly impact global markets. Investors must be agile and well-informed to adjust their strategies in response to these geopolitical factors.",
 
-            "In conclusion, global markets in 2023 are characterized by rapid technological advancements, a push towards sustainability, the promise of emerging markets, the evolution of digital currencies, and the significant impact of geopolitical events. Navigating these trends requires a balanced approach, combining vigilant market analysis with a readiness to adapt to new global realities.",
+            "In conclusion, global markets in 2024 are characterized by rapid technological advancements, a push towards sustainability, the promise of emerging markets, the evolution of digital currencies, and the significant impact of geopolitical events. Navigating these trends requires a balanced approach, combining vigilant market analysis with a readiness to adapt to new global realities.",
           ],
         },
         {
@@ -369,9 +369,9 @@ export default {
           ],
         },
         {
-          header: "Fintech Innovations: What’s New in 2023?",
+          header: "Fintech Innovations: What’s New in 2024?",
           blogParagraphs: [
-            "As we delve into 2023, the fintech sector continues to break new ground with innovations aimed at streamlining financial services and enhancing user experience. This year is already showcasing a range of advancements from AI-driven financial advising to improvements in payment technologies, each promising to redefine our interaction with money.",
+            "As we delve into 2024, the fintech sector continues to break new ground with innovations aimed at streamlining financial services and enhancing user experience. This year is already showcasing a range of advancements from AI-driven financial advising to improvements in payment technologies, each promising to redefine our interaction with money.",
 
             "One of the standout trends is the integration of artificial intelligence and machine learning into personal finance apps. These technologies are enabling more personalized financial advice, automating investments, and providing users with insights into their spending habits. The result is a more intuitive and user-centric approach to managing finances that was once only accessible through professional financial advisors.",
 
@@ -383,13 +383,13 @@ export default {
 
             "Fintech is also addressing financial inclusion with services tailored for underserved communities. Innovations in microfinancing and mobile banking are providing access to financial services for those who previously lacked it. This democratization of finance is not just a technological achievement but also a social one, with the power to transform lives and stimulate economic growth.",
 
-            "In conclusion, 2023 is shaping up to be a landmark year for fintech. Innovations are not only making financial services more accessible and convenient but are also empowering users like never before. As the year unfolds, we can expect fintech to continue to push the envelope, driving progress that resonates well beyond the financial sector.",
+            "In conclusion, 2024 is shaping up to be a landmark year for fintech. Innovations are not only making financial services more accessible and convenient but are also empowering users like never before. As the year unfolds, we can expect fintech to continue to push the envelope, driving progress that resonates well beyond the financial sector.",
           ],
         },
         {
           header: "Sector Spotlight: The Health of the Healthcare Market",
           blogParagraphs: [
-            "The healthcare sector has perennially been a focal point of investor interest, and as we progress through 2023, its market health is under intense scrutiny. This year, the industry is navigating through the post-pandemic recovery phase, grappling with innovation challenges, and regulatory changes that are shaping its trajectory.",
+            "The healthcare sector has perennially been a focal point of investor interest, and as we progress through 2024, its market health is under intense scrutiny. This year, the industry is navigating through the post-pandemic recovery phase, grappling with innovation challenges, and regulatory changes that are shaping its trajectory.",
 
             "A significant driver of growth within the sector has been the accelerated adoption of telehealth services. The pandemic's constraints catalyzed the transition to virtual care, and now, telehealth is slated to become a fixture in healthcare delivery. This has opened up new revenue streams for providers and given patients more flexible care options, ultimately contributing to a robust market outlook.",
 
@@ -401,13 +401,13 @@ export default {
 
             "Investment in healthcare infrastructure is another trend that's gaining momentum. With an aging population and increased demand for healthcare services, there is a clear need for modernized facilities and equipment. This is spurring growth in the medical real estate and medical device sub-sectors, as they play critical roles in the healthcare delivery ecosystem.",
 
-            "In conclusion, the health of the healthcare market in 2023 is robust, marked by innovation and adaptability. While challenges such as regulatory hurdles and market competition persist, the sector's importance to societal well-being and its potential for growth continue to make it an attractive area for investors. As healthcare companies evolve and technologies advance, the sector remains a barometer for both economic health and investment vitality.",
+            "In conclusion, the health of the healthcare market in 2024 is robust, marked by innovation and adaptability. While challenges such as regulatory hurdles and market competition persist, the sector's importance to societal well-being and its potential for growth continue to make it an attractive area for investors. As healthcare companies evolve and technologies advance, the sector remains a barometer for both economic health and investment vitality.",
           ],
         },
         {
           header: "Private Equity in the Current Economy: Boon or Bubble?",
           blogParagraphs: [
-            "Private equity (PE) has long been a significant player in the investment landscape, offering high returns for those with the capital and the appetite for risk. As we delve into the current economic climate of 2023, questions arise: Is private equity a boon in this uncertain market, or is it a bubble waiting to burst?",
+            "Private equity (PE) has long been a significant player in the investment landscape, offering high returns for those with the capital and the appetite for risk. As we delve into the current economic climate of 2024, questions arise: Is private equity a boon in this uncertain market, or is it a bubble waiting to burst?",
 
             "The current economy presents a complex picture for PE investments. With interest rates fluctuating and a cautious economic outlook, PE firms are finding themselves at a crossroads. The low interest rates of the recent past had made borrowing cheaper, fuelling the PE boom. However, as rates inch upwards, the cost of leveraging increases, potentially squeezing the returns that PE firms can offer to their investors.",
 
@@ -425,7 +425,7 @@ export default {
         {
           header: "Trade Wars: The Ongoing Saga and Its Market Impact",
           blogParagraphs: [
-            "The specter of trade wars has loomed large over global markets in recent years, with nations engaging in tit-for-tat tariffs that have reverberated across supply chains and financial systems. As we navigate through 2023, the ongoing saga of trade disputes continues to cast a shadow over international trade relations and market stability.",
+            "The specter of trade wars has loomed large over global markets in recent years, with nations engaging in tit-for-tat tariffs that have reverberated across supply chains and financial systems. As we navigate through 2024, the ongoing saga of trade disputes continues to cast a shadow over international trade relations and market stability.",
 
             "Trade wars often begin with the intent of protecting domestic industries from foreign competition, but they can quickly escalate into broader economic conflicts that affect global markets. The imposition of tariffs can lead to increased costs for manufacturers and consumers, disrupt global supply chains, and dampen international trade. The uncertainty surrounding trade disputes also leads to volatility in the stock markets as investors react to the potential impact on corporate profits and economic growth.",
 

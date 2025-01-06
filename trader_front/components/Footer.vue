@@ -20,49 +20,38 @@
     <div class="footer__disclaimers">
       <div class="footer__disclaimers--content">
         <p>
-          BVX offerings are intricate tools that carry a high possibility of swift
-          financial loss due to leverage. 77.1% of retail investor accounts suffer
-          financial losses when engaging in trades with bvx. It is crucial to ponder
-          whether you grasp the operation of the markets and if you are in a position to
-          shoulder the substantial risk of losing your funds. Kindly make sure you have a
-          comprehensive understanding of the risks entailed by consulting our detailed
-          risk warning.
+          BVX offerings are intricate tools that carry a high risk of rapid financial loss
+          due to leverage. 77.1% of retail investor accounts incur financial losses when
+          trading with BVX. It is essential to carefully consider whether you fully
+          understand how the markets operate and whether you can afford to take on the
+          substantial risk of losing your funds. Please ensure you have a thorough
+          understanding of the risks involved by consulting our detailed risk warning. BVX
+          might provide third-party content on this website, including information about
+          financial market conditions. 
         </p>
 
         <p>
-          Bvx is a trading identity of Voltex Singapore, and bvx.com/ie is a domain run by
-          Voltex Singapore, a constituent of StoneX Group Inc. Voltex Singapore is a
-          Cyprus Investment Firm (CIF) officially registered with the Department of
-          Registrar of Companies and Official Receiver under the Registration Number
-          HE409708, and endorsed and overseen by the Cyprus Securities & Exchange
-          Commission (CySEC) with the license number 400/21. Voltex Singapore is
-          affiliated with the Investor Compensation Fund (ICF) and has its official
-          headquarters at 10 Marina Bay Street, #15-02, Central Tower, Singapore 018983.
+          This content is strictly for informational purposes
+          and should not be interpreted as financial advice, investment recommendations,
+          investment analysis, or an invitation to engage in transactions involving
+          financial instruments. Any financial decisions should be made independently by
+          the client after their personal evaluation. BVX does not guarantee the accuracy
+          or completeness of the provided information or accept responsibility for
+          financial losses resulting from investments based on recommendations,
+          projections, or other information supplied. Always seek independent advice to
+          assess your suitability for speculative activities in these markets and your
+          ability to assume the associated risks. 
         </p>
 
         <p>
-          Voltex Singapore might offer third-party content on this website, which might
-          encompass details including but not limited to the financial market scenarios.
-          This content is purely informational and should never be perceived as containing
-          financial counsel, investment endorsements, investment analysis, or invitations
-          for any financial instrument transactions. Any decisions regarding specific
-          financial actions should be made by the client after their personal evaluation.
-          Voltex Singapore does not guarantee the preciseness or completeness of the given
-          details, nor any financial losses that might arise from any investment grounded
-          on recommendations, projections, or other supplied details. Always consult
-          independent advice to determine your aptness for speculation in associated
-          markets and your capacity to undertake related risks. No obligation lies with us
-          to refresh any given content. Views expressed might be personal to the
-          contributor and might not mirror the opinions of Voltex Singapore.
-        </p>
-
-        <p>
-          By leveraging passporting, Voltex Singapore can deliver its services and
-          offerings across borders to the subsequent European Economic Area ("EEA")
-          nations: Austria, Bulgaria, Croatia, Denmark, Estonia, Finland, France, Germany,
-          Greece, Hungary, Ireland, Italy, Latvia, Liechtenstein, Lithuania, Luxembourg,
-          Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia, Slovenia,
-          Spain, Sweden.
+          BVX has no obligation to update the
+          content provided. Opinions expressed may be personal to the contributor and do
+          not necessarily reflect the views of BVX. By leveraging passporting, BVX can provide
+          its services and offerings to the following European Economic Area (EEA)
+          countries: Austria, Bulgaria, Croatia, Denmark, Estonia, Finland, France,
+          Germany, Greece, Hungary, Ireland, Italy, Latvia, Liechtenstein, Lithuania,
+          Luxembourg, Malta, Netherlands, Norway, Poland, Portugal, Romania, Slovakia,
+          Slovenia, Spain, and Sweden
         </p>
       </div>
     </div>

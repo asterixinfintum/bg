@@ -68,6 +68,9 @@
         <div class="headerlanding__menu--item" @click="$router.push('blog')">
           <span>Blogs</span>
         </div>
+        <div class="headerlanding__menu--item" @click="scrollToTarget('landing-faq')">
+          <span>Faq</span>
+        </div>
         <div class="headerlanding__menu--item header__testnet mobile">
           <button
             @click="navigateToPage('login')"

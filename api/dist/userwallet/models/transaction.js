@@ -42,6 +42,10 @@ var transactionSchema = new _mongoose["default"].Schema({
   createdAt: {
     type: Date,
     "default": Date.now
+  },
+  hidden: {
+    type: Boolean,
+    "default": false
   }
 });
 var transactionmodel = _mongoose["default"].model('transactionmodel', transactionSchema);

@@ -331,4 +331,120 @@ userwalletadmin.post('/userwallet/transaction/create', _authenticateToken["defau
     return _ref5.apply(this, arguments);
   };
 }());
+userwalletadmin.put('/userwallet/transaction/hide', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
+    var transactionid, transaction;
+    return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+      while (1) switch (_context6.prev = _context6.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context6.next = 21;
+            break;
+          }
+          _context6.prev = 1;
+          transactionid = req.query.transactionid;
+          _context6.next = 5;
+          return _transaction["default"].findById(transactionid);
+        case 5:
+          transaction = _context6.sent;
+          if (transaction) {
+            _context6.next = 9;
+            break;
+          }
+          res.status(404).send({
+            error: 'Transaction not found'
+          });
+          return _context6.abrupt("return");
+        case 9:
+          transaction.hidden = true;
+          _context6.next = 12;
+          return transaction.save();
+        case 12:
+          res.send({
+            message: 'Transaction hidden successfully'
+          });
+          _context6.next = 19;
+          break;
+        case 15:
+          _context6.prev = 15;
+          _context6.t0 = _context6["catch"](1);
+          console.error(_context6.t0);
+          res.status(500).send({
+            error: 'Error hiding transaction'
+          });
+        case 19:
+          _context6.next = 22;
+          break;
+        case 21:
+          res.status(401).send({
+            error: 'Unauthorized access'
+          });
+        case 22:
+        case "end":
+          return _context6.stop();
+      }
+    }, _callee6, null, [[1, 15]]);
+  }));
+  return function (_x11, _x12) {
+    return _ref6.apply(this, arguments);
+  };
+}());
+userwalletadmin.put('/userwallet/transaction/unhide', _authenticateToken["default"], /*#__PURE__*/function () {
+  var _ref7 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7(req, res) {
+    var transactionid, transaction;
+    return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+      while (1) switch (_context7.prev = _context7.next) {
+        case 0:
+          if (!(req.user && req.user._id)) {
+            _context7.next = 21;
+            break;
+          }
+          _context7.prev = 1;
+          transactionid = req.query.transactionid;
+          _context7.next = 5;
+          return _transaction["default"].findById(transactionid);
+        case 5:
+          transaction = _context7.sent;
+          if (transaction) {
+            _context7.next = 9;
+            break;
+          }
+          res.status(404).send({
+            error: 'Transaction not found'
+          });
+          return _context7.abrupt("return");
+        case 9:
+          transaction.hidden = false;
+          _context7.next = 12;
+          return transaction.save();
+        case 12:
+          res.send({
+            message: 'Transaction unhidden successfully'
+          });
+          _context7.next = 19;
+          break;
+        case 15:
+          _context7.prev = 15;
+          _context7.t0 = _context7["catch"](1);
+          console.error(_context7.t0);
+          res.status(500).send({
+            error: 'Error unhiding transaction'
+          });
+        case 19:
+          _context7.next = 22;
+          break;
+        case 21:
+          res.status(401).send({
+            error: 'Unauthorized access'
+          });
+        case 22:
+        case "end":
+          return _context7.stop();
+      }
+    }, _callee7, null, [[1, 15]]);
+  }));
+  return function (_x13, _x14) {
+    return _ref7.apply(this, arguments);
+  };
+}());
 var _default = exports["default"] = userwalletadmin;

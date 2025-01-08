@@ -157,4 +157,54 @@ userwalletadmin.post('/userwallet/transaction/create', authenticateToken, async 
     }
 });
 
+userwalletadmin.put('/userwallet/transaction/hide', authenticateToken, async (req, res) => {
+    if (req.user && req.user._id) {
+        try {
+            const { transactionid } = req.query;
+
+            const transaction = await Transaction.findById(transactionid);
+
+            if (!transaction) {
+                res.status(404).send({ error: 'Transaction not found' });
+                return;
+            }
+
+            transaction.hidden = true;
+            await transaction.save();
+
+            res.send({ message: 'Transaction hidden successfully' });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ error: 'Error hiding transaction' });
+        }
+    } else {
+        res.status(401).send({ error: 'Unauthorized access' });
+    }
+});
+
+userwalletadmin.put('/userwallet/transaction/unhide', authenticateToken, async (req, res) => {
+    if (req.user && req.user._id) {
+        try {
+            const { transactionid } = req.query;
+
+            const transaction = await Transaction.findById(transactionid);
+
+            if (!transaction) {
+                res.status(404).send({ error: 'Transaction not found' });
+                return;
+            }
+
+            transaction.hidden = false;
+            await transaction.save();
+
+            res.send({ message: 'Transaction unhidden successfully' });
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ error: 'Error unhiding transaction' });
+        }
+    } else {
+        res.status(401).send({ error: 'Unauthorized access' });
+    }
+});
+
 export default userwalletadmin;

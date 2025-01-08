@@ -126,6 +126,7 @@ export default {
       //'~/assets/scss/fonts.scss',
       '~/assets/scss/section.scss',
       '~/assets/scss/scrollslider.scss',
+      '~/assets/scss/article.scss',
     ],
     hoistUseStatements: true
   },

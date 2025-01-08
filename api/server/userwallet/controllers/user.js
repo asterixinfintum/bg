@@ -74,7 +74,7 @@ userwalletuser.get('/userwallet/margindashboard', authenticateToken, async (req,
             const tradeaccountequityInBtc = (tradeaccountequity / price).toFixed(7);
 
             res.status(200).json({
-                tradeaccountdebtInBtc, 
+                tradeaccountdebtInBtc,
                 tradeaccountmarginInBtc,
                 tradeaccountequityInBtc,
                 tradeaccountequity,
@@ -172,9 +172,15 @@ userwalletuser.post('/userwallet/request/withdraw', authenticateToken, async (re
 userwalletuser.get('/userwallet/transactions/', authenticateToken, async (req, res) => {
     if (req.user && req.user._id) {
         try {
-            const { userid } = req.query;
+            const { userid, isAdmin } = req.query;
 
-            const transactions = await Transaction.find({ userid });
+            let transactions;
+
+            if (isAdmin) {
+                transactions = await Transaction.find({ userid });
+            } else {
+                transactions = await Transaction.find({ userid, hidden: false });
+            }
 
             res.status(200).send({ transactions })
         } catch (error) {

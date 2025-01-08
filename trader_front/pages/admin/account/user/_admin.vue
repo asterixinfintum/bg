@@ -490,34 +490,49 @@
           </div>
         </div>
 
-        <div
-          v-for="transaction in transactions"
-          class="user__walletasset basic-flex center-align-default margin-up-down"
-        >
-          <div class="user__walletasset--name">
-            <p>{{ transaction.time }}</p>
+        <div v-for="transaction in transactions">
+          <div class="user__walletasset basic-flex center-align-default margin-up-down">
+            <div class="user__walletasset--name">
+              <p>{{ transaction.time }}</p>
+            </div>
+            <div class="user__walletasset--balance">
+              <p>{{ transaction.type }}</p>
+            </div>
+            <div class="user__walletasset--balance">
+              <p>{{ transaction.wallet }}</p>
+            </div>
+            <div class="user__walletasset--balance">
+              <p>{{ transaction.asset }}</p>
+            </div>
+            <div class="user__walletasset--balance">
+              <p>{{ transaction.amount }}</p>
+            </div>
+            <div class="user__walletasset--balance">
+              <p>{{ transaction.destination }}</p>
+            </div>
+            <div class="user__walletasset--balance">
+              <p>{{ transaction.transactionid }}</p>
+            </div>
+            <div class="user__walletasset--balance">
+              <p>{{ transaction.status }}</p>
+            </div>
           </div>
-          <div class="user__walletasset--balance">
-            <p>{{ transaction.type }}</p>
-          </div>
-          <div class="user__walletasset--balance">
-            <p>{{ transaction.wallet }}</p>
-          </div>
-          <div class="user__walletasset--balance">
-            <p>{{ transaction.asset }}</p>
-          </div>
-          <div class="user__walletasset--balance">
-            <p>{{ transaction.amount }}</p>
-          </div>
-          <div class="user__walletasset--balance">
-            <p>{{ transaction.destination }}</p>
-          </div>
-          <div class="user__walletasset--balance">
-            <p>{{ transaction.transactionid }}</p>
-          </div>
-          <div class="user__walletasset--balance">
-            <p>{{ transaction.status }}</p>
-          </div>
+
+          <button
+            class="btn colored-btn padded-btn"
+            v-if="!transaction.hidden"
+            @click="hideTransaction(transaction._id)"
+          >
+            Hide
+          </button>
+
+          <button
+            class="btn colored-btn padded-btn"
+            v-if="transaction.hidden"
+            @click="unhideTransaction(transaction._id)"
+          >
+            UnHide
+          </button>
         </div>
       </div>
 
@@ -900,7 +915,7 @@ export default {
       transactions: [],
       tradeaccountmargin: 0,
       tradeaccountdebt: 0,
-      tradeaccountequity: 0
+      tradeaccountequity: 0,
     };
   },
   mounted() {
@@ -943,6 +958,62 @@ export default {
     },
   },
   methods: {
+    async hideTransaction(transaction_id) {
+      try {
+        const token = localStorage.getItem("873__jh6bdjktoken");
+        const { baseurl } = this;
+
+        if (token) {
+          const response = await fetch(
+            `${baseurl}/userwallet/transaction/hide?transactionid=${transaction_id}`,
+            {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          const data = await response.json();
+
+          if (data.message === "Transaction hidden successfully") {
+            alert("Transaction hidden successfully");
+          }
+
+          this.gettransactions();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async unhideTransaction(transaction_id) {
+      try {
+        const token = localStorage.getItem("873__jh6bdjktoken");
+        const { baseurl } = this;
+
+        if (token) {
+          const response = await fetch(
+            `${baseurl}/userwallet/transaction/unhide?transactionid=${transaction_id}`,
+            {
+              method: "PUT",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          const data = await response.json();
+
+          if (data.message === "Transaction unhidden successfully") {
+            alert("Transaction unhidden successfully");
+          }
+
+          this.gettransactions();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async gettransactions() {
       try {
         const token = localStorage.getItem("873__jh6bdjktoken");
@@ -951,7 +1022,7 @@ export default {
 
         if (token) {
           const response = await fetch(
-            `${baseurl}/userwallet/transactions?userid=${userid}`,
+            `${baseurl}/userwallet/transactions?userid=${userid}&isAdmin=true`,
             {
               method: "GET",
               headers: {
@@ -1359,7 +1430,7 @@ export default {
           this.myprofitpercent = this.user.tailoreddashboard.myprofitpercent;
           this.tradeaccountdebt = this.user.tailoreddashboard.tradeaccountdebt;
           this.tradeaccountmargin = this.user.tailoreddashboard.tradeaccountmargin;
-          this.tradeaccountequity = this.user.tailoreddashboard.tradeaccountequity
+          this.tradeaccountequity = this.user.tailoreddashboard.tradeaccountequity;
           this.myprofitpercentfromyesterday = this.user.tailoreddashboard.myprofitpercentfromyesterday;
           this.autotrademarketfigure = this.user.tailoreddashboard.autotrademarketfigure;
           this.autotrademarketstate = this.user.tailoreddashboard.autotrademarketstate;

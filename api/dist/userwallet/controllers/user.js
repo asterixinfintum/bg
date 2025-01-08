@@ -364,38 +364,53 @@ userwalletuser.post('/userwallet/request/withdraw', _authenticateToken["default"
 }());
 userwalletuser.get('/userwallet/transactions/', _authenticateToken["default"], /*#__PURE__*/function () {
   var _ref6 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6(req, res) {
-    var userid, transactions;
+    var _req$query3, userid, isAdmin, transactions;
     return _regeneratorRuntime().wrap(function _callee6$(_context6) {
       while (1) switch (_context6.prev = _context6.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context6.next = 12;
+            _context6.next = 18;
             break;
           }
           _context6.prev = 1;
-          userid = req.query.userid;
-          _context6.next = 5;
+          _req$query3 = req.query, userid = _req$query3.userid, isAdmin = _req$query3.isAdmin;
+          if (!isAdmin) {
+            _context6.next = 9;
+            break;
+          }
+          _context6.next = 6;
           return _transaction["default"].find({
             userid: userid
           });
-        case 5:
+        case 6:
           transactions = _context6.sent;
-          res.status(200).send({
-            transactions: transactions
-          });
           _context6.next = 12;
           break;
         case 9:
-          _context6.prev = 9;
+          _context6.next = 11;
+          return _transaction["default"].find({
+            userid: userid,
+            hidden: false
+          });
+        case 11:
+          transactions = _context6.sent;
+        case 12:
+          res.status(200).send({
+            transactions: transactions
+          });
+          _context6.next = 18;
+          break;
+        case 15:
+          _context6.prev = 15;
           _context6.t0 = _context6["catch"](1);
           res.status(500).send({
             error: 'error getting transactions'
           });
-        case 12:
+        case 18:
         case "end":
           return _context6.stop();
       }
-    }, _callee6, null, [[1, 9]]);
+    }, _callee6, null, [[1, 15]]);
   }));
   return function (_x11, _x12) {
     return _ref6.apply(this, arguments);

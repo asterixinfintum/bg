@@ -22,7 +22,7 @@
         <p>
           BVX offerings are intricate tools that carry a high risk of rapid financial loss
           due to leverage. 77.1% of retail investor accounts incur financial losses when
-          trading with BVX. It is essential to carefully consider whether you fully
+          trading. It is essential to carefully consider whether you fully
           understand how the markets operate and whether you can afford to take on the
           substantial risk of losing your funds. Please ensure you have a thorough
           understanding of the risks involved by consulting our detailed risk warning. BVX

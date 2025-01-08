@@ -70,10 +70,10 @@
           <span>Account Features</span>
         </div>
 
-        <div class="headerlanding__menu--item" @click="$router.push('blog')">
+        <div class="headerlanding__menu--item" @click="$router.push('/blog')">
           <span>Blogs</span>
         </div>
-        <div class="headerlanding__menu--item" @click="$router.push('launchpad')">
+        <div class="headerlanding__menu--item" @click="$router.push('/launchpad')">
           <span>Launch Program</span>
           <!--<span>
             <svg

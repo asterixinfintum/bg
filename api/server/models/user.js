@@ -45,11 +45,11 @@ TailoredDashboardSchema.path('profitstatetext').get(function () {
 const userSchema = new Schema({
   firstname: {
     type: String,
-    required: true,
+    required: true
   },
   lastname: {
     type: String,
-    required: true,
+    required: true
   },
   email: {
     type: String,

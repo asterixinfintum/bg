@@ -41,40 +41,69 @@
             <div class="launchpad__box--header">
               <div class="launchpad__box--details">
                 <figure>
-                  <img :src="'/imgs/' + launchpadItem.logo" />
+                  <img :src="launchpadItem.network_logo" />
                 </figure>
 
-                <h2>{{ launchpadItem.name }}</h2>
+                <h2>{{ launchpadItem.header }}</h2>
 
                 <span class="status">{{ launchpadItem.status }}</span>
               </div>
 
-              <div class="launchpad__box--threedot">
-                <span></span>
-                <span></span>
-                <span></span>
+              <div class="launchpad__box--threedot" @click="openOptions">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+
+                <div class="launchpad__box--threedotoptions">
+                  <span
+                    class="menuoption"
+                    @click="
+                      $router.push({
+                        path: '/launchpage/buy',
+                        query: {
+                          type: 'launchprogram',
+                          launchprogramid: launchpadItem._id,
+                        },
+                      })
+                    "
+                    >Join Launchpad</span
+                  >
+                  <span
+                    class="menuoption"
+                    @click="
+                      $router.push({
+                        path: '/articles/launchprograms',
+                        query: {
+                          type: 'launchprogram',
+                          articleid: launchpadItem._id,
+                        },
+                      })
+                    "
+                    >Learn more</span
+                  >
+                </div>
               </div>
             </div>
 
             <div class="launchpad__box--grid">
               <div class="launchpad__box--detail">
                 <span>Launch Date</span>
-                <span>{{ launchpadItem.launchDate }}</span>
+                <span>{{ launchpadItem.launchdate }}</span>
               </div>
 
               <div class="launchpad__box--detail">
                 <span>Conclusion Date</span>
-                <span>{{ launchpadItem.conclusionDate }}</span>
+                <span>{{ launchpadItem.conclusiondate }}</span>
               </div>
 
               <div class="launchpad__box--detail">
                 <span>Airdrop Date</span>
-                <span>{{ launchpadItem.airdropDate }}</span>
+                <span>{{ launchpadItem.airdropdate }}</span>
               </div>
 
               <div class="launchpad__box--detail">
                 <span>Total Airdrops</span>
-                <span>{{ launchpadItem.totalAirdrops }}</span>
+                <span>{{ launchpadItem.totalairdrops }}</span>
               </div>
             </div>
           </div>
@@ -85,84 +114,30 @@
 </template>
 
 <script>
+import BASE_VARS from "@/store/base_vars";
+
 export default {
+  mounted() {
+    this.getArticles();
+  },
   data() {
     return {
-      launchpadItems: [
-        {
-          logo: "bnb-bnb-logo.png",
-          name: "VintageCoin Launch",
-          status: "Completed",
-          launchDate: "November 10, 2024",
-          conclusionDate: "December 15, 2024",
-          airdropDate: "January 5, 2024",
-          totalAirdrops: "$ 150,000",
-        },
-        {
-          logo: "ethereum-eth-logo.png",
-          name: "RetroToken Launch",
-          status: "Completed",
-          launchDate: "March 15, 2024",
-          conclusionDate: "April 20, 2024",
-          airdropDate: "May 1, 2024",
-          totalAirdrops: "$ 200,000",
-        },
-        {
-          logo: "ethereum-eth-logo.png",
-          name: "LegacyCoin Launch",
-          status: "Completed",
-          launchDate: "July 25, 2024",
-          conclusionDate: "August 30, 2024",
-          airdropDate: "September 10, 2024",
-          totalAirdrops: "$ 500,000",
-        },
-        {
-          logo: "solana-sol-logo.png",
-          name: "MoonPaw Launch",
-          status: "Upcoming",
-          launchDate: "January 10, 2025",
-          conclusionDate: "February 15, 2025",
-          airdropDate: "March 1, 2025",
-          totalAirdrops: "$ 300,000",
-        },
-        {
-          logo: "xrp-xrp-logo.png",
-          name: "ShibaNova Launch",
-          status: "Upcoming",
-          launchDate: "March 20, 2025",
-          conclusionDate: "April 25, 2025",
-          airdropDate: "May 5, 2025",
-          totalAirdrops: "$ 500,000",
-        },
-        {
-          logo: "ethereum-eth-logo.png",
-          name: "DogeRocket Launch",
-          status: "Upcoming",
-          launchDate: "May 15, 2025",
-          conclusionDate: "June 30, 2025",
-          airdropDate: "July 10, 2025",
-          totalAirdrops: "$ 750,000",
-        },
-        {
-          logo: "polkadot-new-dot-logo.png",
-          name: "FrogoCoin Launch",
-          status: "Upcoming",
-          launchDate: "July 20, 2025",
-          conclusionDate: "August 25, 2025",
-          airdropDate: "September 1, 2025",
-          totalAirdrops: "$ 1,000,000",
-        },
-        {
-          logo: "xrp-xrp-logo.png",
-          name: "PepeBlast Launch",
-          status: "Upcoming",
-          launchDate: "September 15, 2025",
-          conclusionDate: "October 20, 2025",
-          airdropDate: "November 1, 2025",
-          totalAirdrops: "$ 2,000,000",
-        },
-      ],
+      launchpadItems: [],
     };
+  },
+  methods: {
+    openOptions() {},
+    getArticles() {
+      const { BASE_URL } = BASE_VARS;
+      const type = this.$route.query.type;
+
+      fetch(`${BASE_URL}/article/articles?type=launchprogram`)
+        .then((response) => response.json())
+        .then((data) => {
+          this.launchpadItems = data;
+        })
+        .catch((error) => console.error(error));
+    },
   },
 };
 </script>
@@ -248,6 +223,7 @@ export default {
     border-radius: 0.7rem;
     padding: 1.5rem;
     margin-bottom: 2rem;
+    position: relative;
 
     &--header {
       display: flex;
@@ -288,7 +264,7 @@ export default {
         }
 
         & img {
-          object-fit: cover;
+          object-fit: contain;
           height: 100%;
           width: 100%;
         }
@@ -339,13 +315,49 @@ export default {
       align-items: center;
       cursor: pointer;
 
+      &:hover .launchpad__box--threedotoptions {
+        display: flex;
+      }
+
       & span {
-        display: inline-block;
-        border-radius: 100%;
-        background: rgba($white, 0.5);
-        height: 0.3rem;
-        width: 0.3rem;
-        margin-left: 0.3rem;
+        &.dot {
+          display: inline-block;
+          border-radius: 100%;
+          background: rgba($white, 0.5);
+          height: 0.3rem;
+          width: 0.3rem;
+          margin-left: 0.3rem;
+        }
+      }
+    }
+
+    &--threedotoptions {
+      position: absolute;
+      background: $faded-black;
+      border-radius: 0.2rem;
+      top: 0;
+      right: 0;
+      display: flex;
+      flex-direction: column;
+      border-radius: 0.7rem;
+      display: none;
+
+      &:hover {
+        display: flex;
+      }
+
+      & span {
+        &.menuoption {
+          display: flex;
+          font-size: 0.8rem;
+          cursor: pointer;
+          transition: all 0.5s ease;
+          padding: 1rem;
+
+          &:hover {
+            background: $defipopup-body;
+          }
+        }
       }
     }
 

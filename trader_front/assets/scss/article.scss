@@ -78,9 +78,11 @@
     }
 
     &__link {
+        color: rgba($primary-orange, .6);
 
-
-        &--underline {}
+        &--underline {
+            text-decoration: underline;
+        }
     }
 
     &__list {
@@ -89,4 +91,29 @@
     }
 
     &__latest {}
+
+    &__admin {
+
+        &--inputsection {
+            margin-bottom: 2rem;
+        }
+
+        &--textbuilderbtns {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            grid-row-gap: 1rem;
+
+            & span {
+
+                &.button {
+                    display: inline-block;
+                    margin-right: 1rem;
+                }
+            }
+        }
+    }
+
+
+
+    &__adminbtns {}
 }

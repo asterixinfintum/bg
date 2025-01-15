@@ -92,6 +92,8 @@ import asset_route from './assets/controller';
 
 import usersettings from './routes/usersettings';
 
+import articleRoute from './articles/routes';
+
 import './userdashboard';
 
 /*function initSocketIO() {
@@ -211,6 +213,8 @@ app.use(swapcontroller);
 app.use(transfercontroller);
 app.use(tradercontroller);
 app.use(usersettings);
+
+app.use(articleRoute);
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(staticPath, 'ui/index.html'));

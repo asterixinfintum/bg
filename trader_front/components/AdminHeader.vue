@@ -4,6 +4,7 @@
             <div class="adminheader__menu">
                 <div class="adminheader__menuitem" :class="{ current: currentmenu('users') }" @click="adminrouter('users')">users</div>
                 <div class="adminheader__menuitem" :class="{ current: currentmenu('assets') }" @click="adminrouter('assets')">assets</div>
+                <div class="adminheader__menuitem" :class="{ current: currentmenu('articles') }" @click="adminrouter('articles')">articles</div>
             </div>
         </div>
     </div>

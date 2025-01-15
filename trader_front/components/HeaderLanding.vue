@@ -5,7 +5,12 @@
       id="curvedarea"
       :class="coloredbackground ? 'coloredbackground' : ''"
     >
-      <div class="headerlanding__logo" @click="$router.push('/')">BVX</div>
+      <div class="headerlanding__logo" @click="$router.push('/')">
+        <figure>
+          <img src="/imgs/bvx-logo.png" />
+        </figure>
+        <span>BVX</span>
+      </div>
 
       <div class="headerlanding__menu" :class="{ mmenuopen }">
         <div class="headerlanding__menu--xclose" @click="openmmenu">
@@ -70,26 +75,127 @@
           <span>Account Features</span>
         </div>
 
-        <div class="headerlanding__menu--item" @click="$router.push('/blog')">
-          <span>Blogs</span>
-        </div>
         <div class="headerlanding__menu--item" @click="$router.push('/launchpad')">
           <span>Launch Program</span>
-          <!--<span>
-            <svg
-              class="bn-svg header-menu-item_dropdown-icon"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M12.11 12.178L16 8.287l1.768 1.768-5.657 5.657-1.768-1.768-3.889-3.889 1.768-1.768 3.889 3.89z"
-                fill="currentColor"
-              ></path>
-            </svg>
-          </span>-->
         </div>
+
+        <div class="headerlanding__menu--item headerlanding__menu--itemdropdown">
+          <div class="basic-flex">
+            <span>More</span>
+            <span>
+              <svg
+                class="bn-svg header-menu-item_dropdown-icon"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12.11 12.178L16 8.287l1.768 1.768-5.657 5.657-1.768-1.768-3.889-3.889 1.768-1.768 3.889 3.89z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </span>
+          </div>
+
+          <div class="headerlanding__menu--dropdown">
+            <div class="headerlanding__dropdown headerlanding__dropdown--grid">
+              <div class="headerlanding__dropdown--content">
+                <!-- <div class="headerlanding__dropdown--item">
+                  <h3>Markets</h3>
+                  <p>
+                    Access detailed insights into global markets, including stocks,
+                    cryptocurrencies, commodities, and forex. Stay ahead with market
+                    trends and real-time data analysis.
+                  </p>
+                </div>
+                <div class="headerlanding__dropdown--item">
+                  <h3>NFTs</h3>
+                  <p>
+                    Dive into the world of non-fungible tokens (NFTs), where art,
+                    collectibles, and digital assets meet blockchain technology. Discover
+                    top collections and emerging creators.
+                  </p>
+                </div>
+                <div class="headerlanding__dropdown--item">
+                  <h3>Airdrops</h3>
+                  <p>
+                    Explore opportunities to receive free cryptocurrency through airdrop
+                    events. Learn how to participate, stay informed on upcoming campaigns,
+                    and maximize your rewards.
+                  </p>
+                </div>-->
+                <div
+                  class="headerlanding__dropdown--item"
+                  @click="
+                    $router.push({
+                      path: '/articles/projects',
+                      query: { type: 'projects' },
+                    })
+                  "
+                >
+                  <h3>Projects</h3>
+                  <p>
+                    Discover cutting-edge blockchain projects and initiatives shaping the
+                    future of technology. Gain insights into their goals, features, and
+                    potential impact.
+                  </p>
+                </div>
+                <div
+                  class="headerlanding__dropdown--item"
+                  @click="
+                    $router.push({
+                      path: '/articles/news',
+                      query: { type: 'news' },
+                    })
+                  "
+                >
+                  <h3>News</h3>
+                  <p>
+                    Explore opportunities to receive free cryptocurrency through airdrop
+                    events. Learn how to participate, stay informed on upcoming campaigns,
+                    and maximize your rewards.
+                  </p>
+                </div>
+              </div>
+              <div class="headerlanding__dropdown--content">
+                <div
+                  class="headerlanding__dropdown--item"
+                  @click="
+                    $router.push({
+                      path: '/articles/announcements',
+                      query: { type: 'announcement' },
+                    })
+                  "
+                >
+                  <h3>Announcements</h3>
+                  <p>
+                    Get the latest updates on platform developments, new features, and
+                    important industry news. Stay informed about what’s happening in the
+                    crypto and blockchain ecosystem.
+                  </p>
+                </div>
+                <div
+                  class="headerlanding__dropdown--item"
+                  @click="
+                    $router.push({
+                      path: '/articles/ourblog',
+                      query: { type: 'blogpost' },
+                    })
+                  "
+                >
+                  <h3>Blogs</h3>
+                  <p>
+                    Read in-depth articles, tutorials, and thought leadership pieces. Our
+                    blogs cover trading strategies, blockchain innovation, market
+                    analysis, and more.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="headerlanding__menu--item header__testnet mobile">
           <button
             @click="navigateToPage('login')"
@@ -203,6 +309,28 @@ export default {
     color: $primary-orange;
     font-weight: 500;
     font-size: #{scaleValue(30)};
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+
+    & figure {
+      display: flex;
+      align-items: center;
+      height: 2rem;
+      width: 2rem;
+      margin-right: 0.5rem;
+
+      & img {
+        object-fit: cover;
+        height: 100%;
+        width: 100%;
+      }
+    }
+
+    & span {
+      display: flex;
+      align-items: center;
+    }
 
     @media only screen and (max-width: $breakpoint-tablet) {
       font-size: #{scaleValue(120)};
@@ -226,6 +354,9 @@ export default {
       padding: #{scaleValue(100)};
       align-items: flex-start;
       padding-top: #{scaleValue(500)};
+
+      overflow: hidden;
+      overflow-y: scroll;
 
       display: none;
 
@@ -252,11 +383,12 @@ export default {
     }
 
     &--item {
+      position: relative;
       color: rgba(230, 231, 242, 0.7);
       font-family: "Space Grotesk", sans-serif;
       margin: 0 #{scaleValue(30)};
       cursor: pointer;
-      font-size: 0.88rem;
+      font-size: 0.83rem;
       font-weight: 400;
       color: $primary-orange;
       transition: all 0.2s ease;
@@ -276,6 +408,9 @@ export default {
         margin: 0;
         margin-bottom: #{scaleValue(130)};
         font-size: 2.88rem;
+
+        flex-direction: column;
+        align-items: flex-start;
       }
 
       @media only screen and (max-width: 430px) {
@@ -318,6 +453,98 @@ export default {
         & + .header__menudropdown {
           display: block;
         }
+      }
+    }
+
+    &--itemdropdown {
+      position: relative;
+      z-index: 20;
+
+      &:hover {
+        & .headerlanding__menu--dropdown {
+          //background: red;
+          display: block;
+        }
+      }
+    }
+
+    &--dropdown {
+      position: absolute;
+      background: #1e2329;
+      min-width: 5rem;
+      min-height: 5rem;
+      transition: all 0.5s ease;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 0.2rem;
+
+      z-index: 20;
+      display: none;
+
+      &:hover {
+        display: block;
+      }
+
+      @media only screen and (max-width: 1024px) {
+        position: relative;
+        background: transparent;
+        transform: translateX(0);
+        width: 100vw;
+        left: 0;
+        top: 0;
+      }
+    }
+  }
+
+  &__dropdown {
+    &--grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+
+      @media only screen and (max-width: 1024px) {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+
+    &--content {
+      padding: 1rem;
+
+      @media only screen and (max-width: 1024px) {
+        padding: 0;
+
+        &:nth-child(1) {
+          //margin-top: 5rem;
+        }
+      }
+    }
+
+    &--item {
+      width: 30rem;
+      margin-bottom: 1rem;
+      transition: all 0.5s ease;
+      padding: 0.8rem;
+      border-radius: 0.5rem;
+
+      @media only screen and (max-width: 1024px) {
+        padding: 1rem;
+        width: auto;
+      }
+
+      &:hover {
+        background: rgba($black, 0.6);
+      }
+
+      & h3 {
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+      }
+
+      & p {
+        line-height: 1.3rem;
+        font-size: 0.8rem;
+
+        color: rgba($white, 0.5);
       }
     }
   }

@@ -27,7 +27,7 @@ var articleSchema = new Schema({
     type: Boolean,
     "default": false
   },
-  //for launch programs
+  // Fields for launch programs only
   launchdate: {
     type: String,
     "default": ""
@@ -42,15 +42,38 @@ var articleSchema = new Schema({
   },
   totalairdrops: {
     type: String,
-    "default": ''
+    "default": ""
   },
   status: {
     type: String,
-    "enum": ['Completed', 'Ongoing', 'Whitelisted']
+    "enum": ['Completed', 'Ongoing', 'Whitelisted'],
+    validate: {
+      validator: function validator(v) {
+        return this.type === 'launchprogram' ? !!v : !v;
+      },
+      message: "Status is only valid for 'launchprogram' type."
+    }
   },
   network_logo: {
     type: String
   }
+});
+articleSchema.pre('validate', function (next) {
+  console.log(this.type); // This will run before validation
+  if (this.type !== 'launchprogram') {
+    // Remove fields specific to 'launchprogram'
+    this.launchdate = undefined;
+    this.conclusiondate = undefined;
+    this.airdropdate = undefined;
+    this.totalairdrops = undefined;
+    this.status = undefined;
+    this.network_logo = undefined;
+  }
+  next();
+});
+articleSchema.pre('save', function (next) {
+  console.log("Pre-save middleware running for type:", this.type);
+  next();
 });
 var Article = mongoose.model('Article', articleSchema);
 module.exports = Article;

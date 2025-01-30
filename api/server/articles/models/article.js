@@ -2,54 +2,79 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const articleSchema = new Schema({
-    header: {
-        type: String,
-        required: true
-    },
-    subheader: {
-        type: String,
-    },
-    date: {
-        type: Date,
-        default: Date.now
-    },
-    content: {
-        type: Array,
-        required: true
-    },
-    type: {
-        type: String,
-        enum: ['announcement', 'news', 'blogpost', 'projects', 'launchprogram'],
-        required: true
-    },
-    hidden: {
-        type: Boolean,
-        default: false
-    },
-    //for launch programs
-    launchdate: {
-        type: String,
-        default: ""
-    },
-    conclusiondate: {
-        type: String,
-        default: ""
-    },
-    airdropdate: {
-        type: String,
-        default: ""
-    },
-    totalairdrops: {
-        type: String,
-        default: ''
-    },
-    status: {
-        type: String,
-        enum: ['Completed', 'Ongoing', 'Whitelisted']
-    },
-    network_logo: {
-        type: String
+  header: {
+    type: String,
+    required: true
+  },
+  subheader: {
+    type: String,
+  },
+  date: {
+    type: Date,
+    default: Date.now
+  },
+  content: {
+    type: Array,
+    required: true
+  },
+  type: {
+    type: String,
+    enum: ['announcement', 'news', 'blogpost', 'projects', 'launchprogram'],
+    required: true
+  },
+  hidden: {
+    type: Boolean,
+    default: false
+  },
+  // Fields for launch programs only
+  launchdate: {
+    type: String,
+    default: ""
+  },
+  conclusiondate: {
+    type: String,
+    default: ""
+  },
+  airdropdate: {
+    type: String,
+    default: ""
+  },
+  totalairdrops: {
+    type: String,
+    default: ""
+  },
+  status: {
+    type: String,
+    enum: ['Completed', 'Ongoing', 'Whitelisted'],
+    validate: {
+      validator: function (v) {
+        return this.type === 'launchprogram' ? !!v : !v;
+      },
+      message: "Status is only valid for 'launchprogram' type."
     }
+  },
+  network_logo: {
+    type: String
+  }
+});
+
+articleSchema.pre('validate', function (next) {
+  console.log(this.type); // This will run before validation
+  if (this.type !== 'launchprogram') {
+    // Remove fields specific to 'launchprogram'
+    this.launchdate = undefined;
+    this.conclusiondate = undefined;
+    this.airdropdate = undefined;
+    this.totalairdrops = undefined;
+    this.status = undefined;
+    this.network_logo = undefined;
+  }
+  next();
+});
+
+articleSchema.pre('save', function (next) {
+  console.log("Pre-save middleware running for type:", this.type);
+  next();
 });
 
 const Article = mongoose.model('Article', articleSchema);

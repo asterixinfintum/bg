@@ -13,6 +13,210 @@
         </span>
 
         <span class="button">
+          <button @click="addSpan('article')" class="btn colored-btn padded-btn">
+            article
+          </button>
+        </span>
+
+        <span class="button">
+          <button @click="addSpan('article__margin')" class="btn colored-btn padded-btn">
+            article__margin
+          </button>
+        </span>
+
+        <span class="button">
+          <button @click="addSpan('article__main')" class="btn colored-btn padded-btn">
+            article__main
+          </button>
+        </span>
+
+        <span class="button">
+          <button @click="addSpan('article__latest')" class="btn colored-btn padded-btn">
+            article__latest
+          </button>
+        </span>
+
+        <span class="button">
+          <button @click="addSpan('article__header')" class="btn colored-btn padded-btn">
+            article__header
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__sectionheader')"
+            class="btn colored-btn padded-btn"
+          >
+            article__sectionheader
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__paragraph')"
+            class="btn colored-btn padded-btn"
+          >
+            article__paragraph
+          </button>
+        </span>
+
+        <span class="button">
+          <button @click="addSpan('article__faint')" class="btn colored-btn padded-btn">
+            article__faint
+          </button>
+        </span>
+
+        <span class="button">
+          <button @click="addSpan('article__link')" class="btn colored-btn padded-btn">
+            article__link
+          </button>
+        </span>
+
+        <span class="button">
+          <button @click="addSpan('article__list')" class="btn colored-btn padded-btn">
+            article__list
+          </button>
+        </span>
+
+        <span class="button">
+          <button @click="addSpan('article__admin')" class="btn colored-btn padded-btn">
+            article__admin
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__adminbtns')"
+            class="btn colored-btn padded-btn"
+          >
+            article__adminbtns
+          </button>
+        </span>
+
+        <!-- Modifiers -->
+        <span class="button">
+          <button
+            @click="addSpan('article__margin--typicalbottm')"
+            class="btn colored-btn padded-btn"
+          >
+            article__margin--typicalbottm
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__margin--headerbottm')"
+            class="btn colored-btn padded-btn"
+          >
+            article__margin--headerbottm
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__header--small')"
+            class="btn colored-btn padded-btn"
+          >
+            article__header--small
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__paragraph--small')"
+            class="btn colored-btn padded-btn"
+          >
+            article__paragraph--small
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__paragraph--small2')"
+            class="btn colored-btn padded-btn"
+          >
+            article__paragraph--small2
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__paragraph--weight300')"
+            class="btn colored-btn padded-btn"
+          >
+            article__paragraph--weight300
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__paragraph--weight500')"
+            class="btn colored-btn padded-btn"
+          >
+            article__paragraph--weight500
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__paragraph--italic')"
+            class="btn colored-btn padded-btn"
+          >
+            article__paragraph--italic
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__faint--2')"
+            class="btn colored-btn padded-btn"
+          >
+            article__faint--2
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__link--underline')"
+            class="btn colored-btn padded-btn"
+          >
+            article__link--underline
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__list--item')"
+            class="btn colored-btn padded-btn"
+          >
+            article__list--item
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__admin--inputsection')"
+            class="btn colored-btn padded-btn"
+          >
+            article__admin--inputsection
+          </button>
+        </span>
+
+        <span class="button">
+          <button
+            @click="addSpan('article__admin--textbuilderbtns')"
+            class="btn colored-btn padded-btn"
+          >
+            article__admin--textbuilderbtns
+          </button>
+        </span>
+        <!--<span class="button">
+          <button @click="createNewParagraph" class="btn colored-btn padded-btn">
+            New paragraph
+          </button>
+        </span>
+
+        <span class="button">
           <button
             @click="addSpan('article__paragraph')"
             class="btn colored-btn padded-btn"
@@ -96,7 +300,7 @@
           <button @click="addSpan('list-item')" class="btn colored-btn padded-btn">
             List Item
           </button>
-        </span>
+        </span>-->
       </div>
 
       <div class="assetscontainer__listbodyitem">

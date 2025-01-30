@@ -7,7 +7,7 @@
         <div class="bitcoinpromo__box--text">
           <p>
             Don't miss out on our biggest Bitcoin leverage trade of the year. From December 1st
-            to January 31st, slash your trading fees, take advantage of this arbitrage,
+            to February 24th, slash your trading fees, take advantage of this arbitrage,
             and stack more sats for less.
           </p>
 

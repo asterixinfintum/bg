@@ -31,15 +31,16 @@ articleRoute.post('/admin/article/post', _authenticateToken["default"], /*#__PUR
           return article.save();
         case 4:
           res.status(201).json(article);
-          _context.next = 10;
+          _context.next = 11;
           break;
         case 7:
           _context.prev = 7;
           _context.t0 = _context["catch"](0);
+          console.log(_context.t0);
           res.status(500).json({
             message: _context.t0.message
           });
-        case 10:
+        case 11:
         case "end":
           return _context.stop();
       }

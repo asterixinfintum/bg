@@ -46,7 +46,10 @@
         }
     }
 
-    &__sectionheader {}
+    &__sectionheader {
+        font-size: 1.34rem;
+        line-height: 2rem;
+    }
 
     &__paragraph {
         font-size: 1rem;
@@ -62,9 +65,13 @@
             line-height: 1.2rem;
         }
 
-        &--weight300 {}
+        &--weight300 {
+            font-weight: 300;
+        }
 
-        &--weight500 {}
+        &--weight500 {
+            font-weight: 500;
+        }
 
         &--italic {
             font-style: italic;
@@ -89,8 +96,6 @@
 
         &--item {}
     }
-
-    &__latest {}
 
     &__admin {
 

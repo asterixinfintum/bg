@@ -9,7 +9,13 @@
       <div class="dataconsensus__swiperswiperwrapper swiper-wrapper">
         <div class="swiper-slide">
           <div class="dataconsensus__areabox">
-            <div class="dataconsensus__areabox--asset"></div>
+            <div class="dataconsensus__areabox--asset">
+              <figure>
+                <img
+                  src="@/assets/imgs/featureslogos/Screenshot__85_-removebg-preview.png"
+                />
+              </figure>
+            </div>
             <div class="dataconsensus__areabox--parea">
               <h4 class="dataconsensus__areabox--h4">Yearly rewards up to 4%</h4>
               <p class="dataconsensus__areabox--p">
@@ -22,7 +28,13 @@
 
         <div class="swiper-slide">
           <div class="dataconsensus__areabox">
-            <div class="dataconsensus__areabox--asset"></div>
+            <div class="dataconsensus__areabox--asset">
+              <figure>
+                <img
+                  src="@/assets/imgs/featureslogos/Screenshot__86_-removebg-preview.png"
+                />
+              </figure>
+            </div>
             <div class="dataconsensus__areabox--parea">
               <h4 class="dataconsensus__areabox--h4">Yearly rewards up to 6%</h4>
               <p class="dataconsensus__areabox--p">
@@ -35,7 +47,13 @@
 
         <div class="swiper-slide">
           <div class="dataconsensus__areabox">
-            <div class="dataconsensus__areabox--asset"></div>
+            <div class="dataconsensus__areabox--asset">
+              <figure>
+                <img
+                  src="@/assets/imgs/featureslogos/Screenshot__87_-removebg-preview.png"
+                />
+              </figure>
+            </div>
             <div class="dataconsensus__areabox--parea">
               <h4 class="dataconsensus__areabox--h4">Yearly rewards up to 8%</h4>
               <p class="dataconsensus__areabox--p">
@@ -48,7 +66,13 @@
 
         <div class="swiper-slide">
           <div class="dataconsensus__areabox">
-            <div class="dataconsensus__areabox--asset"></div>
+            <div class="dataconsensus__areabox--asset">
+              <figure>
+                <img
+                  src="@/assets/imgs/featureslogos/Screenshot__88_-removebg-preview.png"
+                />
+              </figure>
+            </div>
             <div class="dataconsensus__areabox--parea">
               <h4 class="dataconsensus__areabox--h4">Yearly rewards up to 14%</h4>
               <p class="dataconsensus__areabox--p">
@@ -64,7 +88,13 @@
     <div class="dataconsensus__attributes">
       <div class="dataconsensus__area" :class="{ right: direction === 'right' }">
         <div class="dataconsensus__areabox">
-          <div class="dataconsensus__areabox--asset"></div>
+          <div class="dataconsensus__areabox--asset">
+            <figure>
+              <img
+                src="@/assets/imgs/featureslogos/Screenshot__85_-removebg-preview.png"
+              />
+            </figure>
+          </div>
           <div class="dataconsensus__areabox--parea">
             <h4 class="dataconsensus__areabox--h4">Yearly rewards up to 5%</h4>
             <p class="dataconsensus__areabox--p">
@@ -75,7 +105,13 @@
         </div>
 
         <div class="dataconsensus__areabox">
-          <div class="dataconsensus__areabox--asset"></div>
+          <div class="dataconsensus__areabox--asset">
+            <figure>
+              <img
+                src="@/assets/imgs/featureslogos/Screenshot__88_-removebg-preview.png"
+              />
+            </figure>
+          </div>
           <div class="dataconsensus__areabox--parea">
             <h4 class="dataconsensus__areabox--h4">Yearly rewards up to 10%</h4>
             <p class="dataconsensus__areabox--p">
@@ -86,7 +122,13 @@
         </div>
 
         <div class="dataconsensus__areabox">
-          <div class="dataconsensus__areabox--asset"></div>
+          <div class="dataconsensus__areabox--asset">
+            <figure>
+              <img
+                src="@/assets/imgs/featureslogos/Screenshot__87_-removebg-preview.png"
+              />
+            </figure>
+          </div>
           <div class="dataconsensus__areabox--parea">
             <h4 class="dataconsensus__areabox--h4">Yearly rewards up to 4%</h4>
             <p class="dataconsensus__areabox--p">
@@ -97,7 +139,13 @@
         </div>
 
         <div class="dataconsensus__areabox">
-          <div class="dataconsensus__areabox--asset"></div>
+          <div class="dataconsensus__areabox--asset">
+            <figure>
+              <img
+                src="@/assets/imgs/featureslogos/Screenshot__86_-removebg-preview.png"
+              />
+            </figure>
+          </div>
           <div class="dataconsensus__areabox--parea">
             <h4 class="dataconsensus__areabox--h4">Yearly rewards up to 12%</h4>
             <p class="dataconsensus__areabox--p">
@@ -108,7 +156,13 @@
         </div>
 
         <div class="dataconsensus__areabox">
-          <div class="dataconsensus__areabox--asset"></div>
+          <div class="dataconsensus__areabox--asset">
+            <figure>
+              <img
+                src="@/assets/imgs/featureslogos/Screenshot__85_-removebg-preview.png"
+              />
+            </figure>
+          </div>
           <div class="dataconsensus__areabox--parea">
             <h4 class="dataconsensus__areabox--h4">Yearly rewards up to 14%</h4>
             <p class="dataconsensus__areabox--p">
@@ -185,6 +239,7 @@ export default {
 
   &__swiperswiperwrapper {
     display: flex;
+    flex-direction: row-reverse;
     align-items: center;
     width: 100%;
   }
@@ -245,6 +300,20 @@ export default {
 
       @media only screen and (max-width: 1024px) {
         height: #{scaleValue(800)};
+      }
+
+      & figure {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & img {
+          object-fit: contain;
+          height: 50%;
+          width: 50%;
+        }
       }
     }
 

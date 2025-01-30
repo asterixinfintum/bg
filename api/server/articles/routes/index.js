@@ -14,6 +14,7 @@ articleRoute.post('/admin/article/post', authenticateToken, async (req, res) => 
         await article.save();
         res.status(201).json(article);
     } catch (err) {
+        console.log(err);
         res.status(500).json({ message: err.message });
     }
 });

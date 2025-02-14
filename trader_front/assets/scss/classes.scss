@@ -572,7 +572,7 @@ h3 {
     animation: fadeInUp 0.8s ease-in-out forwards;
 }
 
-.no-arrows::-webkit-inner-spin-button, 
+.no-arrows::-webkit-inner-spin-button,
 .no-arrows::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
@@ -581,4 +581,8 @@ h3 {
 /* Remove arrows in Firefox */
 .no-arrows[type="number"] {
     -moz-appearance: textfield;
+}
+
+.primary-color-font-color {
+    color: #cd5322 !important;
 }

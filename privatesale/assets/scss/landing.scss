@@ -1,0 +1,215 @@
+$primary-orange: rgba(205, 83, 34, 1);
+$white: rgba(255, 255, 255, 1);
+
+.landing {
+    padding: 3rem;
+    font-family: "Space Grotesk", sans-serif;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__logo {
+        color: $primary-orange;
+        font-weight: 500;
+        font-size: 2rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+
+        & figure {
+            height: 2rem;
+            margin-right: .5rem;
+            display: flex;
+            align-items: center;
+
+            & img {
+                object-fit: cover;
+                height: 100%;
+                width: 100%;
+            }
+        }
+    }
+
+    &__headermenu {
+        display: flex;
+        align-items: center;
+
+        &--item {
+            margin-left: 3rem;
+            cursor: pointer;
+            //olor: rbga($primary-orange, .3);
+
+            &.join {
+                border: 1px solid $white;
+                border-radius: .3rem;
+                padding: .5rem 2rem;
+                cursor: pointer;
+            }
+
+            &.joined {
+                color: $primary-orange;
+                border: 1px solid $primary-orange;
+                box-shadow: 0 0 5px rgba($primary-orange, 0.6), // Smaller inner glow
+                    0 0 10px rgba($primary-orange, 0.4), // Smaller outer glow
+                    0 0 15px rgba($primary-orange, 0.2);
+            }
+        }
+    }
+
+    &__jumbotron {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 7rem;
+
+        &--area {
+
+            &:nth-child(1) {
+                //background: blue;
+                width: 60%;
+            }
+
+            &:nth-child(2) {
+                //background: green;
+                width: 40%;
+            }
+        }
+    }
+
+    &__htags {
+        display: flex;
+        flex-direction: column;
+    }
+
+    &__htag {
+
+        &.main {
+            font-size: 1.8rem;
+            font-weight: 500;
+            margin-bottom: .6rem;
+            line-height: 4rem;
+        }
+
+        &.sub {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: rgba(205, 83, 34, 1);
+
+            & h2 {
+                font-weight: 300;
+            }
+        }
+    }
+
+    &__timer {
+        display: flex;
+    }
+
+    &__timercontent {
+        justify-content: flex-start;
+        border: .1px solid rgba($white, .5);
+        min-width: 25rem;
+        border-radius: 1rem;
+        min-height: 23rem;
+
+        padding: 2rem;
+
+        &--header {
+            font-size: 1.3rem;
+            color: rgba($white, .5);
+
+        }
+
+        &--join {
+            width: 100%;
+
+            & button {
+                background: $neon-green;
+                color: #000;
+                border-radius: 3rem;
+                width: 100%;
+                border: none;
+                padding: 1rem;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                cursor: pointer;
+
+                & span {
+
+                    &:nth-child(1) {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        background: #000;
+                        border-radius: 100%;
+                        padding-bottom: .1rem;
+                        height: 1.5rem;
+                        width: 1.5rem;
+                        color: white;
+                        margin-right: .5rem;
+                    }
+                }
+            }
+        }
+    }
+
+    &__timerblocks {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    &__timerblock {
+        border-radius: 1rem;
+        height: 9rem;
+        border: 0.1px solid rgba(255, 255, 255, 0.5);
+        display: flex;
+        flex-direction: column;
+        width: 4rem;
+        align-items: center;
+        padding: 1rem;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            background: #0d0e0f;
+            left: 0;
+            height: 1.9rem;
+            width: 100%;
+            z-index: 2;
+        }
+
+        &::before {
+            top: 0;
+        }
+
+        &::after {
+            bottom: 0;
+        }
+
+        &--demarc {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+
+            & span {
+                display: flex;
+                border-radius: 100%;
+                background: rgba($white, .3);
+
+            }
+        }
+    }
+}

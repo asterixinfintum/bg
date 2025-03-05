@@ -179,7 +179,7 @@
 
 <script>
 import { ethers } from "ethers";
-import smartcontracts from "../mixins/smartcontracts";
+import smartcontracts from "@/mixins/smartcontracts";
 
 export default {
   props: ["multiswap"],
@@ -200,6 +200,8 @@ export default {
     async paymentContract(newValue, oldValue) {
       if (newValue) {
         this.updateETHBalance();
+
+        this.getBVXtBalance();
       }
     }
   },
@@ -255,12 +257,6 @@ export default {
       this.ethbalance = formatBigNumber(ethblc);
 
       console.log(ethblc, this.ethbalance, 'ethblc herre')
-    },
-    async getBVXtBalance() {
-      const { formatBigNumber, userIdentifier } = this;
-      const contract = this.paymentContract;
-
-
     },
     assetFromListVisible_toggle() {
       console.log('toggling')
@@ -499,7 +495,7 @@ export default {
   &__togglefocuscontrollers {
     & input {
       position: absolute;
-      opacity: 1;
+      opacity: 0;
       height: 0;
       width: 0;
       padding: 0;

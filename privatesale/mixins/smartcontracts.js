@@ -7,7 +7,7 @@ export default {
             paymentContract: null,
             usdtbalance: 0,
             ethbalance: 0,
-            bvxtbalance: 0,
+            bvxtbalance: 20,
             currentbalance: 0,
             usdtPrice: 0,
             ethPrice: 0,
@@ -22,7 +22,7 @@ export default {
     },
     computed: {
         allowBuy() {
-            return this.amountFrom != 0 && this.amountFrom != null;
+            return this.amountFrom != 0 && this.amountFrom != null && this.amountFrom > 0.51;
         },
         buyable() {
             return this.currentbalance > 0;
@@ -35,6 +35,9 @@ export default {
         },
         userIdentifier() {
             return this.$store.state.userIdentifier;
+        },
+        userBVXtBalance() {
+            return this.$store.state.userBVXtBalance;
         },
         priceFeedAbi() {
             return this.$store.state.priceFeedAbi;
@@ -81,12 +84,23 @@ export default {
                 console.error("Error updating ETH balance:", error);
             }
         },
+        async getBVXtBalance() {
+            const { formatBigNumber, userIdentifier } = this;
+            const contract = this.paymentContract;
+
+            const balance = await contract.bxtvBalance(userIdentifier);
+            const formatted = ethers.utils.formatUnits(balance, 1);
+
+            this.bxvtBalance = formatted;
+
+            this.$store.dispatch('setUserBVXtBalance', formatted);
+        },
         async callReceivePayment(entryFeeETH) {
             this.loading = true;
             try {
                 const valueInWei = ethers.utils.parseEther(entryFeeETH.toString());
 
-                const tx = await this.paymentContract.receivePayment({
+                const tx = await this.paymentContract.privateSaleEntry({
                     value: valueInWei,
                 });
 
@@ -100,6 +114,8 @@ export default {
                 const event = this.paymentContract.interface.parseLog(receipt.logs[0]);
                 console.log("PaymentReceived event:", event.args);
                 this.updateETHBalance();
+                this.getBVXtBalance();
+
                 this.loading = false;
                 this.amountFrom = null;
             } catch (error) {

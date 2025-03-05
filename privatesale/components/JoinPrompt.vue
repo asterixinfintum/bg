@@ -33,10 +33,10 @@
                     </span>
                 </button>
 
-                <button class="email">
+                <!--<button class="email">
                     <span>Join with Email</span>
                     <span class="emaillogo">@</span>
-                </button>
+                </button>-->
             </div>
         </div>
     </div>

@@ -40,7 +40,7 @@
                                             <div v-for="(balance, i) in card.balance" :key="i"
                                                 class="dashboard__balance--figure">
                                                 <span class="balance-label">{{ balance.label }}</span>
-                                                <span class="balance-value">${{ balance.value }}</span>
+                                                <span class="balance-value">${{ balance.label === "BVXt Balance" ? userBVXtBalance : 0 }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -91,59 +91,62 @@
 </template>
 
 <script>
-//balance/buy more
-//governance point balance/buy governance points
-//liquidity pool points/add more/increase liquidity pool points
+import smartcontracts from "@/mixins/smartcontracts";
 
-
-//rewards
 export default {
+    mixins: [smartcontracts],
     data() {
         return {
             balanceCards: [
                 {
-                    symbol: "DGXt",
-                    name: "DGXt",
+                    symbol: "BVXt",
+                    name: "BVXt",
+                    tier: "Tier 1", // Private sale token
                     balance: [
-                        { label: "Balance", value: 0 },
-                        { label: "Balance", value: 0 }
+                        { label: "BVXt Balance", value: 0 },
+                        { label: "Locked Balance", value: 0 },
                     ],
-                    action: "Buy"
+                    action: "Purchase DGXt"
                 },
                 {
-                    symbol: "DGXt",
-                    name: "DGXt",
+                    symbol: "GOVX",
+                    name: "Governance Token",
+                    tier: "Tier 2", // Governance token
                     balance: [
-                        { label: "Balance", value: 0 },
-                        { label: "Balance", value: 0 }
+                        { label: "Available Balance", value: 0 },
+                        { label: "Locked Balance", value: 0 }
                     ],
-                    action: "Buy"
+                    action: "Stake GOVX" // Governance tokens are often staked for voting rights
                 },
                 {
-                    symbol: "DGXt",
-                    name: "DGXt",
+                    symbol: "UTILX",
+                    name: "Utility Token",
+                    tier: "Tier 3", // Utility token
                     balance: [
-                        { label: "Balance", value: 0 },
-                        { label: "Balance", value: 0 }
+                        { label: "Available Balance", value: 0 },
+                        { label: "Locked Balance", value: 0 }
                     ],
-                    action: "Buy"
+                    action: "Use UTILX" // Utility tokens are used for protocol features
                 }
             ],
             rewards: [
                 {
                     image: "/imgs/ethereum-eth-logo.png",
-                    label: "Holder Rewards",
-                    value: "$0"
+                    label: "Token Holder Rewards",
+                    value: "$0",
+                    status: "Pending" // Added to indicate reward status
                 },
                 {
                     image: "/imgs/ethereum-eth-logo.png",
-                    label: "Staking Rewards",
-                    value: "$50"
+                    label: "Staking Earnings",
+                    value: "$0",
+                    status: "Claimable" // Added to indicate reward status
                 },
                 {
                     image: "/imgs/ethereum-eth-logo.png",
-                    label: "Referral Rewards",
-                    value: "$100"
+                    label: "Referral Bonuses",
+                    value: "$0",
+                    status: "Claimed" // Added to indicate reward status
                 }
             ]
         }
@@ -153,11 +156,12 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard {
-    background: $black-opacity;
+    //background: $black-opacity;
     min-height: 100vh;
 
     &__content {
         padding: 3rem;
+        margin-top: 6rem;
     }
 
     &__contentgrid {
@@ -254,9 +258,9 @@ export default {
     }
 
     &__section {
-        box-shadow: 0 0 5px rgba($primary-orange, 0.6), 
-            0 0 10px rgba($primary-orange, 0.4), 
-            0 0 15px rgba($primary-orange, 0.2); 
+        box-shadow: 0 0 5px rgba($primary-orange, 0.6),
+            0 0 10px rgba($primary-orange, 0.4),
+            0 0 15px rgba($primary-orange, 0.2);
         padding: 2rem;
         border-radius: 1rem;
         background: #0d0e0f;

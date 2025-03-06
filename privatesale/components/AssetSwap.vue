@@ -173,18 +173,26 @@
       <div v-if="loading">
         <button class="assetbuy__button slide-in-from-up">Transacting...</button>
       </div>
+
+      <div v-if="userDetails.btcAddress">
+        <button class="assetbuy__button buyable slide-in-from-up" @click="connect">Connect Metamask</button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { ethers } from "ethers";
 import smartcontracts from "@/mixins/smartcontracts";
+import api from "@/mixins/api";
 
 export default {
   props: ["multiswap"],
-  mixins: [smartcontracts],
+  mixins: [smartcontracts, api],
   watch: {
+    userIdentifier(newValue, oldValue) {
+      this.setPriceFeedContract();
+      this.setPaymentContract();
+    },
     amountFrom(newValue, oldValue) {
       console.log(newValue)
     },

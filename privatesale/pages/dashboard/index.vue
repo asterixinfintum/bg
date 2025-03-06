@@ -3,6 +3,9 @@
         <div class="dashboard">
             <div class="dashboard__content">
                 <Header />
+                <div v-if="notavailable">
+                    <NotAvailable :close="toggleNotAvail" />
+                </div>
                 <div class="dashboard__contentgrid">
                     <div class="dashboard__left">
                         <div class="dashboard__section">
@@ -23,7 +26,8 @@
                                             </div>
 
                                             <div class="dashboard__balance--action">
-                                                <span class="action-label">{{ card.action }}</span>
+                                                <span class="action-label" @click="card.clickMethod">{{ card.action
+                                                    }}</span>
                                                 <span class="action">
                                                     <svg stroke="currentColor" fill="none" stroke-width="2"
                                                         viewBox="0 0 24 24" stroke-linecap="round"
@@ -40,7 +44,8 @@
                                             <div v-for="(balance, i) in card.balance" :key="i"
                                                 class="dashboard__balance--figure">
                                                 <span class="balance-label">{{ balance.label }}</span>
-                                                <span class="balance-value">${{ balance.label === "BVXt Balance" ? userBVXtBalance : 0 }}</span>
+                                                <span class="balance-value">${{ balance.label === "BVXt Balance" ?
+                                                    userDetails.bvxtBalance : 0 }}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -79,7 +84,24 @@
                     <div class="dashboard__right">
                         <div class="launchpagebuy">
                             <div class="launchpagebuy__content">
-                                <AssetSwap />
+                                <div v-if="userDetails.btcAddress">
+                                    <div>
+                                        <div class="dashboard__btc">
+                                            <span class="dashboard__btc--address">{{ userDetails.btcAddress }}</span>
+
+                                            <button class="dashboard__btc--copybtn" @click="copyAddress">{{
+                                                copyAddressLabel }}</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div v-if="isIdentifierEmail" class="or-label">
+                                    <span>Or</span>
+                                </div>
+
+                                <div>
+                                    <AssetSwap />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -92,11 +114,21 @@
 
 <script>
 import smartcontracts from "@/mixins/smartcontracts";
+import api from "@/mixins/api";
 
 export default {
-    mixins: [smartcontracts],
+    mixins: [smartcontracts, api],
+    computed: {
+
+    },
+    methods: {
+        toggleNotAvail() {
+            this.notavailable = !this.notavailable
+        }
+    },
     data() {
         return {
+            notavailable: false,
             balanceCards: [
                 {
                     symbol: "BVXt",
@@ -106,7 +138,10 @@ export default {
                         { label: "BVXt Balance", value: 0 },
                         { label: "Locked Balance", value: 0 },
                     ],
-                    action: "Purchase DGXt"
+                    action: "Purchase DGXt",
+                    clickMethod: () => {
+
+                    }
                 },
                 {
                     symbol: "GOVX",
@@ -116,7 +151,10 @@ export default {
                         { label: "Available Balance", value: 0 },
                         { label: "Locked Balance", value: 0 }
                     ],
-                    action: "Stake GOVX" // Governance tokens are often staked for voting rights
+                    action: "Stake GOVX",
+                    clickMethod: () => {
+                        this.toggleNotAvail();
+                    }// Governance tokens are often staked for voting rights
                 },
                 {
                     symbol: "UTILX",
@@ -126,7 +164,10 @@ export default {
                         { label: "Available Balance", value: 0 },
                         { label: "Locked Balance", value: 0 }
                     ],
-                    action: "Use UTILX" // Utility tokens are used for protocol features
+                    action: "Use UTILX",
+                    clickMethod: () => {
+                        this.toggleNotAvail();
+                    } // Utility tokens are used for protocol features
                 }
             ],
             rewards: [
@@ -296,5 +337,39 @@ export default {
             width: 100%;
         }
     }
+
+    &__btc {
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        background: #161618;
+        border-radius: 0.4rem;
+        padding: 1.5rem;
+
+        & span {
+            color: rgba($primary-orange, 0.9);
+        }
+
+
+        & button {
+            background: #39FF14;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            border-radius: .6rem;
+            padding: .7rem .5rem;
+            width: 8rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            font-size: .8rem;
+        }
+    }
+}
+
+.or-label {
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+    font-size: .8rem;
 }
 </style>

@@ -21,6 +21,14 @@ export default {
         }
     },
     computed: {
+        isIdentifierEmail() {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailPattern.test(this.userEmail)) {
+                return true
+            } else {
+                return false;
+            }
+        },
         allowBuy() {
             return this.amountFrom != 0 && this.amountFrom != null && this.amountFrom > 0.51;
         },
@@ -35,6 +43,9 @@ export default {
         },
         userIdentifier() {
             return this.$store.state.userIdentifier;
+        },
+        userEmail() {
+            return this.$store.state.userEmail;
         },
         userBVXtBalance() {
             return this.$store.state.userBVXtBalance;
@@ -130,6 +141,8 @@ export default {
             return formattedValue
         },
         async connect() {
+            this.$store.dispatch('clearUserData');
+
             const provider = await this.createProvider();
 
             const userAddress = await this.returnUserAddress(provider);

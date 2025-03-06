@@ -1,6 +1,8 @@
 
 export const state = () => ({
     userIdentifier: null,
+    userEmail: null,
+    userDetails: {},
     userBVXtBalance: 0,
     priceFeedAbi: [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "inputs": [{ "internalType": "address", "name": "aggregatorAddress", "type": "address" }], "name": "getChainlinkDataFeedLatestAnswer", "outputs": [{ "internalType": "int256", "name": "", "type": "int256" }], "stateMutability": "view", "type": "function" }],
     priceFeedAddress: '0x0a14F2fD1BB14d94ceE0b889Bf59CCbfA1E2826d',
@@ -10,36 +12,67 @@ export const state = () => ({
 
 // Actions
 export const actions = {
+    // Set the entire userDetails object
+    setUserDetails({ commit }, userDetails) {
+        commit('SET_USER_DETAILS', userDetails);
+    },
+
+    // Clear the entire userDetails object
+    clearUserDetails({ commit }) {
+        commit('CLEAR_USER_DETAILS');
+    },
+
+    // Update specific fields in userDetails
     setUserIdentifier({ commit }, identifier) {
         commit('SET_USER_IDENTIFIER', identifier);
     },
 
-    clearUserIdentifier({ commit }) {
-        commit('CLEAR_USER_IDENTIFIER');
+    setUserEmail({ commit }, email) {
+        commit('SET_USER_EMAIL', email);
     },
 
     setUserBVXtBalance({ commit }, balance) {
-        commit('SET_USER_BVXT_BLC', balance);
+        commit('SET_USER_BVXT_BALANCE', balance);
     },
 };
 
 // Getters
 export const getters = {
-    getUserIdentifier: (state) => state.userIdentifier,
-    getUserBVXtBalance: (state) => state.userBVXtBalance,
+    // Get the entire userDetails object
+    getUserDetails: (state) => state.userDetails,
+
+    // Get specific fields from userDetails
+    getUserIdentifier: (state) => state.userDetails.identifier,
+    getUserEmail: (state) => state.userDetails.email,
+    getUserBVXtBalance: (state) => state.userDetails.bvxtBalance,
 };
 
 // Mutations
 export const mutations = {
+    // Set the entire userDetails object
+    SET_USER_DETAILS(state, userDetails) {
+        state.userDetails = { ...state.userDetails, ...userDetails };
+    },
+
+    // Clear the entire userDetails object
+    CLEAR_USER_DETAILS(state) {
+        state.userDetails = {
+            identifier: null,
+            email: null,
+            bvxtBalance: 0,
+        };
+    },
+
+    // Update specific fields in userDetails
     SET_USER_IDENTIFIER(state, identifier) {
-        state.userIdentifier = identifier;
+        state.userDetails.identifier = identifier;
     },
 
-    CLEAR_USER_IDENTIFIER(state) {
-        state.userIdentifier = null;
+    SET_USER_EMAIL(state, email) {
+        state.userDetails.email = email;
     },
 
-    SET_USER_BVXT_BLC(state, balance) {
-        state.userBVXtBalance = balance;
+    SET_USER_BVXT_BALANCE(state, balance) {
+        state.userDetails.bvxtBalance = balance;
     },
 };

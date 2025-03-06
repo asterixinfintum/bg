@@ -2,41 +2,105 @@
     <div class="joinprompt">
         <div class="joinprompt__content slide-in">
 
-            <div class="joinprompt__content--top">
-                <div class="landing__logo joinprompt__content--logo" @click="$router.push('/')">
-                    <figure>
-                        <img src="/imgs/bvx-logo.png" />
-                    </figure>
-                    <span>BVX</span>
+            <div v-if="pinView">
+                <div class="joinprompt__emailview">
+                    <div class="joinprompt__content--top">
+                        <div class="landing__logo joinprompt__content--logo" @click="$router.push('/')">
+                            <figure>
+                                <img src="/imgs/bvx-logo.png" />
+                            </figure>
+                            <span>BVX</span>
+                        </div>
+
+                        <div class="joinprompt__content--close" @click="closeEmailView">
+                            <span>✕</span>
+                        </div>
+                    </div>
+
+                    <div class="joinprompt__otpmsg" v-if="otpmsg">
+                        <p>We sent am otp to your email</p>
+                        <p>Check your spam just in case!</p>
+                    </div>
+
+                    <div class="joinprompt__emailinput">
+                        <input type="text" v-model="pin" @input="validateEmail" class="white-input" />
+                        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+                    </div>
+
+                    <div class="joinprompt__emailbutton">
+                        <button :disabled="pin.length === 0 || pin.length < 8 || loading" @click="submitPin" :class="{
+                            'disabled': !isEmailValid || errorMessage.length > 0 || loading
+                        }">{{ loading ? 'Please wait...' : 'Verify Pin' }}</button>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="emailView">
+                <div class="joinprompt__emailview">
+                    <div class="joinprompt__content--top">
+                        <div class="landing__logo joinprompt__content--logo" @click="$router.push('/')">
+                            <figure>
+                                <img src="/imgs/bvx-logo.png" />
+                            </figure>
+                            <span>BVX</span>
+                        </div>
+
+                        <div class="joinprompt__content--close" @click="closeEmailView">
+                            <span>✕</span>
+                        </div>
+                    </div>
+
+                    <div class="joinprompt__emailinput">
+                        <input type="email" v-model="email" @input="validateEmail" />
+                        <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
+                    </div>
+
+                    <div class="joinprompt__emailbutton">
+                        <button :disabled="!isEmailValid || errorMessage.length > 0 || loading" @click="submitEmail"
+                            :class="{
+                                'disabled': !isEmailValid || errorMessage.length > 0 || loading
+                            }">{{ loading ? 'Please wait...' : 'Join Private Sale' }}</button>
+                    </div>
+                </div>
+            </div>
+
+            <div v-if="!emailView && !pinView">
+                <div class="joinprompt__content--top">
+                    <div class="landing__logo joinprompt__content--logo" @click="$router.push('/')">
+                        <figure>
+                            <img src="/imgs/bvx-logo.png" />
+                        </figure>
+                        <span>BVX</span>
+                    </div>
+
+                    <div class="joinprompt__content--close" @click="closemethod">
+                        <span>✕</span>
+                    </div>
                 </div>
 
-                <div class="joinprompt__content--close" @click="closemethod">
-                    <span>✕</span>
+                <div class="joinprompt__content--header">
+                    <h2>Join the private sale</h2>
                 </div>
-            </div>
 
-            <div class="joinprompt__content--header">
-                <h2>Join the private sale</h2>
-            </div>
+                <div class="joinprompt__content--sub">
+                    <h3>Sign in with your metamask wallet, or join via email</h3>
+                </div>
 
-            <div class="joinprompt__content--sub">
-                <h3>Sign in with your metamask wallet, or join via email</h3>
-            </div>
+                <div class="joinprompt__content--buttons">
+                    <button class="metamask" @click="connect">
+                        <span>
+                            Join with Metamask
+                        </span>
+                        <span>
+                            <img src="@/assets/svgs/SVG_MetaMask_Icon_Color.svg" />
+                        </span>
+                    </button>
 
-            <div class="joinprompt__content--buttons">
-                <button class="metamask" @click="connect">
-                    <span>
-                        Join with Metamask
-                    </span>
-                    <span>
-                        <img src="@/assets/svgs/SVG_MetaMask_Icon_Color.svg" />
-                    </span>
-                </button>
-
-                <!--<button class="email">
-                    <span>Join with Email</span>
-                    <span class="emaillogo">@</span>
-                </button>-->
+                    <button class="email" @click="openEmailView">
+                        <span>Join with Email</span>
+                        <span class="emaillogo">@</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -44,14 +108,39 @@
 
 <script>
 import smartcontracts from "@/mixins/smartcontracts";
+import api from "@/mixins/api";
 
 export default {
+    data() {
+        return {
+
+        }
+    },
     props: ['closemethod'],
-    mixins: [smartcontracts],
+    mixins: [smartcontracts, api],
     methods: {
         close() {
             this.closemethod();
-        }
+        },
+        openEmailView() {
+            this.emailView = true;
+        },
+        closeEmailView() {
+            this.emailView = false;
+        },
+        validateEmail() {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email regex
+            if (this.email === '') {
+                this.errorMessage = '';
+                this.isEmailValid = false;
+            } else if (!emailPattern.test(this.email)) {
+                this.errorMessage = 'Please enter a valid email address.';
+                this.isEmailValid = false;
+            } else {
+                this.errorMessage = '';
+                this.isEmailValid = true;
+            }
+        },
     }
 }
 </script>
@@ -163,6 +252,51 @@ export default {
                 }
             }
         }
+    }
+
+    &__emailinput {
+        width: 100%;
+        margin-bottom: 1rem;
+
+        & input {
+            background: rgba($primary-orange, .4);
+            width: 100%;
+            border-radius: 1rem;
+            color: $white;
+            font-size: 1rem;
+            outline: none;
+            border: none;
+            padding: 1rem;
+
+            &.white-input {
+                background: rgba($white, .9);
+                color: $black;
+            }
+        }
+    }
+
+    &__emailbutton {
+        width: 100%;
+
+        & button {
+            width: 100%;
+            border-radius: 3rem;
+            background: $black;
+            color: $white;
+            font-size: 1rem;
+            cursor: pointer;
+            outline: none;
+            border: none;
+            padding: 1rem;
+
+            &.disabled {
+                opacity: .4;
+            }
+        }
+    }
+
+    &__otpmsg {
+        margin-bottom: 1rem;
     }
 }
 </style>

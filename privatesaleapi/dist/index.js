@@ -21,7 +21,7 @@ mongoose.connect(MONGODB_URI, {
   useUnifiedTopology: true
 }).then(function () {
   console.log('Connected to MongoDB');
-  var PORT = 8085;
+  var PORT = process.env.PORT;
   app.listen(PORT, function () {
     console.log("Server is running on http://localhost:".concat(PORT));
   });

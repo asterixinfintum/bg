@@ -30,7 +30,7 @@ mongoose
     })
     .then(() => {
         console.log('Connected to MongoDB');
-        const PORT = 8085;
+        const PORT = process.env.PORT;
         app.listen(PORT, () => {
             console.log(`Server is running on http://localhost:${PORT}`);
         });

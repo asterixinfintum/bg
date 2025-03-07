@@ -1,7 +1,7 @@
 export default {
     data() {
         return {
-            url: "https://presale.bvxtrade.com/api",
+            url: "https:// privatesaleapi.bvxtrade.com",
             email: "",
             pin: "",
             authmessage: "",

@@ -11,6 +11,8 @@
         <Jumbotron />
       </div>
       <div class="container__content">
+        <PresaleCards />
+        
         <SectionOne />
 
         <HeroAnnounce />

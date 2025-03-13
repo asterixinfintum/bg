@@ -127,6 +127,7 @@ export default {
       '~/assets/scss/section.scss',
       '~/assets/scss/scrollslider.scss',
       '~/assets/scss/article.scss',
+      '~/assets/scss/privatesale.scss',
     ],
     hoistUseStatements: true
   },

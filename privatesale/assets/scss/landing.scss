@@ -5,6 +5,10 @@ $white: rgba(255, 255, 255, 1);
     padding: 3rem;
     font-family: "Space Grotesk", sans-serif;
 
+    @media only screen and (max-width: 430px) {
+        padding: 3rem 1.4rem;
+    }
+
     &__header {
         display: flex;
         justify-content: space-between;
@@ -17,6 +21,30 @@ $white: rgba(255, 255, 255, 1);
         width: 100%;
         padding: 3rem;
         z-index: 3;
+
+        @media only screen and (max-width: 430px) {
+            padding: 1rem;
+            padding-top: 3rem;
+            width: 100vw;
+        }
+
+        &--burger {
+            display: none;
+
+            @media only screen and (max-width: 430px) {
+                display: flex;
+                flex-direction: column;
+            }
+
+            & span {
+                border-radius: 3rem;
+                display: inline-block;
+                height: .3rem;
+                width: 2rem;
+                background: $white;
+                margin: .1rem 0;
+            }
+        }
     }
 
     &__logo {
@@ -45,10 +73,37 @@ $white: rgba(255, 255, 255, 1);
         display: flex;
         align-items: center;
 
+        @media only screen and (max-width: 430px) {
+            position: fixed;
+            height: 100vh;
+            width: 100vw;
+            background: rgba($black, .6);
+            top: 0;
+            left: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            padding: 0rem;
+            z-index: 30;
+
+            &.invisible {
+                display: none;
+            }
+        }
+
         &--item {
             margin-left: 3rem;
             cursor: pointer;
-            //olor: rbga($primary-orange, .3);
+
+            @media only screen and (max-width: 430px) {
+                cursor: pointer;
+                margin: 0;
+                font-size: 2rem;
+                margin-left: 2rem;
+                margin-top: 2rem;
+            }
 
             &.join {
                 border: 1px solid $white;
@@ -65,6 +120,29 @@ $white: rgba(255, 255, 255, 1);
                     0 0 15px rgba($primary-orange, 0.2);
             }
         }
+
+        &--X {
+
+            position: absolute;
+            right: 1.3rem;
+            top: 2rem;
+            font-size: 1rem;
+            border-radius: 100%;
+            padding: 1rem;
+            background: $white;
+            color: $black;
+            height: 2rem;
+            width: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 700;
+            display: none;
+
+            @media only screen and (max-width: 430px) {
+                display: flex;
+            }
+        }
     }
 
     &__jumbotronparent {
@@ -76,6 +154,13 @@ $white: rgba(255, 255, 255, 1);
         padding: 3rem;
         background: #0d0e0f;
         z-index: 1;
+
+        @media only screen and (max-width: 430px) {
+            position: relative;
+            height: auto;
+            padding: 0;
+            padding-top: 1rem;
+        }
     }
 
     &__jumbotron {
@@ -83,16 +168,27 @@ $white: rgba(255, 255, 255, 1);
         justify-content: space-between;
         margin-top: 10rem;
 
+        @media only screen and (max-width: 430px) {
+            margin-top: 0;
+            flex-direction: column;
+        }
+
         &--area {
 
             &:nth-child(1) {
-                //background: blue;
                 width: 60%;
+
+                @media only screen and (max-width: 430px) {
+                    width: auto;
+                }
             }
 
             &:nth-child(2) {
-                //background: green;
                 width: 40%;
+
+                @media only screen and (max-width: 430px) {
+                    width: auto;
+                }
             }
         }
 
@@ -105,6 +201,10 @@ $white: rgba(255, 255, 255, 1);
         z-index: 2;
         background: #0d0e0f;
         margin-top: 30rem;
+
+        @media only screen and (max-width: 430px) {
+            margin-top: 0;
+        }
     }
 
     &__sections {
@@ -125,6 +225,11 @@ $white: rgba(255, 255, 255, 1);
             grid-template-columns: 40rem 1fr 1fr;
             gap: 10px;
             grid-gap: 1rem;
+
+            @media only screen and (max-width: 430px) {
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         &--2 {
@@ -132,6 +237,11 @@ $white: rgba(255, 255, 255, 1);
             grid-template-columns: 49rem 1fr;
             gap: 10px;
             grid-gap: 1rem;
+
+            @media only screen and (max-width: 430px) {
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         &--3 {
@@ -139,6 +249,11 @@ $white: rgba(255, 255, 255, 1);
             grid-template-columns: 1fr 1fr 40rem;
             gap: 10px;
             grid-gap: 1rem;
+
+            @media only screen and (max-width: 430px) {
+                display: flex;
+                flex-direction: column;
+            }
         }
 
         &--header {
@@ -212,6 +327,13 @@ $white: rgba(255, 255, 255, 1);
             font-weight: 500;
             margin-bottom: .6rem;
             line-height: 4rem;
+
+            @media screen and (max-width: 430px) {
+                font-size: 1rem;
+                font-weight: 500;
+                line-height: 2.5rem;
+                margin-bottom: .6rem;
+            }
         }
 
         &.sub {
@@ -238,10 +360,15 @@ $white: rgba(255, 255, 255, 1);
 
         padding: 2rem;
 
+        @media only screen and (max-width: 430px) {
+            min-width: auto;
+            width: auto;
+            margin: 0 .2rem;
+        }
+
         &--header {
             font-size: 1.3rem;
             color: rgba($white, .5);
-
         }
 
         &--join {

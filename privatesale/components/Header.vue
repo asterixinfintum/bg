@@ -9,7 +9,15 @@
             </div>
         </div>
 
-        <div class="landing__headermenu">
+        <div class="landing__header--burger" @click="toggleMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <div class="landing__headermenu" :class="{
+            'invisible': !menuopen
+        }">
             <div class="landing__headermenu--item" v-if="!userIdentifier" @click="scrollToDiv('thesis')"
                 :class="{ 'currentMenu': currentMenu == 'thesis' }">Thesis</div>
             <div class="landing__headermenu--item" v-if="!userIdentifier" @click="scrollToDiv('markets')"
@@ -19,6 +27,8 @@
 
             <div class="landing__headermenu--item joined join" v-if="userIdentifier">{{ clipString(userIdentifier) }}
             </div>
+
+            <div class="landing__headermenu--X" @click="toggleMenu">X</div>
         </div>
     </div>
 </template>
@@ -27,7 +37,8 @@
 export default {
     data() {
         return {
-            currentMenu: ""
+            currentMenu: "",
+            menuopen: false
         }
     },
     props: [
@@ -51,7 +62,11 @@ export default {
         scrollToDiv(id) {
             const targetDiv = document.getElementById(id);
             targetDiv.scrollIntoView({ behavior: 'smooth' });
-            this.setCurrentMenu(id)
+            this.setCurrentMenu(id);
+            this.menuopen = false;
+        },
+        toggleMenu() {
+            this.menuopen = !this.menuopen;
         }
     }
 }

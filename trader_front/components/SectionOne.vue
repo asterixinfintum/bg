@@ -1,6 +1,6 @@
 <template>
-  <div class="section text-area section__firstsection" id="firstsection">
-    <div class="section__area text-area">
+  <div class="section text-area">
+    <div class="section__area text-area modern-text">
       <h4 class="section__area--h4">Modern trading Infrastructure</h4>
       <h3 class="section__area--h3 section-header">
         Introducing a new way to access and trade DEFI

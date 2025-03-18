@@ -23,7 +23,10 @@
             <div class="landing__headermenu--item" v-if="!userIdentifier" @click="scrollToDiv('markets')"
                 :class="{ 'currentMenu': currentMenu == 'markets' }">Markets</div>
 
-            <div class="landing__headermenu--item join" v-if="!userIdentifier && openjoin" @click="openjoin">Join</div>
+            <div class="landing__headermenu--item" v-if="userIdentifier"
+                :class="{ 'currentMenu': currentMenu == 'markets' }">Logout</div>
+
+            <div class="landing__headermenu--item join" v-if="!userIdentifier && openjoin" @click="openjoin">Enter</div>
 
             <div class="landing__headermenu--item joined join" v-if="userIdentifier">{{ clipString(userIdentifier) }}
             </div>
@@ -48,6 +51,16 @@ export default {
         userIdentifier() {
             return this.$store.state.userIdentifier;
         },
+    },
+    watch: {
+        userIdentifier(newValue) {
+            console.log(newValue, 'value changed');
+        }
+    },
+    mounted() {
+        if (!this.userIdentifier) {
+            //this.$router.push('/');
+        }
     },
     methods: {
         setCurrentMenu(currentM) {

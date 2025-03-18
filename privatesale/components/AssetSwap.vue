@@ -188,10 +188,17 @@ import api from "@/mixins/api";
 export default {
   props: ["multiswap"],
   mixins: [smartcontracts, api],
+  computed: {
+    userEmail() {
+      return this.$store.state.email
+    }
+  },
   watch: {
     userIdentifier(newValue, oldValue) {
-      this.setPriceFeedContract();
-      this.setPaymentContract();
+      if (!this.userEmail) {
+        this.setPriceFeedContract();
+        this.setPaymentContract();
+      }
     },
     amountFrom(newValue, oldValue) {
       console.log(newValue)
@@ -311,8 +318,10 @@ export default {
     }
   },
   mounted() {
-    this.setPriceFeedContract();
-    this.setPaymentContract();
+    if (!this.userEmail) {
+      this.setPriceFeedContract();
+      this.setPaymentContract();
+    }
   },
 };
 </script>

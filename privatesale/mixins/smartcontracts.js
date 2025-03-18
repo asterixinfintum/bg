@@ -141,7 +141,8 @@ export default {
             return formattedValue
         },
         async connect() {
-            this.$store.dispatch('clearUserData');
+            this.$store.dispatch('clearUserDetails');
+            this.$store.dispatch('setUserEmail', null);
 
             const provider = await this.createProvider();
 
@@ -149,7 +150,7 @@ export default {
 
             this.$store.dispatch('setUserIdentifier', userAddress);
 
-            console.log(userAddress);
+            //console.log(userAddress);
         },
         async createProvider() {
             try {

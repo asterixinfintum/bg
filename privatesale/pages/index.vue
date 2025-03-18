@@ -67,7 +67,7 @@
                                     <button @click="openjoin">
                                         <span>&rarr;</span>
 
-                                        <span>Join</span>
+                                        <span>Enter</span>
                                     </button>
                                 </div>
                             </div>

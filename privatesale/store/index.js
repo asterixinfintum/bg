@@ -65,11 +65,12 @@ export const mutations = {
 
     // Update specific fields in userDetails
     SET_USER_IDENTIFIER(state, identifier) {
-        state.userDetails.identifier = identifier;
+       // console.log('editing useridentifier mutation', identifier)
+        state.userIdentifier = identifier;
     },
 
     SET_USER_EMAIL(state, email) {
-        state.userDetails.email = email;
+        state.email = email;
     },
 
     SET_USER_BVXT_BALANCE(state, balance) {

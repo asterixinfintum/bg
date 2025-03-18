@@ -6,6 +6,50 @@
                 <div v-if="notavailable">
                     <NotAvailable :close="toggleNotAvail" />
                 </div>
+
+
+                <div class="dashboard__banner">
+                    <div class="dashboard__banner--left">
+                        <h2>Private Sale Liquidity Launch Soon</h2>
+                        <h3>$10,000 balance liqidity pool whitelist still open</h3>
+                        <h4>Get involved</h4>
+                    </div>
+
+                    <div class="dashboard__banner--right">
+                        <div class="landing__timercontent">
+                            <div class="landing__timercontent--header">
+                                <span>Private sale ends in:</span>
+                            </div>
+
+                            <div class="landing__timerblocks">
+                                <TimerBlock :timePoint="'day'" />
+
+                                <div class="landing__timerblock--demarc">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+
+                                <TimerBlock :interval="3600000" :timePoint="'hours'" />
+
+                                <div class="landing__timerblock--demarc">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+
+                                <TimerBlock :interval="60000" :timePoint="'minutes'" />
+
+                                <div class="landing__timerblock--demarc">
+                                    <span></span>
+                                    <span></span>
+                                </div>
+
+                                <TimerBlock :interval="1000" :timePoint="'seconds'" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 <div class="dashboard__contentgrid">
                     <div class="dashboard__left">
                         <div class="dashboard__section">
@@ -27,7 +71,7 @@
 
                                             <div class="dashboard__balance--action">
                                                 <span class="action-label" @click="card.clickMethod">{{ card.action
-                                                    }}</span>
+                                                }}</span>
                                                 <span class="action">
                                                     <svg stroke="currentColor" fill="none" stroke-width="2"
                                                         viewBox="0 0 24 24" stroke-linecap="round"
@@ -210,6 +254,52 @@ export default {
         display: grid;
         grid-template-columns: 63rem 25rem;
         grid-gap: 2rem;
+    }
+
+    &__banner {
+        //min-height: 6rem;
+        border-radius: 1rem;
+        border: .1px solid rgba($white, .1);
+        height: 15rem;
+        overflow: hidden;
+
+        overflow: hidden;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 3rem;
+        position: relative;
+
+        &--left {
+
+            & h2 {
+                font-weight: 400;
+                font-size: 2.2rem;
+                color: rgba($primary-orange, 0.9)
+            }
+
+            & h3 {
+                font-weight: 400;
+                font-size: 1.3rem;
+                margin-top: 1rem;
+            }
+
+            & h4 {
+                font-weight: 400;
+                font-size: 1.1rem;
+                margin-top: 1rem;
+                color: rgba($white, .2);
+            }
+        }
+
+        &--right {
+            width: 30rem;
+
+            & div.landing__timercontent {
+                border: none !important;
+                padding-top: 6rem;
+            }
+        }
     }
 
     &__left {}

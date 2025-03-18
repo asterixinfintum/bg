@@ -2,7 +2,7 @@ export default {
     data() {
         return {
             url: "https://privatesaleapi.bvxtrade.com",
-            email: "",
+            email: null,
             pin: "",
             authmessage: "",
             loading: false,
@@ -15,12 +15,9 @@ export default {
             otpmsg: false
         }
     },
-    mounted() {
-        console.log(window.location.href);
-    },
     watch: {
         userDetails(newValue, oldValue) {
-            // console.log(newValue)
+           // console.log(newValue)
         }
     },
     computed: {
@@ -64,7 +61,7 @@ export default {
                     })
                         .then((response) => response.json())
                         .then((data) => {
-                            console.log(data)
+                            console.log(data, 'user data here see');
 
                             this.$store.dispatch('setUserIdentifier', data.registrant._id);
                             this.$store.dispatch('setUserEmail', data.registrant.email);

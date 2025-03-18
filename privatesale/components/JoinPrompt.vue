@@ -59,7 +59,7 @@
                         <button :disabled="!isEmailValid || errorMessage.length > 0 || loading" @click="submitEmail"
                             :class="{
                                 'disabled': !isEmailValid || errorMessage.length > 0 || loading
-                            }">{{ loading ? 'Please wait...' : 'Join Private Sale' }}</button>
+                            }">{{ loading ? 'Please wait...' : 'Enter Private Sale' }}</button>
                     </div>
                 </div>
             </div>
@@ -79,17 +79,17 @@
                 </div>
 
                 <div class="joinprompt__content--header">
-                    <h2>Join the private sale</h2>
+                    <h2>Enter the private sale</h2>
                 </div>
 
                 <div class="joinprompt__content--sub">
-                    <h3>Sign in with your metamask wallet, or join via email</h3>
+                    <h3>Sign in with your metamask wallet, or via email</h3>
                 </div>
 
                 <div class="joinprompt__content--buttons">
                     <button class="metamask" @click="connect">
                         <span>
-                            Join with Metamask
+                            Enter with Metamask
                         </span>
                         <span>
                             <img src="@/assets/svgs/SVG_MetaMask_Icon_Color.svg" />
@@ -97,7 +97,7 @@
                     </button>
 
                     <button class="email" @click="openEmailView">
-                        <span>Join with Email</span>
+                        <span>Enter with Email</span>
                         <span class="emaillogo">@</span>
                     </button>
                 </div>

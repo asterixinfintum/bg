@@ -15,7 +15,7 @@
         
         <SectionOne />
 
-        <HeroAnnounce />
+        <!--<HeroAnnounce />-->
 
         <DataConsensus />
 

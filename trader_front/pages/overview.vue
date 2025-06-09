@@ -19,12 +19,16 @@
                         client.tailoreddashboard.spotwalletstate
                       }}</span>
                     </h2>
-                    <div class="overview__balance--amount">
+                    <div class="overview__balance--amount" v-if="spotwallet">
                       {{ formatNumberForSpecificLocale(spotwallet.btctotal)
                       }}<span class="slash">/</span
                       ><span class="green"
                         >${{ formatNumberForSpecificLocale(spotwallet.usdtotal) }}</span
                       >
+                    </div>
+                    <div class="overview__balance--amount" v-if="!spotwallet">
+                      {{ 0 }}<span class="slash">/</span
+                      ><span class="green">{{ `$0` }}</span>
                     </div>
                     <div class="overview__balance--wallet">Spot Wallet</div>
                   </div>
@@ -35,11 +39,18 @@
                         client.tailoreddashboard.marginwalletstate
                       }}</span>
                     </h2>
-                    <div class="overview__balance--amount">
+                    <div class="overview__balance--amount" v-if="marginwallet">
                       {{ formatNumberForSpecificLocale(marginwallet.btctotal)
                       }}<span class="slash">/</span
                       ><span class="green"
                         >${{ formatNumberForSpecificLocale(marginwallet.usdtotal) }}</span
+                      >
+                    </div>
+
+                    <div class="overview__balance--amount" v-if="!marginwallet">
+                      {{ 0 }}<span class="slash">/</span
+                      ><span class="green"
+                        >${{ 0 }}</span
                       >
                     </div>
                     <div class="overview__balance--wallet">Margin Wallet</div>
@@ -94,7 +105,7 @@
                 </div>
 
                 <div class="bitcoinpromo__dashboard">
-                  <BitcoinPromo :dashboard="true" />
+                  <!-- <BitcoinPromo :dashboard="true" />-->
                 </div>
 
                 <div class="overview__mainarea">

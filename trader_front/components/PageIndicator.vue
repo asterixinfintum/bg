@@ -21,7 +21,7 @@
             Deposit
           </button>
           <button
-            class="btn padded-btn greyed-btn mobile-invisible"
+            class="btn padded-btn greyed-btn mobile-margb"
             @click="showwithdrawalmodal"
             v-if="showwithdrawbtn"
           >
@@ -31,7 +31,7 @@
             Transfer</button
           >-->
           <button
-            class="btn padded-btn greyed-btn mobile-invisible"
+            class="btn padded-btn greyed-btn mobile-margb"
             @click="$router.push(`/transactionhistory`)"
           >
             Transaction History

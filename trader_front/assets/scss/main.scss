@@ -21,13 +21,51 @@ body {
     min-height: #{scaleValue(700)};
     color: #fff;
     position: relative;
-    font-size: #{scaleValue(15)};
 }
 
 html {
     background: $background;
     font-family: 'Inter', sans-serif;
     //font-size: #{scaleValue(15)};
+
+    font-size: 100%;
+
+    @media (max-width: 576px) {
+        font-size: 20%;
+    }
+
+    /* Medium devices (tablets, 768px and up) */
+    @media (max-width: 768px) {
+        html {
+            font-size: 20%;
+        }
+    }
+
+    /* Large devices (desktops, 992px and up) */
+    @media (max-width: 992px) {
+        html {
+            font-size: 20%;
+        }
+    }
+
+    /* Extra large devices (large desktops, 1200px and up) */
+    @media (max-width: 1200px) {
+        html {
+            /* Adjustments for large desktops */
+        }
+    }
+
+    /* XXL devices (larger desktops, 1400px and up) */
+    @media (max-width: 1400px) {
+        html {
+            /* Adjustments for extra-large screens */
+        }
+    }
+
+    /* Extra small devices (phones, 576px and down) - Default styles (mobile-first) */
+
+    /* Small devices (phones, 576px and up) */
+
 }
 
 /* Create a styles rule for the scrollbar itself */

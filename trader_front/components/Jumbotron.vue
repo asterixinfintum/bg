@@ -151,6 +151,42 @@ export default {
 </script>
 
 <style scoped lang="scss">
+body {
+  font-size: 100% !important;
+
+  @media (max-width: 576px) {
+    font-size: 100% !important;
+  }
+
+  /* Medium devices (tablets, 768px and up) */
+  @media (max-width: 768px) {
+    html {
+      font-size: 100% !important;
+    }
+  }
+
+  /* Large devices (desktops, 992px and up) */
+  @media (max-width: 992px) {
+    html {
+      font-size: 100% !important;
+    }
+  }
+
+  /* Extra large devices (large desktops, 1200px and up) */
+  @media (max-width: 1200px) {
+    html {
+     font-size: 100% !important;
+    }
+  }
+
+  /* XXL devices (larger desktops, 1400px and up) */
+  @media (max-width: 1400px) {
+    html {
+      font-size: 100% !important;
+    }
+  }
+}
+
 .jumbotron {
   position: fixed;
   top: 0;

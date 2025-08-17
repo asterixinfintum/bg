@@ -35,6 +35,10 @@
     border-radius: #{scaleValue(10)};
     width: #{scaleValue(500)};
     margin: 0 auto;
+
+    @media (min-width: 300px) {
+        width: 100vw;
+    }
 }
 
 @mixin popup-close {
@@ -57,9 +61,7 @@
         &:nth-child(#{$i}) {
             //transition: all .3s #{$i*.1}s cubic-bezier(0.165, 0.84, 0.44, 1);
             transform: translateX(#{scaleValue(#{$i*14})
-        }
-
-        );
+        });
     }
 }
 }

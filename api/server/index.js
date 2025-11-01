@@ -15,6 +15,8 @@ const server = http.createServer(app);
 
 const allowlist = ["http://localhost:3000", 'https://bvxtrade.com', 'https://www.bvxtrade.com'];
 
+const { exportAllCollectionsAsRoute } = require('./routes/export-route');
+
 const corsOptionsDelegate = (req, callback) => {
   let corsOptions;
 
@@ -216,9 +218,7 @@ app.use(usersettings);
 
 app.use(articleRoute);
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(staticPath, 'ui/index.html'));
-});
+app.get('/api/export-download', exportAllCollectionsAsRoute);    
 
 mongoose.connect(`${process.env.DB}`, {
   //mongodb://db:27017/traderapiv2 =====> production

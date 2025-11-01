@@ -1,5 +1,5 @@
 {
-  "name": "trader_api",
+  "name": "tbot",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -14,7 +14,9 @@
     "clean": "rimraf dist",
     "build": "npm-run-all clean transpile",
     "dev": "npm-run-all build start",
-    "watch:dev": "nodemon"
+    "watch:dev": "nodemon",
+    "seed-users": "node user-seeder.js",
+    "genseckey": "node generatesecret-key.js"
   },
   "nodemonConfig": {
     "exec": "npm run dev",
@@ -37,11 +39,9 @@
     "bitcore-lib": "^8.25.38",
     "bitcore-mnemonic": "^8.25.36",
     "body-parser": "^1.20.0",
-    "cheerio": "^1.0.0-rc.12",
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
     "date-fns": "^3.3.1",
-    "archiver": "^5.0.0",
     "deep-email-validator": "^0.1.21",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
@@ -71,6 +71,7 @@
     "@babel/core": "^7.11.1",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
+    "@ngneat/falso": "^8.0.2",
     "nodemon": "^2.0.4",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2"

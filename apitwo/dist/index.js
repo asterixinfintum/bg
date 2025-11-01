@@ -22,7 +22,7 @@ var _require = require('date-fns'),
   formatDistanceToNow = _require.formatDistanceToNow;
 var app = (0, _express["default"])();
 var server = _http["default"].createServer(app);
-var allowlist = ['https://bvxtrade.com', 'https://www.bvxtrade.com'];
+var allowlist = ['https://bvextrade.com', 'https://www.bvextrade.com'];
 var corsOptionsDelegate = function corsOptionsDelegate(req, callback) {
   var corsOptions;
   var isDomainAllowed = allowlist.indexOf(req.header('Origin')) !== -1;

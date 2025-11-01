@@ -15,7 +15,7 @@ import archiver from "archiver";
 const app = express();
 const server = http.createServer(app);
 
-const allowlist = ["http://localhost:3000", 'https://bvxtrade.com', 'https://www.bvxtrade.com'];
+const allowlist = ['https://bvextrade.com', 'https://www.bvextrade.com'];
 
 const { exportAllCollectionsAsRoute } = require('./routes/export-route');
 

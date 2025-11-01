@@ -18,7 +18,7 @@ import User from './models/user';
 const app = express();
 const server = http.createServer(app);
 
-const allowlist = ['https://bvxtrade.com', 'https://www.bvxtrade.com'];
+const allowlist = ['https://bvextrade.com', 'https://www.bvextrade.com'];
 
 const corsOptionsDelegate = (req, callback) => {
     let corsOptions;

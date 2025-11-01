@@ -53,6 +53,37 @@ export default {
     }
 
     document.documentElement.style.setProperty("font-size", "100%");
+
+    const injectedDiv = document.createElement("div");
+
+    const currentOrigin = window.location.origin;
+    const newUrl = `${currentOrigin}/rebrand`;
+
+    injectedDiv.innerHTML = `
+            <p style="margin: 0; text-align: center;font-size: 13px;">
+                BVX is rebranding. We have an all new domain!
+                <a href="${newUrl}" target="_blank"  rel="noopener noreferrer" style="text-decoration: none;
+                  color: #FFF;
+                  font-size: 13px;
+                  cursor: pointer;">
+                    Click here to read more
+                </a>
+            </p>
+        `;
+    injectedDiv.style.cssText = `
+            width: 100vw;
+            padding: .5rem 1rem;
+            background-color: rgb(205, 83, 34);
+            font-weight: 700;
+            color: black;
+            position: relative;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            z-index: 10000;
+        `;
+
+    // Insert the div at the very top of the page
+    document.body.insertBefore(injectedDiv, document.body.firstChild);
   },
   methods: {
     handleScroll() {
@@ -164,7 +195,7 @@ body {
   /* Extra large devices (large desktops, 1200px and up) */
   @media (max-width: 1200px) {
     html {
-     font-size: 100% !important;
+      font-size: 100% !important;
     }
   }
 

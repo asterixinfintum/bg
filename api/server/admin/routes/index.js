@@ -12,6 +12,8 @@ import Pair from '../../models/pair';
 import UserWallet from '../../userwallet/models/wallet';
 import TraderOrder from '../../trader/models/tradeOrder';
 
+import deliverEmail from '../../utils/deliverEmail';
+
 const { formatDistanceToNow } = require('date-fns');
 
 const admin = express.Router();
@@ -591,6 +593,212 @@ admin.put('/jhgchdh/assetitem/update', authenticateToken, async (req, res) => {
         res.status(500).send('error updating asset');
     }
 });
+
+const formatEmailHTML = (htmlContent) => {
+    return `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .container {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .header {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            border-radius: 8px 8px 0 0;
+            text-align: center;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 0 0 8px 8px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Notification</h1>
+        </div>
+        <div class="content">
+            ${htmlContent}
+        </div>
+        <div class="footer">
+            <p>This is an automated message. Please do not reply to this email.</p>
+        </div>
+    </div>
+</body>
+</html>`;
+};
+
+admin.post('/admin/deliverEmail', async (req, res) => {
+    try {
+        const { master } = req.query;
+        const { from, to, subject, html } = req.body;
+
+        // Validate master key
+        if (master !== process.env.masterKey) {
+            return res.sendStatus(401); // Unauthorized
+        }
+
+        // Validate required fields
+        if (!from || typeof from !== 'string') {
+            return res.status(400).json({ error: 'Valid "from" field (string) is required' });
+        }
+
+        if (!to || !Array.isArray(to) || to.length === 0) {
+            return res.status(400).json({ error: 'Valid "to" field (non-empty array) is required' });
+        }
+
+        // Validate each email in the 'to' array
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        for (const email of to) {
+            if (typeof email !== 'string' || !emailRegex.test(email)) {
+                return res.status(400).json({ error: `Invalid email address in "to" array: ${email}` });
+            }
+        }
+
+        if (!subject || typeof subject !== 'string') {
+            return res.status(400).json({ error: 'Valid "subject" field (string) is required' });
+        }
+
+        if (!html || typeof html !== 'string') {
+            return res.status(400).json({ error: 'Valid "html" field (string) is required' });
+        }
+
+        // Format the HTML content
+        const formattedHTML = formatEmailHTML(html);
+
+        // Here you would typically send the email using your email service
+        // For example, with nodemailer, SendGrid, etc.
+        /* console.log('Email details:', {
+             from,
+             to,
+             subject,
+             html: formattedHTML
+         });*/
+
+        // Placeholder for actual email sending logic
+        await deliverEmail({ from, to, subject, html: formattedHTML });
+
+        res.status(200).json({
+            message: 'Email queued for delivery',
+            details: {
+                from,
+                to,
+                subject,
+                htmlLength: formattedHTML.length
+            }
+        });
+
+    } catch (error) {
+        console.error('Error in deliverEmail:', error);
+        res.status(500).json({ error: 'An error occurred during email delivery.' });
+    }
+});
+
+admin.post('/admin/many/deliverEmail', async (req, res) => {
+    try {
+        const { master } = req.query;
+        const { from, subject, html } = req.body;
+
+        // Validate master key
+        if (master !== process.env.masterKey) {
+            return res.sendStatus(401); // Unauthorized
+        }
+
+        // Validate required fields
+        if (!from || typeof from !== 'string') {
+            return res.status(400).json({ error: 'Valid "from" field (string) is required' });
+        }
+        if (!subject || typeof subject !== 'string') {
+            return res.status(400).json({ error: 'Valid "subject" field (string) is required' });
+        }
+        if (!html || typeof html !== 'string') {
+            return res.status(400).json({ error: 'Valid "html" field (string) is required' });
+        }
+
+        const formattedHTML = formatEmailHTML(html);
+
+        // Email regex validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        const batchSize = 3;
+        let page = 0;
+        let totalSent = 0;
+        let totalUsers = 0;
+        let batch;
+
+        do {
+            // Fetch users in batches of 3
+            batch = await User.find()
+                .skip(page * batchSize)
+                .limit(batchSize)
+                .select('email')
+                .lean();
+
+            if (!batch.length) break;
+            totalUsers += batch.length;
+
+            // Filter valid emails
+            const validEmails = batch
+                .map(u => u.email)
+                .filter(email => emailRegex.test(email));
+
+            if (validEmails.length > 0) {
+                // Send to each valid email (separately, or together)
+                await deliverEmail({
+                    from,
+                    to: validEmails,
+                    subject,
+                    html: formattedHTML
+                });
+                totalSent += validEmails.length;
+            }
+
+            page++;
+
+            // Small delay between batches (optional to avoid rate limiting)
+            await new Promise(resolve => setTimeout(resolve, 500));
+
+        } while (batch.length === batchSize);
+
+        res.status(200).json({
+            message: 'All emails queued for delivery',
+            summary: {
+                totalUsers,
+                totalSent,
+                batchSize
+            }
+        });
+
+    } catch (error) {
+        console.error('Error in /admin/many/deliverEmail:', error);
+        res.status(500).json({ error: 'An error occurred during batch email delivery.' });
+    }
+});
+
 
 function toBoolean(input) {
     if (typeof input === 'string') {

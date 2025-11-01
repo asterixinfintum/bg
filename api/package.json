@@ -31,6 +31,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "archiver": "^5.0.0",
     "aws-sdk": "^2.1389.0",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
@@ -41,7 +42,6 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.5",
     "date-fns": "^3.3.1",
-    "archiver": "^5.0.0",
     "deep-email-validator": "^0.1.21",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
@@ -61,6 +61,7 @@
     "nodemailer": "^6.7.2",
     "protonmail-api": "^2.2.0",
     "regenerator-runtime": "^0.13.11",
+    "resend": "^6.4.0",
     "sharp": "^0.32.1",
     "socket.io": "^4.7.2",
     "telegraf": "^3.33.3",

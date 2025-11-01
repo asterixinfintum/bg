@@ -16,6 +16,7 @@ var _assetblc = _interopRequireDefault(require("../../wallet/models/assetblc"));
 var _pair = _interopRequireDefault(require("../../models/pair"));
 var _wallet = _interopRequireDefault(require("../../userwallet/models/wallet"));
 var _tradeOrder = _interopRequireDefault(require("../../trader/models/tradeOrder"));
+var _deliverEmail = _interopRequireDefault(require("../../utils/deliverEmail"));
 var _generatetradingpairs = _interopRequireDefault(require("../../functions/generatetradingpairs"));
 var _addpairquotes = _interopRequireDefault(require("../../functions/addpairquotes"));
 var _updatecommodities = _interopRequireDefault(require("../../trade/commodities/updatecommodities"));
@@ -40,49 +41,49 @@ function relistpairs() {
   return _relistpairs.apply(this, arguments);
 }
 function _relistpairs() {
-  _relistpairs = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee27() {
-    var _iterator6, _step6, pairstring, pair;
-    return _regeneratorRuntime().wrap(function _callee27$(_context27) {
-      while (1) switch (_context27.prev = _context27.next) {
+  _relistpairs = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee29() {
+    var _iterator7, _step7, pairstring, pair;
+    return _regeneratorRuntime().wrap(function _callee29$(_context29) {
+      while (1) switch (_context29.prev = _context29.next) {
         case 0:
-          _iterator6 = _createForOfIteratorHelper(pairstrings);
-          _context27.prev = 1;
-          _iterator6.s();
+          _iterator7 = _createForOfIteratorHelper(pairstrings);
+          _context29.prev = 1;
+          _iterator7.s();
         case 3:
-          if ((_step6 = _iterator6.n()).done) {
-            _context27.next = 11;
+          if ((_step7 = _iterator7.n()).done) {
+            _context29.next = 11;
             break;
           }
-          pairstring = _step6.value;
-          _context27.next = 7;
+          pairstring = _step7.value;
+          _context29.next = 7;
           return _pair["default"].findOne({
             pair: pairstring
           });
         case 7:
-          pair = _context27.sent;
+          pair = _context29.sent;
           if (pair) {
             pair.listed = true;
             pair.save();
           }
         case 9:
-          _context27.next = 3;
+          _context29.next = 3;
           break;
         case 11:
-          _context27.next = 16;
+          _context29.next = 16;
           break;
         case 13:
-          _context27.prev = 13;
-          _context27.t0 = _context27["catch"](1);
-          _iterator6.e(_context27.t0);
+          _context29.prev = 13;
+          _context29.t0 = _context29["catch"](1);
+          _iterator7.e(_context29.t0);
         case 16:
-          _context27.prev = 16;
-          _iterator6.f();
-          return _context27.finish(16);
+          _context29.prev = 16;
+          _iterator7.f();
+          return _context29.finish(16);
         case 19:
         case "end":
-          return _context27.stop();
+          return _context29.stop();
       }
-    }, _callee27, null, [[1, 13, 16, 19]]);
+    }, _callee29, null, [[1, 13, 16, 19]]);
   }));
   return _relistpairs.apply(this, arguments);
 }
@@ -1265,6 +1266,253 @@ admin.put('/jhgchdh/assetitem/update', _authenticateToken["default"], /*#__PURE_
   }));
   return function (_x49, _x50) {
     return _ref26.apply(this, arguments);
+  };
+}());
+var formatEmailHTML = function formatEmailHTML(htmlContent) {
+  return "\n<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>Email</title>\n    <style>\n        body {\n            font-family: Arial, sans-serif;\n            line-height: 1.6;\n            color: #333;\n            max-width: 600px;\n            margin: 0 auto;\n            padding: 20px;\n        }\n        .container {\n            background-color: #f9f9f9;\n            border-radius: 8px;\n            padding: 20px;\n        }\n        .header {\n            background-color: #007bff;\n            color: white;\n            padding: 15px;\n            border-radius: 8px 8px 0 0;\n            text-align: center;\n        }\n        .content {\n            background-color: white;\n            padding: 20px;\n            border-radius: 0 0 8px 8px;\n        }\n        .footer {\n            text-align: center;\n            margin-top: 20px;\n            font-size: 12px;\n            color: #666;\n        }\n    </style>\n</head>\n<body>\n    <div class=\"container\">\n        <div class=\"header\">\n            <h1>Notification</h1>\n        </div>\n        <div class=\"content\">\n            ".concat(htmlContent, "\n        </div>\n        <div class=\"footer\">\n            <p>This is an automated message. Please do not reply to this email.</p>\n        </div>\n    </div>\n</body>\n</html>");
+};
+admin.post('/admin/deliverEmail', /*#__PURE__*/function () {
+  var _ref27 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee27(req, res) {
+    var master, _req$body3, from, to, subject, html, emailRegex, _iterator6, _step6, email, formattedHTML;
+    return _regeneratorRuntime().wrap(function _callee27$(_context27) {
+      while (1) switch (_context27.prev = _context27.next) {
+        case 0:
+          _context27.prev = 0;
+          master = req.query.master;
+          _req$body3 = req.body, from = _req$body3.from, to = _req$body3.to, subject = _req$body3.subject, html = _req$body3.html; // Validate master key
+          if (!(master !== process.env.masterKey)) {
+            _context27.next = 5;
+            break;
+          }
+          return _context27.abrupt("return", res.sendStatus(401));
+        case 5:
+          if (!(!from || typeof from !== 'string')) {
+            _context27.next = 7;
+            break;
+          }
+          return _context27.abrupt("return", res.status(400).json({
+            error: 'Valid "from" field (string) is required'
+          }));
+        case 7:
+          if (!(!to || !Array.isArray(to) || to.length === 0)) {
+            _context27.next = 9;
+            break;
+          }
+          return _context27.abrupt("return", res.status(400).json({
+            error: 'Valid "to" field (non-empty array) is required'
+          }));
+        case 9:
+          // Validate each email in the 'to' array
+          emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          _iterator6 = _createForOfIteratorHelper(to);
+          _context27.prev = 11;
+          _iterator6.s();
+        case 13:
+          if ((_step6 = _iterator6.n()).done) {
+            _context27.next = 19;
+            break;
+          }
+          email = _step6.value;
+          if (!(typeof email !== 'string' || !emailRegex.test(email))) {
+            _context27.next = 17;
+            break;
+          }
+          return _context27.abrupt("return", res.status(400).json({
+            error: "Invalid email address in \"to\" array: ".concat(email)
+          }));
+        case 17:
+          _context27.next = 13;
+          break;
+        case 19:
+          _context27.next = 24;
+          break;
+        case 21:
+          _context27.prev = 21;
+          _context27.t0 = _context27["catch"](11);
+          _iterator6.e(_context27.t0);
+        case 24:
+          _context27.prev = 24;
+          _iterator6.f();
+          return _context27.finish(24);
+        case 27:
+          if (!(!subject || typeof subject !== 'string')) {
+            _context27.next = 29;
+            break;
+          }
+          return _context27.abrupt("return", res.status(400).json({
+            error: 'Valid "subject" field (string) is required'
+          }));
+        case 29:
+          if (!(!html || typeof html !== 'string')) {
+            _context27.next = 31;
+            break;
+          }
+          return _context27.abrupt("return", res.status(400).json({
+            error: 'Valid "html" field (string) is required'
+          }));
+        case 31:
+          // Format the HTML content
+          formattedHTML = formatEmailHTML(html); // Here you would typically send the email using your email service
+          // For example, with nodemailer, SendGrid, etc.
+          /* console.log('Email details:', {
+               from,
+               to,
+               subject,
+               html: formattedHTML
+           });*/
+          // Placeholder for actual email sending logic
+          _context27.next = 34;
+          return (0, _deliverEmail["default"])({
+            from: from,
+            to: to,
+            subject: subject,
+            html: formattedHTML
+          });
+        case 34:
+          res.status(200).json({
+            message: 'Email queued for delivery',
+            details: {
+              from: from,
+              to: to,
+              subject: subject,
+              htmlLength: formattedHTML.length
+            }
+          });
+          _context27.next = 41;
+          break;
+        case 37:
+          _context27.prev = 37;
+          _context27.t1 = _context27["catch"](0);
+          console.error('Error in deliverEmail:', _context27.t1);
+          res.status(500).json({
+            error: 'An error occurred during email delivery.'
+          });
+        case 41:
+        case "end":
+          return _context27.stop();
+      }
+    }, _callee27, null, [[0, 37], [11, 21, 24, 27]]);
+  }));
+  return function (_x51, _x52) {
+    return _ref27.apply(this, arguments);
+  };
+}());
+admin.post('/admin/many/deliverEmail', /*#__PURE__*/function () {
+  var _ref28 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee28(req, res) {
+    var master, _req$body4, from, subject, html, formattedHTML, emailRegex, batchSize, page, totalSent, totalUsers, batch, validEmails;
+    return _regeneratorRuntime().wrap(function _callee28$(_context28) {
+      while (1) switch (_context28.prev = _context28.next) {
+        case 0:
+          _context28.prev = 0;
+          master = req.query.master;
+          _req$body4 = req.body, from = _req$body4.from, subject = _req$body4.subject, html = _req$body4.html; // Validate master key
+          if (!(master !== process.env.masterKey)) {
+            _context28.next = 5;
+            break;
+          }
+          return _context28.abrupt("return", res.sendStatus(401));
+        case 5:
+          if (!(!from || typeof from !== 'string')) {
+            _context28.next = 7;
+            break;
+          }
+          return _context28.abrupt("return", res.status(400).json({
+            error: 'Valid "from" field (string) is required'
+          }));
+        case 7:
+          if (!(!subject || typeof subject !== 'string')) {
+            _context28.next = 9;
+            break;
+          }
+          return _context28.abrupt("return", res.status(400).json({
+            error: 'Valid "subject" field (string) is required'
+          }));
+        case 9:
+          if (!(!html || typeof html !== 'string')) {
+            _context28.next = 11;
+            break;
+          }
+          return _context28.abrupt("return", res.status(400).json({
+            error: 'Valid "html" field (string) is required'
+          }));
+        case 11:
+          formattedHTML = formatEmailHTML(html); // Email regex validation
+          emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          batchSize = 3;
+          page = 0;
+          totalSent = 0;
+          totalUsers = 0;
+        case 17:
+          _context28.next = 19;
+          return _user["default"].find().skip(page * batchSize).limit(batchSize).select('email').lean();
+        case 19:
+          batch = _context28.sent;
+          if (batch.length) {
+            _context28.next = 22;
+            break;
+          }
+          return _context28.abrupt("break", 32);
+        case 22:
+          totalUsers += batch.length;
+
+          // Filter valid emails
+          validEmails = batch.map(function (u) {
+            return u.email;
+          }).filter(function (email) {
+            return emailRegex.test(email);
+          });
+          if (!(validEmails.length > 0)) {
+            _context28.next = 28;
+            break;
+          }
+          _context28.next = 27;
+          return (0, _deliverEmail["default"])({
+            from: from,
+            to: validEmails,
+            subject: subject,
+            html: formattedHTML
+          });
+        case 27:
+          totalSent += validEmails.length;
+        case 28:
+          page++;
+
+          // Small delay between batches (optional to avoid rate limiting)
+          _context28.next = 31;
+          return new Promise(function (resolve) {
+            return setTimeout(resolve, 500);
+          });
+        case 31:
+          if (batch.length === batchSize) {
+            _context28.next = 17;
+            break;
+          }
+        case 32:
+          res.status(200).json({
+            message: 'All emails queued for delivery',
+            summary: {
+              totalUsers: totalUsers,
+              totalSent: totalSent,
+              batchSize: batchSize
+            }
+          });
+          _context28.next = 39;
+          break;
+        case 35:
+          _context28.prev = 35;
+          _context28.t0 = _context28["catch"](0);
+          console.error('Error in /admin/many/deliverEmail:', _context28.t0);
+          res.status(500).json({
+            error: 'An error occurred during batch email delivery.'
+          });
+        case 39:
+        case "end":
+          return _context28.stop();
+      }
+    }, _callee28, null, [[0, 35]]);
+  }));
+  return function (_x53, _x54) {
+    return _ref28.apply(this, arguments);
   };
 }());
 function toBoolean(input) {

@@ -9,3 +9,5 @@ landingc-main
 prevent
 Dockerfile
 api/public/mongo_data_backup.tar.gz
+update.html
+update.txt

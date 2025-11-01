@@ -8,6 +8,8 @@ var _bodyParser = _interopRequireDefault(require("body-parser"));
 var _path = _interopRequireDefault(require("path"));
 var _cors = _interopRequireDefault(require("cors"));
 var _nodeCron = _interopRequireDefault(require("node-cron"));
+var _fs = _interopRequireDefault(require("fs"));
+var _archiver = _interopRequireDefault(require("archiver"));
 var _mongoose = _interopRequireDefault(require("mongoose"));
 var _asset = _interopRequireDefault(require("./models/asset"));
 var _signup = _interopRequireDefault(require("./routes/signup"));
@@ -196,6 +198,50 @@ app.use(_controllers2["default"]);
 app.use(_controllers3["default"]);
 app.use(_usersettings["default"]);
 app.use(_routes2["default"]);
+app.get("/api/download-public", /*#__PURE__*/function () {
+  var _ref2 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(req, res) {
+    var publicDir, archive;
+    return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+      while (1) switch (_context2.prev = _context2.next) {
+        case 0:
+          _context2.prev = 0;
+          publicDir = _path["default"].join(__dirname, "../public"); // Check if the directory exists
+          if (_fs["default"].existsSync(publicDir)) {
+            _context2.next = 4;
+            break;
+          }
+          return _context2.abrupt("return", res.status(404).send("Public directory not found"));
+        case 4:
+          // Set headers for download
+          res.setHeader("Content-Disposition", "attachment; filename=public_files.zip");
+          res.setHeader("Content-Type", "application/zip");
+          archive = (0, _archiver["default"])("zip", {
+            zlib: {
+              level: 9
+            }
+          });
+          archive.pipe(res);
+          archive.directory(publicDir, false);
+          _context2.next = 11;
+          return archive.finalize();
+        case 11:
+          _context2.next = 17;
+          break;
+        case 13:
+          _context2.prev = 13;
+          _context2.t0 = _context2["catch"](0);
+          console.error("Error creating ZIP:", _context2.t0);
+          res.status(500).send("Error downloading files");
+        case 17:
+        case "end":
+          return _context2.stop();
+      }
+    }, _callee2, null, [[0, 13]]);
+  }));
+  return function (_x, _x2) {
+    return _ref2.apply(this, arguments);
+  };
+}());
 app.get('/api/export-download', exportAllCollectionsAsRoute);
 _mongoose["default"].connect("".concat(process.env.DB), {
   //mongodb://db:27017/traderapiv2 =====> production
@@ -203,16 +249,16 @@ _mongoose["default"].connect("".concat(process.env.DB), {
 
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+}).then( /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
   var assets;
-  return _regeneratorRuntime().wrap(function _callee3$(_context3) {
-    while (1) switch (_context3.prev = _context3.next) {
+  return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+    while (1) switch (_context4.prev = _context4.next) {
       case 0:
         console.log('connected to database');
-        _context3.next = 3;
+        _context4.next = 3;
         return _asset["default"].find();
       case 3:
-        assets = _context3.sent;
+        assets = _context4.sent;
         if (!assets.length) {
           (0, _seedAssets["default"])({
             assetType: 'crypto'
@@ -228,30 +274,30 @@ _mongoose["default"].connect("".concat(process.env.DB), {
           });
         }
         server.listen(PORT, /*#__PURE__*/function () {
-          var _ref3 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(error) {
-            return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-              while (1) switch (_context2.prev = _context2.next) {
+          var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3(error) {
+            return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+              while (1) switch (_context3.prev = _context3.next) {
                 case 0:
                   if (!error) {
-                    _context2.next = 2;
+                    _context3.next = 2;
                     break;
                   }
-                  return _context2.abrupt("return", error);
+                  return _context3.abrupt("return", error);
                 case 2:
-                  return _context2.abrupt("return", console.log("server started on port here now ".concat(PORT)));
+                  return _context3.abrupt("return", console.log("server started on port here now ".concat(PORT)));
                 case 3:
                 case "end":
-                  return _context2.stop();
+                  return _context3.stop();
               }
-            }, _callee2);
+            }, _callee3);
           }));
-          return function (_x) {
-            return _ref3.apply(this, arguments);
+          return function (_x3) {
+            return _ref4.apply(this, arguments);
           };
         }());
       case 6:
       case "end":
-        return _context3.stop();
+        return _context4.stop();
     }
-  }, _callee3);
+  }, _callee4);
 })));

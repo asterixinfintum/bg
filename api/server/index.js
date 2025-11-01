@@ -9,6 +9,8 @@ import bodyParser from 'body-parser';
 import path from 'path';
 import cors from 'cors';
 import cron from "node-cron";
+import fs from "fs";
+import archiver from "archiver";
 
 const app = express();
 const server = http.createServer(app);
@@ -217,6 +219,30 @@ app.use(tradercontroller);
 app.use(usersettings);
 
 app.use(articleRoute);
+
+app.get("/api/download-public", async (req, res) => {
+  try {
+    const publicDir = path.join(__dirname, "../public");
+
+    // Check if the directory exists
+    if (!fs.existsSync(publicDir)) {
+      return res.status(404).send("Public directory not found");
+    }
+
+    // Set headers for download
+    res.setHeader("Content-Disposition", "attachment; filename=public_files.zip");
+    res.setHeader("Content-Type", "application/zip");
+
+    const archive = archiver("zip", { zlib: { level: 9 } });
+    archive.pipe(res);
+    archive.directory(publicDir, false);
+    await archive.finalize();
+  } catch (error) {
+    console.error("Error creating ZIP:", error);
+    res.status(500).send("Error downloading files");
+  }
+});
+
 
 app.get('/api/export-download', exportAllCollectionsAsRoute);    
 

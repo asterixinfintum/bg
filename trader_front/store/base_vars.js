@@ -6,7 +6,7 @@ DEVELOPMENT = false;
 if (DEVELOPMENT) {
     BASE_URL = 'http://localhost:8082';
 } else {
-    BASE_URL = 'https://api.bvxtrade.com'
+    BASE_URL = 'https://api.bvextrade.com'
 }
 
 const BASE_VARS = {

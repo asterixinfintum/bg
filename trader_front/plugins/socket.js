@@ -9,7 +9,7 @@ DEVELOPMENT = false;
 if (DEVELOPMENT) {
     BASE_URL = 'http://localhost:8083';
 } else {
-    BASE_URL = 'https://apitwo.bvxtrade.com'
+    BASE_URL = 'https://apitwo.bvextrade.com'
 }
 
 if (process) {

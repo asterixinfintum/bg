@@ -55,7 +55,7 @@
 
         <div class="margin-up-down">
           <p>
-            Contact: <span class="primary-color-font-color">support@bvxtrade.com</span>
+            Contact: <span class="primary-color-font-color">bvsupport@quantilert.com</span>
           </p>
         </div>
       </div>

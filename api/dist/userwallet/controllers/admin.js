@@ -35,7 +35,7 @@ userwalletadmin.put('/userwallet/updatebalance/', _authenticateToken["default"],
       while (1) switch (_context.prev = _context.next) {
         case 0:
           if (!(req.user && req.user._id)) {
-            _context.next = 44;
+            _context.next = 45;
             break;
           }
           _context.prev = 1;
@@ -57,7 +57,7 @@ userwalletadmin.put('/userwallet/updatebalance/', _authenticateToken["default"],
         case 9:
           userwallet = _context.sent;
           if (!userwallet) {
-            _context.next = 38;
+            _context.next = 39;
             break;
           }
           _context.next = 13;
@@ -67,7 +67,7 @@ userwalletadmin.put('/userwallet/updatebalance/', _authenticateToken["default"],
         case 13:
           asset = _context.sent;
           if (!asset) {
-            _context.next = 35;
+            _context.next = 36;
             break;
           }
           balances = userwallet.balances;
@@ -75,7 +75,7 @@ userwalletadmin.put('/userwallet/updatebalance/', _authenticateToken["default"],
             return blc.asset_id === assetid;
           });
           if (!assetbalance) {
-            _context.next = 27;
+            _context.next = 28;
             break;
           }
           assetbalances = balances.filter(function (blc) {
@@ -88,15 +88,16 @@ userwalletadmin.put('/userwallet/updatebalance/', _authenticateToken["default"],
           };
           assetbalances = [].concat(_toConsumableArray(assetbalances), [asset_balance]);
           userwallet.balances = assetbalances;
-          _context.next = 24;
+          console.log('save logic');
+          _context.next = 25;
           return userwallet.save();
-        case 24:
+        case 25:
           res.status(200).send({
             userwallet: userwallet
           });
-          _context.next = 33;
+          _context.next = 34;
           break;
-        case 27:
+        case 28:
           _asset_balance = {
             asset_id: assetid,
             balance: balance,
@@ -104,40 +105,40 @@ userwalletadmin.put('/userwallet/updatebalance/', _authenticateToken["default"],
           };
           balances = [].concat(_toConsumableArray(balances), [_asset_balance]);
           userwallet.balances = balances;
-          _context.next = 32;
+          _context.next = 33;
           return userwallet.save();
-        case 32:
+        case 33:
           res.status(200).send({
             userwallet: userwallet
           });
-        case 33:
-          _context.next = 36;
+        case 34:
+          _context.next = 37;
           break;
-        case 35:
+        case 36:
           res.status(500).send({
             error: 'no asset found'
           });
-        case 36:
-          _context.next = 39;
+        case 37:
+          _context.next = 40;
           break;
-        case 38:
+        case 39:
           res.status(500).send({
             error: 'no wallet found'
           });
-        case 39:
-          _context.next = 44;
+        case 40:
+          _context.next = 45;
           break;
-        case 41:
-          _context.prev = 41;
+        case 42:
+          _context.prev = 42;
           _context.t0 = _context["catch"](1);
           res.status(500).send({
             error: 'wallet not updated'
           });
-        case 44:
+        case 45:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[1, 41]]);
+    }, _callee, null, [[1, 42]]);
   }));
   return function (_x, _x2) {
     return _ref.apply(this, arguments);

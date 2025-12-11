@@ -46,6 +46,8 @@ userwalletadmin.put('/userwallet/updatebalance/', authenticateToken, async (req,
 
                         userwallet.balances = assetbalances;
 
+                        console.log('save logic')
+
                         await userwallet.save();
 
                         res.status(200).send({ userwallet });

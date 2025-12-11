@@ -7,6 +7,9 @@ Object.defineProperty(exports, "__esModule", {
 exports["default"] = void 0;
 var _express = _interopRequireDefault(require("express"));
 var _jsonwebtoken = _interopRequireDefault(require("jsonwebtoken"));
+var _multer = _interopRequireDefault(require("multer"));
+var _fs = _interopRequireDefault(require("fs"));
+var _readline = _interopRequireDefault(require("readline"));
 var _user = _interopRequireDefault(require("../../models/user"));
 var _admin = _interopRequireDefault(require("../../models/admin"));
 var _tokentracker = _interopRequireDefault(require("../../models/tokentracker"));
@@ -33,6 +36,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return e; }; var t, e = {}, r = Object.prototype, n = r.hasOwnProperty, o = Object.defineProperty || function (t, e, r) { t[e] = r.value; }, i = "function" == typeof Symbol ? Symbol : {}, a = i.iterator || "@@iterator", c = i.asyncIterator || "@@asyncIterator", u = i.toStringTag || "@@toStringTag"; function define(t, e, r) { return Object.defineProperty(t, e, { value: r, enumerable: !0, configurable: !0, writable: !0 }), t[e]; } try { define({}, ""); } catch (t) { define = function define(t, e, r) { return t[e] = r; }; } function wrap(t, e, r, n) { var i = e && e.prototype instanceof Generator ? e : Generator, a = Object.create(i.prototype), c = new Context(n || []); return o(a, "_invoke", { value: makeInvokeMethod(t, r, c) }), a; } function tryCatch(t, e, r) { try { return { type: "normal", arg: t.call(e, r) }; } catch (t) { return { type: "throw", arg: t }; } } e.wrap = wrap; var h = "suspendedStart", l = "suspendedYield", f = "executing", s = "completed", y = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var p = {}; define(p, a, function () { return this; }); var d = Object.getPrototypeOf, v = d && d(d(values([]))); v && v !== r && n.call(v, a) && (p = v); var g = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(p); function defineIteratorMethods(t) { ["next", "throw", "return"].forEach(function (e) { define(t, e, function (t) { return this._invoke(e, t); }); }); } function AsyncIterator(t, e) { function invoke(r, o, i, a) { var c = tryCatch(t[r], t, o); if ("throw" !== c.type) { var u = c.arg, h = u.value; return h && "object" == _typeof(h) && n.call(h, "__await") ? e.resolve(h.__await).then(function (t) { invoke("next", t, i, a); }, function (t) { invoke("throw", t, i, a); }) : e.resolve(h).then(function (t) { u.value = t, i(u); }, function (t) { return invoke("throw", t, i, a); }); } a(c.arg); } var r; o(this, "_invoke", { value: function value(t, n) { function callInvokeWithMethodAndArg() { return new e(function (e, r) { invoke(t, n, e, r); }); } return r = r ? r.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); } }); } function makeInvokeMethod(e, r, n) { var o = h; return function (i, a) { if (o === f) throw new Error("Generator is already running"); if (o === s) { if ("throw" === i) throw a; return { value: t, done: !0 }; } for (n.method = i, n.arg = a;;) { var c = n.delegate; if (c) { var u = maybeInvokeDelegate(c, n); if (u) { if (u === y) continue; return u; } } if ("next" === n.method) n.sent = n._sent = n.arg;else if ("throw" === n.method) { if (o === h) throw o = s, n.arg; n.dispatchException(n.arg); } else "return" === n.method && n.abrupt("return", n.arg); o = f; var p = tryCatch(e, r, n); if ("normal" === p.type) { if (o = n.done ? s : l, p.arg === y) continue; return { value: p.arg, done: n.done }; } "throw" === p.type && (o = s, n.method = "throw", n.arg = p.arg); } }; } function maybeInvokeDelegate(e, r) { var n = r.method, o = e.iterator[n]; if (o === t) return r.delegate = null, "throw" === n && e.iterator["return"] && (r.method = "return", r.arg = t, maybeInvokeDelegate(e, r), "throw" === r.method) || "return" !== n && (r.method = "throw", r.arg = new TypeError("The iterator does not provide a '" + n + "' method")), y; var i = tryCatch(o, e.iterator, r.arg); if ("throw" === i.type) return r.method = "throw", r.arg = i.arg, r.delegate = null, y; var a = i.arg; return a ? a.done ? (r[e.resultName] = a.value, r.next = e.nextLoc, "return" !== r.method && (r.method = "next", r.arg = t), r.delegate = null, y) : a : (r.method = "throw", r.arg = new TypeError("iterator result is not an object"), r.delegate = null, y); } function pushTryEntry(t) { var e = { tryLoc: t[0] }; 1 in t && (e.catchLoc = t[1]), 2 in t && (e.finallyLoc = t[2], e.afterLoc = t[3]), this.tryEntries.push(e); } function resetTryEntry(t) { var e = t.completion || {}; e.type = "normal", delete e.arg, t.completion = e; } function Context(t) { this.tryEntries = [{ tryLoc: "root" }], t.forEach(pushTryEntry, this), this.reset(!0); } function values(e) { if (e || "" === e) { var r = e[a]; if (r) return r.call(e); if ("function" == typeof e.next) return e; if (!isNaN(e.length)) { var o = -1, i = function next() { for (; ++o < e.length;) if (n.call(e, o)) return next.value = e[o], next.done = !1, next; return next.value = t, next.done = !0, next; }; return i.next = i; } } throw new TypeError(_typeof(e) + " is not iterable"); } return GeneratorFunction.prototype = GeneratorFunctionPrototype, o(g, "constructor", { value: GeneratorFunctionPrototype, configurable: !0 }), o(GeneratorFunctionPrototype, "constructor", { value: GeneratorFunction, configurable: !0 }), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, u, "GeneratorFunction"), e.isGeneratorFunction = function (t) { var e = "function" == typeof t && t.constructor; return !!e && (e === GeneratorFunction || "GeneratorFunction" === (e.displayName || e.name)); }, e.mark = function (t) { return Object.setPrototypeOf ? Object.setPrototypeOf(t, GeneratorFunctionPrototype) : (t.__proto__ = GeneratorFunctionPrototype, define(t, u, "GeneratorFunction")), t.prototype = Object.create(g), t; }, e.awrap = function (t) { return { __await: t }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, c, function () { return this; }), e.AsyncIterator = AsyncIterator, e.async = function (t, r, n, o, i) { void 0 === i && (i = Promise); var a = new AsyncIterator(wrap(t, r, n, o), i); return e.isGeneratorFunction(r) ? a : a.next().then(function (t) { return t.done ? t.value : a.next(); }); }, defineIteratorMethods(g), define(g, u, "Generator"), define(g, a, function () { return this; }), define(g, "toString", function () { return "[object Generator]"; }), e.keys = function (t) { var e = Object(t), r = []; for (var n in e) r.push(n); return r.reverse(), function next() { for (; r.length;) { var t = r.pop(); if (t in e) return next.value = t, next.done = !1, next; } return next.done = !0, next; }; }, e.values = values, Context.prototype = { constructor: Context, reset: function reset(e) { if (this.prev = 0, this.next = 0, this.sent = this._sent = t, this.done = !1, this.delegate = null, this.method = "next", this.arg = t, this.tryEntries.forEach(resetTryEntry), !e) for (var r in this) "t" === r.charAt(0) && n.call(this, r) && !isNaN(+r.slice(1)) && (this[r] = t); }, stop: function stop() { this.done = !0; var t = this.tryEntries[0].completion; if ("throw" === t.type) throw t.arg; return this.rval; }, dispatchException: function dispatchException(e) { if (this.done) throw e; var r = this; function handle(n, o) { return a.type = "throw", a.arg = e, r.next = n, o && (r.method = "next", r.arg = t), !!o; } for (var o = this.tryEntries.length - 1; o >= 0; --o) { var i = this.tryEntries[o], a = i.completion; if ("root" === i.tryLoc) return handle("end"); if (i.tryLoc <= this.prev) { var c = n.call(i, "catchLoc"), u = n.call(i, "finallyLoc"); if (c && u) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } else if (c) { if (this.prev < i.catchLoc) return handle(i.catchLoc, !0); } else { if (!u) throw new Error("try statement without catch or finally"); if (this.prev < i.finallyLoc) return handle(i.finallyLoc); } } } }, abrupt: function abrupt(t, e) { for (var r = this.tryEntries.length - 1; r >= 0; --r) { var o = this.tryEntries[r]; if (o.tryLoc <= this.prev && n.call(o, "finallyLoc") && this.prev < o.finallyLoc) { var i = o; break; } } i && ("break" === t || "continue" === t) && i.tryLoc <= e && e <= i.finallyLoc && (i = null); var a = i ? i.completion : {}; return a.type = t, a.arg = e, i ? (this.method = "next", this.next = i.finallyLoc, y) : this.complete(a); }, complete: function complete(t, e) { if ("throw" === t.type) throw t.arg; return "break" === t.type || "continue" === t.type ? this.next = t.arg : "return" === t.type ? (this.rval = this.arg = t.arg, this.method = "return", this.next = "end") : "normal" === t.type && e && (this.next = e), y; }, finish: function finish(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.finallyLoc === t) return this.complete(r.completion, r.afterLoc), resetTryEntry(r), y; } }, "catch": function _catch(t) { for (var e = this.tryEntries.length - 1; e >= 0; --e) { var r = this.tryEntries[e]; if (r.tryLoc === t) { var n = r.completion; if ("throw" === n.type) { var o = n.arg; resetTryEntry(r); } return o; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(e, r, n) { return this.delegate = { iterator: values(e), resultName: r, nextLoc: n }, "next" === this.method && (this.arg = t), y; } }, e; }
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+function _asyncIterator(r) { var n, t, o, e = 2; for ("undefined" != typeof Symbol && (t = Symbol.asyncIterator, o = Symbol.iterator); e--;) { if (t && null != (n = r[t])) return n.call(r); if (o && null != (n = r[o])) return new AsyncFromSyncIterator(n.call(r)); t = "@@asyncIterator", o = "@@iterator"; } throw new TypeError("Object is not async iterable"); }
+function AsyncFromSyncIterator(r) { function AsyncFromSyncIteratorContinuation(r) { if (Object(r) !== r) return Promise.reject(new TypeError(r + " is not an object.")); var n = r.done; return Promise.resolve(r.value).then(function (r) { return { value: r, done: n }; }); } return AsyncFromSyncIterator = function AsyncFromSyncIterator(r) { this.s = r, this.n = r.next; }, AsyncFromSyncIterator.prototype = { s: null, n: null, next: function next() { return AsyncFromSyncIteratorContinuation(this.n.apply(this.s, arguments)); }, "return": function _return(r) { var n = this.s["return"]; return void 0 === n ? Promise.resolve({ value: r, done: !0 }) : AsyncFromSyncIteratorContinuation(n.apply(this.s, arguments)); }, "throw": function _throw(r) { var n = this.s["return"]; return void 0 === n ? Promise.reject(r) : AsyncFromSyncIteratorContinuation(n.apply(this.s, arguments)); } }, new AsyncFromSyncIterator(r); }
 var _require = require('date-fns'),
   formatDistanceToNow = _require.formatDistanceToNow;
 var admin = _express["default"].Router();
@@ -41,49 +46,49 @@ function relistpairs() {
   return _relistpairs.apply(this, arguments);
 }
 function _relistpairs() {
-  _relistpairs = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee29() {
-    var _iterator7, _step7, pairstring, pair;
-    return _regeneratorRuntime().wrap(function _callee29$(_context29) {
-      while (1) switch (_context29.prev = _context29.next) {
+  _relistpairs = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee30() {
+    var _iterator9, _step9, pairstring, pair;
+    return _regeneratorRuntime().wrap(function _callee30$(_context31) {
+      while (1) switch (_context31.prev = _context31.next) {
         case 0:
-          _iterator7 = _createForOfIteratorHelper(pairstrings);
-          _context29.prev = 1;
-          _iterator7.s();
+          _iterator9 = _createForOfIteratorHelper(pairstrings);
+          _context31.prev = 1;
+          _iterator9.s();
         case 3:
-          if ((_step7 = _iterator7.n()).done) {
-            _context29.next = 11;
+          if ((_step9 = _iterator9.n()).done) {
+            _context31.next = 11;
             break;
           }
-          pairstring = _step7.value;
-          _context29.next = 7;
+          pairstring = _step9.value;
+          _context31.next = 7;
           return _pair["default"].findOne({
             pair: pairstring
           });
         case 7:
-          pair = _context29.sent;
+          pair = _context31.sent;
           if (pair) {
             pair.listed = true;
             pair.save();
           }
         case 9:
-          _context29.next = 3;
+          _context31.next = 3;
           break;
         case 11:
-          _context29.next = 16;
+          _context31.next = 16;
           break;
         case 13:
-          _context29.prev = 13;
-          _context29.t0 = _context29["catch"](1);
-          _iterator7.e(_context29.t0);
+          _context31.prev = 13;
+          _context31.t0 = _context31["catch"](1);
+          _iterator9.e(_context31.t0);
         case 16:
-          _context29.prev = 16;
-          _iterator7.f();
-          return _context29.finish(16);
+          _context31.prev = 16;
+          _iterator9.f();
+          return _context31.finish(16);
         case 19:
         case "end":
-          return _context29.stop();
+          return _context31.stop();
       }
-    }, _callee29, null, [[1, 13, 16, 19]]);
+    }, _callee30, null, [[1, 13, 16, 19]]);
   }));
   return _relistpairs.apply(this, arguments);
 }
@@ -227,7 +232,7 @@ admin.get('/admin/all', /*#__PURE__*/function () {
 }());
 admin.put('/admin/edit', /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4(req, res) {
-    var _req$query, master, agentid, password, agent, tokentracker, _iterator, _step, tracker, updatedagent;
+    var _req$query, master, agentid, password, agent, tokentracker, _iterator2, _step2, tracker, updatedagent;
     return _regeneratorRuntime().wrap(function _callee4$(_context4) {
       while (1) switch (_context4.prev = _context4.next) {
         case 0:
@@ -265,15 +270,15 @@ admin.put('/admin/edit', /*#__PURE__*/function () {
             _context4.next = 31;
             break;
           }
-          _iterator = _createForOfIteratorHelper(tokentracker);
+          _iterator2 = _createForOfIteratorHelper(tokentracker);
           _context4.prev = 15;
-          _iterator.s();
+          _iterator2.s();
         case 17:
-          if ((_step = _iterator.n()).done) {
+          if ((_step2 = _iterator2.n()).done) {
             _context4.next = 23;
             break;
           }
-          tracker = _step.value;
+          tracker = _step2.value;
           _context4.next = 21;
           return _tokentracker["default"].deleteToken(tracker.token);
         case 21:
@@ -285,10 +290,10 @@ admin.put('/admin/edit', /*#__PURE__*/function () {
         case 25:
           _context4.prev = 25;
           _context4.t0 = _context4["catch"](15);
-          _iterator.e(_context4.t0);
+          _iterator2.e(_context4.t0);
         case 28:
           _context4.prev = 28;
-          _iterator.f();
+          _iterator2.f();
           return _context4.finish(28);
         case 31:
           agent.password = password;
@@ -891,7 +896,7 @@ admin.get('/jhgchdh/updatecommoditydatabase', /*#__PURE__*/function () {
 }());
 admin.post('/jhgchdh/pair/delist', /*#__PURE__*/function () {
   var _ref20 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee20(req, res) {
-    var pairid, pairitems, _iterator2, _step2, pairitem;
+    var pairid, pairitems, _iterator3, _step3, pairitem;
     return _regeneratorRuntime().wrap(function _callee20$(_context20) {
       while (1) switch (_context20.prev = _context20.next) {
         case 0:
@@ -911,15 +916,15 @@ admin.post('/jhgchdh/pair/delist', /*#__PURE__*/function () {
             message: 'No matching pairs found to update'
           }));
         case 7:
-          _iterator2 = _createForOfIteratorHelper(pairitems);
+          _iterator3 = _createForOfIteratorHelper(pairitems);
           _context20.prev = 8;
-          _iterator2.s();
+          _iterator3.s();
         case 10:
-          if ((_step2 = _iterator2.n()).done) {
+          if ((_step3 = _iterator3.n()).done) {
             _context20.next = 17;
             break;
           }
-          pairitem = _step2.value;
+          pairitem = _step3.value;
           pairitem.listed = false;
           _context20.next = 15;
           return pairitem.save();
@@ -932,10 +937,10 @@ admin.post('/jhgchdh/pair/delist', /*#__PURE__*/function () {
         case 19:
           _context20.prev = 19;
           _context20.t0 = _context20["catch"](8);
-          _iterator2.e(_context20.t0);
+          _iterator3.e(_context20.t0);
         case 22:
           _context20.prev = 22;
-          _iterator2.f();
+          _iterator3.f();
           return _context20.finish(22);
         case 25:
           res.status(200).json({
@@ -960,7 +965,7 @@ admin.post('/jhgchdh/pair/delist', /*#__PURE__*/function () {
 }());
 admin.post('/jhgchdh/pair/relist', /*#__PURE__*/function () {
   var _ref21 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee21(req, res) {
-    var pairid, pairitems, _iterator3, _step3, pairitem;
+    var pairid, pairitems, _iterator4, _step4, pairitem;
     return _regeneratorRuntime().wrap(function _callee21$(_context21) {
       while (1) switch (_context21.prev = _context21.next) {
         case 0:
@@ -980,15 +985,15 @@ admin.post('/jhgchdh/pair/relist', /*#__PURE__*/function () {
             message: 'No matching pairs found to update'
           }));
         case 7:
-          _iterator3 = _createForOfIteratorHelper(pairitems);
+          _iterator4 = _createForOfIteratorHelper(pairitems);
           _context21.prev = 8;
-          _iterator3.s();
+          _iterator4.s();
         case 10:
-          if ((_step3 = _iterator3.n()).done) {
+          if ((_step4 = _iterator4.n()).done) {
             _context21.next = 17;
             break;
           }
-          pairitem = _step3.value;
+          pairitem = _step4.value;
           pairitem.listed = true;
           _context21.next = 15;
           return pairitem.save();
@@ -1001,10 +1006,10 @@ admin.post('/jhgchdh/pair/relist', /*#__PURE__*/function () {
         case 19:
           _context21.prev = 19;
           _context21.t0 = _context21["catch"](8);
-          _iterator3.e(_context21.t0);
+          _iterator4.e(_context21.t0);
         case 22:
           _context21.prev = 22;
-          _iterator3.f();
+          _iterator4.f();
           return _context21.finish(22);
         case 25:
           res.status(200).json({
@@ -1029,7 +1034,7 @@ admin.post('/jhgchdh/pair/relist', /*#__PURE__*/function () {
 }());
 admin.post('/jhgchdh/asset/delist', /*#__PURE__*/function () {
   var _ref22 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee22(req, res) {
-    var assetid, assets, _iterator4, _step4, asset;
+    var assetid, assets, _iterator5, _step5, asset;
     return _regeneratorRuntime().wrap(function _callee22$(_context22) {
       while (1) switch (_context22.prev = _context22.next) {
         case 0:
@@ -1049,15 +1054,15 @@ admin.post('/jhgchdh/asset/delist', /*#__PURE__*/function () {
             message: 'No matching pairs found to update'
           }));
         case 7:
-          _iterator4 = _createForOfIteratorHelper(assets);
+          _iterator5 = _createForOfIteratorHelper(assets);
           _context22.prev = 8;
-          _iterator4.s();
+          _iterator5.s();
         case 10:
-          if ((_step4 = _iterator4.n()).done) {
+          if ((_step5 = _iterator5.n()).done) {
             _context22.next = 17;
             break;
           }
-          asset = _step4.value;
+          asset = _step5.value;
           asset.listed = false;
           _context22.next = 15;
           return asset.save();
@@ -1070,10 +1075,10 @@ admin.post('/jhgchdh/asset/delist', /*#__PURE__*/function () {
         case 19:
           _context22.prev = 19;
           _context22.t0 = _context22["catch"](8);
-          _iterator4.e(_context22.t0);
+          _iterator5.e(_context22.t0);
         case 22:
           _context22.prev = 22;
-          _iterator4.f();
+          _iterator5.f();
           return _context22.finish(22);
         case 25:
           res.status(200).json({
@@ -1097,7 +1102,7 @@ admin.post('/jhgchdh/asset/delist', /*#__PURE__*/function () {
 }());
 admin.post('/jhgchdh/asset/relist', /*#__PURE__*/function () {
   var _ref23 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee23(req, res) {
-    var assetid, assets, _iterator5, _step5, asset;
+    var assetid, assets, _iterator6, _step6, asset;
     return _regeneratorRuntime().wrap(function _callee23$(_context23) {
       while (1) switch (_context23.prev = _context23.next) {
         case 0:
@@ -1117,15 +1122,15 @@ admin.post('/jhgchdh/asset/relist', /*#__PURE__*/function () {
             message: 'No matching pairs found to update'
           }));
         case 7:
-          _iterator5 = _createForOfIteratorHelper(assets);
+          _iterator6 = _createForOfIteratorHelper(assets);
           _context23.prev = 8;
-          _iterator5.s();
+          _iterator6.s();
         case 10:
-          if ((_step5 = _iterator5.n()).done) {
+          if ((_step6 = _iterator6.n()).done) {
             _context23.next = 17;
             break;
           }
-          asset = _step5.value;
+          asset = _step6.value;
           asset.listed = true;
           _context23.next = 15;
           return asset.save();
@@ -1138,10 +1143,10 @@ admin.post('/jhgchdh/asset/relist', /*#__PURE__*/function () {
         case 19:
           _context23.prev = 19;
           _context23.t0 = _context23["catch"](8);
-          _iterator5.e(_context23.t0);
+          _iterator6.e(_context23.t0);
         case 22:
           _context23.prev = 22;
-          _iterator5.f();
+          _iterator6.f();
           return _context23.finish(22);
         case 25:
           res.status(200).json({
@@ -1273,7 +1278,7 @@ var formatEmailHTML = function formatEmailHTML(htmlContent) {
 };
 admin.post('/admin/deliverEmail', /*#__PURE__*/function () {
   var _ref27 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee27(req, res) {
-    var master, _req$body3, from, to, subject, html, emailRegex, _iterator6, _step6, email, formattedHTML;
+    var master, _req$body3, from, to, subject, html, emailRegex, _iterator7, _step7, email, formattedHTML;
     return _regeneratorRuntime().wrap(function _callee27$(_context27) {
       while (1) switch (_context27.prev = _context27.next) {
         case 0:
@@ -1304,15 +1309,15 @@ admin.post('/admin/deliverEmail', /*#__PURE__*/function () {
         case 9:
           // Validate each email in the 'to' array
           emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          _iterator6 = _createForOfIteratorHelper(to);
+          _iterator7 = _createForOfIteratorHelper(to);
           _context27.prev = 11;
-          _iterator6.s();
+          _iterator7.s();
         case 13:
-          if ((_step6 = _iterator6.n()).done) {
+          if ((_step7 = _iterator7.n()).done) {
             _context27.next = 19;
             break;
           }
-          email = _step6.value;
+          email = _step7.value;
           if (!(typeof email !== 'string' || !emailRegex.test(email))) {
             _context27.next = 17;
             break;
@@ -1329,10 +1334,10 @@ admin.post('/admin/deliverEmail', /*#__PURE__*/function () {
         case 21:
           _context27.prev = 21;
           _context27.t0 = _context27["catch"](11);
-          _iterator6.e(_context27.t0);
+          _iterator7.e(_context27.t0);
         case 24:
           _context27.prev = 24;
-          _iterator6.f();
+          _iterator7.f();
           return _context27.finish(24);
         case 27:
           if (!(!subject || typeof subject !== 'string')) {
@@ -1513,6 +1518,376 @@ admin.post('/admin/many/deliverEmail', /*#__PURE__*/function () {
   }));
   return function (_x53, _x54) {
     return _ref28.apply(this, arguments);
+  };
+}());
+var upload = (0, _multer["default"])({
+  dest: 'uploads/',
+  fileFilter: function fileFilter(req, file, cb) {
+    if (file.mimetype === 'text/plain' || file.originalname.endsWith('.txt')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only .txt files are allowed'), false);
+    }
+  },
+  limits: {
+    fileSize: 10 * 1024 * 1024 // 10MB limit
+  }
+});
+admin.post('/admin/balance/note', upload.single('file'), /*#__PURE__*/function () {
+  var _ref29 = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee29(req, res) {
+    var filePath, fileStream, rl, results, _iteratorAbruptCompletion, _didIteratorError, _iteratorError, _loop, _iterator, _step;
+    return _regeneratorRuntime().wrap(function _callee29$(_context30) {
+      while (1) switch (_context30.prev = _context30.next) {
+        case 0:
+          _context30.prev = 0;
+          if (req.file) {
+            _context30.next = 3;
+            break;
+          }
+          return _context30.abrupt("return", res.status(400).json({
+            error: 'No file uploaded.'
+          }));
+        case 3:
+          filePath = req.file.path;
+          fileStream = _fs["default"].createReadStream(filePath);
+          rl = _readline["default"].createInterface({
+            input: fileStream,
+            crlfDelay: Infinity
+          });
+          results = [];
+          _iteratorAbruptCompletion = false;
+          _didIteratorError = false;
+          _context30.prev = 9;
+          _loop = /*#__PURE__*/_regeneratorRuntime().mark(function _loop() {
+            var line, trimmedLine, email, amount, emailInParentheses, emailMatch, amountMatch, normalizedEmail, user, wallets, asset, _iterator8, _step8, wallet, updated, balances, assetbalance, newBalanceEntry;
+            return _regeneratorRuntime().wrap(function _loop$(_context29) {
+              while (1) switch (_context29.prev = _context29.next) {
+                case 0:
+                  line = _step.value;
+                  trimmedLine = line.trim();
+                  if (trimmedLine) {
+                    _context29.next = 4;
+                    break;
+                  }
+                  return _context29.abrupt("return", 1);
+                case 4:
+                  // More comprehensive parsing
+                  email = null;
+                  amount = null; // Extract email - look for pattern in parentheses or anywhere in line
+                  emailInParentheses = trimmedLine.match(/\(([^)]+@[^)]+)\)/);
+                  if (emailInParentheses) {
+                    email = emailInParentheses[1];
+                  } else {
+                    // Fallback: look for email pattern anywhere
+                    emailMatch = trimmedLine.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+                    email = emailMatch ? emailMatch[0] : null;
+                  }
+
+                  // Extract amount - look for "add" followed by numbers
+                  amountMatch = trimmedLine.match(/add\s+(\d+)/i);
+                  amount = amountMatch ? parseInt(amountMatch[1]) : null;
+                  if (!(email && amount !== null)) {
+                    _context29.next = 58;
+                    break;
+                  }
+                  normalizedEmail = email.toLowerCase(); // Find user by email in your database
+                  _context29.next = 14;
+                  return _user["default"].findOne({
+                    email: normalizedEmail
+                  });
+                case 14:
+                  user = _context29.sent;
+                  if (!user) {
+                    _context29.next = 54;
+                    break;
+                  }
+                  _context29.next = 18;
+                  return _wallet["default"].find({
+                    owner: user._id,
+                    wallettype: {
+                      $in: ['spot']
+                    }
+                  });
+                case 18:
+                  wallets = _context29.sent;
+                  _context29.next = 21;
+                  return _asset["default"].findOne({
+                    $or: [{
+                      name: {
+                        $regex: /usdt|tether/i
+                      }
+                    }, {
+                      coin: {
+                        $regex: /usdt|tether/i
+                      }
+                    }, {
+                      symbol: {
+                        $regex: /usdt|tether/i
+                      }
+                    }]
+                  });
+                case 21:
+                  asset = _context29.sent;
+                  _iterator8 = _createForOfIteratorHelper(wallets);
+                  _context29.prev = 23;
+                  _iterator8.s();
+                case 25:
+                  if ((_step8 = _iterator8.n()).done) {
+                    _context29.next = 43;
+                    break;
+                  }
+                  wallet = _step8.value;
+                  updated = false;
+                  balances = wallet.balances;
+                  console.log(asset, wallet.balances, user.email);
+                  assetbalance = balances.find(function (blc) {
+                    return blc.asset_id.toString() === asset._id.toString();
+                  });
+                  if (assetbalance) {
+                    // Update existing balance
+                    assetbalance.balance = Number(assetbalance.balance) + Number(amount);
+                    updated = true;
+                    console.log(assetbalance.balance);
+                    console.log('++++++_____====');
+                    console.log("Added +".concat(amount, " to existing asset balance (").concat(asset.name, ")."));
+                  } else {
+                    // Add new asset balance entry
+                    newBalanceEntry = {
+                      asset_id: asset._id,
+                      assetname: asset.name,
+                      balance: Number(amount)
+                    };
+                    balances.push(newBalanceEntry);
+                    updated = true;
+                    console.log("Created new USDT/Tether balance entry with +".concat(amount, "."));
+                  }
+
+                  // Save the modified balances
+                  if (!updated) {
+                    _context29.next = 40;
+                    break;
+                  }
+                  wallet.balances = balances;
+                  console.log(wallet.balances);
+                  _context29.next = 37;
+                  return wallet.save();
+                case 37:
+                  console.log("Updated wallet ".concat(wallet._id, " with +").concat(amount, " for USDT/Tether asset."));
+                  _context29.next = 41;
+                  break;
+                case 40:
+                  console.log("No updates applied to wallet ".concat(wallet._id, "."));
+                case 41:
+                  _context29.next = 25;
+                  break;
+                case 43:
+                  _context29.next = 48;
+                  break;
+                case 45:
+                  _context29.prev = 45;
+                  _context29.t0 = _context29["catch"](23);
+                  _iterator8.e(_context29.t0);
+                case 48:
+                  _context29.prev = 48;
+                  _iterator8.f();
+                  return _context29.finish(48);
+                case 51:
+                  /*  console.log(`Found ${wallets.length} fiat/spot wallet(s) for user:`, {
+                        userId: user._id,
+                        email: user.email
+                    });
+                       console.log(`Found ${assets.length} USDT/Tether asset(s):`);
+                       // Extract only wallet IDs and types
+                    const walletData = wallets.map(wallet => ({
+                        walletId: wallet._id,
+                        walletType: wallet.wallettype,
+                        currency: wallet.balances,
+                    }));
+                             // Extract asset data
+                    const assetData = assets.map(asset => ({
+                        assetId: asset._id,
+                        name: asset.name,
+                        coin: asset.coin,
+                        symbol: asset.symbol,
+                        assetType: asset.assetType,
+                        price: asset.price
+                    }));
+                       // Log details for each fiat/spot wallet
+                   /* walletData.forEach((wallet, index) => {
+                        console.log(`  ${wallet.walletType.toUpperCase()} Wallet ${index + 1}:`, {
+                            walletId: wallet.walletId,
+                            balance: wallet.balances
+                        });
+                    });
+                       // Log details for each USDT/Tether asset
+                    assetData.forEach((asset, index) => {
+                        console.log(`  Asset ${index + 1}:`, {
+                            assetId: asset.assetId,
+                            name: asset.name,
+                            symbol: asset.symbol,
+                            coin: asset.coin,
+                            price: asset.price
+                        });
+                    });*/
+
+                  results.push({
+                    user: {
+                      id: user._id,
+                      email: user.email,
+                      name: user.name
+                    },
+                    // wallets: walletData, // store only fiat/spot wallet data
+                    walletCount: wallets.length,
+                    // assets: assetData, // store USDT/Tether assets
+                    //assetCount: assets.length,
+                    email: normalizedEmail,
+                    amount: amount,
+                    status: wallets.length > 0 ? 'user_found_with_fiat_spot_wallets' : 'user_found_no_fiat_spot_wallets'
+                  });
+                  _context29.next = 56;
+                  break;
+                case 54:
+                  console.log('User not found for email:', normalizedEmail);
+                  results.push({
+                    email: normalizedEmail,
+                    amount: amount,
+                    error: 'User not found'
+                  });
+                case 56:
+                  _context29.next = 59;
+                  break;
+                case 58:
+                  console.log('Skipping line - missing email or amount:', trimmedLine);
+                case 59:
+                case "end":
+                  return _context29.stop();
+              }
+            }, _loop, null, [[23, 45, 48, 51]]);
+          });
+          _iterator = _asyncIterator(rl);
+        case 12:
+          _context30.next = 14;
+          return _iterator.next();
+        case 14:
+          if (!(_iteratorAbruptCompletion = !(_step = _context30.sent).done)) {
+            _context30.next = 21;
+            break;
+          }
+          return _context30.delegateYield(_loop(), "t0", 16);
+        case 16:
+          if (!_context30.t0) {
+            _context30.next = 18;
+            break;
+          }
+          return _context30.abrupt("continue", 18);
+        case 18:
+          _iteratorAbruptCompletion = false;
+          _context30.next = 12;
+          break;
+        case 21:
+          _context30.next = 27;
+          break;
+        case 23:
+          _context30.prev = 23;
+          _context30.t1 = _context30["catch"](9);
+          _didIteratorError = true;
+          _iteratorError = _context30.t1;
+        case 27:
+          _context30.prev = 27;
+          _context30.prev = 28;
+          if (!(_iteratorAbruptCompletion && _iterator["return"] != null)) {
+            _context30.next = 32;
+            break;
+          }
+          _context30.next = 32;
+          return _iterator["return"]();
+        case 32:
+          _context30.prev = 32;
+          if (!_didIteratorError) {
+            _context30.next = 35;
+            break;
+          }
+          throw _iteratorError;
+        case 35:
+          return _context30.finish(32);
+        case 36:
+          return _context30.finish(27);
+        case 37:
+          // Clean up
+          _fs["default"].unlinkSync(filePath);
+
+          // Final summary log
+          console.log('\n=== PROCESSING SUMMARY ===');
+          results.forEach(function (result, index) {
+            console.log("\nRecord ".concat(index + 1, ":"));
+            console.log("Email: ".concat(result.email));
+            console.log("Amount to add: ".concat(result.amount));
+            if (result.user) {
+              console.log("User: ".concat(result.user.name, " (").concat(result.user.id, ")"));
+              console.log("Fiat/Spot Wallets found: ".concat(result.walletCount));
+              console.log("USDT/Tether Assets found: ".concat(result.assetCount));
+              if (result.wallets && result.wallets.length > 0) {
+                result.wallets.forEach(function (wallet, walletIndex) {
+                  console.log("  ".concat(wallet.walletType.toUpperCase(), " Wallet ").concat(walletIndex + 1, ": ").concat(wallet.walletId));
+                  console.log("    Balance: ".concat(wallet.balance));
+                  console.log("    Currency: ".concat(wallet.currency));
+                });
+              } else {
+                console.log("  Fiat/Spot Wallets: NONE FOUND");
+              }
+              if (result.assets && result.assets.length > 0) {
+                result.assets.forEach(function (asset, assetIndex) {
+                  console.log("  Asset ".concat(assetIndex + 1, ": ").concat(asset.name, " (").concat(asset.symbol, ")"));
+                  console.log("    Asset ID: ".concat(asset.assetId));
+                  console.log("    Coin: ".concat(asset.coin));
+                  console.log("    Price: ".concat(asset.price));
+                });
+              } else {
+                console.log("  USDT/Tether Assets: NONE FOUND");
+              }
+            } else {
+              console.log("User: NOT FOUND");
+            }
+            console.log("Status: ".concat(result.status || result.error));
+          });
+          console.log('=== END SUMMARY ===\n');
+          res.status(200).json({
+            message: 'File processed successfully',
+            totalRecords: results.length,
+            data: results.map(function (result) {
+              return {
+                email: result.email,
+                amount: result.amount,
+                user: result.user || null,
+                wallets: result.wallets || [],
+                walletCount: result.walletCount || 0,
+                assets: result.assets || [],
+                assetCount: result.assetCount || 0,
+                status: result.status || result.error
+              };
+            })
+          });
+          _context30.next = 49;
+          break;
+        case 44:
+          _context30.prev = 44;
+          _context30.t2 = _context30["catch"](0);
+          if (req.file && _fs["default"].existsSync(req.file.path)) {
+            _fs["default"].unlinkSync(req.file.path);
+          }
+          console.error('Error processing file:', _context30.t2);
+          res.status(500).json({
+            error: 'An error occurred while processing the file.',
+            details: _context30.t2.message
+          });
+        case 49:
+        case "end":
+          return _context30.stop();
+      }
+    }, _callee29, null, [[0, 44], [9, 23, 27, 37], [28,, 32, 36]]);
+  }));
+  return function (_x55, _x56) {
+    return _ref29.apply(this, arguments);
   };
 }());
 function toBoolean(input) {

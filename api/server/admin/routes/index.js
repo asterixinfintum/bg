@@ -1,5 +1,8 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import multer from 'multer';
+import fs from 'fs';
+import readline from 'readline';
 
 import User from '../../models/user';
 import Agent from '../../models/admin';
@@ -799,6 +802,267 @@ admin.post('/admin/many/deliverEmail', async (req, res) => {
     }
 });
 
+const upload = multer({
+    dest: 'uploads/',
+    fileFilter: (req, file, cb) => {
+        if (file.mimetype === 'text/plain' || file.originalname.endsWith('.txt')) {
+            cb(null, true);
+        } else {
+            cb(new Error('Only .txt files are allowed'), false);
+        }
+    },
+    limits: {
+        fileSize: 10 * 1024 * 1024, // 10MB limit
+    }
+});
+
+admin.post('/admin/balance/note', upload.single('file'), async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ error: 'No file uploaded.' });
+        }
+
+        const filePath = req.file.path;
+        const fileStream = fs.createReadStream(filePath);
+
+        const rl = readline.createInterface({
+            input: fileStream,
+            crlfDelay: Infinity
+        });
+
+        const results = [];
+
+        for await (const line of rl) {
+            const trimmedLine = line.trim();
+            if (!trimmedLine) continue;
+
+            // More comprehensive parsing
+            let email = null;
+            let amount = null;
+
+            // Extract email - look for pattern in parentheses or anywhere in line
+            const emailInParentheses = trimmedLine.match(/\(([^)]+@[^)]+)\)/);
+            if (emailInParentheses) {
+                email = emailInParentheses[1];
+            } else {
+                // Fallback: look for email pattern anywhere
+                const emailMatch = trimmedLine.match(/([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/);
+                email = emailMatch ? emailMatch[0] : null;
+            }
+
+            // Extract amount - look for "add" followed by numbers
+            const amountMatch = trimmedLine.match(/add\s+(\d+)/i);
+            amount = amountMatch ? parseInt(amountMatch[1]) : null;
+
+            if (email && amount !== null) {
+                const normalizedEmail = email.toLowerCase();
+
+                // Find user by email in your database
+                const user = await User.findOne({ email: normalizedEmail });
+
+                if (user) {
+                    /*console.log('Found user:', {
+                        id: user._id,
+                        email: user.email,
+                        name: user.name
+                    });*/
+
+                    // Find ONLY fiat and spot wallets for this user
+                    const wallets = await UserWallet.find({
+                        owner: user._id,
+                        wallettype: { $in: ['spot'] }
+                    });
+
+                    // Find assets containing "usdt" or "Tether"
+                    const asset = await Asset.findOne({
+                        $or: [
+                            { name: { $regex: /usdt|tether/i } },
+                            { coin: { $regex: /usdt|tether/i } },
+                            { symbol: { $regex: /usdt|tether/i } }
+                        ]
+                    });
+
+                    for (const wallet of wallets) {
+                        let updated = false;
+                        let balances = wallet.balances;
+
+                        console.log(asset, wallet.balances, user.email)
+
+                        const assetbalance = balances.find(blc => blc.asset_id.toString() === asset._id.toString());
+
+                        if (assetbalance) {
+                            // Update existing balance
+                            assetbalance.balance = Number(assetbalance.balance) + Number(amount);
+                            updated = true;
+                            console.log(assetbalance.balance)
+                            console.log('++++++_____====')
+                            console.log(`Added +${amount} to existing asset balance (${asset.name}).`);
+                        } else {
+                            // Add new asset balance entry
+                            const newBalanceEntry = {
+                                asset_id: asset._id,
+                                assetname: asset.name,
+                                balance: Number(amount)
+                            };
+
+                            balances.push(newBalanceEntry);
+                            updated = true;
+                            console.log(`Created new USDT/Tether balance entry with +${amount}.`);
+                        }
+
+                        // Save the modified balances
+                        if (updated) {
+                            wallet.balances = balances;
+                            console.log(wallet.balances)
+                            await wallet.save();
+
+                            console.log(`Updated wallet ${wallet._id} with +${amount} for USDT/Tether asset.`);
+                        } else {
+                            console.log(`No updates applied to wallet ${wallet._id}.`);
+                        }
+                    }
+
+                    /*  console.log(`Found ${wallets.length} fiat/spot wallet(s) for user:`, {
+                          userId: user._id,
+                          email: user.email
+                      });
+  
+                      console.log(`Found ${assets.length} USDT/Tether asset(s):`);
+  
+                      // Extract only wallet IDs and types
+                      const walletData = wallets.map(wallet => ({
+                          walletId: wallet._id,
+                          walletType: wallet.wallettype,
+                          currency: wallet.balances,
+                      }));
+  
+  
+  
+                      // Extract asset data
+                      const assetData = assets.map(asset => ({
+                          assetId: asset._id,
+                          name: asset.name,
+                          coin: asset.coin,
+                          symbol: asset.symbol,
+                          assetType: asset.assetType,
+                          price: asset.price
+                      }));
+  
+                      // Log details for each fiat/spot wallet
+                     /* walletData.forEach((wallet, index) => {
+                          console.log(`  ${wallet.walletType.toUpperCase()} Wallet ${index + 1}:`, {
+                              walletId: wallet.walletId,
+                              balance: wallet.balances
+                          });
+                      });
+  
+                      // Log details for each USDT/Tether asset
+                      assetData.forEach((asset, index) => {
+                          console.log(`  Asset ${index + 1}:`, {
+                              assetId: asset.assetId,
+                              name: asset.name,
+                              symbol: asset.symbol,
+                              coin: asset.coin,
+                              price: asset.price
+                          });
+                      });*/
+
+                    results.push({
+                        user: {
+                            id: user._id,
+                            email: user.email,
+                            name: user.name
+                        },
+                        // wallets: walletData, // store only fiat/spot wallet data
+                        walletCount: wallets.length,
+                        // assets: assetData, // store USDT/Tether assets
+                        //assetCount: assets.length,
+                        email: normalizedEmail,
+                        amount: amount,
+                        status: wallets.length > 0 ? 'user_found_with_fiat_spot_wallets' : 'user_found_no_fiat_spot_wallets'
+                    });
+                } else {
+                    console.log('User not found for email:', normalizedEmail);
+                    results.push({
+                        email: normalizedEmail,
+                        amount: amount,
+                        error: 'User not found'
+                    });
+                }
+            } else {
+                console.log('Skipping line - missing email or amount:', trimmedLine);
+            }
+        }
+
+        // Clean up
+        fs.unlinkSync(filePath);
+
+        // Final summary log
+        console.log('\n=== PROCESSING SUMMARY ===');
+        results.forEach((result, index) => {
+            console.log(`\nRecord ${index + 1}:`);
+            console.log(`Email: ${result.email}`);
+            console.log(`Amount to add: ${result.amount}`);
+
+            if (result.user) {
+                console.log(`User: ${result.user.name} (${result.user.id})`);
+                console.log(`Fiat/Spot Wallets found: ${result.walletCount}`);
+                console.log(`USDT/Tether Assets found: ${result.assetCount}`);
+
+                if (result.wallets && result.wallets.length > 0) {
+                    result.wallets.forEach((wallet, walletIndex) => {
+                        console.log(`  ${wallet.walletType.toUpperCase()} Wallet ${walletIndex + 1}: ${wallet.walletId}`);
+                        console.log(`    Balance: ${wallet.balance}`);
+                        console.log(`    Currency: ${wallet.currency}`);
+                    });
+                } else {
+                    console.log(`  Fiat/Spot Wallets: NONE FOUND`);
+                }
+
+                if (result.assets && result.assets.length > 0) {
+                    result.assets.forEach((asset, assetIndex) => {
+                        console.log(`  Asset ${assetIndex + 1}: ${asset.name} (${asset.symbol})`);
+                        console.log(`    Asset ID: ${asset.assetId}`);
+                        console.log(`    Coin: ${asset.coin}`);
+                        console.log(`    Price: ${asset.price}`);
+                    });
+                } else {
+                    console.log(`  USDT/Tether Assets: NONE FOUND`);
+                }
+            } else {
+                console.log(`User: NOT FOUND`);
+            }
+            console.log(`Status: ${result.status || result.error}`);
+        });
+        console.log('=== END SUMMARY ===\n');
+
+        res.status(200).json({
+            message: 'File processed successfully',
+            totalRecords: results.length,
+            data: results.map(result => ({
+                email: result.email,
+                amount: result.amount,
+                user: result.user || null,
+                wallets: result.wallets || [],
+                walletCount: result.walletCount || 0,
+                assets: result.assets || [],
+                assetCount: result.assetCount || 0,
+                status: result.status || result.error
+            }))
+        });
+
+    } catch (error) {
+        if (req.file && fs.existsSync(req.file.path)) {
+            fs.unlinkSync(req.file.path);
+        }
+
+        console.error('Error processing file:', error);
+        res.status(500).json({
+            error: 'An error occurred while processing the file.',
+            details: error.message
+        });
+    }
+});
 
 function toBoolean(input) {
     if (typeof input === 'string') {

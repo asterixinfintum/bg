@@ -61,7 +61,7 @@
       </div>
     </div>
     <!---<div class="footer__namearea">
-      <h2 class="footer__name">
+      <h2 class="footer__name"> 
         <span>G</span>
         <span>e</span>
         <span>p</span>

@@ -30,7 +30,7 @@ const assetSchema = new Schema({
     },
     symbol: {
         type: String,
-        required: true,
+        required: true, 
         index: true,
         default: '',
     },

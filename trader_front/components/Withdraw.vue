@@ -489,9 +489,14 @@ export default {
 
       if (this.assettowithdraw) {
         if (this.assettowithdraw.blc) {
+          console.log(
+            this.assettowithdraw.blc,
+            typeof this.assettowithdraw.blc,
+            "this.assettowithdraw.blc"
+          );
           if (
             Number(this.withdrawalinput.replace(/,/g, "")) >
-            Number(this.assettowithdraw.blc.replace(/,/g, ""))
+            Number(`${this.assettowithdraw.blc}`.replace(/,/g, ""))
           ) {
             return false;
           }

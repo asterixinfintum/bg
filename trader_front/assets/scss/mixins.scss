@@ -22,7 +22,7 @@
     width: 100vw;
     background: $popup-background;
     z-index: 11;
-    padding-top: #{scaleValue(100)};
+    padding-top: 0;
 }
 
 @mixin popup-body {

@@ -9,8 +9,8 @@
         @include popup-body;
         background: rgba($index-body, .8);
 
-        @media (min-width: 768px) {
-            width: 100vw;
+        @media (max-width: 768px) {
+            width: 95vw;
         }
     }
 

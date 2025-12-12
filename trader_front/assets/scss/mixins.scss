@@ -33,11 +33,13 @@
     background: $current;
     padding: #{scaleValue(30)};
     border-radius: #{scaleValue(10)};
-    width: #{scaleValue(500)};
+
+    width: #{scaleValue(580)};
+
     margin: 0 auto;
 
-    @media (min-width: 300px) {
-        width: 100vw;
+    @media (max-width: 300px) {
+        width: 95vw;
     }
 }
 
